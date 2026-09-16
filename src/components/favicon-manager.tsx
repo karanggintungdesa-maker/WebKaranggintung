@@ -17,7 +17,7 @@ export function FaviconManager() {
     return doc(firestore, 'villageLogo', 'default');
   }, [firestore]);
 
-  const { data: logoData } = useDoc<VillageLogoInfo>(logoRef);
+  const { data: logoData } = useDoc<VillageLogoInfo>(logoRef, { suppressGlobalError: true });
 
   useEffect(() => {
     // Pastikan data logo tersedia dan merupakan format base64

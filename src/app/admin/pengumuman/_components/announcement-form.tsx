@@ -11,9 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Send, Image as ImageIcon } from 'lucide-react';
 import { useFirebase } from '@/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-
-const CLOUD_NAME = 'dgsxujjb1';
-const UPLOAD_PRESET = 'webdesa';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 export function AnnouncementForm() {
   const [title, setTitle] = useState('');
@@ -28,33 +26,20 @@ export function AnnouncementForm() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 1024 * 1024) {
+    if (file.size > 2 * 1024 * 1024) {
       toast({
         title: "File Terlalu Besar",
-        description: "Maksimal ukuran gambar adalah 1MB.",
+        description: "Maksimal ukuran gambar adalah 2MB.",
         variant: "destructive",
       });
       return;
     }
 
     setIsUploading(true);
-    const uploadFormData = new FormData();
-    uploadFormData.append('file', file);
-    uploadFormData.append('upload_preset', UPLOAD_PRESET);
 
     try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: uploadFormData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error.message || 'Gagal mengunggah ke Cloudinary');
-      }
-
-      setImageUrl(data.secure_url);
+      const secureUrl = await uploadToCloudinary(file, 'pengumuman-desa');
+      setImageUrl(secureUrl);
       toast({ title: 'Gambar Terunggah' });
 
     } catch (error: any) {

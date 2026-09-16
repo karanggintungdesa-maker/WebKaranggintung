@@ -182,11 +182,11 @@ export function ComplaintList() {
                                     <div className="pt-2 grid grid-cols-2 gap-4 border-t border-slate-200">
                                         <div className="space-y-1">
                                             <p className="text-[9px] font-black text-slate-400 uppercase">WhatsApp</p>
-                                            <p className="text-xs font-bold text-sky-600 flex items-center gap-2"><Phone className="h-3 w-3" /> {complaint.phoneNumber || '-'}</p>
+                                            <p className="text-xs font-bold text-emerald-700 flex items-center gap-2"><Phone className="h-3 w-3" /> {complaint.phoneNumber || '-'}</p>
                                         </div>
                                         <div className="space-y-1">
                                             <p className="text-[9px] font-black text-slate-400 uppercase">Email</p>
-                                            <p className="text-xs font-bold text-blue-600 flex items-center gap-2 truncate"><Mail className="h-3 w-3" /> {complaint.email || '-'}</p>
+                                            <p className="text-xs font-bold text-teal-700 flex items-center gap-2 truncate"><Mail className="h-3 w-3" /> {complaint.email || '-'}</p>
                                         </div>
                                     </div>
                                 </div>

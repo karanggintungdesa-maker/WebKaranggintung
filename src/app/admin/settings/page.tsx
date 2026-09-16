@@ -11,6 +11,7 @@ import { FooterLogosSettingsForm } from './_components/footer-logos-settings-for
 import { AccompanyingImageSettingsForm, KadesPhotoSettingsForm, PengaduanImageSettingsForm } from './_components/cloudinary-images-form';
 import { DesaAntiKorupsiDriveForm } from './_components/desa-anti-korupsi-drive-form';
 import { ImportantNumbersSettingsForm } from './_components/important-numbers-settings-form';
+import { PbbSettingsForm } from './_components/pbb-settings-form';
 
 export default function AdminSettingsPage() {
   return (
@@ -24,6 +25,7 @@ export default function AdminSettingsPage() {
         <HeroSettingsForm />
         <VideoProfileSettingsForm />
         <ImportantNumbersSettingsForm />
+        <PbbSettingsForm />
 
         {/* Baris 1: Upload Gambar Pendamping + Upload Foto Kades */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">

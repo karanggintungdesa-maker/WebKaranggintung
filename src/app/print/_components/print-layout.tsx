@@ -28,12 +28,39 @@ const fallbackKopInfo: KopSuratInfo = {
 
 const parseDateInput = (dateInput: any): Date | null => {
   if (!dateInput) return null;
-  if (dateInput instanceof Date) return dateInput;
-  if (typeof dateInput === 'object' && 'toDate' in dateInput) return dateInput.toDate();
+  if (dateInput instanceof Date) {
+    return isNaN(dateInput.getTime()) ? null : dateInput;
+  }
+  if (typeof dateInput === 'object') {
+    if ('toDate' in dateInput && typeof dateInput.toDate === 'function') {
+      const d = dateInput.toDate();
+      return isNaN(d.getTime()) ? null : d;
+    }
+    if ('seconds' in dateInput && typeof dateInput.seconds === 'number') {
+      const d = new Date(dateInput.seconds * 1000);
+      return isNaN(d.getTime()) ? null : d;
+    }
+    if ('_seconds' in dateInput && typeof dateInput._seconds === 'number') {
+      const d = new Date(dateInput._seconds * 1000);
+      return isNaN(d.getTime()) ? null : d;
+    }
+  }
+  if (typeof dateInput === 'number') {
+    const d = new Date(dateInput);
+    return isNaN(d.getTime()) ? null : d;
+  }
 
   if (typeof dateInput === 'string') {
+    const trimmed = dateInput.trim();
+    if (!trimmed) return null;
+
+    const parsed = new Date(trimmed);
+    if (!isNaN(parsed.getTime()) && (trimmed.includes('T') || trimmed.includes('Z'))) {
+      return parsed;
+    }
+
     const separators = /[-/]/;
-    const parts = dateInput.split(separators);
+    const parts = trimmed.split(separators);
 
     if (parts.length === 3) {
       let d, m, y;
@@ -58,7 +85,6 @@ const parseDateInput = (dateInput: any): Date | null => {
       const date = new Date(y, m, d);
       return isNaN(date.getTime()) ? null : date;
     }
-    const parsed = new Date(dateInput);
     return isNaN(parsed.getTime()) ? null : parsed;
   }
   return null;
@@ -228,7 +254,10 @@ export function PrintLayout({
     )
   }
 
-  const formattedDate = new Date(submission.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  const dateObj = parseDateInput(submission.date);
+  const formattedDate = dateObj
+    ? dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+    : new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
   const displayRequesterName = requesterNameOverride || submission.requesterName;
 
   return (
@@ -266,9 +295,9 @@ export function PrintLayout({
           <div className={cn("flex justify-between text-center items-start", reverseSignatures && "flex-row-reverse")}>
             <div className={cn("w-[40%]", hideRequesterSignature && "invisible")}>
               {reverseSignatures ? (
-                <p className="mb-1">Sidaurip, {formattedDate}</p>
+                <p className="mb-1">Karanggintung, {formattedDate}</p>
               ) : (
-                <p className="invisible mb-1">Sidaurip, 00 Bulan 0000</p>
+                <p className="invisible mb-1">Karanggintung, 00 Bulan 0000</p>
               )}
               <p>{requesterLabel}</p>
               <div className="h-16"></div>
@@ -279,23 +308,23 @@ export function PrintLayout({
 
             <div className="w-[45%]">
               {!reverseSignatures ? (
-                <p className="mb-1">Sidaurip, {formattedDate}</p>
+                <p className="mb-1">Karanggintung, {formattedDate}</p>
               ) : (
-                <p className="invisible mb-1">Sidaurip, 00 Bulan 0000</p>
+                <p className="invisible mb-1">Karanggintung, 00 Bulan 0000</p>
               )}
 
               {signerType === 'sekdes' ? (
                 <>
-                  <p>A.n. Kepala Desa Sidaurip</p>
-                  <p>Sekretaris Desa Sidaurip</p>
+                  <p>A.n. Kepala Desa Karanggintung</p>
+                  <p>Sekretaris Desa Karanggintung</p>
                   <div className="h-16"></div>
-                  <p className="font-bold underline tracking-wider uppercase">SOFA BURHANI</p>
+                  <p className="font-bold underline tracking-wider uppercase">ARIS YULIANTO</p>
                 </>
               ) : (
                 <>
-                  <p>Kepala Desa Sidaurip</p>
+                  <p>Kepala Desa Karanggintung</p>
                   <div className="h-16"></div>
-                  <p className="font-bold underline tracking-wider uppercase">TASIMIN</p>
+                  <p className="font-bold underline tracking-wider uppercase">TURMONO</p>
                 </>
               )}
             </div>

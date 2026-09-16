@@ -72,23 +72,23 @@ export function SubmissionSuccess({ ticketNumber, onReset }: SubmissionSuccessPr
       <div ref={cardRef} className="w-full max-w-lg bg-white rounded-xl">
         <Card className="w-full shadow-none border-0 sm:border">
           <CardHeader className="items-center text-center">
-            <CheckCircle className="w-16 h-16 text-sky-500 mb-4" />
-            <CardTitle className="text-2xl text-sky-800">Selamat! Pengajuan Berhasil</CardTitle>
+            <CheckCircle className="w-16 h-16 text-emerald-500 mb-4" />
+            <CardTitle className="text-2xl text-emerald-950">Selamat! Pengajuan Berhasil</CardTitle>
             <CardDescription>Simpan tiket ini untuk mengecek progres surat Anda.</CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-6">
-            <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-              <p className="text-sm text-sky-700 font-medium mb-2 uppercase tracking-wide">KODE TIKET ANDA</p>
+            <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-100">
+              <p className="text-sm text-emerald-700 font-medium mb-2 uppercase tracking-wide">KODE TIKET ANDA</p>
               <div className="flex items-center justify-center gap-3">
-                <Ticket className="w-6 h-6 text-sky-600" />
-                <p className="text-3xl font-bold tracking-widest text-sky-900">{ticketNumber}</p>
+                <Ticket className="w-6 h-6 text-emerald-600" />
+                <p className="text-3xl font-bold tracking-widest text-emerald-900">{ticketNumber}</p>
               </div>
             </div>
 
             <div className="text-sm text-muted-foreground text-left p-4 border rounded-lg bg-gray-50/50">
               <p className="font-semibold text-foreground mb-2">Informasi Pengambilan Surat:</p>
               <p className="mb-2">
-                Ketika status <strong>"Disetujui"</strong>, surat dapat diambil di <strong>Balai Desa Sidaurip</strong>.
+                Ketika status <strong>"Disetujui"</strong>, surat dapat diambil di <strong>Balai Desa Karanggintung</strong>.
               </p>
               <ul className="list-disc pl-5 space-y-1">
                 <li><strong>Senin - Jumat:</strong> 07:00 - 16:00 WIB.</li>
@@ -103,7 +103,7 @@ export function SubmissionSuccess({ ticketNumber, onReset }: SubmissionSuccessPr
         <Button
           onClick={handleDownloadImage}
           variant="outline"
-          className="flex-1 h-12 border-sky-600 text-sky-700 hover:bg-sky-50"
+          className="flex-1 h-12 border-emerald-600 text-emerald-700 hover:bg-emerald-50"
           disabled={isDownloading}
         >
           {isDownloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
@@ -111,7 +111,7 @@ export function SubmissionSuccess({ ticketNumber, onReset }: SubmissionSuccessPr
         </Button>
         <Button
           onClick={onReset}
-          className="flex-1 h-12 bg-sky-700 hover:bg-sky-800"
+          className="flex-1 h-12 bg-emerald-700 hover:bg-emerald-800 text-white"
         >
           <FilePlus2 className="mr-2 h-4 w-4" />
           Buat Pengajuan Baru

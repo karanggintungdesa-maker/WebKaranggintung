@@ -1,6 +1,6 @@
 'use client';
 import { LetterSubmission } from '@/lib/types';
-import { PrintLayout, formatTTL, toProperCase } from './print-layout';
+import { PrintLayout, formatTTL, toProperCase, formatFullDate } from './print-layout';
 
 /**
  * Custom data row for the Death Certificate template.
@@ -39,7 +39,7 @@ export function KematianPrintTemplate({ submission }: { submission: LetterSubmis
   return (
     <PrintLayout submission={submission} requesterLabel="Pelapor" reverseSignatures={true}>
       <p className="mt-6 text-justify leading-relaxed">
-        Yang bertanda tangan di bawah ini Kepala Desa Sidaurip, Kecamatan
+        Yang bertanda tangan di bawah ini Kepala Desa Karanggintung, Kecamatan
         Gandrungmangu, Kabupaten Cilacap, menerangkan dengan sesungguhnya bahwa :
       </p>
 
@@ -60,7 +60,7 @@ export function KematianPrintTemplate({ submission }: { submission: LetterSubmis
           <CustomDataRow label="Anak Ke" value={formData.anakKe} />
 
           <tr><td colSpan={3} className="pt-4 font-bold border-b">KEJADIAN KEMATIAN</td></tr>
-          <CustomDataRow label="Hari / Tanggal" value={new Date(formData.deathDate).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} />
+          <CustomDataRow label="Hari / Tanggal" value={formatFullDate(formData.deathDate)} />
           <CustomDataRow label="Pukul" value={formData.deathTime} />
           <CustomDataRow label="Sebab Kematian" value={formData.deathCause} />
           <CustomDataRow label="Tempat Kematian" value={formData.deathLocation} />

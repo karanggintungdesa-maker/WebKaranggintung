@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview A Genkit flow for summarizing village reports and official letters.
  *

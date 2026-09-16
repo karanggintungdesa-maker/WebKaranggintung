@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, UserCircle2, ShieldCheck, Landmark } from 'lucide-react';
+import { ArrowLeft, UserCircle2, ShieldCheck, Landmark, ShieldAlert, HeartHandshake } from 'lucide-react';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy } from 'firebase/firestore';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -16,7 +16,7 @@ type Official = {
   name: string;
   position: string;
   imageUrl?: string;
-  category: 'perangkat' | 'bpd' | 'rtrw';
+  category: 'perangkat' | 'bpd' | 'rtrw' | 'linmas' | 'posyandu';
 };
 
 export default function KenaliKamiPage() {
@@ -30,7 +30,7 @@ export default function KenaliKamiPage() {
   const { data: officials, isLoading } = useCollection<Official>(officialsQuery);
 
   const processedData = useMemo(() => {
-    if (!officials) return { perangkat: [], bpd: [], rtrwGroups: [] };
+    if (!officials) return { perangkat: [], bpd: [], rtrwGroups: [], linmas: [], posyandu: [] };
 
     const getPerangkatRank = (pos: string) => {
       const p = pos.toLowerCase();
@@ -51,6 +51,35 @@ export default function KenaliKamiPage() {
       .sort((a, b) => {
         if (a.position.toLowerCase().includes('ketua') && !b.position.toLowerCase().includes('ketua')) return -1;
         if (!a.position.toLowerCase().includes('ketua') && b.position.toLowerCase().includes('ketua')) return 1;
+        return a.name.localeCompare(b.name);
+      });
+
+    const linmas = officials
+      .filter(o => o.category === 'linmas')
+      .sort((a, b) => {
+        const getLinmasRank = (pos: string) => {
+          const p = pos.toLowerCase();
+          if (p.includes('danton') || p.includes('komandan pleton') || p.includes('kepala satgas')) return 1;
+          if (p.includes('danru') || p.includes('komandan regu')) return 2;
+          return 3;
+        };
+        const rankDiff = getLinmasRank(a.position) - getLinmasRank(b.position);
+        if (rankDiff !== 0) return rankDiff;
+        return a.name.localeCompare(b.name);
+      });
+
+    const posyandu = officials
+      .filter(o => o.category === 'posyandu')
+      .sort((a, b) => {
+        const getPosyanduRank = (pos: string) => {
+          const p = pos.toLowerCase();
+          if (p.includes('ketua') || p.includes('koordinator')) return 1;
+          if (p.includes('sekretaris')) return 2;
+          if (p.includes('bendahara')) return 3;
+          return 4;
+        };
+        const rankDiff = getPosyanduRank(a.position) - getPosyanduRank(b.position);
+        if (rankDiff !== 0) return rankDiff;
         return a.name.localeCompare(b.name);
       });
 
@@ -78,13 +107,15 @@ export default function KenaliKamiPage() {
       };
     });
 
-    return { perangkat, bpd, rtrwGroups };
+    return { perangkat, bpd, rtrwGroups, linmas, posyandu };
   }, [officials]);
 
   const categories = [
     { id: 'perangkat', label: 'Perangkat Desa', icon: UserCircle2 },
     { id: 'bpd', label: 'BPD Desa', icon: ShieldCheck },
     { id: 'rtrw', label: 'Ketua RT / RW', icon: Landmark },
+    { id: 'posyandu', label: 'Kader Posyandu', icon: HeartHandshake },
+    { id: 'linmas', label: 'Satuan Linmas', icon: ShieldAlert },
   ];
 
   return (
@@ -104,19 +135,19 @@ export default function KenaliKamiPage() {
       <main className="container mx-auto px-4 py-12 md:py-16">
         <div className="max-w-4xl mx-auto text-center mb-12 space-y-4">
           <h1 className="text-4xl md:text-5xl font-display font-semibold text-slate-900 uppercase tracking-tighter">
-            Pemerintahan <span className="text-secondary italic">Desa</span>
+            Pemerintahan <span className="text-primary italic">Desa</span>
           </h1>
-          <p className="text-slate-500 font-bold uppercase text-[10px] tracking-[0.3em] font-sans">Mengenal Struktur Organisasi Desa Sidaurip</p>
+          <p className="text-slate-500 font-bold uppercase text-[10px] tracking-[0.3em] font-sans">Mengenal Struktur Organisasi Desa Karanggintung</p>
         </div>
 
         <Tabs defaultValue="perangkat" className="w-full">
           <div className="flex justify-center mb-12">
-            <TabsList className="bg-slate-200/50 p-1.5 rounded-2xl h-auto flex flex-wrap justify-center border">
+            <TabsList className="bg-slate-200/50 p-1.5 rounded-2xl h-auto flex flex-wrap justify-center border gap-1">
               {categories.map(cat => (
                 <TabsTrigger
                   key={cat.id}
                   value={cat.id}
-                  className="rounded-xl px-8 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all"
+                  className="rounded-xl px-6 md:px-8 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all"
                 >
                   <cat.icon className="mr-2 h-4 w-4" />
                   {cat.label}
@@ -179,14 +210,52 @@ export default function KenaliKamiPage() {
               </div>
             )}
           </TabsContent>
+
+          <TabsContent value="posyandu">
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[4/5] rounded-[2.5rem]" />)}
+              </div>
+            ) : processedData.posyandu.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {processedData.posyandu.map(official => (
+                  <OfficialCard key={official.id} official={official} />
+                ))}
+              </div>
+            ) : (
+              <div className="p-12 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                <HeartHandshake className="h-12 w-12 text-slate-300 mx-auto mb-3" />
+                <p className="text-slate-500 font-medium">Data Kader Posyandu belum ditambahkan.</p>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="linmas">
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[4/5] rounded-[2.5rem]" />)}
+              </div>
+            ) : processedData.linmas.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {processedData.linmas.map(official => (
+                  <OfficialCard key={official.id} official={official} />
+                ))}
+              </div>
+            ) : (
+              <div className="p-12 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                <ShieldAlert className="h-12 w-12 text-slate-300 mx-auto mb-3" />
+                <p className="text-slate-500 font-medium">Data Satuan Linmas belum ditambahkan.</p>
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
       </main>
 
-      <footer className="bg-primary text-white/60 py-12 border-t border-white/5 mt-auto">
+      <footer className="bg-[#081325] text-slate-400 py-12 border-t border-slate-800/80 mt-auto">
         <div className="container mx-auto px-4 text-center">
           <Logo />
-          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest">
-            © 2026 Pemerintah Desa Sidaurip • Website Resmi Pemerintahan Desa
+          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+            © 2026 Pemerintah Desa Karanggintung • Website Resmi Pemerintahan Desa
           </p>
         </div>
       </footer>

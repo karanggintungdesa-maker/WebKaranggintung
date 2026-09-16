@@ -29,7 +29,7 @@ export default function DashboardPage() {
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
             {greeting}, Warga 👋
           </h1>
-          <p className="text-sm text-slate-500 font-medium">Panel akses layanan mandiri Desa Sidaurip.</p>
+          <p className="text-sm text-slate-500 font-medium">Panel akses layanan mandiri Desa Karanggintung.</p>
         </div>
 
         <div className="hidden md:flex items-center gap-3 bg-white p-2 rounded-2xl border shadow-sm">
@@ -38,7 +38,7 @@ export default function DashboardPage() {
           </div>
           <div className="pr-4">
             <p className="text-[10px] font-bold text-slate-400 uppercase">Status Sistem</p>
-            <p className="text-sm font-black text-sky-600">AKTIF & STABIL</p>
+            <p className="text-sm font-black text-emerald-700">AKTIF & STABIL</p>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
           <Card className="rounded-3xl border-none shadow-sm bg-white overflow-hidden active:scale-95 transition-all">
             <CardContent className="p-5 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
+                <div className="p-3 bg-emerald-50 text-emerald-700 rounded-2xl">
                   <FileText className="h-6 w-6" />
                 </div>
                 <div>
@@ -68,7 +68,7 @@ export default function DashboardPage() {
           <Card className="rounded-3xl border-none shadow-sm bg-white overflow-hidden active:scale-95 transition-all">
             <CardContent className="p-5 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-sky-50 text-sky-600 rounded-2xl">
+                <div className="p-3 bg-teal-50 text-teal-700 rounded-2xl">
                   <Newspaper className="h-6 w-6" />
                 </div>
                 <div>
@@ -135,13 +135,13 @@ export default function DashboardPage() {
                   <Bell className="h-5 w-5 text-secondary" />
                   Info Publik
                 </h3>
-                <span className="text-[10px] font-black bg-secondary text-primary px-3 py-1 rounded-full uppercase">Update</span>
+                <span className="text-[10px] font-black bg-secondary text-white px-3 py-1 rounded-full uppercase">Update</span>
               </div>
 
               <div className="space-y-4">
                 {[
-                  { title: 'Layanan Mandiri', status: 'Online', color: 'bg-sky-500' },
-                  { title: 'Antrian Loket', status: 'Lancar', color: 'bg-blue-500' },
+                  { title: 'Layanan Mandiri', status: 'Online', color: 'bg-emerald-400' },
+                  { title: 'Antrian Loket', status: 'Lancar', color: 'bg-teal-400' },
                   { title: 'Validasi NIK', status: 'Otomatis', color: 'bg-secondary' }
                 ].map((item, i) => (
                   <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-default">
@@ -165,7 +165,7 @@ export default function DashboardPage() {
                 <p className="text-xs text-slate-400 leading-relaxed">
                   Jika mengalami kesulitan dalam pengajuan surat, silakan hubungi tim teknis kami melalui WhatsApp.
                 </p>
-                <button className="w-full py-4 bg-secondary text-primary rounded-xl text-xs font-black uppercase tracking-[0.2em] hover:bg-yellow-600 transition-all active:scale-95">
+                <button className="w-full py-4 bg-secondary text-white rounded-xl text-xs font-black uppercase tracking-[0.2em] hover:bg-emerald-600 transition-all active:scale-95">
                   Hubungi Admin
                 </button>
               </div>

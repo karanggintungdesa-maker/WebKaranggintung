@@ -39,6 +39,7 @@ import {
   BarChart3,
   ShieldCheck,
   Landmark,
+  Store,
 } from 'lucide-react';
 
 import Link from 'next/link';
@@ -54,6 +55,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+
+
 const adminNavItems = [
   { href: '/admin/pelayanan', icon: BookOpen, label: 'Data Pelayanan' },
   { href: '/admin/penduduk', icon: Users, label: 'Data Penduduk' },
@@ -61,6 +64,7 @@ const adminNavItems = [
   { href: '/admin/tata-kelola-desa', icon: BarChart3, label: 'Tata Kelola Desa' },
   { href: '/admin/desa-anti-korupsi', icon: ShieldCheck, label: 'Desa Anti Korupsi' },
   { href: '/admin/potensi-desa', icon: Landmark, label: 'Potensi Desa' },
+  { href: '/admin/umkm-industri', icon: Store, label: 'UMKM & Industri Kreatif' },
   { href: '/admin/pengaduan', icon: MessageSquare, label: 'Jawab Pengaduan' },
   { href: '/admin/pengumuman', icon: Megaphone, label: 'Kelola Pengumuman' },
   { href: '/admin/settings', icon: Settings, label: 'Pengaturan' },
@@ -96,23 +100,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     if (isLoggingOut) return;
-    const adminFlag = localStorage.getItem('isAdmin');
-    if (adminFlag === 'true' && user) {
+    const adminFlag = typeof window !== 'undefined' ? localStorage.getItem('isAdmin') : null;
+    
+    if (adminFlag === 'true') {
       setIsAdmin(true);
-    } else if (adminFlag === 'true' && !user) {
-      return;
     } else {
       setIsAdmin(false);
       router.replace('/login');
     }
-  }, [router, user, isLoggingOut]);
+  // Hanya jalankan sekali saat mount — tidak perlu re-run saat user/auth berubah
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
       localStorage.removeItem('isAdmin');
+      localStorage.removeItem('adminEmail');
       if (auth) await signOut(auth);
-      window.location.href = '/';
+      window.location.href = '/login';
     } catch (error) {
       console.error('Gagal logout:', error);
       setIsLoggingOut(false);
@@ -123,8 +130,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
       <div className="flex h-screen w-full items-center justify-center bg-primary">
         <div className="flex flex-col items-center">
-          <Loader2 className="h-12 w-12 animate-spin text-secondary mb-4" />
-          <p className="text-[10px] font-black tracking-[0.4em] text-white/50 uppercase">Otoritas Terverifikasi...</p>
+          <Loader2 className="h-12 w-12 animate-spin text-white mb-4" />
+          <p className="text-[10px] font-black tracking-[0.4em] text-white/70 uppercase">Memverifikasi Otoritas Admin...</p>
         </div>
       </div>
     );
@@ -298,15 +305,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {children}
         </main>
 
-        <footer className="bg-primary border-t border-white/10 py-8 px-4 md:px-12 mt-auto text-white">
+        <footer className="bg-[#081325] border-t border-slate-800/80 py-8 px-4 md:px-12 mt-auto text-slate-400">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <div className="flex items-center gap-3">
-              <div className="w-1.5 h-4 bg-secondary rounded-full" />
-              <p className="text-[10px] font-black uppercase tracking-widest text-white/40">
-                Sistem Administrasi Desa Sidaurip v1.0
+              <div className="w-1.5 h-4 bg-emerald-500 rounded-full" />
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                Sistem Administrasi Desa Karanggintung v1.0
               </p>
             </div>
-            <p className="text-[10px] font-bold text-white/20 uppercase">
+            <p className="text-[10px] font-bold text-slate-500 uppercase">
               © 2026 Pemerintah Kabupaten Cilacap • Hak Cipta Dilindungi
             </p>
           </div>

@@ -8,7 +8,7 @@ export function PengantarUmumPrintTemplate({ submission }: { submission: LetterS
   return (
     <PrintLayout submission={submission}>
       <p className="mt-8 text-justify leading-relaxed">
-        Yang bertanda tangan di bawah ini Kepala Desa Sidaurip, Kecamatan
+        Yang bertanda tangan di bawah ini Kepala Desa Karanggintung, Kecamatan
         Gandrungmangu, Kabupaten Cilacap, menerangkan dengan sebenarnya bahwa:
       </p>
 

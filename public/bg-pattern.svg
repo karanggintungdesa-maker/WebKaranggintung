@@ -1,123 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <!-- Seamless Swirl Plaster / Stucco Brush Stroke Pattern (Zero-Seam Vector Precision) -->
   <defs>
+    <!-- Stucco Texture Stroke Styles -->
     <style>
-      .bg { fill: #ffffff; }
-      .swirl { fill: #94a3b8; fill-opacity: 0.2; }
-      .swirl-accent { fill: #cbd5e1; fill-opacity: 0.3; }
+      .sweep-dark { stroke: #94a3b8; stroke-linecap: round; }
+      .sweep-mid { stroke: #cbd5e1; stroke-linecap: round; }
+      .sweep-light { stroke: #e2e8f0; stroke-linecap: round; }
+      .stucco-grain { stroke: #64748b; stroke-linecap: round; stroke-dasharray: 2 6; }
     </style>
+
+    <!-- Master Swirl Fan Node (Concentric textured plaster arcs) -->
+    <g id="swirl-fan">
+      <!-- Outer wide textured sweeps -->
+      <path class="sweep-mid" stroke-width="1.8" stroke-opacity="0.35" d="M-140,-20 C-100,-95 -20,-145 75,-140 C140,-135 180,-85 195,-20" />
+      <path class="sweep-light" stroke-width="2.5" stroke-opacity="0.45" d="M-130,-15 C-90,-85 -15,-130 70,-128 C130,-122 165,-78 180,-15" />
+      <path class="sweep-dark" stroke-width="1.2" stroke-opacity="0.30" d="M-120,-10 C-80,-75 -10,-115 65,-115 C120,-110 150,-70 165,-10" />
+      <path class="stucco-grain" stroke-width="1.0" stroke-opacity="0.25" d="M-115,-8 C-75,-70 -5,-108 60,-108 C115,-102 145,-65 158,-8" />
+
+      <!-- Mid textured sweeps -->
+      <path class="sweep-mid" stroke-width="2.0" stroke-opacity="0.40" d="M-105,-5 C-70,-60 0,-95 55,-95 C105,-90 135,-55 145,-5" />
+      <path class="sweep-light" stroke-width="3.0" stroke-opacity="0.50" d="M-95,0 C-60,-50 5,-80 50,-80 C95,-75 120,-45 130,0" />
+      <path class="sweep-dark" stroke-width="1.4" stroke-opacity="0.35" d="M-85,5 C-50,-40 10,-68 45,-68 C85,-62 105,-38 115,5" />
+      <path class="stucco-grain" stroke-width="1.1" stroke-opacity="0.30" d="M-75,8 C-42,-32 15,-55 40,-55 C75,-50 92,-30 100,8" />
+
+      <!-- Inner tight fan sweeps -->
+      <path class="sweep-mid" stroke-width="2.2" stroke-opacity="0.45" d="M-65,12 C-35,-22 18,-42 35,-42 C65,-38 80,-20 85,12" />
+      <path class="sweep-light" stroke-width="3.2" stroke-opacity="0.55" d="M-50,15 C-25,-12 20,-28 30,-28 C52,-25 65,-12 70,15" />
+      <path class="sweep-dark" stroke-width="1.5" stroke-opacity="0.35" d="M-35,18 C-15,-4 20,-16 25,-16 C40,-14 50,-4 55,18" />
+
+      <!-- Cross-ribbed Stucco Texture Ridges (Kuas Semen Berserat) -->
+      <path class="stucco-grain" stroke-width="0.8" stroke-opacity="0.30" d="M-100,-70 L-70,-50 M-60,-100 L-40,-75 M-10,-125 L0,-95 M40,-120 L40,-90 M90,-100 L80,-75 M135,-65 L115,-45" />
+      <path class="sweep-light" stroke-width="1.0" stroke-opacity="0.40" d="M-80,-60 L-60,-40 M-40,-90 L-25,-68 M10,-110 L15,-80 M60,-105 L55,-78 M110,-85 L95,-60 M150,-50 L130,-30" />
+    </g>
+
+    <!-- Secondary Angled Swirl Node (Complementary Fan Sweeps) -->
+    <g id="swirl-fan-secondary">
+      <path class="sweep-mid" stroke-width="1.6" stroke-opacity="0.35" d="M-15,-150 C55,-120 120,-45 130,55 C135,115 90,165 35,180" />
+      <path class="sweep-light" stroke-width="2.4" stroke-opacity="0.45" d="M-10,-135 C50,-108 108,-38 118,50 C122,105 80,150 30,165" />
+      <path class="sweep-dark" stroke-width="1.3" stroke-opacity="0.30" d="M-5,-120 C45,-95 95,-30 105,45 C108,95 70,135 25,150" />
+      <path class="stucco-grain" stroke-width="1.0" stroke-opacity="0.25" d="M0,-105 C40,-82 82,-22 92,40 C95,85 60,120 20,135" />
+
+      <path class="sweep-mid" stroke-width="1.9" stroke-opacity="0.40" d="M5,-90 C35,-70 70,-15 78,35 C80,75 50,105 15,120" />
+      <path class="sweep-light" stroke-width="2.8" stroke-opacity="0.50" d="M10,-75 C30,-58 58,-8 65,30 C68,65 40,90 10,105" />
+      <path class="sweep-dark" stroke-width="1.5" stroke-opacity="0.35" d="M15,-60 C25,-45 45,-2 50,25 C52,55 30,75 5,90" />
+      <path class="stucco-grain" stroke-width="1.1" stroke-opacity="0.30" d="M20,-45 C20,-32 32,5 38,20 C40,45 22,60 0,75" />
+
+      <path class="stucco-grain" stroke-width="0.8" stroke-opacity="0.30" d="M60,-80 L40,-60 M85,-40 L65,-25 M95,10 L75,15 M85,60 L68,55 M60,100 L45,85" />
+    </g>
   </defs>
 
-  <rect width="300" height="300" class="bg" />
-
-  <g id="feather-pattern">
-    <!-- Center Node (150, 150) -->
-    <g transform="translate(150, 150)">
-      <!-- Swirl Fan 1 (Top-Right) -->
-      <path class="swirl" d="M0,0 C25,-20 65,-28 105,-15 C70,-8 40,-8 0,0 Z" />
-      <path class="swirl" d="M0,0 C32,-8 75,2 118,22 C78,14 44,6 0,0 Z" />
-      <path class="swirl" d="M0,0 C36,10 78,30 110,58 C74,42 45,22 0,0 Z" />
-      <path class="swirl" d="M0,0 C34,26 70,62 94,98 C66,70 42,44 0,0 Z" />
-      <path class="swirl" d="M0,0 C26,38 52,80 62,120 C46,84 30,54 0,0 Z" />
-
-      <!-- Swirl Fan 2 (Bottom-Left) -->
-      <path class="swirl" d="M0,0 C-25,20 -65,28 -105,15 C-70,8 -40,8 0,0 Z" />
-      <path class="swirl" d="M0,0 C-32,8 -75,-2 -118,-22 C-78,-14 -44,-6 0,0 Z" />
-      <path class="swirl" d="M0,0 C-36,-10 -78,-30 -110,-58 C-74,-42 -45,-22 0,0 Z" />
-      <path class="swirl" d="M0,0 C-34,-26 -70,-62 -94,-98 C-66,-70 -42,-44 0,0 Z" />
-      <path class="swirl" d="M0,0 C-26,-38 -52,-80 -62,-120 C-46,-84 -30,-54 0,0 Z" />
-
-      <!-- Interlocking Arcs -->
-      <path class="swirl-accent" d="M0,0 C-18,-30 -50,-55 -85,-75 C-55,-48 -30,-28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,-42 -30,-80 -45,-115 C-28,-78 -14,-46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,-42 25,-82 32,-120 C18,-82 8,-48 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C18,30 50,55 85,75 C55,48 30,28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,42 30,80 45,115 C28,78 14,46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,42 -25,82 -32,120 C-18,82 -8,48 0,0 Z" />
+  <!-- 1. Center Swirl Fan (200, 200) -->
+  <g transform="translate(200, 200)">
+    <use href="#swirl-fan" />
+    <g transform="rotate(180)">
+      <use href="#swirl-fan-secondary" />
     </g>
+  </g>
 
-    <!-- Corner Tile Nodes (0,0), (300,0), (0,300), (300,300) for seamless repeating -->
-    <g transform="translate(0, 0)">
-      <path class="swirl" d="M0,0 C25,-20 65,-28 105,-15 C70,-8 40,-8 0,0 Z" />
-      <path class="swirl" d="M0,0 C32,-8 75,2 118,22 C78,14 44,6 0,0 Z" />
-      <path class="swirl" d="M0,0 C36,10 78,30 110,58 C74,42 45,22 0,0 Z" />
-      <path class="swirl" d="M0,0 C34,26 70,62 94,98 C66,70 42,44 0,0 Z" />
-      <path class="swirl" d="M0,0 C26,38 52,80 62,120 C46,84 30,54 0,0 Z" />
+  <!-- 2. Midpoint Interlocking Nodes (0, 200), (400, 200), (200, 0), (200, 400) for seamless flow -->
+  <g transform="translate(0, 200) rotate(90)">
+    <use href="#swirl-fan-secondary" />
+  </g>
+  <g transform="translate(400, 200) rotate(90)">
+    <use href="#swirl-fan-secondary" />
+  </g>
+  <g transform="translate(200, 0) rotate(270)">
+    <use href="#swirl-fan-secondary" />
+  </g>
+  <g transform="translate(200, 400) rotate(270)">
+    <use href="#swirl-fan-secondary" />
+  </g>
 
-      <path class="swirl" d="M0,0 C-25,20 -65,28 -105,15 C-70,8 -40,8 0,0 Z" />
-      <path class="swirl" d="M0,0 C-32,8 -75,-2 -118,-22 C-78,-14 -44,-6 0,0 Z" />
-      <path class="swirl" d="M0,0 C-36,-10 -78,-30 -110,-58 C-74,-42 -45,-22 0,0 Z" />
-      <path class="swirl" d="M0,0 C-34,-26 -70,-62 -94,-98 C-66,-70 -42,-44 0,0 Z" />
-      <path class="swirl" d="M0,0 C-26,-38 -52,-80 -62,-120 C-46,-84 -30,-54 0,0 Z" />
-
-      <path class="swirl-accent" d="M0,0 C-18,-30 -50,-55 -85,-75 C-55,-48 -30,-28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,-42 -30,-80 -45,-115 C-28,-78 -14,-46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,-42 25,-82 32,-120 C18,-82 8,-48 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C18,30 50,55 85,75 C55,48 30,28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,42 30,80 45,115 C28,78 14,46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,42 -25,82 -32,120 C-18,82 -8,48 0,0 Z" />
-    </g>
-
-    <g transform="translate(300, 0)">
-      <path class="swirl" d="M0,0 C25,-20 65,-28 105,-15 C70,-8 40,-8 0,0 Z" />
-      <path class="swirl" d="M0,0 C32,-8 75,2 118,22 C78,14 44,6 0,0 Z" />
-      <path class="swirl" d="M0,0 C36,10 78,30 110,58 C74,42 45,22 0,0 Z" />
-      <path class="swirl" d="M0,0 C34,26 70,62 94,98 C66,70 42,44 0,0 Z" />
-      <path class="swirl" d="M0,0 C26,38 52,80 62,120 C46,84 30,54 0,0 Z" />
-
-      <path class="swirl" d="M0,0 C-25,20 -65,28 -105,15 C-70,8 -40,8 0,0 Z" />
-      <path class="swirl" d="M0,0 C-32,8 -75,-2 -118,-22 C-78,-14 -44,-6 0,0 Z" />
-      <path class="swirl" d="M0,0 C-36,-10 -78,-30 -110,-58 C-74,-42 -45,-22 0,0 Z" />
-      <path class="swirl" d="M0,0 C-34,-26 -70,-62 -94,-98 C-66,-70 -42,-44 0,0 Z" />
-      <path class="swirl" d="M0,0 C-26,-38 -52,-80 -62,-120 C-46,-84 -30,-54 0,0 Z" />
-
-      <path class="swirl-accent" d="M0,0 C-18,-30 -50,-55 -85,-75 C-55,-48 -30,-28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,-42 -30,-80 -45,-115 C-28,-78 -14,-46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,-42 25,-82 32,-120 C18,-82 8,-48 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C18,30 50,55 85,75 C55,48 30,28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,42 30,80 45,115 C28,78 14,46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,42 -25,82 -32,120 C-18,82 -8,48 0,0 Z" />
-    </g>
-
-    <g transform="translate(0, 300)">
-      <path class="swirl" d="M0,0 C25,-20 65,-28 105,-15 C70,-8 40,-8 0,0 Z" />
-      <path class="swirl" d="M0,0 C32,-8 75,2 118,22 C78,14 44,6 0,0 Z" />
-      <path class="swirl" d="M0,0 C36,10 78,30 110,58 C74,42 45,22 0,0 Z" />
-      <path class="swirl" d="M0,0 C34,26 70,62 94,98 C66,70 42,44 0,0 Z" />
-      <path class="swirl" d="M0,0 C26,38 52,80 62,120 C46,84 30,54 0,0 Z" />
-
-      <path class="swirl" d="M0,0 C-25,20 -65,28 -105,15 C-70,8 -40,8 0,0 Z" />
-      <path class="swirl" d="M0,0 C-32,8 -75,-2 -118,-22 C-78,-14 -44,-6 0,0 Z" />
-      <path class="swirl" d="M0,0 C-36,-10 -78,-30 -110,-58 C-74,-42 -45,-22 0,0 Z" />
-      <path class="swirl" d="M0,0 C-34,-26 -70,-62 -94,-98 C-66,-70 -42,-44 0,0 Z" />
-      <path class="swirl" d="M0,0 C-26,-38 -52,-80 -62,-120 C-46,-84 -30,-54 0,0 Z" />
-
-      <path class="swirl-accent" d="M0,0 C-18,-30 -50,-55 -85,-75 C-55,-48 -30,-28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,-42 -30,-80 -45,-115 C-28,-78 -14,-46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,-42 25,-82 32,-120 C18,-82 8,-48 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C18,30 50,55 85,75 C55,48 30,28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,42 30,80 45,115 C28,78 14,46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,42 -25,82 -32,120 C-18,82 -8,48 0,0 Z" />
-    </g>
-
-    <g transform="translate(300, 300)">
-      <path class="swirl" d="M0,0 C25,-20 65,-28 105,-15 C70,-8 40,-8 0,0 Z" />
-      <path class="swirl" d="M0,0 C32,-8 75,2 118,22 C78,14 44,6 0,0 Z" />
-      <path class="swirl" d="M0,0 C36,10 78,30 110,58 C74,42 45,22 0,0 Z" />
-      <path class="swirl" d="M0,0 C34,26 70,62 94,98 C66,70 42,44 0,0 Z" />
-      <path class="swirl" d="M0,0 C26,38 52,80 62,120 C46,84 30,54 0,0 Z" />
-
-      <path class="swirl" d="M0,0 C-25,20 -65,28 -105,15 C-70,8 -40,8 0,0 Z" />
-      <path class="swirl" d="M0,0 C-32,8 -75,-2 -118,-22 C-78,-14 -44,-6 0,0 Z" />
-      <path class="swirl" d="M0,0 C-36,-10 -78,-30 -110,-58 C-74,-42 -45,-22 0,0 Z" />
-      <path class="swirl" d="M0,0 C-34,-26 -70,-62 -94,-98 C-66,-70 -42,-44 0,0 Z" />
-      <path class="swirl" d="M0,0 C-26,-38 -52,-80 -62,-120 C-46,-84 -30,-54 0,0 Z" />
-
-      <path class="swirl-accent" d="M0,0 C-18,-30 -50,-55 -85,-75 C-55,-48 -30,-28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,-42 -30,-80 -45,-115 C-28,-78 -14,-46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,-42 25,-82 32,-120 C18,-82 8,-48 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C18,30 50,55 85,75 C55,48 30,28 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C10,42 30,80 45,115 C28,78 14,46 0,0 Z" />
-      <path class="swirl-accent" d="M0,0 C-10,42 -25,82 -32,120 C-18,82 -8,48 0,0 Z" />
-    </g>
+  <!-- 3. Corner Nodes for Mathematical Seamless 4-Way Repeat (0,0), (400,0), (0,400), (400,400) -->
+  <g transform="translate(0, 0)">
+    <use href="#swirl-fan" />
+  </g>
+  <g transform="translate(400, 0)">
+    <use href="#swirl-fan" />
+  </g>
+  <g transform="translate(0, 400)">
+    <use href="#swirl-fan" />
+  </g>
+  <g transform="translate(400, 400)">
+    <use href="#swirl-fan" />
   </g>
 </svg>

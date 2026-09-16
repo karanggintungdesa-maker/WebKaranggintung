@@ -45,7 +45,7 @@ export default function FormulirCapilPage() {
           >
             <Card className="h-full border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white rounded-3xl overflow-hidden flex flex-col group-hover:-translate-y-1">
               <CardContent className="p-6 flex items-center gap-4 flex-1">
-                <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                <div className="p-3 rounded-2xl bg-emerald-50 text-emerald-700 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                   <FileDown className="h-6 w-6" />
                 </div>
                 <div className="space-y-1 flex-1">

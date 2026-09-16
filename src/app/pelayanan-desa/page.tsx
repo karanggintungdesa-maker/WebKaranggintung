@@ -47,12 +47,12 @@ export default function PelayananDesaPage() {
 
   const tabs = [
     { id: 'visi-misi', label: 'Visi & Misi', icon: Star, color: 'text-secondary', description: 'Visi, misi, dan komitmen mutu pelayanan.' },
-    { id: 'maklumat', label: 'Maklumat', icon: ShieldCheck, color: 'text-blue-500', description: 'Janji penyelenggaraan pelayanan resmi.' },
-    { id: 'standar', label: 'Standar Pelayanan', icon: ClipboardCheck, color: 'text-sky-500', description: 'Syarat, biaya, dan waktu pengurusan.' },
+    { id: 'maklumat', label: 'Maklumat', icon: ShieldCheck, color: 'text-emerald-600', description: 'Janji penyelenggaraan pelayanan resmi.' },
+    { id: 'standar', label: 'Standar Pelayanan', icon: ClipboardCheck, color: 'text-emerald-600', description: 'Syarat, biaya, dan waktu pengurusan.' },
     { id: 'ikm', label: 'Laporan IKM', icon: BarChart, color: 'text-amber-500', description: 'Hasil indeks kepuasan masyarakat.' },
     { id: 'survey', label: 'Survey Warga', icon: BookOpen, color: 'text-purple-500', description: 'Kuesioner dan penilaian layanan.' },
     { id: 'jenis', label: 'Jenis Layanan', icon: ScrollText, color: 'text-rose-500', description: 'Daftar seluruh surat yang dilayani.' },
-    { id: 'sop', label: 'Alur & SOP', icon: LayoutGrid, color: 'text-sky-500', description: 'Standar operasional prosedur teknis.' },
+    { id: 'sop', label: 'Alur & SOP', icon: LayoutGrid, color: 'text-emerald-600', description: 'Standar operasional prosedur teknis.' },
     { id: 'pojok-baca', label: 'Pojok Baca', icon: LibraryBig, color: 'text-slate-500', description: 'Transparansi regulasi dan perdes.' },
   ];
 
@@ -118,7 +118,7 @@ export default function PelayananDesaPage() {
                       : "text-slate-500 hover:bg-slate-50 hover:text-primary"
                   )}
                 >
-                  <tab.icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", activeTab === tab.id ? "text-secondary" : tab.color)} />
+                  <tab.icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", activeTab === tab.id ? "text-white" : tab.color)} />
                   <span className="font-black uppercase text-[10px] tracking-widest">{tab.label}</span>
                 </button>
               ))}
@@ -131,7 +131,7 @@ export default function PelayananDesaPage() {
                 className="w-full flex items-center justify-between bg-primary text-white px-5 py-4 rounded-xl shadow-md font-black uppercase text-[10px] tracking-wider"
               >
                 <div className="flex items-center gap-3">
-                  {React.createElement(activeTabObj.icon, { className: "h-5 w-5 text-secondary" })}
+                  {React.createElement(activeTabObj.icon, { className: "h-5 w-5 text-white" })}
                   <span>{activeTabObj.label}</span>
                 </div>
                 <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", isMenuOpen && "rotate-180")} />
@@ -172,7 +172,7 @@ export default function PelayananDesaPage() {
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">Akses Cepat</p>
                 <h4 className="text-xl font-display font-semibold italic">Punya Keluhan Pelayanan?</h4>
                 <p className="text-xs text-slate-400 leading-relaxed font-medium">Sampaikan aduan Anda jika mendapatkan pelayanan yang kurang memuaskan.</p>
-                <Button className="bg-secondary text-primary font-black uppercase text-[10px] tracking-widest w-full h-12 rounded-xl mt-4" asChild>
+                <Button className="bg-secondary text-white font-black uppercase text-[10px] tracking-widest w-full h-12 rounded-xl mt-4" asChild>
                   <Link href="/pengaduan/">Lapor Pengaduan</Link>
                 </Button>
               </div>
@@ -190,7 +190,7 @@ export default function PelayananDesaPage() {
                 Pelayanan <span className="text-primary not-italic">Desa</span>
               </h1>
               <p className="text-sm text-slate-500 font-medium max-w-2xl">
-                Pusat informasi persyaratan, standar, dan dokumen administrasi Desa Sidaurip.
+                Pusat informasi persyaratan, standar, dan dokumen administrasi Desa Karanggintung.
               </p>
             </div>
 
@@ -249,7 +249,7 @@ export default function PelayananDesaPage() {
                                   <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all" onClick={() => handlePreview(doc.fileId)}>
                                     <Eye className="h-4 w-4" />
                                   </Button>
-                                  <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-secondary hover:text-primary transition-all" onClick={() => handleDownload(doc.fileId)}>
+                                  <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-secondary hover:text-white transition-all" onClick={() => handleDownload(doc.fileId)}>
                                     <Download className="h-4 w-4" />
                                   </Button>
                                 </div>
@@ -290,7 +290,7 @@ export default function PelayananDesaPage() {
                               <Eye className="h-3.5 w-3.5" />
                               Pratinjau
                             </Button>
-                            <Button variant="outline" className="flex-1 h-9 rounded-xl font-bold text-xs gap-2 hover:bg-secondary hover:text-primary justify-center" onClick={() => handleDownload(doc.fileId)}>
+                            <Button variant="outline" className="flex-1 h-9 rounded-xl font-bold text-xs gap-2 hover:bg-secondary hover:text-white justify-center" onClick={() => handleDownload(doc.fileId)}>
                               <Download className="h-3.5 w-3.5" />
                               Unduh
                             </Button>
@@ -306,11 +306,11 @@ export default function PelayananDesaPage() {
         </div>
       </div>
 
-      <footer className="bg-primary text-white/40 py-12 border-t border-white/5 mt-auto">
+      <footer className="bg-[#081325] text-slate-400 py-12 border-t border-slate-800/80 mt-auto">
         <div className="container mx-auto px-4 text-center">
           <Logo />
-          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest">
-            © 2026 Pemerintah Desa Sidaurip Digital Portal
+          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+            © 2026 Pemerintah Desa Karanggintung Digital Portal
           </p>
         </div>
       </footer>
@@ -343,12 +343,12 @@ function CategoryContent({ categoryId, docs, isLoading }: { categoryId: string; 
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="rounded-3xl md:rounded-[2.5rem] border-none shadow-sm bg-primary text-white overflow-hidden">
               <CardHeader className="p-6 md:p-8 pb-4">
-                <Star className="h-8 w-8 text-secondary mb-4" />
+                <Star className="h-8 w-8 text-white mb-4" />
                 <CardTitle className="text-xl md:text-2xl font-black uppercase italic">Visi Pelayanan</CardTitle>
               </CardHeader>
               <CardContent className="p-6 md:p-8 pt-0">
                 <p className="text-lg md:text-xl font-medium leading-relaxed italic">
-                  "Terwujudnya pelayanan desa yang cepat, transparan, dan akuntabel demi kesejahteraan masyarakat Desa Sidaurip."
+                  "Terwujudnya pelayanan desa yang cepat, transparan, dan akuntabel demi kesejahteraan masyarakat Desa Karanggintung."
                 </p>
               </CardContent>
             </Card>
@@ -411,7 +411,7 @@ function CategoryContent({ categoryId, docs, isLoading }: { categoryId: string; 
               <p>"Apabila tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan yang berlaku."</p>
             </div>
             <div className="pt-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Pemerintah Desa Sidaurip</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Pemerintah Desa Karanggintung</p>
             </div>
           </CardContent>
         </Card>
@@ -423,7 +423,7 @@ function CategoryContent({ categoryId, docs, isLoading }: { categoryId: string; 
             <div className="p-4 bg-white rounded-2xl shadow-sm text-amber-600 shrink-0"><Info className="h-8 w-8" /></div>
             <div className="space-y-1">
               <h3 className="text-lg md:text-xl font-black uppercase text-amber-900">Transparansi Biaya</h3>
-              <p className="text-xs md:text-sm font-medium text-amber-700">Seluruh pelayanan administrasi di Desa Sidaurip adalah <strong>GRATIS (Rp. 0,-)</strong>.</p>
+              <p className="text-xs md:text-sm font-medium text-amber-700">Seluruh pelayanan administrasi di Desa Karanggintung adalah <strong>GRATIS (Rp. 0,-)</strong>.</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
@@ -457,27 +457,27 @@ function CategoryContent({ categoryId, docs, isLoading }: { categoryId: string; 
               <p className="text-[10px] font-black uppercase tracking-widest text-white/50">Nilai Akhir IKM</p>
               <h3 className="text-5xl md:text-6xl font-black text-secondary tracking-tighter">85.5</h3>
             </div>
-            <Badge className="bg-sky-500 text-white border-none font-bold px-4 py-1">SANGAT BAIK (A)</Badge>
+            <Badge className="bg-emerald-600 text-white border-none font-bold px-4 py-1">SANGAT BAIK (A)</Badge>
           </Card>
           <Card className="md:col-span-2 rounded-3xl md:rounded-[2.5rem] bg-white border p-6 md:p-8 flex flex-col justify-center">
             <h4 className="font-black uppercase text-xs md:text-sm mb-4 flex items-center gap-2">
-              <Info className="h-4 w-4 text-blue-500" />
+              <Info className="h-4 w-4 text-emerald-600" />
               Analisis Kepuasan
             </h4>
             <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              Berdasarkan hasil survei periode terakhir, tingkat kepuasan masyarakat Desa Sidaurip menunjukkan tren positif terutama pada aspek kesopanan petugas dan kecepatan waktu penyelesaian dokumen.
+              Berdasarkan hasil survei periode terakhir, tingkat kepuasan masyarakat Desa Karanggintung menunjukkan tren positif terutama pada aspek kesopanan petugas dan kecepatan waktu penyelesaian dokumen.
             </p>
           </Card>
         </div>
       );
     case 'survey':
       return (
-        <Card className="rounded-3xl md:rounded-[3rem] border-none shadow-sm bg-sky-50 p-6 md:p-10 flex flex-col md:flex-row items-center gap-6 md:gap-8 border-2 border-sky-100">
+        <Card className="rounded-3xl md:rounded-[3rem] border-none shadow-sm bg-emerald-50 p-6 md:p-10 flex flex-col md:flex-row items-center gap-6 md:gap-8 border-2 border-emerald-100">
           <div className="flex-1 space-y-4 text-center md:text-left">
-            <h3 className="text-xl md:text-2xl font-black uppercase text-sky-900 font-display italic">Bantu Kami Meningkatkan Layanan</h3>
-            <p className="text-xs md:text-sm text-sky-700/80 font-medium leading-relaxed">Partisipasi Anda dalam mengisi survey kepuasan sangat berarti bagi perbaikan kualitas pelayanan kami di masa depan. Klik tombol di samping untuk mengisi survey melalui Google Form.</p>
+            <h3 className="text-xl md:text-2xl font-black uppercase text-emerald-950 font-display italic">Bantu Kami Meningkatkan Layanan</h3>
+            <p className="text-xs md:text-sm text-emerald-800/80 font-medium leading-relaxed">Partisipasi Anda dalam mengisi survey kepuasan sangat berarti bagi perbaikan kualitas pelayanan kami di masa depan. Klik tombol di samping untuk mengisi survey melalui Google Form.</p>
           </div>
-          <Button size="lg" className="w-full md:w-auto bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-black uppercase px-8 h-14 shadow-lg shadow-sky-200 justify-center" asChild>
+          <Button size="lg" className="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black uppercase px-8 h-14 shadow-lg shadow-emerald-200 justify-center" asChild>
             <a href="https://sisukma.cilacapkab.go.id/Home/pelayanan/4012310" target="_blank" rel="noopener noreferrer">
               Isi Survey Online <ChevronRight className="ml-2 h-4 w-4" />
             </a>
@@ -500,7 +500,7 @@ function CategoryContent({ categoryId, docs, isLoading }: { categoryId: string; 
                 { label: "Selesai", desc: "Surat siap diambil warga.", icon: CheckCircle2 }
               ].map((step, i) => (
                 <div key={i} className="flex flex-col items-center text-center space-y-4 relative z-10">
-                  <div className="w-16 h-16 rounded-3xl bg-primary text-secondary flex items-center justify-center shadow-lg"><step.icon className="h-8 w-8" /></div>
+                  <div className="w-16 h-16 rounded-3xl bg-primary text-white flex items-center justify-center shadow-lg"><step.icon className="h-8 w-8" /></div>
                   <div className="space-y-1">
                     <h4 className="font-black text-sm uppercase text-slate-800">{i + 1}. {step.label}</h4>
                     <p className="text-[11px] text-slate-500 font-medium leading-relaxed">{step.desc}</p>

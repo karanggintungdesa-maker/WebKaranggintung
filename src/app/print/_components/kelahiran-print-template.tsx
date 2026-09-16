@@ -43,7 +43,7 @@ export function KelahiranPrintTemplate({ submission }: { submission: LetterSubmi
       requesterNameOverride={formData.reporterName}
     >
       <p className="mt-6 text-justify leading-relaxed">
-        Yang bertanda tangan di bawah ini, Kepala Desa Sidaurip, Kecamatan
+        Yang bertanda tangan di bawah ini, Kepala Desa Karanggintung, Kecamatan
         Gandrungmangu, Kabupaten Cilacap, dengan ini menerangkan kepada :
       </p>
 

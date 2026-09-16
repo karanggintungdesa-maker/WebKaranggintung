@@ -12,6 +12,7 @@ import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { VillageProfileInfo } from '@/lib/types';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 export function AccompanyingImageSettingsForm() {
   const [imageUrl, setImageUrl] = useState('');
@@ -50,23 +51,10 @@ export function AccompanyingImageSettingsForm() {
     }
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Gagal mengunggah gambar.');
-      }
-
-      const data = await res.json();
-      setImageUrl(data.url);
-      setImagePreview(data.url);
+      const url = await uploadToCloudinary(file, 'profil-desa');
+      setImageUrl(url);
+      setImagePreview(url);
 
       toast({
         title: 'Gambar Terunggah ke Cloudinary',
@@ -128,7 +116,7 @@ export function AccompanyingImageSettingsForm() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <ImageIcon className="h-5 w-5 text-sky-600" />
+          <ImageIcon className="h-5 w-5 text-emerald-600" />
           Upload Gambar Pendamping
         </CardTitle>
         <CardDescription>
@@ -218,23 +206,10 @@ export function PengaduanImageSettingsForm() {
     }
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Gagal mengunggah gambar.');
-      }
-
-      const data = await res.json();
-      setPengaduanImageUrl(data.url);
-      setImagePreview(data.url);
+      const url = await uploadToCloudinary(file, 'pengaduan-desa');
+      setPengaduanImageUrl(url);
+      setImagePreview(url);
 
       toast({
         title: 'Gambar Terunggah ke Cloudinary',
@@ -387,23 +362,10 @@ export function KadesPhotoSettingsForm() {
     }
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Gagal mengunggah foto.');
-      }
-
-      const data = await res.json();
-      setKadesPhotoUrl(data.url);
-      setImagePreview(data.url);
+      const url = await uploadToCloudinary(file, 'pemerintahan-desa');
+      setKadesPhotoUrl(url);
+      setImagePreview(url);
 
       toast({
         title: 'Foto Terunggah ke Cloudinary',

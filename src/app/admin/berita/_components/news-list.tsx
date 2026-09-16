@@ -101,7 +101,7 @@ export function NewsList() {
                         alt={item.title}
                       />
                       {photoCount > 1 && (
-                        <Badge className="absolute -top-2 -right-2 bg-sky-600 text-white text-[8px] font-bold px-1 py-0 h-4 min-w-4 flex items-center justify-center rounded-full shadow">
+                        <Badge className="absolute -top-2 -right-2 bg-emerald-600 text-white text-[8px] font-bold px-1 py-0 h-4 min-w-4 flex items-center justify-center rounded-full shadow">
                           {photoCount}
                         </Badge>
                       )}
@@ -119,7 +119,7 @@ export function NewsList() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-slate-500 hover:text-sky-600"
+                      className="h-8 w-8 text-slate-500 hover:text-emerald-700"
                       onClick={() => handleSetHeadline(item.id)}
                       aria-label={item.isHeadline ? 'Headline saat ini' : 'Jadikan headline'}
                     >
@@ -134,12 +134,12 @@ export function NewsList() {
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="outline" size="icon" className="h-8 w-8" asChild>
-                        <Link href={`/BeritaDesa/${item.id}`} target="_blank">
+                        <Link href={`/BeritaDesa/detail?id=${item.id}`} target="_blank">
                           <Eye className="h-4 w-4" />
                         </Link>
                       </Button>
                       <Button variant="outline" size="icon" className="h-8 w-8" asChild>
-                        <Link href={`/admin/berita/edit/${item.id}`}>
+                        <Link href={`/admin/berita/edit?id=${item.id}`}>
                           <Edit className="h-4 w-4" />
                         </Link>
                       </Button>

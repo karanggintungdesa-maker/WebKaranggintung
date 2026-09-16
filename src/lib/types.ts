@@ -228,4 +228,56 @@ export type ImportantNumbersData = {
   updatedAt?: any;
 };
 
+export type ProductUmkm = {
+  id: string;
+  name: string;
+  category: string;
+  businessName: string;
+  owner: string;
+  price: number;
+  priceUnit: string;
+  location?: string;
+  phone: string;
+  badge?: string;
+  imageUrl: string;
+  description: string;
+  features?: string[];
+  shopeeUrl?: string;
+  tokopediaUrl?: string;
+  lazadaUrl?: string;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
+};
+
+export type PbbRecord = {
+  noUrut?: string | number;
+  dhkp?: string;
+  namaPemilikTanah?: string;
+  alamatPemilikTanah?: string;
+  nop: string;
+  tahun: string | number;
+  namaWp: string;
+  alamatObjek: string;
+  alamatWp?: string;
+  luasBumi: number;
+  luasBangunan: number;
+  njopBumi?: number;
+  njopBangunan?: number;
+  njopSppt?: number;
+  pbbYangDibayar: number;
+  denda?: number;
+  keterangan: string;
+  petugasPemungut?: string;
+  tanggalBayar?: string;
+  tunggakanTahunLalu?: number;
+};
+
+export type PbbSettings = {
+  scriptUrl?: string;
+  sheetName?: string;
+  contactWhatsApp?: string;
+  updatedAt?: any;
+};
+
+
 

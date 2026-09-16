@@ -18,21 +18,21 @@ import { Loader2, FileSpreadsheet, Save } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { useFirestore } from '@/firebase';
 import { doc, writeBatch, serverTimestamp, collection } from 'firebase/firestore';
+import { OfficialCategory } from './official-form';
 
 interface ImportOfficialDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  defaultCategory?: 'perangkat' | 'bpd' | 'rtrw';
+  defaultCategory?: OfficialCategory;
 }
 
 export function ImportOfficialDialog({ open, onOpenChange, defaultCategory = 'perangkat' }: ImportOfficialDialogProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [category, setCategory] = useState<'perangkat' | 'bpd' | 'rtrw'>(defaultCategory);
+  const [category, setCategory] = useState<OfficialCategory>(defaultCategory);
   const firestore = useFirestore();
   const { toast } = useToast();
 
-  // Reset category when defaultCategory changes or dialog opens
   useEffect(() => {
     if (open) {
       setCategory(defaultCategory);
@@ -89,41 +89,51 @@ export function ImportOfficialDialog({ open, onOpenChange, defaultCategory = 'pe
     reader.readAsArrayBuffer(selectedFile);
   };
 
-  const categoryLabels = {
+  const categoryLabels: Record<OfficialCategory, string> = {
     perangkat: 'Perangkat Desa',
     bpd: 'BPD Desa',
-    rtrw: 'RT / RW'
+    rtrw: 'RT / RW',
+    linmas: 'Satuan Linmas (Satlinmas)',
+    posyandu: 'Kader Posyandu',
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileSpreadsheet className="h-5 w-5 text-sky-600" />
-            Impor Data {categoryLabels[category]}
-          </DialogTitle>
-          <DialogDescription>Unggah file Excel (.xlsx) khusus untuk kategori ini. Kolom wajib: **Nama**, **Jabatan**.</DialogDescription>
+          <DialogTitle>Impor Data {categoryLabels[category]}</DialogTitle>
+          <DialogDescription>
+            Unggah file Excel (.xlsx / .xls) yang berisi kolom <strong>Nama</strong> dan <strong>Jabatan</strong>.
+          </DialogDescription>
         </DialogHeader>
-        <div className="space-y-6 py-4">
+
+        <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label>Konfirmasi Kategori</Label>
+            <Label>Kategori Tujuan</Label>
             <Select value={category} onValueChange={(v: any) => setCategory(v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue placeholder="Pilih Kategori" />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="perangkat">Perangkat Desa</SelectItem>
                 <SelectItem value="bpd">BPD Desa</SelectItem>
                 <SelectItem value="rtrw">RT / RW</SelectItem>
+                <SelectItem value="linmas">Satuan Linmas</SelectItem>
+                <SelectItem value="posyandu">Kader Posyandu</SelectItem>
               </SelectContent>
             </Select>
           </div>
+
           <div className="space-y-2">
-            <Label htmlFor="file">Pilih File Excel (.xlsx)</Label>
-            <Input id="file" type="file" accept=".xlsx" onChange={handleFileChange} disabled={isProcessing} />
+            <Label>Pilih File Excel</Label>
+            <Input type="file" accept=".xlsx, .xls" onChange={handleFileChange} disabled={isProcessing} />
           </div>
         </div>
+
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Batal</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isProcessing}>
+            Batal
+          </Button>
           <Button onClick={handleImport} disabled={!selectedFile || isProcessing}>
             {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Mulai Impor

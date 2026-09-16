@@ -90,6 +90,16 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+    match /settings/{id} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /pbbSettings/{id} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
     // --- PUBLIC / STATISTICAL DATA ---
     match /residents/{nik} {
       allow get, list: if true;
@@ -102,6 +112,11 @@ service cloud.firestore {
     }
 
     match /potensiDesa/{id} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /katalogProduk/{id} {
       allow get, list: if true;
       allow create, update, delete: if isAdmin();
     }

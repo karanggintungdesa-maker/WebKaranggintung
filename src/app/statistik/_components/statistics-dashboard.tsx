@@ -23,7 +23,7 @@ import * as XLSX from 'xlsx';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
-const COLORS = ['#1e293b', '#eab308', '#059669', '#3b82f6', '#8b5cf6', '#f43f5e'];
+const COLORS = ['#1e293b', '#eab308', '#059669', '#0d9488', '#8b5cf6', '#f43f5e'];
 
 export function StatisticsDashboard() {
   const [filterDusun, setFilterDusun] = useState('Semua Wilayah');
@@ -119,14 +119,14 @@ export function StatisticsDashboard() {
     const ws = XLSX.utils.json_to_sheet(stats.rwData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Statistik");
-    XLSX.writeFile(wb, `Statistik_Sidaurip_${filterDusun}.xlsx`);
+    XLSX.writeFile(wb, `Statistik_Karanggintung_${filterDusun}.xlsx`);
     toast({ title: "Berhasil Unduh", description: "Data statistik telah disimpan dalam format Excel." });
   };
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(18);
-    doc.text('Grafik & Statistik Kependudukan Desa Sidaurip', 14, 22);
+    doc.text('Grafik & Statistik Kependudukan Desa Karanggintung', 14, 22);
     doc.setFontSize(11);
     doc.text(`Wilayah: ${filterDusun} | Tahun: ${filterTahun}`, 14, 30);
 
@@ -162,7 +162,7 @@ export function StatisticsDashboard() {
   if (!stats) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center bg-white rounded-[3rem] border border-slate-100 shadow-sm max-w-2xl mx-auto space-y-6 my-12">
-        <BarChart3 className="h-16 w-16 text-sky-600 animate-pulse" />
+        <BarChart3 className="h-16 w-16 text-emerald-600 animate-pulse" />
         <h2 className="text-2xl font-black uppercase tracking-tight text-slate-800">Statistik Belum Tersedia</h2>
         <p className="text-slate-500 leading-relaxed font-medium">
           Data grafik dan statistik demografi belum dibuat atau sedang diperbarui oleh administrator.
@@ -229,8 +229,8 @@ export function StatisticsDashboard() {
       {/* SUMMARY CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'Total Penduduk', value: stats?.total.toLocaleString('id-ID'), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: 'Total Keluarga (KK)', value: stats?.totalKK.toLocaleString('id-ID'), icon: Home, color: 'text-sky-600', bg: 'bg-sky-50' },
+          { label: 'Total Penduduk', value: stats?.total.toLocaleString('id-ID'), icon: Users, color: 'text-emerald-700', bg: 'bg-emerald-50' },
+          { label: 'Total Keluarga (KK)', value: stats?.totalKK.toLocaleString('id-ID'), icon: Home, color: 'text-teal-700', bg: 'bg-teal-50' },
           { label: 'Laki-Laki (%)', value: `${stats?.malePercent}%`, icon: UserCheck, color: 'text-amber-600', bg: 'bg-amber-50' },
           { label: 'Perempuan (%)', value: `${stats?.femalePercent}%`, icon: UserPlus, color: 'text-rose-600', bg: 'bg-rose-50' },
         ].map((card, i) => (
@@ -272,7 +272,7 @@ export function StatisticsDashboard() {
                   paddingAngle={8}
                   dataKey="value"
                 >
-                  {stats?.ageData.map((entry, index) => (
+                  {stats?.ageData.map((entry: any, index: number) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -365,7 +365,7 @@ export function StatisticsDashboard() {
                 <Legend verticalAlign="top" height={36} />
                 <Line type="monotone" dataKey="lahir" stroke="#059669" strokeWidth={4} dot={{ r: 4 }} />
                 <Line type="monotone" dataKey="mati" stroke="#f43f5e" strokeWidth={4} dot={{ r: 4 }} />
-                <Line type="monotone" dataKey="datang" stroke="#3b82f6" strokeWidth={4} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="datang" stroke="#0d9488" strokeWidth={4} dot={{ r: 4 }} />
                 <Line type="monotone" dataKey="pindah" stroke="#eab308" strokeWidth={4} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
@@ -378,11 +378,11 @@ export function StatisticsDashboard() {
         <div className="space-y-1 text-center md:text-left">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">Akurasi & Integritas</p>
           <p className="text-sm font-medium text-slate-400 italic leading-relaxed">
-            Sumber Data: Sistem Informasi Desa (SID) Sidaurip Digital. <br className="hidden sm:block" />
+            Sumber Data: Sistem Informasi Desa (SID) Karanggintung Digital. <br className="hidden sm:block" />
             Data diperbarui secara otomatis berdasarkan pendaftaran penduduk terbaru.
           </p>
         </div>
-        <Button onClick={handleDownloadExcel} className="h-14 px-10 rounded-2xl bg-secondary text-primary font-black uppercase tracking-widest hover:bg-yellow-600 transition-all shadow-xl shadow-secondary/20">
+        <Button onClick={handleDownloadExcel} className="h-14 px-10 rounded-2xl bg-secondary text-white font-black uppercase tracking-widest hover:bg-yellow-600 transition-all shadow-xl shadow-secondary/20">
           <Download className="h-5 w-5 mr-3" />
           Unduh Data (.XLSX)
         </Button>

@@ -4,5 +4,60 @@
     "location": "asia-southeast1",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "out",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/print/**",
+        "destination": "/print/preview.html"
+      },
+      {
+        "source": "/BeritaDesa/detail/**",
+        "destination": "/BeritaDesa/detail.html"
+      },
+      {
+        "source": "/BeritaDesa/:id",
+        "destination": "/BeritaDesa/detail.html"
+      },
+      {
+        "source": "/pengumuman/detail/**",
+        "destination": "/pengumuman/detail.html"
+      },
+      {
+        "source": "/pengumuman/:id",
+        "destination": "/pengumuman/detail.html"
+      },
+      {
+        "source": "/admin/berita/edit/**",
+        "destination": "/admin/berita/edit.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css|woff2|woff|ttf|eot|svg|png|jpg|jpeg|gif|webp|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=0, must-revalidate"
+          }
+        ]
+      }
+    ]
   }
 }

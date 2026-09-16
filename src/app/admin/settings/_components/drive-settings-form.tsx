@@ -62,14 +62,14 @@ export function DriveSettingsForm() {
 
     try {
       const cleanRootFolderId = extractFolderId(rootFolderId);
-      await setDoc(driveRef, { 
-        googleDriveLink, 
+      await setDoc(driveRef, {
+        googleDriveLink,
         appsScriptUrl: appsScriptUrl.trim(),
         rootFolderId: cleanRootFolderId
       }, { merge: true });
       // Update local state with the cleaned ID
       setRootFolderId(cleanRootFolderId);
-      
+
       toast({
         title: "Pengaturan Tersimpan",
         description: "Konfigurasi Google Drive telah diperbarui.",
@@ -124,7 +124,7 @@ export function DriveSettingsForm() {
             </Label>
             <Input
               id="root-id"
-              placeholder="Contoh: 11h8J7mBqe0XH1wbpf3lorVlEPIL-eKuZR"
+              placeholder="Contoh: 1189YMB2SHSSyUQ6yplY9ImJIYlfAI6YzO"
               value={rootFolderId}
               onChange={(e) => setRootFolderId(e.target.value)}
               disabled={isSaving}

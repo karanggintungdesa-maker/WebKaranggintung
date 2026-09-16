@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -12,9 +12,7 @@ import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { FooterLogosInfo } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-
-const CLOUD_NAME = 'dgsxujjb1';
-const UPLOAD_PRESET = 'webdesa';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 const defaultFooterLogos: FooterLogosInfo = {
   logo1Url: "",
@@ -97,7 +95,7 @@ const LogoSlot = ({ slot, onUpload, onRemove, isUploading, preview, link, onLink
           id={`link-${slot}`}
           placeholder="https://..."
           value={link}
-          onChange={(e) => onLinkChange(slot, e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => onLinkChange(slot, e.target.value)}
           type="url"
           className="text-sm"
         />
@@ -143,22 +141,9 @@ export function FooterLogosSettingsForm() {
     if (!file) return;
 
     setUploadingSlot(slot);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', UPLOAD_PRESET);
 
     try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Gagal upload ke Cloudinary');
-      }
-
-      const data = await response.json();
-      const imageUrl = data.secure_url;
+      const imageUrl = await uploadToCloudinary(file, 'footer-logos');
 
       // Update form state dengan URL baru
       const updatedState = {
@@ -296,14 +281,14 @@ export function FooterLogosSettingsForm() {
             </Button>
           </div>
 
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-sm text-emerald-950">
             <p className="font-semibold mb-2">💡 Petunjuk Upload:</p>
-            <ul className="list-disc list-inside space-y-1 text-blue-800">
-              <li>Format gambar: PNG, JPG, WebP</li>
-              <li>Ukuran rekomendasi: 200x200px atau 300x300px</li>
-              <li>Semua logo akan diupload ke Sistem secara otomatis</li>
-              <li>Isi link (optional) jika logo ingin dihubungkan ke URL tertentu</li>
-            </ul>
+            <div className="space-y-1 text-emerald-800 text-xs leading-relaxed">
+              <p>• Format gambar: PNG, JPG, WebP</p>
+              <p>• Ukuran rekomendasi: 200x200px atau 300x300px</p>
+              <p>• Semua logo akan diupload ke Sistem secara otomatis</p>
+              <p>• Isi link (optional) jika logo ingin dihubungkan ke URL tertentu</p>
+            </div>
           </div>
         </form>
       </CardContent>

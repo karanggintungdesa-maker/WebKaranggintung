@@ -19,6 +19,7 @@ import { doc, setDoc, addDoc, collection, serverTimestamp } from 'firebase/fires
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Save, Image as ImageIcon, X, ArrowLeft, ArrowRight } from 'lucide-react';
 import { PotensiDesa } from '@/lib/types';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 interface PotensiFormProps {
   open: boolean;
@@ -26,13 +27,10 @@ interface PotensiFormProps {
   potensi?: PotensiDesa | null;
 }
 
-const CLOUD_NAME = 'dgsxujjb1';
-const UPLOAD_PRESET = 'webdesa';
-
 export const POTENSI_CATEGORIES = [
   { id: 'pariwisata-kebudayaan', label: 'Pariwisata & Kebudayaan' },
   { id: 'umkm-industri', label: 'UMKM & Industri Kreatif' },
-  { id: 'bumdes', label: 'BUMDes Sidaurip' },
+  { id: 'bumdes', label: 'BUMDes Karanggintung' },
   { id: 'pertanian-perkebunan', label: 'Pertanian & Perkebunan' },
   { id: 'sda-lingkungan', label: 'Sumber Daya Alam & Lingkungan' }
 ] as const;
@@ -70,75 +68,83 @@ export function PotensiForm({ open, onOpenChange, potensi }: PotensiFormProps) {
     }
   }, [potensi, open]);
 
-  const compressImage = (file: File): Promise<File> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const dataUrl = event.target?.result;
-        if (typeof dataUrl !== 'string') {
-          reject(new Error('Gagal membaca file gambar.'));
-          return;
-        }
-
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const maxDimension = 1600;
-          let { width, height } = img;
-
-          if (width > height) {
-            if (width > maxDimension) {
-              height = Math.round((height * maxDimension) / width);
-              width = maxDimension;
-            }
-          } else if (height > maxDimension) {
-            width = Math.round((width * maxDimension) / height);
-            height = maxDimension;
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            reject(new Error('Tidak dapat memproses gambar.'));
+  const compressImage = async (file: File): Promise<File | Blob> => {
+    try {
+      return await new Promise<File | Blob>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const dataUrl = e.target?.result as string;
+          if (!dataUrl) {
+            resolve(file);
             return;
           }
 
-          ctx.drawImage(img, 0, 0, width, height);
+          const img = new Image();
+          img.onload = () => {
+            try {
+              const canvas = document.createElement('canvas');
+              const maxDimension = 1600;
+              let { width, height } = img;
 
-          const tryCompress = (quality: number, attempt: number) => {
-            canvas.toBlob(
-              (blob) => {
-                if (!blob) {
-                  reject(new Error('Gagal mengompresi gambar.'));
-                  return;
+              if (width > height) {
+                if (width > maxDimension) {
+                  height = Math.round((height * maxDimension) / width);
+                  width = maxDimension;
                 }
+              } else if (height > maxDimension) {
+                width = Math.round((width * maxDimension) / height);
+                height = maxDimension;
+              }
 
-                const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
-                  type: 'image/jpeg',
-                  lastModified: Date.now(),
-                });
+              canvas.width = width;
+              canvas.height = height;
 
-                if (compressedFile.size > 700 * 1024 && attempt < 4) {
-                  tryCompress(Math.max(0.55, quality - 0.15), attempt + 1);
-                } else {
-                  resolve(compressedFile);
-                }
-              },
-              'image/jpeg',
-              quality
-            );
+              const ctx = canvas.getContext('2d');
+              if (!ctx) {
+                resolve(file);
+                return;
+              }
+
+              ctx.drawImage(img, 0, 0, width, height);
+
+              const tryCompress = (quality: number, attempt: number) => {
+                canvas.toBlob(
+                  (blob) => {
+                    if (!blob) {
+                      resolve(file);
+                      return;
+                    }
+
+                    const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+                      type: 'image/jpeg',
+                      lastModified: Date.now(),
+                    });
+
+                    if (compressedFile.size > 700 * 1024 && attempt < 4) {
+                      tryCompress(Math.max(0.55, quality - 0.15), attempt + 1);
+                    } else {
+                      resolve(compressedFile);
+                    }
+                  },
+                  'image/jpeg',
+                  quality
+                );
+              };
+
+              tryCompress(0.9, 1);
+            } catch {
+              resolve(file);
+            }
           };
-
-          tryCompress(0.9, 1);
+          img.onerror = () => resolve(file);
+          img.src = dataUrl;
         };
-        img.onerror = () => reject(new Error('Gambar tidak valid.'));
-        img.src = dataUrl;
-      };
-      reader.onerror = () => reject(new Error('Gagal membaca file gambar.'));
-      reader.readAsDataURL(file);
-    });
+        reader.onerror = () => resolve(file);
+        reader.readAsDataURL(file);
+      });
+    } catch {
+      return file;
+    }
   };
 
   const handleFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,23 +164,8 @@ export function PotensiForm({ open, onOpenChange, potensi }: PotensiFormProps) {
         });
 
         const processingFile = await compressImage(file);
-
-        const uploadFormData = new FormData();
-        uploadFormData.append('file', processingFile);
-        uploadFormData.append('upload_preset', UPLOAD_PRESET);
-
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-          method: 'POST',
-          body: uploadFormData,
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error.message || 'Gagal mengunggah ke Cloudinary');
-        }
-
-        urls.push(data.secure_url);
+        const secureUrl = await uploadToCloudinary(processingFile, 'potensi-desa');
+        urls.push(secureUrl);
       }
 
       setFormData(prev => ({
@@ -306,7 +297,7 @@ export function PotensiForm({ open, onOpenChange, potensi }: PotensiFormProps) {
               id="title"
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-              placeholder="Contoh: Desa Wisata Curug Sidaurip"
+              placeholder="Contoh: Desa Wisata Curug Karanggintung"
               className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 placeholder-slate-400 bg-slate-50/50 focus:bg-white transition-all"
             />
           </div>
@@ -386,10 +377,10 @@ export function PotensiForm({ open, onOpenChange, potensi }: PotensiFormProps) {
 
               <label className="flex flex-col items-center justify-center aspect-[4/3] rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all cursor-pointer group">
                 {isUploading ? (
-                  <Loader2 className="h-8 w-8 animate-spin text-sky-600" />
+                  <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
                 ) : (
                   <>
-                    <ImageIcon className="h-8 w-8 text-slate-400 group-hover:scale-110 group-hover:text-sky-600 transition-all duration-300" />
+                    <ImageIcon className="h-8 w-8 text-slate-400 group-hover:scale-110 group-hover:text-emerald-600 transition-all duration-300" />
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 mt-2 text-center px-2">Unggah Foto</span>
                   </>
                 )}
@@ -421,7 +412,7 @@ export function PotensiForm({ open, onOpenChange, potensi }: PotensiFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting || isUploading}
-              className="rounded-xl h-12 font-black px-8 bg-sky-700 hover:bg-sky-800 text-white shadow-md shadow-sky-700/10 flex items-center justify-center gap-2"
+              className="rounded-xl h-12 font-black px-8 bg-emerald-700 hover:bg-emerald-800 text-white shadow-md shadow-emerald-700/10 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

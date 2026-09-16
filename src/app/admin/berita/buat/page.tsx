@@ -9,7 +9,7 @@ export default function AdminBuatBeritaPage() {
     <>
       <PageHeader
         title="Buat Berita"
-        description="Publikasikan kegiatan desa terbaru untuk warga Desa Sidaurip."
+        description="Publikasikan kegiatan desa terbaru untuk warga Desa Karanggintung."
       />
       <NewsForm />
     </>

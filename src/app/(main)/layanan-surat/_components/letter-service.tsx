@@ -41,10 +41,10 @@ interface LetterServiceProps {
 }
 
 const letterOptions = [
-  { type: 'Surat Keterangan Umum', icon: FileText, color: 'bg-slate-200 text-slate-800', description: 'Keperluan administratif desa secara umum.' },
+  { type: 'Surat Keterangan Umum', icon: FileText, color: 'bg-slate-100 text-slate-700', description: 'Keperluan administratif desa secara umum.' },
   { type: 'Surat Keterangan Tidak Mampu', icon: HandHelping, color: 'bg-orange-100 text-orange-600', description: 'Untuk bantuan sosial & biaya sekolah.' },
-  { type: 'Surat Pengantar SKCK', icon: ShieldCheck, color: 'bg-blue-100 text-blue-600', description: 'Persyaratan melamar pekerjaan / kepolisian.' },
-  { type: 'Surat Pengantar Pindah', icon: MapPinned, color: 'bg-sky-100 text-sky-600', description: 'Keterangan pindah domisili antar wilayah.' },
+  { type: 'Surat Pengantar SKCK', icon: ShieldCheck, color: 'bg-emerald-100 text-emerald-700', description: 'Persyaratan melamar pekerjaan / kepolisian.' },
+  { type: 'Surat Pengantar Pindah', icon: MapPinned, color: 'bg-teal-100 text-teal-700', description: 'Keterangan pindah domisili antar wilayah.' },
   { type: 'Surat Keterangan Usaha', icon: Store, color: 'bg-purple-100 text-purple-600', description: 'Untuk pengajuan KUR / identitas UMKM.' },
   { type: 'Surat Keterangan Kelahiran', icon: Baby, color: 'bg-pink-100 text-pink-600', description: 'Data kelahiran baru bagi warga desa.' },
   { type: 'Surat Keterangan Kematian', icon: Skull, color: 'bg-slate-200 text-slate-700', description: 'Surat keterangan duka cita & lapor diri.' },
@@ -52,10 +52,10 @@ const letterOptions = [
   { type: 'Surat Keterangan Domisili', icon: Home, color: 'bg-amber-100 text-amber-700', description: 'Keterangan tempat tinggal sementara.' },
   { type: 'Surat Ijin Keramaian', icon: Music, color: 'bg-indigo-100 text-indigo-600', description: 'Syarat mengadakan acara / hajatan.' },
   { type: 'Surat Keterangan Moyang', icon: Users, color: 'bg-teal-100 text-teal-600', description: 'Keterangan silsilah keluarga / garis keturunan.' },
-  { type: 'Surat Keterangan Pemakaman', icon: Flower2, color: 'bg-sky-100 text-sky-700', description: 'Ijin penguburan di makam umum desa.' },
-  { type: 'Surat Keterangan Wali', icon: UserCheck, color: 'bg-sky-100 text-sky-600', description: 'Keterangan perwalian anak di bawah umur.' },
+  { type: 'Surat Keterangan Pemakaman', icon: Flower2, color: 'bg-emerald-100 text-emerald-700', description: 'Ijin penguburan di makam umum desa.' },
+  { type: 'Surat Keterangan Wali', icon: UserCheck, color: 'bg-teal-100 text-teal-700', description: 'Keterangan perwalian anak di bawah umur.' },
   { type: 'Surat Keterangan Reaktivasi BPJS Kesehatan', icon: Activity, color: 'bg-rose-100 text-rose-600', description: 'Pengurusan BPJS yang terblokir / nonaktif.' },
-  { type: 'Surat Pengantar Umum', icon: FileText, color: 'bg-slate-200 text-slate-800', description: 'Keperluan pengantar administrasi umum lainnya.' },
+  { type: 'Surat Pengantar Umum', icon: FileText, color: 'bg-slate-100 text-slate-700', description: 'Keperluan pengantar administrasi umum lainnya.' },
 ];
 
 export function LetterService({ isAdmin = false }: LetterServiceProps) {
@@ -91,76 +91,86 @@ export function LetterService({ isAdmin = false }: LetterServiceProps) {
   if (!mounted) return null;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {!selectedLetter ? (
-        <div className="space-y-8">
-           <div className="text-center space-y-3">
-              <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight font-display italic">
-                Pilih <span className="text-primary not-italic">Layanan Surat</span>
-              </h2>
-              <p className="text-sm text-slate-500 font-medium max-w-lg mx-auto">
-                Silakan pilih salah satu kartu di bawah ini untuk memulai pengisian formulir pengajuan surat resmi Anda.
-              </p>
-           </div>
+        <div className="space-y-6">
 
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {letterOptions.map((opt) => (
-                <Card 
-                  key={opt.type} 
-                  className="cursor-pointer group relative hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-none bg-white overflow-hidden rounded-[3rem] flex flex-col border-2 border-transparent hover:border-primary/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)]"
-                  onClick={() => {
-                    setSelectedLetter(opt.type);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                >
-                  <CardContent className="p-10 flex flex-col h-full items-center text-center">
-                    <div className={cn("w-24 h-24 rounded-[2rem] mb-8 flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 shadow-lg", opt.color)}>
-                      <opt.icon className="h-12 w-12" />
-                    </div>
-                    <div className="space-y-3 flex-1">
-                      <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight leading-tight group-hover:text-primary transition-colors">
-                        {opt.type}
-                      </h3>
-                      <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                        {opt.description}
-                      </p>
-                    </div>
-                    <div className="mt-8 pt-6 border-t border-slate-50 w-full flex items-center justify-center gap-4">
-                       <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">BUKA FORMULIR</span>
-                       <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
-                          <ArrowLeft className="h-5 w-5 rotate-180" />
-                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-           </div>
-        </div>
-      ) : (
-        <Card className="rounded-[3rem] border-none shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-700">
-          <CardHeader className="bg-primary p-10 md:p-16 text-white relative">
-            <div className="absolute top-0 right-0 p-12 opacity-10">
-               <FileText className="w-48 h-48" />
-            </div>
-            <div className="space-y-8 relative z-10">
-              <Button 
-                variant="ghost" 
-                onClick={() => setSelectedLetter('')} 
-                className="text-white hover:bg-white/10 -ml-4 font-black uppercase text-[10px] tracking-[0.4em]"
+          {/* ── Section Title ── */}
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight font-display italic">
+              Pilih <span className="text-primary not-italic">Layanan Surat</span>
+            </h2>
+            <p className="text-sm text-slate-500 font-medium max-w-md mx-auto">
+              Pilih jenis surat yang Anda butuhkan untuk memulai pengisian formulir pengajuan.
+            </p>
+          </div>
+
+          {/* ── Card Grid — compact ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+            {letterOptions.map((opt) => (
+              <button
+                key={opt.type}
+                onClick={() => {
+                  setSelectedLetter(opt.type);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group relative bg-white rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center gap-2.5 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 cursor-pointer text-left"
               >
-                <ArrowLeft className="h-5 w-5 mr-3" /> KEMBALI KE DAFTAR
+                {/* Icon */}
+                <div className={cn(
+                  'w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 flex-shrink-0',
+                  opt.color
+                )}>
+                  <opt.icon className="h-5 w-5 sm:h-[22px] sm:w-[22px]" />
+                </div>
+
+                {/* Name */}
+                <div className="space-y-1 w-full">
+                  <h3 className="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight group-hover:text-primary transition-colors line-clamp-2 text-center">
+                    {opt.type}
+                  </h3>
+                  <p className="text-[9px] sm:text-[10px] text-slate-400 font-medium leading-relaxed line-clamp-2 hidden sm:block text-center">
+                    {opt.description}
+                  </p>
+                </div>
+
+                {/* CTA hint */}
+                <span className="text-[9px] font-bold text-primary/70 uppercase tracking-widest group-hover:text-primary transition-colors">
+                  Ajukan →
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+      ) : (
+        /* ── Form Card ── */
+        <Card className="rounded-2xl sm:rounded-3xl border-none shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+          <CardHeader className="bg-primary p-5 sm:p-7 md:p-10 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 sm:p-6 opacity-10 pointer-events-none">
+              <FileText className="w-20 h-20 sm:w-28 sm:h-28" />
+            </div>
+            <div className="space-y-3 sm:space-y-4 relative z-10">
+              <Button
+                variant="ghost"
+                onClick={() => setSelectedLetter('')}
+                className="text-white hover:bg-white/10 -ml-2 font-bold uppercase text-[9px] tracking-[0.3em] h-7 px-2 gap-1.5"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Kembali
               </Button>
-              <div className="space-y-3">
-                <CardTitle className="text-3xl md:text-5xl font-black uppercase font-display italic tracking-tighter">
+              <div className="space-y-1">
+                <CardTitle className="text-lg sm:text-2xl md:text-3xl font-black uppercase font-display italic tracking-tight leading-tight">
                   {selectedLetter}
                 </CardTitle>
-                <CardDescription className="text-white/60 font-medium text-lg italic">
-                  Lengkapi data formulir pengajuan {isAdmin ? 'oleh Admin' : ''} secara akurat.
+                <CardDescription className="text-white/60 font-medium text-sm">
+                  Lengkapi formulir pengajuan {isAdmin ? 'oleh Admin ' : ''}secara akurat dan lengkap.
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="p-8 md:p-16 bg-white">
+
+          <CardContent className="p-4 sm:p-6 md:p-10 bg-white">
             {renderForm()}
           </CardContent>
         </Card>

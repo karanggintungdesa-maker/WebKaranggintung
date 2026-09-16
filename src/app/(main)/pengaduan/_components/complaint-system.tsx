@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { summarizeComplaintFeedback } from '@/ai/flows/summarize-complaint-feedback-flow';
+import { summarizeComplaintFeedback } from '@/lib/gemini-client';
 import { Complaint, CitizenProfile } from '@/lib/types';
 import {
   Loader2,
@@ -165,7 +165,7 @@ export function ComplaintSystem() {
                 <Input 
                   placeholder="Nama Lengkap Anda"
                   value={reporterName}
-                  onChange={(e) => setReporterName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReporterName(e.target.value)}
                   disabled={isSubmitting}
                   className="rounded-xl border-slate-100 bg-slate-50 h-12"
                 />
@@ -175,7 +175,7 @@ export function ComplaintSystem() {
                 <Input 
                   placeholder="Dusun / RT / RW"
                   value={reporterAddress}
-                  onChange={(e) => setReporterAddress(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReporterAddress(e.target.value)}
                   disabled={isSubmitting}
                   className="rounded-xl border-slate-100 bg-slate-50 h-12"
                 />
@@ -186,7 +186,7 @@ export function ComplaintSystem() {
                   placeholder="Tuliskan keluhan atau saran Anda secara detail di sini..."
                   className="rounded-2xl border-slate-100 bg-slate-50 focus:ring-accent min-h-[150px]"
                   value={newComplaintText}
-                  onChange={(e) => setNewComplaintText(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNewComplaintText(e.target.value)}
                   disabled={isSubmitting}
                 />
               </div>
@@ -311,12 +311,12 @@ export function ComplaintSystem() {
                         </div>
 
                         {complaint.adminResponse && (
-                            <div className="p-6 rounded-[2rem] border bg-sky-900 text-white space-y-4 shadow-xl">
+                            <div className="p-6 rounded-[2rem] border border-emerald-800 bg-emerald-950 text-white space-y-4 shadow-xl">
                                 <h4 className="font-black uppercase tracking-[0.2em] text-[10px] text-accent flex items-center gap-2">
                                     <CornerDownRight className="w-4 h-4" />
                                     Tanggapan Pemerintah Desa
                                 </h4>
-                                <p className="text-sm font-medium leading-relaxed italic text-sky-50">
+                                <p className="text-sm font-medium leading-relaxed italic text-emerald-50">
                                     "{complaint.adminResponse}"
                                 </p>
                             </div>

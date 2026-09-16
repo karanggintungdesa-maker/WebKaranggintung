@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview A Genkit flow that generates placeholder content (text, image ideas, layouts) for a canvas based on a user prompt.
  *

@@ -1,6 +1,6 @@
 'use client';
 import { LetterSubmission } from '@/lib/types';
-import { PrintLayout, DataRow, formatTTL } from './print-layout';
+import { PrintLayout, DataRow, formatTTL, formatFullDate } from './print-layout';
 
 export function PemakamanPrintTemplate({ submission }: { submission: LetterSubmission }) {
   const { formData } = submission;
@@ -8,7 +8,7 @@ export function PemakamanPrintTemplate({ submission }: { submission: LetterSubmi
   return (
     <PrintLayout submission={submission} hideRequesterSignature={true}>
       <p className="mt-8 text-justify leading-relaxed">
-        Yang bertanda tangan di bawah ini Kepala Desa Sidaurip, Kecamatan
+        Yang bertanda tangan di bawah ini Kepala Desa Karanggintung, Kecamatan
         Gandrungmangu, Kabupaten Cilacap, menerangkan dengan sebenarnya bahwa:
       </p>
 
@@ -32,7 +32,7 @@ export function PemakamanPrintTemplate({ submission }: { submission: LetterSubmi
 
       <table className="mt-4 border-collapse w-full">
         <tbody>
-          <DataRow label="Hari / Tanggal" value={new Date(formData.deathDate).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} />
+          <DataRow label="Hari / Tanggal" value={formatFullDate(formData.deathDate)} />
           <DataRow label="Jam" value={formData.deathTime} />
           <DataRow label="Tempat Kematian" value={formData.deathLocation} />
           <DataRow label="Sebab Kematian" value={formData.deathCause} />

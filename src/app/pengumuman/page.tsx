@@ -61,7 +61,7 @@ export default function PengumumanPage() {
                 Pengumuman Desa
               </h1>
               <p className="text-sm text-slate-500 font-medium mt-1">
-                Informasi dan pengumuman penting dari administrasi Desa Sidaurip.
+                Informasi dan pengumuman penting dari administrasi Desa Karanggintung.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function PengumumanPage() {
           )}
 
           {announcements?.map((announcement) => (
-            <Link key={announcement.id} href={`/pengumuman/${announcement.id}`}>
+            <Link key={announcement.id} href={`/pengumuman/detail?id=${announcement.id}`}>
               <Card className="group cursor-pointer overflow-hidden rounded-[2.5rem] border-none shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 bg-white flex flex-col h-full">
                 <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
                   {announcement.imageUrl ? (

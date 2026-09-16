@@ -1,4 +1,4 @@
-# **App Name**: Sidaurip Digital
+# **App Name**: Karanggintung Digital
 
 ## Core Features:
 

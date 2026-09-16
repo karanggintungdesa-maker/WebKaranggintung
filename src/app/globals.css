@@ -13,35 +13,35 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 15%;
 
-    --primary: 199 89% 38%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 95% 54%;
-    --secondary-foreground: 199 89% 20%;
+    --secondary: 158 64% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 214 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 150 20% 96%;
+    --muted-foreground: 160 10% 45%;
 
-    --accent: 199 75% 55%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 88%;
-    --input: 214 20% 88%;
-    --ring: 199 89% 38%;
+    --border: 150 20% 90%;
+    --input: 150 20% 90%;
+    --ring: 160 84% 39%;
 
     --radius: 1.25rem;
 
-    --sidebar-background: 199 80% 18%;
-    --sidebar-foreground: 210 40% 97%;
-    --sidebar-primary: 45 95% 54%;
-    --sidebar-primary-foreground: 199 80% 18%;
-    --sidebar-accent: 199 60% 26%;
-    --sidebar-accent-foreground: 45 95% 54%;
-    --sidebar-border: 199 60% 26%;
-    --sidebar-ring: 45 95% 54%;
+    --sidebar-background: 160 84% 15%;
+    --sidebar-foreground: 150 40% 97%;
+    --sidebar-primary: 158 64% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 70% 22%;
+    --sidebar-accent-foreground: 150 40% 97%;
+    --sidebar-border: 160 70% 22%;
+    --sidebar-ring: 158 64% 45%;
   }
 }
 
@@ -78,25 +78,6 @@ html {
   @apply border border-white/20 bg-white/80 backdrop-blur-md;
 }
 
-/* System-wide card outline accents */
-div[class*="shadow"][class*="bg-white"][class*="rounded-"],
-div[class*="shadow"][class*="bg-card"][class*="rounded-"],
-.bg-white[class*="shadow"][class*="rounded-"],
-.bg-card,
-.border-slate-100,
-.border-slate-200 {
-  border: 1px solid rgba(14, 165, 233, 0.18) !important;
-  transition: all 0.3s ease-in-out;
-}
-
-div[class*="shadow"][class*="bg-white"][class*="rounded-"]:hover,
-div[class*="shadow"][class*="bg-card"][class*="rounded-"]:hover,
-.bg-white[class*="shadow"][class*="rounded-"]:hover,
-.bg-card:hover,
-.border-slate-100:hover,
-.border-slate-200:hover {
-  border-color: rgba(14, 165, 233, 0.45) !important;
-}
 
 @keyframes marquee {
   0% {
@@ -118,8 +99,8 @@ div[class*="shadow"][class*="bg-card"][class*="rounded-"]:hover,
 }
 
 .marquee-gradient-mask {
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -130,7 +111,12 @@ div[class*="shadow"][class*="bg-card"][class*="rounded-"]:hover,
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+}
+
+@supports (scrollbar-width: none) {
+  .no-scrollbar {
+    scrollbar-width: none;  /* Firefox */
+  }
 }
 
 /* Custom Thin Line Scrollbar (Ganti box scrollbar default menjadi garis tipis elegan) */
@@ -169,10 +155,146 @@ body::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 116, 139, 0.6);
 }
 
-/* Support Firefox thin scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+/* Support Firefox / modern standard thin scrollbar */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  }
 }
 
+
+/* ═══════════════════════════════════════════════════
+   Hero Section — Premium Micro-Animations
+   Seamless 8–10s loop, natural motion, no layout shift
+   ═══════════════════════════════════════════════════ */
+
+/* Camera push-in: very slow 2–3% zoom (infinite alternate) */
+.hero-camera-push {
+  animation: heroZoomIn 10s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes heroZoomIn {
+  from { transform: scale(1); }
+  to   { transform: scale(1.03); }
+}
+
+/* Cloud drift (two speed variants) */
+.hero-cloud-drift {
+  animation: heroCloudDrift 22s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-cloud-drift-reverse {
+  animation: heroCloudDrift 30s ease-in-out infinite reverse;
+  will-change: transform;
+}
+@keyframes heroCloudDrift {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(35px); }
+}
+
+/* Floating cards — 3 variants with staggered timing */
+.hero-float-a {
+  animation: heroFloatA 4.2s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-float-b {
+  animation: heroFloatB 5s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-float-c {
+  animation: heroFloatC 3.6s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-float-d {
+  animation: heroFloatD 4.6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes heroFloatA {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes heroFloatB {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes heroFloatC {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-13px); }
+}
+@keyframes heroFloatD {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Button light-sweep */
+.hero-btn-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.hero-btn-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  animation: heroSweep 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes heroSweep {
+  0%, 70% { transform: translateX(-100%); }
+  100%    { transform: translateX(250%); }
+}
+
+/* ── Hero Mascot Character — smooth natural breathing & floating animation ── */
+.hero-mascot-anim {
+  animation: heroMascotFloat 6.5s ease-in-out infinite;
+  will-change: transform, filter;
+  transform-origin: bottom center;
+}
+
+@keyframes heroMascotFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.18));
+  }
+  35% {
+    transform: translateY(-9px) rotate(0.45deg) scale(1.008);
+    filter: drop-shadow(0 30px 48px rgba(0, 0, 0, 0.22));
+  }
+  70% {
+    transform: translateY(-4px) rotate(-0.35deg) scale(1.004);
+    filter: drop-shadow(0 24px 38px rgba(0, 0, 0, 0.19));
+  }
+}
+
+/* Tablet screen gentle glow pulse */
+.hero-tablet-shine {
+  position: absolute;
+  top: 36%;
+  left: 54%;
+  width: 130px;
+  height: 85px;
+  border-radius: 16px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(20, 184, 166, 0.15) 45%, transparent 70%);
+  filter: blur(12px);
+  pointer-events: none;
+  animation: tabletScreenPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes tabletScreenPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
 

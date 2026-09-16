@@ -75,16 +75,16 @@ export default function AdminPotensiDesa() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <h1 className="text-2xl font-black text-slate-800 uppercase tracking-wider flex items-center gap-2.5">
-            <Landmark className="h-6 w-6 text-sky-600 animate-pulse" />
+            <Landmark className="h-6 w-6 text-emerald-600 animate-pulse" />
             <span>Kelola Potensi Desa</span>
           </h1>
           <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-            Manajemen informasi potensi unggulan, industri kreatif, pariwisata, dan BUMDes Sidaurip
+            Manajemen informasi potensi unggulan, industri kreatif, pariwisata, dan BUMDes Karanggintung
           </p>
         </div>
         <Button
           onClick={handleCreate}
-          className="rounded-full h-11 bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs uppercase tracking-wider px-6 shrink-0 shadow-lg shadow-sky-700/10 flex items-center gap-2"
+          className="rounded-full h-11 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider px-6 shrink-0 shadow-lg shadow-emerald-700/10 flex items-center gap-2"
         >
           <PlusCircle className="h-4.5 w-4.5" />
           <span>Tambah Potensi</span>
@@ -94,7 +94,7 @@ export default function AdminPotensiDesa() {
       {/* Main List */}
       {isLoading ? (
         <div className="flex flex-col items-center justify-center py-20 bg-white border border-slate-100 rounded-[3rem] shadow-sm">
-          <Loader2 className="h-10 w-10 animate-spin text-sky-600 mb-3" />
+          <Loader2 className="h-10 w-10 animate-spin text-emerald-600 mb-3" />
           <p className="text-xs text-slate-450 uppercase font-black tracking-widest">Memuat data potensi desa...</p>
         </div>
       ) : !potentials || potentials.length === 0 ? (
@@ -105,79 +105,77 @@ export default function AdminPotensiDesa() {
             </div>
             <h3 className="text-slate-700 font-extrabold text-sm uppercase tracking-wider">Belum Ada Data Potensi</h3>
             <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-              Data potensi desa belum ditambahkan. Klik tombol "Tambah Potensi" di atas untuk menambahkan potensi unggulan Desa Sidaurip.
+              Data potensi desa belum ditambahkan. Klik tombol "Tambah Potensi" di atas untuk menambahkan potensi unggulan Desa Karanggintung.
             </p>
           </div>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {potentials.map((item) => (
-            <Card key={item.id} className="border border-slate-100 rounded-[2.5rem] bg-white overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col">
-              {/* Thumbnail Slider Preview */}
-              <div className="relative aspect-[16/9] w-full bg-slate-50 border-b overflow-hidden">
+            <Card key={item.id} className="border border-slate-200/80 rounded-2xl bg-white overflow-hidden shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
+              {/* Thumbnail Image Container */}
+              <div className="relative aspect-[16/10] w-full bg-slate-50 border-b overflow-hidden">
                 {item.imageUrls && item.imageUrls.length > 0 ? (
                   <img
                     src={item.imageUrls[0]}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                    <ImageIcon className="h-10 w-10 text-slate-300" />
+                    <ImageIcon className="h-8 w-8 text-slate-300" />
                   </div>
                 )}
 
-                {/* Count badge for photos */}
+                {/* Photo counter badge */}
                 {item.imageUrls && item.imageUrls.length > 1 && (
-                  <div className="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider">
-                    +{item.imageUrls.length - 1} Foto
+                  <div className="absolute top-2.5 right-2.5 bg-slate-900/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider shadow-sm">
+                    📸 {item.imageUrls.length}
                   </div>
                 )}
 
-                {/* Sub category badge */}
-                <div className="absolute bottom-4 left-4">
-                  <Badge className="bg-sky-700/90 text-white border-none rounded-full font-bold text-[9px] uppercase tracking-wider px-3 py-1 shadow-md">
+                {/* Category badge */}
+                <div className="absolute bottom-2.5 left-2.5">
+                  <Badge className="bg-emerald-700/95 text-white border-none rounded-lg font-bold text-[8px] uppercase tracking-wider px-2 py-0.5 shadow-sm">
                     {getCategoryLabel(item.category)}
                   </Badge>
                 </div>
               </div>
 
               {/* Card Content */}
-              <CardContent className="p-6 md:p-8 flex-1 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="space-y-1">
-                    <h2 className="text-xl font-black text-slate-800 uppercase italic tracking-tight font-display line-clamp-1 leading-tight group-hover:text-sky-750 transition-colors">
-                      {item.title}
-                    </h2>
-                    {item.subtitle && (
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wide line-clamp-1">
-                        {item.subtitle}
-                      </p>
-                    )}
-                  </div>
-                  <p className="text-slate-500 font-medium text-xs leading-relaxed line-clamp-3">
+              <CardContent className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                <div className="space-y-1.5">
+                  <h2 className="text-sm font-black text-slate-800 uppercase italic tracking-tight font-display line-clamp-1 leading-snug group-hover:text-emerald-700 transition-colors">
+                    {item.title}
+                  </h2>
+                  {item.subtitle && (
+                    <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-wide line-clamp-1 border-l-2 border-secondary pl-1.5 py-0.5">
+                      {item.subtitle}
+                    </p>
+                  )}
+                  <p className="text-slate-500 font-medium text-[11px] leading-relaxed line-clamp-2 pt-0.5">
                     {item.narrative}
                   </p>
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex items-center justify-end gap-3 pt-6 border-t border-slate-50 mt-6 shrink-0">
+                <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 mt-2 shrink-0">
                   <Button
                     onClick={() => handleEdit(item)}
                     variant="outline"
                     size="sm"
-                    className="h-9 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-[10px] uppercase tracking-wider flex items-center gap-1.5"
+                    className="h-8 px-2.5 rounded-lg border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-[10px] uppercase tracking-wider flex items-center gap-1"
                   >
-                    <Edit className="h-3.5 w-3.5" />
+                    <Edit className="h-3 w-3" />
                     <span>Edit</span>
                   </Button>
                   <Button
                     onClick={() => handleDelete(item.id, item.title)}
                     variant="destructive"
                     size="sm"
-                    className="h-9 rounded-xl font-bold text-[10px] uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-rose-600/5 hover:bg-rose-700"
+                    className="h-8 px-2.5 rounded-lg font-bold text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-sm hover:bg-rose-700"
                   >
-                    <Trash2 className="h-3.5 w-3.5" />
+                    <Trash2 className="h-3 w-3" />
                     <span>Hapus</span>
                   </Button>
                 </div>

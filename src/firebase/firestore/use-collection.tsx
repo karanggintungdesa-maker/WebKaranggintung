@@ -29,6 +29,7 @@ export interface UseCollectionResult<T> {
 export interface UseCollectionOptions {
   realtime?: boolean;
   cacheTtl?: number; // Cache duration in milliseconds (default: 30 seconds)
+  suppressGlobalError?: boolean;
 }
 
 /* Internal implementation of Query */
@@ -134,7 +135,9 @@ export function useCollection<T = any>(
             });
 
             setError(contextualError);
-            errorEmitter.emit('permission-error', contextualError);
+            if (!options?.suppressGlobalError) {
+              errorEmitter.emit('permission-error', contextualError);
+            }
           } else {
             setError(err);
           }
@@ -220,7 +223,9 @@ export function useCollection<T = any>(
             });
 
             setError(contextualError);
-            errorEmitter.emit('permission-error', contextualError);
+            if (!options?.suppressGlobalError) {
+              errorEmitter.emit('permission-error', contextualError);
+            }
           } else {
             setError(err);
           }

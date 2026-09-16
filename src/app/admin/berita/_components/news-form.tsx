@@ -14,16 +14,14 @@ import { useFirestore } from '@/firebase';
 import { News } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
-import { generateVillageNewsDraft } from '@/ai/flows/generate-village-news-flow';
+import { generateVillageNewsDraft } from '@/lib/gemini-client';
 import { getVideoEmbedUrl } from '@/lib/video-utils';
 import { NewsImageGrid } from '@/components/news-image-grid';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 interface NewsFormProps {
   initialData?: News | null;
 }
-
-const CLOUD_NAME = 'dgsxujjb1';
-const UPLOAD_PRESET = 'webdesa';
 
 export function NewsForm({ initialData }: NewsFormProps) {
   const [formData, setFormData] = useState({
@@ -146,22 +144,9 @@ export function NewsForm({ initialData }: NewsFormProps) {
 
     try {
       for (const file of files) {
-        const uploadFormData = new FormData();
         const processingFile = await compressImage(file);
-        uploadFormData.append('file', processingFile);
-        uploadFormData.append('upload_preset', UPLOAD_PRESET);
-
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-          method: 'POST',
-          body: uploadFormData,
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error?.message || 'Gagal mengunggah ke Cloudinary');
-        }
-        newUrls.push(data.secure_url);
+        const secureUrl = await uploadToCloudinary(processingFile, 'berita-desa');
+        newUrls.push(secureUrl);
       }
 
       setFormData(prev => {
@@ -232,21 +217,24 @@ export function NewsForm({ initialData }: NewsFormProps) {
     setIsGenerating(true);
     try {
       const draft = await generateVillageNewsDraft({
-        title: formData.title || 'Kegiatan Desa',
-        subtitle: formData.subtitle || 'Kegiatan masyarakat desa',
-        date: formData.date || 'Tanggal berita',
+        title: formData.title || 'Kegiatan Desa Karanggintung',
+        subtitle: formData.subtitle || 'Pembangunan dan Pelayanan Masyarakat',
+        date: formData.date || 'Hari ini',
         author: formData.author || 'Tim Media Desa',
       });
 
-      setFormData(prev => ({ ...prev, content: formatNewsContent(draft.content) }));
+      const formatted = formatNewsContent(draft.content);
+      setFormData(prev => ({ ...prev, content: formatted }));
+      
       toast({
-        title: 'Draft berita berhasil dibuat',
-        description: 'Isi berita telah diisi otomatis oleh Gemini sesuai judul dan tanggal yang Anda masukkan.',
+        title: 'Draft Berita Berhasil Dibuat',
+        description: 'Narasi berita telah dibuat otomatis oleh AI sesuai judul dan tanggal kegiatan.',
       });
     } catch (error: any) {
+      console.error("AI Generation Error:", error);
       toast({
         title: 'Gagal membuat berita AI',
-        description: error.message || 'Pastikan API Gemini sudah tersedia di lingkungan ini.',
+        description: error.message || 'Terjadi kesalahan saat memproses draft berita AI.',
         variant: 'destructive',
       });
     } finally {
@@ -362,7 +350,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
               <Label>Jenis Berita</Label>
               <Tabs
                 value={formData.mediaType}
-                onValueChange={(value) => setFormData((prev) => ({ ...prev, mediaType: value as 'photo' | 'video' }))}
+                onValueChange={(value: string) => setFormData((prev) => ({ ...prev, mediaType: value as 'photo' | 'video' }))}
                 className="w-full"
               >
                 <TabsList className="grid w-full grid-cols-2 gap-2 rounded-3xl border p-1">
@@ -429,7 +417,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                           <div key={idx} className="relative group aspect-square rounded-xl overflow-hidden border bg-white shadow-sm">
                             <img src={url} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
                             {idx === 0 && (
-                              <span className="absolute top-1.5 left-1.5 bg-sky-600 text-white text-[9px] font-bold uppercase px-2 py-0.5 rounded-full shadow">
+                              <span className="absolute top-1.5 left-1.5 bg-emerald-600 text-white text-[9px] font-bold uppercase px-2 py-0.5 rounded-full shadow">
                                 Utama
                               </span>
                             )}
@@ -491,7 +479,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                   <Input
                     type="url"
                     value={formData.videoUrl ?? ''}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, videoUrl: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, videoUrl: e.target.value }))}
                     placeholder="https://www.youtube.com/watch?v=..."
                     disabled={isSubmitting}
                     required
@@ -520,7 +508,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Checkbox
               id="isHeadline"
               checked={formData.isHeadline}
-              onCheckedChange={(checked) => setFormData(p => ({ ...p, isHeadline: !!checked }))}
+              onCheckedChange={(checked: boolean | 'indeterminate') => setFormData(p => ({ ...p, isHeadline: !!checked }))}
             />
             <Label htmlFor="isHeadline" className="flex items-center gap-2 cursor-pointer font-bold text-amber-900">
               <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
@@ -533,8 +521,8 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Input
               id="title"
               value={formData.title ?? ''}
-              onChange={e => setFormData(p => ({ ...p, title: e.target.value }))}
-              placeholder="Contoh: Musyawarah Desa Sidaurip 2026"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, title: e.target.value }))}
+              placeholder="Contoh: Musyawarah Desa Karanggintung 2026"
               required
             />
           </div>
@@ -544,7 +532,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Input
               id="subtitle"
               value={formData.subtitle ?? ''}
-              onChange={e => setFormData(p => ({ ...p, subtitle: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, subtitle: e.target.value }))}
               placeholder="Ringkasan singkat berita..."
             />
           </div>
@@ -554,7 +542,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Input
               id="date"
               value={formData.date ?? ''}
-              onChange={e => setFormData(p => ({ ...p, date: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, date: e.target.value }))}
               placeholder="Contoh: Jumat, 24 Apr 2026"
               required
             />
@@ -578,7 +566,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Textarea
               id="content"
               value={formData.content ?? ''}
-              onChange={e => setFormData(p => ({ ...p, content: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(p => ({ ...p, content: e.target.value }))}
               placeholder="Tulis narasi lengkap berita di sini..."
               rows={15}
             />
@@ -589,7 +577,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
             <Input
               id="author"
               value={formData.author ?? ''}
-              onChange={e => setFormData(p => ({ ...p, author: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, author: e.target.value }))}
               placeholder="Nama Penulis / Tim Media Desa"
               required
             />

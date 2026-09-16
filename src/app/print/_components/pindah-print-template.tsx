@@ -8,7 +8,7 @@ export function PindahPrintTemplate({ submission }: { submission: LetterSubmissi
   return (
     <PrintLayout submission={submission}>
       <p className="mt-8 text-justify leading-relaxed">
-        Yang bertanda tangan di bawah ini Kepala Desa Sidaurip, Kecamatan
+        Yang bertanda tangan di bawah ini Kepala Desa Karanggintung, Kecamatan
         Gandrungmangu, Kabupaten Cilacap, menerangkan bahwa:
       </p>
 
@@ -18,7 +18,7 @@ export function PindahPrintTemplate({ submission }: { submission: LetterSubmissi
           <DataRow label="NIK" value={formData.nik} />
           <DataRow label="Nomor KK" value={formData.kkNumber} />
           <DataRow label="Nama Kepala Keluarga" value={formData.kkHead} />
-          <DataRow label="Alamat Asal" value={`Desa Sidaurip, RT ${formData.currentAddressRt} / RW ${formData.currentAddressRw}, Kecamatan Gandrungmangu, Kabupaten Cilacap, Provinsi Jawa Tengah`} />
+          <DataRow label="Alamat Asal" value={`Desa Karanggintung, RT ${formData.currentAddressRt} / RW ${formData.currentAddressRw}, Kecamatan Gandrungmangu, Kabupaten Cilacap, Provinsi Jawa Tengah`} />
         </tbody>
       </table>
 

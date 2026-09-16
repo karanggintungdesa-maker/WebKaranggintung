@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview A Genkit tool for managing a sequential letter number counter in Firestore.
  */

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { summarizeVillageDocument } from '@/ai/flows/summarize-village-document-flow';
+import { summarizeVillageDocument } from '@/lib/gemini-client';
 import { Loader2, Wand2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -55,7 +55,7 @@ export function DocumentSummarizer() {
           placeholder="Salin dan tempel konten laporan atau surat di sini..."
           rows={8}
           value={documentText}
-          onChange={(e) => setDocumentText(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDocumentText(e.target.value)}
           disabled={isLoading}
         />
         <Button onClick={handleSummarize} disabled={isLoading}>

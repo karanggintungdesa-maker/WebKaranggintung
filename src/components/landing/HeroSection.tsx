@@ -2,41 +2,68 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { useMemoFirebase, useDoc, useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { ArrowRight, BarChart3, Building2, CheckCircle2, ChevronDown, FileText, Newspaper, Sparkles, Users } from 'lucide-react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useMemoFirebase, useDoc, useCollection, useFirestore } from '@/firebase';
+import { doc, collection, query, limit } from 'firebase/firestore';
+import {
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  ChevronRight,
+  FileText,
+  Home,
+  Landmark,
+  Leaf,
+  MapPin,
+  Megaphone,
+  MessageSquareWarning,
+  Newspaper,
+  Sprout,
+  Users,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useRef, useEffect, useState } from 'react';
 
-const floatingItems = [
-  { icon: FileText, label: 'Ajukan Surat', href: '/layanan-surat/' },
-  { icon: BarChart3, label: 'Cek Status Permohonan', href: '/layanan-surat/' },
-  { icon: Users, label: 'Statistik Desa', href: '/statistik/' },
-  { icon: Newspaper, label: 'Berita Desa', href: '/BeritaDesa/' },
-  { icon: Building2, label: 'Pengumuman', href: '/pengumuman/' },
-  { icon: Sparkles, label: 'Layanan Online', href: '/pelayanan-desa/' },
-];
+/* ────────────── Animated Counter ────────────── */
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-} as const;
+function AnimatedCounter({ target, suffix }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const [val, setVal] = useState('0');
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
-  },
-} as const;
+  useEffect(() => {
+    if (!inView) return;
+    const dur = 2000;
+    const t0 = performance.now();
+    let rafId: number;
+
+    const tick = (now: number) => {
+      const p = Math.min((now - t0) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      setVal(Math.round(e * target).toLocaleString('id-ID'));
+      if (p < 1) rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [inView, target]);
+
+  return (
+    <span ref={ref}>
+      {val}
+      {suffix && (
+        <span className="text-sm font-semibold text-slate-400 ml-0.5">{suffix}</span>
+      )}
+    </span>
+  );
+}
+
+/* ════════════════════════════════════════════════
+   Hero Section
+   ════════════════════════════════════════════════ */
 
 export function HeroSection() {
+  /* Firebase data */
   const firestore = useFirestore();
   const heroRef = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -44,130 +71,445 @@ export function HeroSection() {
   }, [firestore]);
 
   const { data: heroData } = useDoc<{ imageUrl?: string }>(heroRef);
-  const heroImageUrl = heroData?.imageUrl || 'https://images.unsplash.com/photo-1602989106211-81de671c23a9?q=80&w=2000';
+  const heroImageUrl =
+    heroData?.imageUrl ||
+    'https://images.unsplash.com/photo-1602989106211-81de671c23a9?q=80&w=2000';
+
+  /* Village statistics from Firestore / Karanggintung profile */
+  const statsRef = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'villageProfile', 'statistics');
+  }, [firestore]);
+  const { data: statsDoc } = useDoc<any>(statsRef);
+
+  const potentialsQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'potensiDesa'), limit(100));
+  }, [firestore]);
+  const { data: potensiList } = useCollection(potentialsQuery);
+
+  const statsItems = [
+    {
+      icon: Users,
+      value: 9746,
+      label: 'Penduduk',
+    },
+    {
+      icon: Home,
+      value: 5,
+      label: 'Dusun',
+    },
+    {
+      icon: MapPin,
+      value: 988,
+      label: 'Luas Wilayah',
+      suffix: ' ha',
+    },
+    {
+      icon: Sprout,
+      value: (potensiList && potensiList.length >= 4) ? potensiList.length : 4,
+      label: 'Potensi Desa',
+    },
+  ];
+
+  /* Scroll-based parallax */
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
 
   return (
-    <section className="relative isolate overflow-hidden bg-slate-950">
-      <div className="absolute inset-0">
-        <Image
-          src={heroImageUrl}
-          alt="Pemandangan desa Sidaurip"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden bg-gradient-to-br from-green-50/80 via-white to-emerald-50/30"
+    >
+      {/* ═══ Background Image — parallax + camera push-in ═══ */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+        <div className="absolute inset-[-4%] hero-camera-push">
+          <Image
+            src={heroImageUrl}
+            alt="Pemandangan desa Karanggintung"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </motion.div>
+
+      {/* ═══ Gradient Overlays — text-readability on left, vivid landscape on right ═══ */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/[0.95] via-white/[0.80] via-[50%] to-white/[0.08]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white/[0.85] via-transparent to-white/[0.15]" />
+      <div className="absolute inset-0 bg-emerald-50/15" />
+
+      {/* ═══ Decorative Clouds — gentle drift ═══ */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="hero-cloud-drift absolute top-[6%] left-[8%] w-72 h-16 bg-white/40 rounded-full blur-3xl" />
+        <div className="hero-cloud-drift-reverse absolute top-[4%] right-[12%] w-96 h-12 bg-white/30 rounded-full blur-3xl" />
+        <div className="hero-cloud-drift absolute top-[10%] left-[45%] w-56 h-10 bg-white/35 rounded-full blur-2xl" />
       </div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_40%),linear-gradient(100deg,rgba(2,6,23,0.82)_0%,rgba(2,6,23,0.63)_45%,rgba(6,78,59,0.55)_100%)]" />
-      <div className="relative mx-auto flex min-h-[84vh] max-w-7xl items-center px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl"
-          >
-            <motion.div variants={itemVariants} className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-300/30 bg-white/12 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-sky-100 backdrop-blur-sm">
-              <Sparkles className="h-4 w-4" />
-              Selamat Datang di Portal Desa Digital
-            </motion.div>
-            <motion.h2 variants={itemVariants} className="text-4xl font-bold uppercase tracking-[0.08em] text-amber-300 sm:text-5xl lg:text-7xl">
-              DESA SIDAURIP
-            </motion.h2>
-            <motion.p variants={itemVariants} className="mt-2 text-sm font-semibold uppercase tracking-[0.35em] text-sky-100 sm:text-base">
-              KECAMATAN GANDRUNGMANGU
-            </motion.p>
-            <motion.h1 variants={itemVariants} className="mt-6 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl lg:leading-[1.05]">
-              Melayani masyarakat dengan cepat, mudah, dan transparan.
-            </motion.h1>
-            <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
-              Portal resmi Pemerintah Desa Sidaurip yang menghubungkan masyarakat dengan layanan administrasi, informasi desa, statistik, berita, pengumuman, dan layanan digital dalam satu platform yang modern.
-            </motion.p>
-            <motion.div variants={itemVariants} className="mt-6 inline-flex items-center gap-2.5 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-2.5 text-sm font-medium text-amber-300 backdrop-blur-sm">
-              <span className="inline-flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-              <span>Seluruh pelayanan administrasi di Desa Sidaurip adalah <strong className="font-semibold text-amber-200">GRATIS</strong>.</span>
-            </motion.div>
-            <motion.div variants={itemVariants} className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/layanan-surat/" aria-label="Ajukan layanan desa">
-                <Button className="h-12 rounded-full bg-amber-400 px-7 text-base font-semibold text-slate-950 shadow-[0_20px_45px_rgba(250,204,21,0.25)] transition-all duration-300 hover:-translate-y-1 hover:bg-amber-300">
-                  Ajukan Layanan
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/profil-desa/" aria-label="Lihat profil desa">
-                <Button variant="outline" className="h-12 rounded-full border-white/25 bg-white/10 px-7 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/15">
-                  Profil Desa
-                </Button>
-              </Link>
-            </motion.div>
-            <motion.div variants={itemVariants} className="mt-10 flex items-center gap-3 text-sm font-medium text-slate-300">
-              <span className="inline-flex h-2.5 w-2.5 rounded-full bg-sky-400" />
-              Akses cepat, aman, dan responsif untuk semua kebutuhan administrasi masyarakat.
-            </motion.div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto w-full max-w-xl"
-          >
-            <div className="rounded-[2rem] border border-white/15 bg-white/12 p-5 shadow-[0_20px_80px_rgba(2,6,23,0.35)] backdrop-blur-xl">
-              <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/40 p-6 sm:p-8">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-500/20 text-sky-300">
-                    <CheckCircle2 className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Fokus Layanan</p>
-                    <p className="text-lg font-semibold text-white">Portal pelayanan masyarakat</p>
-                  </div>
-                </div>
+      {/* ═══ Left Decorative Leaf Accent (daun.png) — Scaled & tucked to edge to never overlap text ═══ */}
+      <motion.div
+        initial={{ opacity: 0, x: -30, rotate: 0 }}
+        animate={{ opacity: 1, x: 0, rotate: 16 }}
+        transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute -left-8 sm:-left-10 md:-left-12 lg:-left-14 xl:-left-16 top-[60%] sm:top-[58%] md:top-[56%] -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 pointer-events-none select-none z-0 drop-shadow-md"
+        aria-hidden="true"
+      >
+        <div className="relative w-full h-full">
+          <Image
+            src="/daun.png"
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100px, 160px"
+            className="object-contain"
+            priority
+          />
+        </div>
+      </motion.div>
 
-                <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {floatingItems.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link key={item.label} href={item.href} className="block">
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 + index * 0.04, duration: 0.35 }}
-                          whileHover={{ scale: 1.03, y: -3, backgroundColor: 'rgba(255,255,255,0.14)', borderColor: 'rgba(255,255,255,0.2)' }}
-                          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 p-3 text-sm text-slate-200 cursor-pointer transition-colors duration-200 h-full"
-                        >
-                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/12 text-sky-300">
-                            <Icon className="h-4 w-4" />
-                          </div>
-                          <span className="font-medium">{item.label}</span>
-                        </motion.div>
-                      </Link>
-                    );
-                  })}
+      {/* ═══════════════════ Main Content ═══════════════════ */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex min-h-[92vh] sm:min-h-[88vh] lg:min-h-[90vh] flex-col justify-center pt-20 pb-16 sm:pt-20 sm:pb-24 lg:pt-16 lg:pb-24">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] xl:gap-12">
+
+            {/* ═══════════ LEFT COLUMN — Text & CTA ═══════════ */}
+            <div className="max-w-xl lg:max-w-2xl">
+              {/* 1. Sub-judul Atas with animated expanding accent line */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="mb-3 sm:mb-3.5 flex items-center gap-2.5"
+              >
+                <motion.span
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 32, opacity: 1 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="h-[2.5px] rounded-full bg-emerald-500 block shrink-0"
+                />
+                <motion.span
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.05, ease: 'easeOut' }}
+                  className="text-[11px] font-bold uppercase tracking-[0.25em] text-emerald-700"
+                >
+                  Selamat Datang di Portal Desa Digital
+                </motion.span>
+              </motion.div>
+
+              {/* 2. Judul Utama: Desa Karanggintung (0.15s delay, slide up 20px, 0.8s duration) */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display font-extrabold tracking-tight leading-[1.05]"
+              >
+                <span className="block text-4xl sm:text-5xl lg:text-6xl text-slate-900">
+                  Desa
+                </span>
+                <span className="relative inline-flex items-center text-4xl sm:text-5xl lg:text-[3.8rem] xl:text-[4.3rem] bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-700 bg-clip-text text-transparent">
+                  Karanggintung
+                  <Leaf className="inline-block ml-2 sm:ml-3 h-7 w-7 sm:h-9 sm:w-9 lg:h-11 lg:w-11 text-emerald-600 fill-emerald-500/30 -rotate-12 transform" />
+                </span>
+              </motion.h1>
+
+              {/* 3. Sub-judul Bawah (Soft fade in) */}
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+                className="mt-1.5 text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-emerald-700/80"
+              >
+                Kecamatan Gandrungmangu&ensp;•&ensp;Kabupaten Cilacap
+              </motion.p>
+
+              {/* 4. Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-3.5 sm:mt-4 max-w-lg text-[14px] sm:text-[14.5px] leading-relaxed text-slate-600/95"
+              >
+                Melayani masyarakat dengan cepat, mudah, dan transparan
+                melalui layanan digital, informasi desa, statistik, berita,
+                dan potensi yang memperkuat pembangunan desa.
+              </motion.p>
+
+              {/* 5. CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3"
+              >
+                <Link href="/layanan-surat/" aria-label="Ajukan layanan desa">
+                  <Button className="hero-btn-sweep group h-10 sm:h-12 rounded-full bg-emerald-700 hover:bg-emerald-600 px-5 sm:px-7 text-sm sm:text-[14.5px] font-semibold text-white shadow-[0_8px_24px_rgba(5,150,105,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(5,150,105,0.34)]">
+                    Ajukan Layanan
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+                <Link href="/profil-desa/" aria-label="Lihat profil desa">
+                  <Button
+                    variant="outline"
+                    className="h-10 sm:h-12 rounded-full border-2 border-emerald-300/80 bg-white/80 px-5 sm:px-7 text-sm sm:text-[14.5px] font-semibold text-emerald-800 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400 hover:bg-white hover:shadow-lg"
+                  >
+                    <Landmark className="mr-2 h-4 w-4 text-emerald-600" />
+                    Profil Desa
+                  </Button>
+                </Link>
+              </motion.div>
+
+              {/* Mobile quick-links grid (hidden on lg+) */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 grid grid-cols-2 gap-2.5 lg:hidden"
+              >
+                {[
+                  { href: '/statistik/', icon: BarChart3, label: 'Statistik Desa', color: 'bg-emerald-50 text-emerald-700' },
+                  { href: '/BeritaDesa/', icon: Newspaper, label: 'Berita Terkini', color: 'bg-teal-50 text-teal-700' },
+                  { href: '/pengaduan/', icon: MessageSquareWarning, label: 'Layanan Pengaduan', color: 'bg-amber-50 text-amber-700' },
+                  { href: '/pengumuman/', icon: CheckCircle2, label: 'Pengumuman', color: 'bg-violet-50 text-violet-700' },
+                ].map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <div className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 border border-slate-100 bg-white shadow-sm hover:shadow-md transition-all`}>
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${item.color}`}>
+                        <item.icon className="h-4 w-4" />
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-700 leading-tight">{item.label}</span>
+                    </div>
+                  </Link>
+                ))}
+              </motion.div>
+
+              {/* ── Statistics Row ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 sm:mt-7 grid grid-cols-2 gap-y-3 gap-x-4 sm:grid-cols-4 sm:gap-x-5 pt-3.5 border-t border-emerald-100/60"
+              >
+                {statsItems.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={s.label} className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100/70 text-emerald-700">
+                        <Icon className="h-3.5 w-3.5" />
+                      </div>
+                      <div>
+                        <p className="text-sm sm:text-lg font-extrabold tabular-nums leading-tight text-slate-800">
+                          <AnimatedCounter target={s.value} suffix={s.suffix} />
+                        </p>
+                        <p className="text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                          {s.label}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+
+              {/* ── Bottom Tagline — hidden on mobile ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                className="hidden sm:flex mt-6 sm:mt-7 items-center gap-3 z-30"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-800">
+                  <Leaf className="h-5 w-5 stroke-[2.2] text-emerald-800 fill-emerald-700/20" />
                 </div>
-              </div>
+                <div className="h-6 w-[1.5px] bg-emerald-800/40 rounded-full" />
+                <p className="text-[12px] sm:text-[13px] font-semibold text-emerald-950/90 leading-snug">
+                  Membangun Desa, Menguatkan Masyarakat
+                  <br />
+                  <span className="text-emerald-900/80 font-medium">Menuju Karanggintung yang Lebih Sejahtera</span>
+                </p>
+              </motion.div>
             </div>
-          </motion.div>
+
+            {/* ═══════════ RIGHT COLUMN — Mascot (desktop only) ═══════════ */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-auto hidden lg:flex w-full max-w-[580px] h-[640px] xl:h-[700px] items-end justify-end"
+            >
+
+              {/* ── Floating Card 1: Lihat Statistik Desa (Top Right) ── */}
+              <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="hero-float-a absolute top-12 sm:top-10 right-2 sm:right-4 lg:right-6 z-30"
+              >
+                <Link
+                  href="/statistik/"
+                  className="group flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-md px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl shadow-emerald-500/10 border border-white/90 transition-all duration-300 hover:shadow-2xl hover:bg-white"
+                >
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+                    <BarChart3 className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Lihat
+                    </span>
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Statistik Desa
+                    </span>
+                  </div>
+                  <ChevronRight className="ml-0.5 h-3.5 w-3.5 text-slate-400 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+              </motion.div>
+
+              {/* ── Floating Card 2: Ajukan Layanan Online (Upper Left) ── */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="hero-float-b absolute top-[18%] sm:top-[16%] -left-2 sm:-left-4 lg:-left-10 z-30"
+              >
+                <Link
+                  href="/layanan-surat/"
+                  className="group flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-md px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl shadow-emerald-500/10 border border-white/90 transition-all duration-300 hover:shadow-2xl hover:bg-white"
+                >
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                    <FileText className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Ajukan
+                    </span>
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Layanan Online
+                    </span>
+                  </div>
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white ml-1">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* ── Floating Card 3: Berita Terkini (Middle Right) ── */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                className="hero-float-c absolute top-[32%] sm:top-[30%] -right-2 sm:right-0 lg:-right-6 z-30"
+              >
+                <Link
+                  href="/BeritaDesa/"
+                  className="group flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-md px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl shadow-teal-500/10 border border-white/90 transition-all duration-300 hover:shadow-2xl hover:bg-white"
+                >
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-teal-500 text-white shadow-sm">
+                    <Newspaper className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Berita
+                    </span>
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Terkini
+                    </span>
+                  </div>
+                  <ChevronRight className="ml-0.5 h-3.5 w-3.5 text-slate-400 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+              </motion.div>
+
+              {/* ── Floating Card 4: Layanan Pengaduan (Lower Left) ── */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="hero-float-d absolute top-[48%] sm:top-[46%] -left-2 sm:-left-4 lg:-left-8 z-30"
+              >
+                <Link
+                  href="/pengaduan/"
+                  className="group flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-md px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl shadow-amber-500/10 border border-white/90 transition-all duration-300 hover:shadow-2xl hover:bg-white"
+                >
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white shadow-sm">
+                    <MessageSquareWarning className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Layanan
+                    </span>
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Pengaduan
+                    </span>
+                  </div>
+                  <ChevronRight className="ml-0.5 h-3.5 w-3.5 text-slate-400 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+              </motion.div>
+
+              {/* ── Floating Card 5: Pengumuman (Bottom Right) ── */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+                className="hero-float-b absolute top-[62%] sm:top-[60%] -right-2 sm:right-0 lg:-right-6 z-30"
+              >
+                <Link
+                  href="/pengumuman/"
+                  className="group flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-md px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl shadow-violet-500/10 border border-white/90 transition-all duration-300 hover:shadow-2xl hover:bg-white"
+                >
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-violet-500 text-white shadow-sm">
+                    <Megaphone className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Pengumuman
+                    </span>
+                    <span className="block text-[11px] font-bold leading-tight text-slate-800">
+                      Desa
+                    </span>
+                  </div>
+                  <ChevronRight className="ml-0.5 h-3.5 w-3.5 text-slate-400 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+              </motion.div>
+
+              {/* ── 3D Officer Mascot Character — Animated Floating & Glow ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute -bottom-12 sm:-bottom-16 lg:-bottom-24 xl:-bottom-28 right-0 sm:right-2 lg:right-4 z-10 w-[340px] sm:w-[420px] md:w-[480px] lg:w-[540px] xl:w-[600px] h-[520px] sm:h-[620px] lg:h-[700px] xl:h-[780px] flex items-end justify-center pointer-events-none select-none"
+              >
+                <div className="relative w-full h-full hero-mascot-anim flex items-end justify-center">
+                  <Image
+                    src="https://res.cloudinary.com/dxta8rrlz/image/upload/v1789468618/webdesa/hero_character_animated.webp"
+                    alt="Petugas Desa Digital Karanggintung"
+                    width={540}
+                    height={960}
+                    priority
+                    unoptimized
+                    className="object-contain object-bottom w-full h-full relative z-0"
+                  />
+                  {/* Subtle tablet screen glow */}
+                  <div className="hero-tablet-shine" aria-hidden="true" />
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 z-20">
-        <div className="flex flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em]">
-          <span>Scroll</span>
-          <ChevronDown className="h-4 w-4 animate-bounce" />
+      {/* ═══ Bottom Flowing Organic Wave Element (In Front of Mascot Legs) ═══ */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 sm:h-44 lg:h-56 xl:h-64 w-full pointer-events-none overflow-hidden z-20 select-none">
+        <div className="relative w-full h-full">
+          <Image
+            src="/hero-bottom-wave.svg"
+            alt=""
+            fill
+            className="object-cover object-bottom"
+            priority
+          />
         </div>
-      </div>
-
-      {/* Smooth Curved Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 w-full pointer-events-none overflow-hidden z-10">
-        <svg
-          className="absolute bottom-0 w-full h-16 text-slate-50 fill-current"
-          viewBox="0 0 1440 100"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M0,50 C480,100 960,100 1440,50 L1440,100 L0,100 Z" />
-        </svg>
       </div>
     </section>
   );

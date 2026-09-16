@@ -124,10 +124,10 @@ export function ImportantNumbersSettingsForm() {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Main Service Phone Number */}
-          <div className="p-5 rounded-2xl bg-sky-50/70 border border-sky-100 space-y-3">
+          <div className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-100 space-y-3">
             <Label htmlFor="service-phone" className="font-bold text-slate-800 flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary" />
-              Nomor Utama Pelayanan Desa Sidaurip
+              Nomor Utama Pelayanan Desa Karanggintung
             </Label>
             <Input
               id="service-phone"
@@ -171,7 +171,7 @@ export function ImportantNumbersSettingsForm() {
               {contacts.map((contact, index) => (
                 <div
                   key={contact.id || index}
-                  className="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3 transition-all hover:border-sky-300"
+                  className="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3 transition-all hover:border-emerald-300"
                 >
                   <div className="flex-1 space-y-1">
                     <Label className="text-[10px] uppercase font-bold text-slate-400">Label Kontak</Label>
@@ -181,49 +181,49 @@ export function ImportantNumbersSettingsForm() {
                       value={contact.label}
                       onChange={(e) => handleContactChange(index, 'label', e.target.value)}
                       disabled={isSaving}
-                      className="h-10 text-sm font-bold"
+                      className="bg-white text-xs font-bold"
                     />
                   </div>
 
-                  <div className="w-full md:w-48 space-y-1">
-                    <Label className="text-[10px] uppercase font-bold text-slate-400">Nomor Telepon/WA</Label>
+                  <div className="flex-1 space-y-1">
+                    <Label className="text-[10px] uppercase font-bold text-slate-400">Nomor Telepon/HP</Label>
                     <Input
                       type="text"
-                      placeholder="08..."
+                      placeholder="Nomor Telepon"
                       value={contact.number}
                       onChange={(e) => handleContactChange(index, 'number', e.target.value)}
                       disabled={isSaving}
-                      className="h-10 text-sm font-mono font-bold"
+                      className="bg-white font-mono text-xs font-bold"
                     />
                   </div>
 
-                  <div className="w-full md:w-48 space-y-1">
+                  <div className="w-full md:w-[150px] space-y-1">
                     <Label className="text-[10px] uppercase font-bold text-slate-400">Kategori</Label>
                     <Select
                       value={contact.category}
-                      onValueChange={(val: any) => handleContactChange(index, 'category', val)}
+                      onValueChange={(val) => handleContactChange(index, 'category', val)}
                       disabled={isSaving}
                     >
-                      <SelectTrigger className="h-10 text-xs font-bold">
-                        <SelectValue placeholder="Kategori" />
+                      <SelectTrigger className="bg-white text-xs font-bold h-10">
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="pemerintah">Pemerintahan</SelectItem>
-                        <SelectItem value="keamanan">Keamanan & Ketertiban</SelectItem>
-                        <SelectItem value="kesehatan">Kesehatan</SelectItem>
-                        <SelectItem value="wilayah">Kepala Dusun</SelectItem>
+                        <SelectItem value="pemerintah" className="text-xs font-bold">Pemerintahan</SelectItem>
+                        <SelectItem value="keamanan" className="text-xs font-bold">Keamanan</SelectItem>
+                        <SelectItem value="kesehatan" className="text-xs font-bold">Kesehatan</SelectItem>
+                        <SelectItem value="wilayah" className="text-xs font-bold">Kepala Dusun</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  <div className="flex items-end justify-end md:self-end pb-0.5">
+                  <div className="pt-2 md:pt-5 flex justify-end">
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
                       onClick={() => handleDeleteContact(index)}
-                      disabled={isSaving}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50 rounded-xl h-10 w-10 shrink-0"
+                      disabled={isSaving || contacts.length <= 1}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50 rounded-xl"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -236,7 +236,7 @@ export function ImportantNumbersSettingsForm() {
           <Button
             type="submit"
             disabled={isSaving}
-            className="w-full md:w-auto h-12 px-8 rounded-xl font-bold bg-primary text-white shadow-lg shadow-primary/20 hover:bg-sky-800"
+            className="w-full md:w-auto h-12 px-8 rounded-xl font-bold bg-primary text-white shadow-lg shadow-primary/20 hover:bg-emerald-800"
           >
             {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Simpan Nomor Penting

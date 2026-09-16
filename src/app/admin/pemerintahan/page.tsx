@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -14,26 +13,17 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, UserPlus, FileUp, UserCircle2, ShieldCheck, Landmark } from 'lucide-react';
+import { Edit, Trash2, UserPlus, FileUp, UserCircle2, ShieldCheck, Landmark, ShieldAlert, HeartHandshake } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
-import { OfficialForm } from './_components/official-form';
+import { OfficialForm, OfficialCategory, Official } from './_components/official-form';
 import { ImportOfficialDialog } from './_components/import-official-dialog';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-type Official = {
-  id: string;
-  name: string;
-  position: string;
-  imageUrl?: string;
-  category: 'perangkat' | 'bpd' | 'rtrw';
-};
 
 export default function AdminPemerintahanPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'perangkat' | 'bpd' | 'rtrw'>('perangkat');
+  const [activeTab, setActiveTab] = useState<OfficialCategory>('perangkat');
   const [editingOfficial, setEditingOfficial] = useState<Official | null>(null);
   
   const firestore = useFirestore();
@@ -50,7 +40,7 @@ export default function AdminPemerintahanPage() {
   const { data: officials, isLoading } = useCollection<Official>(officialsQuery);
 
   const processedData = useMemo(() => {
-    if (!officials) return { perangkat: [], bpd: [], rtrw: [] };
+    if (!officials) return { perangkat: [], bpd: [], rtrw: [], linmas: [], posyandu: [] };
 
     const getPerangkatRank = (pos: string) => {
       const p = pos.toLowerCase();
@@ -91,7 +81,36 @@ export default function AdminPemerintahanPage() {
         return parseInt(rtA) - parseInt(rtB);
       });
 
-    return { perangkat, bpd, rtrw };
+    const linmas = [...officials]
+      .filter(o => o.category === 'linmas')
+      .sort((a, b) => {
+        const getLinmasRank = (pos: string) => {
+          const p = pos.toLowerCase();
+          if (p.includes('danton') || p.includes('komandan pleton') || p.includes('kepala')) return 1;
+          if (p.includes('danru') || p.includes('komandan regu') || p.includes('wakil')) return 2;
+          return 3;
+        };
+        const rankDiff = getLinmasRank(a.position) - getLinmasRank(b.position);
+        if (rankDiff !== 0) return rankDiff;
+        return a.name.localeCompare(b.name);
+      });
+
+    const posyandu = [...officials]
+      .filter(o => o.category === 'posyandu')
+      .sort((a, b) => {
+        const getPosyanduRank = (pos: string) => {
+          const p = pos.toLowerCase();
+          if (p.includes('ketua') || p.includes('koordinator')) return 1;
+          if (p.includes('sekretaris')) return 2;
+          if (p.includes('bendahara')) return 3;
+          return 4;
+        };
+        const rankDiff = getPosyanduRank(a.position) - getPosyanduRank(b.position);
+        if (rankDiff !== 0) return rankDiff;
+        return a.name.localeCompare(b.name);
+      });
+
+    return { perangkat, bpd, rtrw, linmas, posyandu };
   }, [officials]);
 
   const handleDelete = async (id: string) => {
@@ -101,6 +120,16 @@ export default function AdminPemerintahanPage() {
       toast({ title: "Data Dihapus" });
     } catch (e: any) {
       toast({ title: "Gagal Menghapus", variant: "destructive" });
+    }
+  };
+
+  const getTabLabel = (tab: OfficialCategory) => {
+    switch (tab) {
+      case 'perangkat': return 'Perangkat Desa';
+      case 'bpd': return 'BPD Desa';
+      case 'rtrw': return 'RT / RW';
+      case 'linmas': return 'Satuan Linmas';
+      case 'posyandu': return 'Kader Posyandu';
     }
   };
 
@@ -116,32 +145,38 @@ export default function AdminPemerintahanPage() {
   return (
     <>
       <PageHeader
-        title="Pemerintahan Desa"
-        description="Manajemen hierarki pengurus desa sesuai standar struktur organisasi."
+        title="Pemerintahan & Kelembagaan Desa"
+        description="Manajemen pengurus Perangkat Desa, BPD, RT/RW, Satuan Linmas, dan Kader Posyandu Desa Karanggintung."
       />
 
-      <Tabs defaultValue="perangkat" className="w-full space-y-8" onValueChange={(v) => setActiveTab(v as any)}>
+      <Tabs defaultValue="perangkat" className="w-full space-y-8" onValueChange={(v) => setActiveTab(v as OfficialCategory)}>
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <TabsList className="bg-slate-100 p-1 rounded-2xl h-auto flex-wrap justify-start shadow-inner">
-            <TabsTrigger value="perangkat" className="rounded-xl px-6 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
-               <UserCircle2 className="mr-2 h-4 w-4" /> Perangkat Desa
+          <TabsList className="bg-slate-100 p-1.5 rounded-2xl h-auto flex-wrap justify-start shadow-inner gap-1">
+            <TabsTrigger value="perangkat" className="rounded-xl px-5 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
+               <UserCircle2 className="mr-2 h-4 w-4 text-emerald-600" /> Perangkat Desa
             </TabsTrigger>
-            <TabsTrigger value="bpd" className="rounded-xl px-6 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
-               <ShieldCheck className="mr-2 h-4 w-4" /> BPD Desa
+            <TabsTrigger value="bpd" className="rounded-xl px-5 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
+               <ShieldCheck className="mr-2 h-4 w-4 text-blue-600" /> BPD Desa
             </TabsTrigger>
-            <TabsTrigger value="rtrw" className="rounded-xl px-6 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
-               <Landmark className="mr-2 h-4 w-4" /> RT / RW
+            <TabsTrigger value="rtrw" className="rounded-xl px-5 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
+               <Landmark className="mr-2 h-4 w-4 text-amber-600" /> RT / RW
+            </TabsTrigger>
+            <TabsTrigger value="posyandu" className="rounded-xl px-5 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
+               <HeartHandshake className="mr-2 h-4 w-4 text-rose-600" /> Kader Posyandu
+            </TabsTrigger>
+            <TabsTrigger value="linmas" className="rounded-xl px-5 py-3 font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-white data-[state=active]:shadow-sm">
+               <ShieldAlert className="mr-2 h-4 w-4 text-amber-600" /> Satuan Linmas
             </TabsTrigger>
           </TabsList>
 
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setIsImportOpen(true)} className="rounded-xl font-bold h-11 px-6">
+            <Button variant="outline" size="sm" onClick={() => setIsImportOpen(true)} className="rounded-xl font-bold h-11 px-5 border-slate-200">
               <FileUp className="mr-2 h-4 w-4" />
-              Impor {activeTab.toUpperCase()}
+              Impor {getTabLabel(activeTab)}
             </Button>
-            <Button size="sm" onClick={() => { setEditingOfficial(null); setIsFormOpen(true); }} className="bg-primary hover:bg-slate-800 rounded-xl font-bold h-11 px-6">
+            <Button size="sm" onClick={() => { setEditingOfficial(null); setIsFormOpen(true); }} className="bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold h-11 px-5 shadow-md shadow-emerald-700/20">
               <UserPlus className="mr-2 h-4 w-4" />
-              Tambah Manual
+              Tambah {getTabLabel(activeTab)}
             </Button>
           </div>
         </div>
@@ -176,12 +211,37 @@ export default function AdminPemerintahanPage() {
             isRtrw
           />
         </TabsContent>
+
+        <TabsContent value="posyandu" className="space-y-4 outline-none">
+          <div className="p-4 bg-rose-50 border border-rose-100 rounded-2xl text-[10px] font-bold text-rose-800 uppercase tracking-widest mb-6">
+            Kader Posyandu Desa Karanggintung untuk pelayanan kesehatan balita, ibu hamil, dan lansia.
+          </div>
+          <OfficialTable 
+            data={processedData.posyandu} 
+            isLoading={isLoading} 
+            onEdit={(o) => { setEditingOfficial(o); setIsFormOpen(true); }} 
+            onDelete={handleDelete}
+          />
+        </TabsContent>
+
+        <TabsContent value="linmas" className="space-y-4 outline-none">
+          <div className="p-4 bg-amber-50 border border-amber-100 rounded-2xl text-[10px] font-bold text-amber-800 uppercase tracking-widest mb-6">
+            Satuan Perlindungan Masyarakat (Satlinmas) Desa Karanggintung untuk menjaga ketertiban, keamanan, dan perlindungan warga.
+          </div>
+          <OfficialTable 
+            data={processedData.linmas} 
+            isLoading={isLoading} 
+            onEdit={(o) => { setEditingOfficial(o); setIsFormOpen(true); }} 
+            onDelete={handleDelete}
+          />
+        </TabsContent>
       </Tabs>
 
       <OfficialForm 
         open={isFormOpen} 
         onOpenChange={setIsFormOpen} 
         official={editingOfficial} 
+        defaultCategory={activeTab}
       />
       <ImportOfficialDialog 
         open={isImportOpen} 
@@ -212,7 +272,7 @@ function OfficialTable({
           <TableRow>
             <TableHead className="pl-8 h-14 font-black uppercase text-[10px] tracking-widest text-slate-400">Foto</TableHead>
             <TableHead className="h-14 font-black uppercase text-[10px] tracking-widest text-slate-400">Nama Lengkap</TableHead>
-            <TableHead className="h-14 font-black uppercase text-[10px] tracking-widest text-slate-400">Jabatan / Posisi</TableHead>
+            <TableHead className="h-14 font-black uppercase text-[10px] tracking-widest text-slate-400">Jabatan / Peran</TableHead>
             <TableHead className="text-right pr-8 h-14 font-black uppercase text-[10px] tracking-widest text-slate-400">Kelola</TableHead>
           </TableRow>
         </TableHeader>
@@ -223,7 +283,7 @@ function OfficialTable({
             ))
           ) : data.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={4} className="h-32 text-center text-slate-400 font-medium italic">Data belum tersedia.</TableCell>
+              <TableCell colSpan={4} className="h-32 text-center text-slate-400 font-medium italic">Data belum tersedia. Klik tombol Tambah untuk menambahkan data baru.</TableCell>
             </TableRow>
           ) : (
             data.map((official, idx) => {
@@ -251,7 +311,7 @@ function OfficialTable({
                     <TableCell className="pl-8">
                        <div className="h-10 w-10 rounded-xl overflow-hidden border bg-muted">
                           {official.imageUrl ? (
-                            <img src={official.imageUrl} className="h-full w-full object-cover" />
+                            <img src={official.imageUrl} alt={official.name} className="h-full w-full object-cover" />
                           ) : (
                             <div className="h-full w-full flex items-center justify-center">
                                <UserCircle2 className="h-5 w-5 text-muted-foreground" />
@@ -264,19 +324,19 @@ function OfficialTable({
                     </TableCell>
                     <TableCell>
                       <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter ${
-                        official.position.toLowerCase().includes('ketua') 
-                        ? 'bg-sky-100 text-sky-700' 
-                        : 'bg-slate-100 text-slate-500'
+                        official.position.toLowerCase().includes('ketua') || official.position.toLowerCase().includes('danton') || official.position.toLowerCase().includes('kepala')
+                        ? 'bg-emerald-100 text-emerald-800' 
+                        : 'bg-slate-100 text-slate-600'
                       }`}>
                         {official.position}
                       </span>
                     </TableCell>
                     <TableCell className="text-right pr-8">
                       <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl border-slate-200 hover:text-blue-600" onClick={() => onEdit(official)}>
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl border-slate-200 hover:text-emerald-700 hover:border-emerald-300" onClick={() => onEdit(official)}>
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-red-600" onClick={() => onDelete(official.id)}>
+                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-slate-400 hover:text-red-600" onClick={() => official.id && onDelete(official.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

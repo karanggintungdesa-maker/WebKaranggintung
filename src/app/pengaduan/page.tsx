@@ -39,7 +39,7 @@ export default function PengaduanPage() {
                 Pengaduan Warga
               </h1>
               <p className="text-sm text-slate-500 font-medium mt-1">
-                Sampaikan keluhan dan masukan Anda untuk kemajuan Desa Sidaurip.
+                Sampaikan keluhan dan masukan Anda untuk kemajuan Desa Karanggintung.
               </p>
             </div>
           </div>

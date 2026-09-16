@@ -123,7 +123,7 @@ export function ResidentList() {
         'Alamat': r.address || '',
         'RT': r.rt || '',
         'RW': r.rw || '',
-        'Kelurahan/Desa': r.kelurahan || 'Sidaurip',
+        'Kelurahan/Desa': r.kelurahan || 'Karanggintung',
         'Nama Ayah': r.fatherName || '',
         'Nama Ibu': r.motherName || '',
       }));
@@ -132,7 +132,7 @@ export function ResidentList() {
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Data Penduduk');
 
-      const fileName = `Data_Penduduk_Desa_Sidaurip_${new Date().toISOString().split('T')[0]}.xlsx`;
+      const fileName = `Data_Penduduk_Desa_Karanggintung_${new Date().toISOString().split('T')[0]}.xlsx`;
       XLSX.writeFile(workbook, fileName);
 
       toast({
@@ -168,10 +168,10 @@ export function ResidentList() {
       pdf.setFont('helvetica', 'bold');
       pdf.text('PEMERINTAH KABUPATEN CILACAP', 148, 14, { align: 'center' });
       pdf.setFontSize(12);
-      pdf.text('KECAMATAN GANDRUNGMANGU - DESA SIDAURIP', 148, 20, { align: 'center' });
+      pdf.text('KECAMATAN GANDRUNGMANGU - DESA KARANGGINTUNG', 148, 20, { align: 'center' });
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('LAPORAN DATA KEPENDUDUKAN DESA SIDAURIP', 148, 26, { align: 'center' });
+      pdf.text('LAPORAN DATA KEPENDUDUKAN DESA KARANGGINTUNG', 148, 26, { align: 'center' });
       pdf.setLineWidth(0.5);
       pdf.line(14, 29, 283, 29);
 
@@ -201,7 +201,7 @@ export function ResidentList() {
         alternateRowStyles: { fillColor: [248, 250, 252] },
       });
 
-      const fileName = `Data_Penduduk_Desa_Sidaurip_${new Date().toISOString().split('T')[0]}.pdf`;
+      const fileName = `Data_Penduduk_Desa_Karanggintung_${new Date().toISOString().split('T')[0]}.pdf`;
       pdf.save(fileName);
 
       toast({
@@ -483,7 +483,7 @@ export function ResidentList() {
               Generate Data Testing
             </Button>
 
-            <Button variant="outline" size="sm" onClick={handleRecalculate} disabled={isRecalculating} className="border-sky-600 text-sky-700 hover:bg-sky-50">
+            <Button variant="outline" size="sm" onClick={handleRecalculate} disabled={isRecalculating} className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
               {isRecalculating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BarChart3 className="mr-2 h-4 w-4" />}
               Update Statistik Grafik
             </Button>

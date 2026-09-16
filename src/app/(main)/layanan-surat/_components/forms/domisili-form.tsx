@@ -66,7 +66,7 @@ function GoogleFileUploader({ label, onFileSelect, fieldName, isRequired, disabl
       <FormControl>
         <div className={cn(
           "relative group border-2 border-dashed rounded-2xl p-4 transition-all hover:border-primary/50 bg-slate-50/50",
-          fileName && "border-sky-200 bg-sky-50/30",
+          fileName && "border-emerald-200 bg-emerald-50/30",
           disabled && "opacity-50 cursor-not-allowed"
         )}>
           <input
@@ -80,9 +80,9 @@ function GoogleFileUploader({ label, onFileSelect, fieldName, isRequired, disabl
             {fileName ? (
               <>
                 <div className="p-2 bg-white rounded-full shadow-sm">
-                  <FileCheck className="h-6 w-6 text-sky-600 animate-in zoom-in" />
+                  <FileCheck className="h-6 w-6 text-emerald-600 animate-in zoom-in" />
                 </div>
-                <p className="text-[10px] font-black text-sky-700 line-clamp-1 uppercase px-2 tracking-tight">{fileName}</p>
+                <p className="text-[10px] font-black text-emerald-700 line-clamp-1 uppercase px-2 tracking-tight">{fileName}</p>
               </>
             ) : (
               <>
@@ -147,7 +147,7 @@ export function DomisiliForm({ isAdmin = false }: { isAdmin?: boolean }) {
       nationality: 'WNI',
       religion: '',
       originAddress: '',
-      domicileAddress: 'Desa SidauripKec. Gandrungmangu, Kab. Cilacap',
+      domicileAddress: 'Desa Karanggintung, Kec. Gandrungmangu, Kab. Cilacap',
     },
   });
 
@@ -240,7 +240,7 @@ export function DomisiliForm({ isAdmin = false }: { isAdmin?: boolean }) {
           <FormField
             control={form.control}
             name="nik"
-            render={({ field }) => (
+            render={({ field }: { field: any }) => (
               <FormItem className="md:col-span-2">
                 <FormLabel className="font-bold text-primary">NIK (Sesuai KTP)</FormLabel>
                 <FormControl>
@@ -255,34 +255,34 @@ export function DomisiliForm({ isAdmin = false }: { isAdmin?: boolean }) {
             )}
           />
 
-          <FormField control={form.control} name="name" render={({ field }) => (
+          <FormField control={form.control} name="name" render={({ field }: { field: any }) => (
             <FormItem><FormLabel>Nama Lengkap</FormLabel><FormControl><Input placeholder="Sesuai KTP" {...field} disabled={isSubmitting} className="uppercase h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
           )} />
 
-          <FormField control={form.control} name="gender" render={({ field }) => (
+          <FormField control={form.control} name="gender" render={({ field }: { field: any }) => (
             <FormItem><FormLabel>Jenis Kelamin</FormLabel><FormControl><Input placeholder="Laki-Laki / Perempuan" {...field} disabled={isSubmitting} className="h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
           )} />
 
           <div className="grid grid-cols-2 gap-4">
-            <FormField control={form.control} name="birthPlace" render={({ field }) => (
+            <FormField control={form.control} name="birthPlace" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Tempat Lahir</FormLabel><FormControl><Input placeholder="Cilacap" {...field} disabled={isSubmitting} className="h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
             )} />
-            <FormField control={form.control} name="birthDate" render={({ field }) => (
+            <FormField control={form.control} name="birthDate" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Tanggal Lahir</FormLabel><FormControl><Input placeholder="DD-MM-YYYY" {...field} disabled={isSubmitting} className="h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
             )} />
           </div>
 
-          <FormField control={form.control} name="nationality" render={({ field }) => (
+          <FormField control={form.control} name="nationality" render={({ field }: { field: any }) => (
             <FormItem><FormLabel>Kewarganegaraan</FormLabel><FormControl><Input placeholder="WNI" {...field} disabled={isSubmitting} className="h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
           )} />
 
-          <FormField control={form.control} name="religion" render={({ field }) => (
+          <FormField control={form.control} name="religion" render={({ field }: { field: any }) => (
             <FormItem><FormLabel>Agama</FormLabel><FormControl><Input placeholder="Agama" {...field} disabled={isSubmitting} className="h-12 rounded-xl" /></FormControl><FormMessage /></FormItem>
           )} />
         </FormSection>
 
         <FormSection title="Data Alamat" icon={<User className="h-5 w-5 text-primary" />}>
-          <FormField control={form.control} name="originAddress" render={({ field }) => (
+          <FormField control={form.control} name="originAddress" render={({ field }: { field: any }) => (
             <FormItem className="md:col-span-2">
               <FormLabel>Alamat Asal (Sesuai KTP)</FormLabel>
               <FormControl><Textarea placeholder="Alamat lengkap sesuai KTP" {...field} disabled={isSubmitting} className="uppercase rounded-2xl" /></FormControl>
@@ -290,10 +290,10 @@ export function DomisiliForm({ isAdmin = false }: { isAdmin?: boolean }) {
               <FormMessage />
             </FormItem>
           )} />
-          <FormField control={form.control} name="domicileAddress" render={({ field }) => (
+          <FormField control={form.control} name="domicileAddress" render={({ field }: { field: any }) => (
             <FormItem className="md:col-span-2">
               <FormLabel className="font-bold text-primary">Alamat Domisili Saat Ini</FormLabel>
-              <FormControl><Textarea placeholder="Alamat tempat tinggal saat ini di Desa Sidaurip" {...field} disabled={isSubmitting} className="uppercase rounded-2xl" /></FormControl>
+              <FormControl><Textarea placeholder="Alamat tempat tinggal saat ini di Desa Karanggintung" {...field} disabled={isSubmitting} className="uppercase rounded-2xl" /></FormControl>
               <FormDescription>Alamat tempat Anda tinggal saat ini (untuk keterangan domisili).</FormDescription>
               <FormMessage />
             </FormItem>

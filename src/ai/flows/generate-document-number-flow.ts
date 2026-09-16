@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview A Genkit flow for generating a formatted document number from a manual input.
  */

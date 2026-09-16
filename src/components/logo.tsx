@@ -14,7 +14,7 @@ export function Logo() {
     return doc(firestore, 'villageLogo', 'default');
   }, [firestore]);
 
-  const { data: logoData, isLoading } = useDoc<VillageLogoInfo>(logoRef);
+  const { data: logoData, isLoading } = useDoc<VillageLogoInfo>(logoRef, { suppressGlobalError: true });
 
   return (
     <div className="flex items-center gap-3">
@@ -35,7 +35,7 @@ export function Logo() {
       )}
       <div className="flex flex-col">
         <span className="text-sm font-display font-black leading-tight uppercase tracking-tighter">
-          Sidaurip
+          Karanggintung
         </span>
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
           Digital Portal

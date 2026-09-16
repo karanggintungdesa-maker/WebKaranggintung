@@ -19,6 +19,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { uploadToCloudinary } from '@/lib/upload-cloudinary';
 
 /** Extracts a Google Drive folder ID from a full URL or returns the raw ID. */
 function extractFolderId(input: string): string {
@@ -137,21 +138,9 @@ export default function AdminPelayananPage() {
 
   const handleImageUpload = async (file: File) => {
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Gagal mengunggah berkas.');
-      }
-
-      const data = await res.json();
-      return data.url;
+      const url = await uploadToCloudinary(file, 'pelayanan-desa');
+      return url;
     } catch (err: any) {
       toast({ title: "Gagal Mengunggah Gambar", description: err.message, variant: "destructive" });
       return null;
@@ -408,7 +397,7 @@ export default function AdminPelayananPage() {
                              <div className="flex items-center gap-2">
                                 <div className={cn(
                                   "p-2 rounded-lg",
-                                  docItem.fileId.startsWith('http') ? "bg-amber-50 text-amber-600" : "bg-blue-50 text-blue-600"
+                                  docItem.fileId.startsWith('http') ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"
                                 )}>
                                   {docItem.fileId.startsWith('http') ? <Cloud className="h-3.5 w-3.5" /> : <Globe className="h-3.5 w-3.5" />}
                                 </div>
@@ -420,7 +409,7 @@ export default function AdminPelayananPage() {
                                 <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl" asChild>
                                   <a href={docItem.fileId.startsWith('http') ? docItem.fileId : `https://drive.google.com/file/d/${docItem.fileId}/view`} target="_blank"><ExternalLink className="h-4 w-4" /></a>
                                 </Button>
-                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl hover:text-blue-600" onClick={() => handleEdit(docItem)}>
+                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl hover:text-emerald-700 hover:border-emerald-300" onClick={() => handleEdit(docItem)}>
                                   <Edit className="h-4 w-4" />
                                 </Button>
                                 <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-red-400 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(docItem.id)}>

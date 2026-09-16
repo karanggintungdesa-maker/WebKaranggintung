@@ -952,11 +952,11 @@ export default function AdminDesaAntiKorupsi() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <h1 className="text-2xl font-black text-slate-850 uppercase tracking-wider flex items-center gap-2">
-            <ShieldCheck className="h-6 w-6 text-sky-600" />
+            <ShieldCheck className="h-6 w-6 text-emerald-600" />
             <span>Kelola Desa Anti Korupsi</span>
           </h1>
           <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-            Sistem Unggah Dokumen Pilar Anti Korupsi Desa Sidaurip ke Google Drive
+            Sistem Unggah Dokumen Pilar Anti Korupsi Desa Karanggintung ke Google Drive
           </p>
         </div>
       </div>
@@ -965,7 +965,7 @@ export default function AdminDesaAntiKorupsi() {
       <Card className="border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white">
         <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-6">
           <CardTitle className="text-slate-800 text-sm font-bold flex items-center gap-2">
-            <CheckCircle2 className="h-4.5 w-4.5 text-sky-600" />
+            <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600" />
             <span>PILIH RINCIAN SUB MENU</span>
           </CardTitle>
           <CardDescription className="text-xs">
@@ -1037,7 +1037,7 @@ export default function AdminDesaAntiKorupsi() {
             <div className="space-y-2">
               <Label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Sub Tahun</Label>
               <Select value={selectedSubTahun} onValueChange={setSelectedSubTahun}>
-                <SelectTrigger className="rounded-xl h-11 border-slate-200 bg-sky-50/50 border-sky-300 font-bold text-xs text-sky-900">
+                <SelectTrigger className="rounded-xl h-11 border-slate-200 bg-emerald-50/50 border-emerald-300 font-bold text-xs text-emerald-950">
                   <SelectValue placeholder="Pilih Tahun..." />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl border-slate-200 bg-white">
@@ -1056,11 +1056,11 @@ export default function AdminDesaAntiKorupsi() {
       {/* Main Upload Actions Panel */}
       {currentItem && (
         <Card className="border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white animate-fadeIn">
-          <CardHeader className="bg-sky-50/40 border-b border-sky-100 p-6">
+          <CardHeader className="bg-emerald-50/40 border-b border-emerald-100 p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-sky-600 hover:bg-sky-600 rounded-full font-mono text-[10px] font-bold px-2 py-0.5">
+                  <Badge className="bg-emerald-600 hover:bg-emerald-600 rounded-full font-mono text-[10px] font-bold px-2 py-0.5">
                     ID: {currentItem.id}
                   </Badge>
                   <Badge className="bg-amber-500 hover:bg-amber-500 text-slate-950 rounded-full font-sans text-[10px] font-black px-2.5 py-0.5 uppercase tracking-wider">
@@ -1080,11 +1080,11 @@ export default function AdminDesaAntiKorupsi() {
               {/* Target Folder ID Info Badge */}
               <div className="shrink-0">
                 {subFolderMappings[selectedItemId] ? (
-                  <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100 border border-sky-200 rounded-full text-[9px] uppercase font-bold py-1 px-3">
+                  <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 rounded-full text-[9px] uppercase font-bold py-1 px-3">
                     Folder Drive Terpetakan (Rincian): {subFolderMappings[selectedItemId].substring(0, 8)}...
                   </Badge>
                 ) : subFolderMappings[selectedSubMenuId] ? (
-                  <Badge className="bg-sky-100 text-sky-800 hover:bg-sky-100 border border-sky-200 rounded-full text-[9px] uppercase font-bold py-1 px-3">
+                  <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 rounded-full text-[9px] uppercase font-bold py-1 px-3">
                     Folder Drive Terpetakan (Sub-Menu): {subFolderMappings[selectedSubMenuId].substring(0, 8)}...
                   </Badge>
                 ) : (
@@ -1098,7 +1098,7 @@ export default function AdminDesaAntiKorupsi() {
           <CardContent className="p-6">
             {isDataLoading ? (
               <div className="flex flex-col items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-sky-600 mb-3" />
+                <Loader2 className="h-8 w-8 animate-spin text-emerald-600 mb-3" />
                 <p className="text-xs text-slate-400 uppercase font-black tracking-widest">Memuat status berkas...</p>
               </div>
             ) : (
@@ -1110,7 +1110,7 @@ export default function AdminDesaAntiKorupsi() {
                       <FileText className="h-4 w-4 text-red-500" />
                       <span>Berkas PDF (Google Drive)</span>
                     </h3>
-                    <Badge variant={pdfList.length > 0 ? "default" : "secondary"} className={`text-[9px] uppercase font-bold px-2 ${pdfList.length > 0 ? "bg-sky-100 text-sky-800 hover:bg-sky-100 border border-sky-200" : ""}`}>
+                    <Badge variant={pdfList.length > 0 ? "default" : "secondary"} className={`text-[9px] uppercase font-bold px-2 ${pdfList.length > 0 ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-100 border border-emerald-200" : ""}`}>
                       {pdfList.length > 0 ? `${pdfList.length} Berkas` : "Belum Ada"}
                     </Badge>
                   </div>
@@ -1133,7 +1133,7 @@ export default function AdminDesaAntiKorupsi() {
                                   href={pdf.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-[10px] text-sky-600 font-bold hover:underline inline-flex items-center mt-0.5"
+                                  className="text-[10px] text-emerald-600 font-bold hover:underline inline-flex items-center mt-0.5"
                                 >
                                   <span>Buka di Google Drive</span>
                                   <ExternalLink className="h-2.5 w-2.5 ml-1" />
@@ -1180,8 +1180,8 @@ export default function AdminDesaAntiKorupsi() {
                         type="button"
                         onClick={() => setPdfInputMode('upload')}
                         className={`h-8 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${pdfInputMode === 'upload'
-                            ? 'bg-white text-slate-800 shadow-sm'
-                            : 'text-slate-500 hover:text-slate-700'
+                          ? 'bg-white text-slate-800 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-700'
                           }`}
                       >
                         Unggah Berkas
@@ -1190,8 +1190,8 @@ export default function AdminDesaAntiKorupsi() {
                         type="button"
                         onClick={() => setPdfInputMode('link')}
                         className={`h-8 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${pdfInputMode === 'link'
-                            ? 'bg-white text-slate-800 shadow-sm'
-                            : 'text-slate-500 hover:text-slate-700'
+                          ? 'bg-white text-slate-800 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-700'
                           }`}
                       >
                         Tautan Manual
@@ -1200,7 +1200,7 @@ export default function AdminDesaAntiKorupsi() {
 
                     {pdfInputMode === 'upload' ? (
                       <div className="space-y-4">
-                        <div className="border border-dashed border-slate-200 hover:border-sky-300 rounded-xl p-6 transition-colors flex flex-col items-center justify-center bg-slate-50/50">
+                        <div className="border border-dashed border-slate-200 hover:border-emerald-300 rounded-xl p-6 transition-colors flex flex-col items-center justify-center bg-slate-50/50">
                           <UploadCloud className="h-8 w-8 text-slate-400 mb-2" />
                           <p className="text-[10px] font-bold text-slate-500 text-center uppercase tracking-wider">
                             Pilih File PDF Baru untuk Ditambahkan
@@ -1221,7 +1221,7 @@ export default function AdminDesaAntiKorupsi() {
                             Pilih File
                           </Button>
                           {pdfFile && (
-                            <p className="text-[10px] text-sky-700 font-bold mt-3 text-center truncate max-w-full">
+                            <p className="text-[10px] text-emerald-700 font-bold mt-3 text-center truncate max-w-full">
                               Terpilih: {pdfFile.name} ({(pdfFile.size / 1024 / 1024).toFixed(2)} MB)
                             </p>
                           )}
@@ -1230,7 +1230,7 @@ export default function AdminDesaAntiKorupsi() {
                         <Button
                           onClick={handlePdfUpload}
                           disabled={!pdfFile || isPdfUploading}
-                          className="w-full h-10 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-black uppercase tracking-wider"
+                          className="w-full h-10 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider shadow-sm"
                         >
                           {isPdfUploading ? (
                             <>
@@ -1255,7 +1255,7 @@ export default function AdminDesaAntiKorupsi() {
                             value={manualPdfName}
                             onChange={(e) => setManualPdfName(e.target.value)}
                             disabled={isManualPdfSaving}
-                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-sky-500"
+                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-emerald-500"
                           />
                         </div>
                         <div className="space-y-1.5">
@@ -1266,7 +1266,7 @@ export default function AdminDesaAntiKorupsi() {
                             value={manualPdfUrl}
                             onChange={(e) => setManualPdfUrl(e.target.value)}
                             disabled={isManualPdfSaving}
-                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-sky-500"
+                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-emerald-500"
                           />
                         </div>
                         <Button
@@ -1292,10 +1292,10 @@ export default function AdminDesaAntiKorupsi() {
                 <div className="border border-slate-150 rounded-2xl p-5 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                     <h3 className="text-xs font-black uppercase text-slate-700 tracking-wider flex items-center gap-1.5">
-                      <ImageIcon className="h-4 w-4 text-blue-500" />
+                      <ImageIcon className="h-4 w-4 text-emerald-600" />
                       <span>Dokumentasi Gambar (Google Drive)</span>
                     </h3>
-                    <Badge variant={imageList.length > 0 ? "default" : "secondary"} className={`text-[9px] uppercase font-bold px-2 ${imageList.length > 0 ? "bg-sky-100 text-sky-800 hover:bg-sky-100 border border-sky-200" : ""}`}>
+                    <Badge variant={imageList.length > 0 ? "default" : "secondary"} className={`text-[9px] uppercase font-bold px-2 ${imageList.length > 0 ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-100 border border-emerald-200" : ""}`}>
                       {imageList.length > 0 ? `${imageList.length} Foto` : "Belum Ada"}
                     </Badge>
                   </div>
@@ -1364,8 +1364,8 @@ export default function AdminDesaAntiKorupsi() {
                         type="button"
                         onClick={() => setImageInputMode('upload')}
                         className={`h-8 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${imageInputMode === 'upload'
-                            ? 'bg-white text-slate-800 shadow-sm'
-                            : 'text-slate-500 hover:text-slate-700'
+                          ? 'bg-white text-slate-800 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-700'
                           }`}
                       >
                         Unggah Berkas
@@ -1374,8 +1374,8 @@ export default function AdminDesaAntiKorupsi() {
                         type="button"
                         onClick={() => setImageInputMode('link')}
                         className={`h-8 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${imageInputMode === 'link'
-                            ? 'bg-white text-slate-800 shadow-sm'
-                            : 'text-slate-500 hover:text-slate-700'
+                          ? 'bg-white text-slate-800 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-700'
                           }`}
                       >
                         Tautan Manual
@@ -1384,7 +1384,7 @@ export default function AdminDesaAntiKorupsi() {
 
                     {imageInputMode === 'upload' ? (
                       <div className="space-y-4">
-                        <div className="border border-dashed border-slate-200 hover:border-sky-300 rounded-xl p-6 transition-colors flex flex-col items-center justify-center bg-slate-50/50">
+                        <div className="border border-dashed border-slate-200 hover:border-emerald-300 rounded-xl p-6 transition-colors flex flex-col items-center justify-center bg-slate-50/50">
                           <ImageIcon className="h-8 w-8 text-slate-400 mb-2" />
                           <p className="text-[10px] font-bold text-slate-500 text-center uppercase tracking-wider">
                             Pilih Gambar Baru (JPG, JPEG, PNG)
@@ -1408,7 +1408,7 @@ export default function AdminDesaAntiKorupsi() {
                             Gambar otomatis dikompresi sebelum diunggah ke Google Drive
                           </p>
                           {imageFile && (
-                            <p className="text-[10px] text-sky-700 font-bold mt-2 text-center truncate max-w-full">
+                            <p className="text-[10px] text-emerald-700 font-bold mt-2 text-center truncate max-w-full">
                               Terpilih: {imageFile.name} ({(imageFile.size / 1024 / 1024).toFixed(2)} MB)
                             </p>
                           )}
@@ -1417,7 +1417,7 @@ export default function AdminDesaAntiKorupsi() {
                         <Button
                           onClick={handleImageUpload}
                           disabled={!imageFile || isImageUploading}
-                          className="w-full h-10 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-black uppercase tracking-wider"
+                          className="w-full h-10 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider shadow-sm"
                         >
                           {isImageUploading ? (
                             <>
@@ -1442,7 +1442,7 @@ export default function AdminDesaAntiKorupsi() {
                             value={manualImageName}
                             onChange={(e) => setManualImageName(e.target.value)}
                             disabled={isManualImageSaving}
-                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-sky-500"
+                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-emerald-500"
                           />
                         </div>
                         <div className="space-y-1.5">
@@ -1453,7 +1453,7 @@ export default function AdminDesaAntiKorupsi() {
                             value={manualImageUrl}
                             onChange={(e) => setManualImageUrl(e.target.value)}
                             disabled={isManualImageSaving}
-                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-sky-500"
+                            className="h-9 rounded-xl border-slate-200 bg-white text-xs focus-visible:ring-emerald-500"
                           />
                         </div>
                         <Button
@@ -1484,7 +1484,7 @@ export default function AdminDesaAntiKorupsi() {
       {!currentItem && (
         <Card className="border border-dashed border-slate-300 rounded-3xl bg-slate-50/50 p-12 text-center">
           <div className="flex flex-col items-center justify-center space-y-3">
-            <div className="h-12 w-12 rounded-2xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center">
+            <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
               <ShieldCheck className="h-6 w-6" />
             </div>
             <h3 className="text-slate-800 font-extrabold text-sm uppercase tracking-wider">Pilih Rincian Dokumen Terlebih Dahulu</h3>

@@ -1,24 +1,20 @@
+'use client';
+
 import React from 'react';
+
+const BACKGROUND_SVG = `<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover opacity-65 pointer-events-none"><defs><style>.stucco-thick { stroke: #cbd5e1; stroke-linecap: round; }.stucco-mid { stroke: #94a3b8; stroke-linecap: round; }.stucco-light { stroke: #e2e8f0; stroke-linecap: round; }.stucco-ribbed { stroke: #64748b; stroke-linecap: round; stroke-dasharray: 4 8; }</style></defs><g opacity="0.85"><path class="stucco-light" stroke-width="4.5" stroke-opacity="0.5" d="M-100,-80 C200,80 550,220 850,550 C1050,780 1200,1100 1250,1250" /><path class="stucco-thick" stroke-width="3.2" stroke-opacity="0.4" d="M-80,-60 C210,95 530,240 820,560 C1010,780 1150,1080 1200,1230" /><path class="stucco-mid" stroke-width="1.8" stroke-opacity="0.35" d="M-60,-40 C220,110 510,260 790,570 C970,780 1100,1060 1150,1210" /><path class="stucco-ribbed" stroke-width="1.2" stroke-opacity="0.3" d="M-50,-30 C225,120 495,275 770,580 C950,780 1070,1050 1120,1200" /><path class="stucco-light" stroke-width="4.0" stroke-opacity="0.5" d="M-120,100 C150,240 450,420 700,750 C880,980 980,1200 1000,1250" /><path class="stucco-thick" stroke-width="3.0" stroke-opacity="0.4" d="M-100,120 C160,255 430,440 670,760 C840,980 940,1180 960,1230" /><path class="stucco-mid" stroke-width="1.6" stroke-opacity="0.35" d="M-80,140 C170,270 410,460 640,770 C800,980 900,1160 920,1210" /><path class="stucco-light" stroke-width="3.5" stroke-opacity="0.45" d="M-140,280 C100,400 350,600 550,920 C680,1120 740,1250 750,1280" /><path class="stucco-thick" stroke-width="2.5" stroke-opacity="0.35" d="M-120,300 C110,415 330,620 520,930 C640,1120 700,1230 710,1260" /><path class="stucco-mid" stroke-width="1.5" stroke-opacity="0.3" d="M-100,320 C120,430 310,640 490,940 C600,1120 660,1210 670,1240" /></g><g opacity="0.85"><path class="stucco-light" stroke-width="4.5" stroke-opacity="0.5" d="M2100,-100 C1650,150 1250,380 950,750 C750,1000 620,1250 600,1300" /><path class="stucco-thick" stroke-width="3.2" stroke-opacity="0.4" d="M2080,-80 C1640,165 1230,400 920,760 C730,1000 590,1230 570,1280" /><path class="stucco-mid" stroke-width="1.8" stroke-opacity="0.35" d="M2060,-60 C1630,180 1210,420 890,770 C710,1000 560,1210 540,1260" /><path class="stucco-ribbed" stroke-width="1.2" stroke-opacity="0.3" d="M2050,-50 C1625,190 1195,435 870,780 C695,1000 545,1200 525,1250" /><path class="stucco-light" stroke-width="4.0" stroke-opacity="0.5" d="M2050,100 C1680,320 1350,560 1100,900 C920,1150 820,1280 800,1300" /><path class="stucco-thick" stroke-width="2.8" stroke-opacity="0.4" d="M2030,120 C1670,335 1330,580 1070,910 C900,1150 790,1260 770,1280" /><path class="stucco-mid" stroke-width="1.6" stroke-opacity="0.35" d="M2010,140 C1660,350 1310,600 1040,920 C880,1150 760,1240 740,1260" /></g><g opacity="0.8"><path class="stucco-light" stroke-width="4.0" stroke-opacity="0.45" d="M2100,600 C1750,750 1450,920 1250,1150 C1120,1280 1050,1350 1000,1380" /><path class="stucco-thick" stroke-width="2.8" stroke-opacity="0.35" d="M2080,620 C1740,765 1430,940 1220,1160 C1100,1280 1030,1330 980,1360" /><path class="stucco-mid" stroke-width="1.6" stroke-opacity="0.3" d="M2060,640 C1730,780 1410,960 1190,1170 C1080,1280 1010,1310 960,1340" /><path class="stucco-ribbed" stroke-width="1.2" stroke-opacity="0.25" d="M2050,650 C1725,790 1395,975 1170,1180 C1065,1280 995,1300 945,1330" /></g><g opacity="0.6"><path class="stucco-ribbed" stroke-width="0.9" d="M300,150 C450,220 600,320 750,450" /><path class="stucco-ribbed" stroke-width="0.9" d="M500,280 C650,370 800,490 950,640" /><path class="stucco-ribbed" stroke-width="0.9" d="M1400,200 C1250,300 1100,430 980,590" /><path class="stucco-ribbed" stroke-width="0.9" d="M1600,350 C1450,470 1300,620 1180,800" /><path class="stucco-ribbed" stroke-width="0.9" d="M200,500 C350,600 500,730 650,900" /><path class="stucco-ribbed" stroke-width="0.9" d="M1300,750 C1450,850 1600,980 1750,1150" /></g></svg>`;
 
 export function BackgroundPattern() {
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-      {/* Soft Ambient Glows behind sections for depth */}
-      <div className="absolute top-[500px] -left-[200px] w-[600px] h-[600px] rounded-full bg-sky-500/5 blur-[140px] pointer-events-none" />
-      <div className="absolute top-[1800px] -right-[200px] w-[700px] h-[700px] rounded-full bg-teal-400/5 blur-[150px] pointer-events-none" />
-      <div className="absolute top-[3200px] -left-[200px] w-[600px] h-[600px] rounded-full bg-amber-300/5 blur-[130px] pointer-events-none" />
-      <div className="absolute top-[4600px] right-[10%] w-[650px] h-[650px] rounded-full bg-sky-400/5 blur-[140px] pointer-events-none" />
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
+      {/* Light neutral background base */}
+      <div className="absolute inset-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* Feather Swirl Organic Leaf Background Pattern (Soft Subtle 25% Transparency) */}
-      <div 
-        className="absolute inset-0 opacity-25 mix-blend-multiply pointer-events-none"
-        style={{
-          backgroundImage: `url('/bg-pattern.svg')`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '300px 300px',
-        }}
+      {/* Single Unified Full-Screen Vector Canvas - Plaster / Stucco Wave Sweeps */}
+      <div
+        className="w-full h-full pointer-events-none"
+        dangerouslySetInnerHTML={{ __html: BACKGROUND_SVG }}
       />
     </div>
   );
 }
-

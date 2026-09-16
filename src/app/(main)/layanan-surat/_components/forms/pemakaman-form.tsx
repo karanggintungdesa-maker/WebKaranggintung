@@ -67,7 +67,7 @@ function GoogleFileUploader({ label, onUploadSuccess, fieldName, isRequired }: G
           <Input type="file" onChange={handleFileChange} disabled={isUploading || !!fileName} className="pr-10" />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4">
             {isUploading ? <Loader2 className="animate-spin text-primary" /> :
-              fileName ? <FileCheck className="text-sky-600" /> : <Paperclip className="text-muted-foreground" />}
+              fileName ? <FileCheck className="text-emerald-600" /> : <Paperclip className="text-muted-foreground" />}
           </div>
         </div>
       </FormControl>
@@ -367,7 +367,7 @@ export function PemakamanForm({ isAdmin = false }: { isAdmin?: boolean }) {
           <FormField control={form.control} name="burialLocation" render={({ field }) => (
             <FormItem className="md:col-span-2">
               <FormLabel>Dimakamkan di (Lokasi Pemakaman)</FormLabel>
-              <FormControl><Textarea placeholder="Contoh: Makam Umum Dusun ... RT ... RW ... Desa Sidaurip" {...field} disabled={isSubmitting} /></FormControl>
+              <FormControl><Textarea placeholder="Contoh: Makam Umum Dusun ... RT ... RW ... Desa Karanggintung" {...field} disabled={isSubmitting} /></FormControl>
               <FormDescription>Isi detail lokasi pemakaman secara lengkap.</FormDescription>
               <FormMessage />
             </FormItem>

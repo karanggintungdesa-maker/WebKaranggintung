@@ -8,26 +8,26 @@ import { Skeleton } from '@/components/ui/skeleton';
 const MapContainer = dynamic(
   () => import('react-leaflet').then(mod => mod.MapContainer),
   { ssr: false }
-);
+) as any;
 const TileLayer = dynamic(
   () => import('react-leaflet').then(mod => mod.TileLayer),
   { ssr: false }
-);
+) as any;
 const Marker = dynamic(
   () => import('react-leaflet').then(mod => mod.Marker),
   { ssr: false }
-);
+) as any;
 const Popup = dynamic(
   () => import('react-leaflet').then(mod => mod.Popup),
   { ssr: false }
-);
+) as any;
 
 export function VillageMap() {
   const [isClient, setIsClient] = useState(false);
   const [leafletInstance, setLeafletInstance] = useState<any>(null);
 
-  // Koordinat Desa Sidaurip, Gandrungmangu, Cilacap
-  const center: [number, number] = [-7.3889, 108.8622];
+  // Koordinat Desa Karanggintung, Gandrungmangu, Cilacap
+  const center: [number, number] = [-7.4584795, 108.8565081];
   const zoom = 15;
 
   useEffect(() => {
@@ -80,12 +80,20 @@ export function VillageMap() {
         />
         <Marker position={center}>
           <Popup>
-            <div className="text-center text-sm font-semibold">
-              <p className="font-black text-slate-900">Desa Sidaurip</p>
-              <p className="text-slate-600 text-xs">Gandrungmangu, Cilacap</p>
-              <p className="text-slate-500 text-xs mt-1">
-                Lat: {center[0].toFixed(4)}, Lon: {center[1].toFixed(4)}
-              </p>
+            <div className="text-center p-1 space-y-1">
+              <p className="font-black text-slate-900 text-sm">Kantor Desa Karanggintung</p>
+              <p className="text-slate-600 text-xs">Kec. Gandrungmangu, Kab. Cilacap</p>
+              <div className="bg-slate-100 rounded-lg p-1.5 text-[11px] font-mono text-slate-700 font-semibold my-1">
+                -7.4584795, 108.8565081
+              </div>
+              <a
+                href="https://www.google.com/maps?q=-7.4584795,108.8565081"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-[11px] font-bold text-primary hover:underline mt-1"
+              >
+                Buka di Google Maps ↗
+              </a>
             </div>
           </Popup>
         </Marker>

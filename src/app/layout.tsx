@@ -19,8 +19,8 @@ const display = Lora({
 });
 
 export const metadata: Metadata = {
-  title: 'PELAYANAN DESA SIDAURIP',
-  description: 'Aplikasi Pelayanan Publik Desa Sidaurip',
+  title: 'PELAYANAN DESA KARANGGINTUNG',
+  description: 'Aplikasi Pelayanan Publik Desa Karanggintung',
 };
 
 export default function RootLayout({

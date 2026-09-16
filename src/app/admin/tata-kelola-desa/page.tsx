@@ -206,6 +206,43 @@ export default function AdminTataKelolaDesa() {
     }
   };
 
+  // Download Template Excel untuk APBDes
+  const handleDownloadApbdesTemplate = () => {
+    const headers = [['Bidang', 'Kode Rekening', 'Kegiatan', 'Volume', 'Nominal', 'Sumber Anggaran']];
+    const contoh = [
+      ['Penyelenggaraan Pemerintahan Desa', '1.1.01', 'Penyusunan Dokumen Perencanaan Desa', 1, 5000000, 'Dana Desa'],
+      ['Pembangunan Desa', '2.1.01', 'Pembangunan Jalan Desa', 1, 150000000, 'Dana Desa'],
+      ['Pembinaan Kemasyarakatan Desa', '3.1.01', 'Kegiatan Kepemudaan', 1, 10000000, 'ADD'],
+    ];
+    const ws = XLSX.utils.aoa_to_sheet([...headers, ...contoh]);
+    // Atur lebar kolom
+    ws['!cols'] = [
+      { wch: 40 }, { wch: 18 }, { wch: 45 }, { wch: 10 }, { wch: 18 }, { wch: 20 }
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, `APBDes ${selectedYear}`);
+    XLSX.writeFile(wb, `Template_APBDes_${selectedYear}.xlsx`);
+    toast({ title: 'Template diunduh', description: `Template APBDes ${selectedYear} berhasil diunduh.` });
+  };
+
+  // Download Template Excel untuk Realisasi APBDes
+  const handleDownloadRealisasiTemplate = () => {
+    const headers = [['Bidang', 'Kode Rekening', 'Kegiatan', 'Volume', 'Nominal', 'Sumber Anggaran']];
+    const contoh = [
+      ['Penyelenggaraan Pemerintahan Desa', '1.1.01', 'Penyusunan Dokumen Perencanaan Desa', 1, 4800000, 'Dana Desa'],
+      ['Pembangunan Desa', '2.1.01', 'Pembangunan Jalan Desa', 1, 148000000, 'Dana Desa'],
+      ['Pembinaan Kemasyarakatan Desa', '3.1.01', 'Kegiatan Kepemudaan', 1, 9500000, 'ADD'],
+    ];
+    const ws = XLSX.utils.aoa_to_sheet([...headers, ...contoh]);
+    ws['!cols'] = [
+      { wch: 40 }, { wch: 18 }, { wch: 45 }, { wch: 10 }, { wch: 18 }, { wch: 20 }
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, `Realisasi APBDes ${selectedYear}`);
+    XLSX.writeFile(wb, `Template_Realisasi_APBDes_${selectedYear}.xlsx`);
+    toast({ title: 'Template diunduh', description: `Template Realisasi APBDes ${selectedYear} berhasil diunduh.` });
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       {/* HEADER */}
@@ -269,6 +306,15 @@ export default function AdminTataKelolaDesa() {
                 onChange={handleApbdesImport}
                 className="hidden"
               />
+
+              <Button
+                onClick={handleDownloadApbdesTemplate}
+                variant="outline"
+                className="rounded-lg gap-2 font-bold border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+              >
+                <Download className="h-4 w-4" />
+                Download Format
+              </Button>
 
               {currentApbdes && (
                 <Button 
@@ -363,6 +409,15 @@ export default function AdminTataKelolaDesa() {
                 className="hidden"
               />
 
+              <Button
+                onClick={handleDownloadRealisasiTemplate}
+                variant="outline"
+                className="rounded-lg gap-2 font-bold border-teal-600 text-teal-700 hover:bg-teal-50"
+              >
+                <Download className="h-4 w-4" />
+                Download Format
+              </Button>
+
               {currentRealisasi && (
                 <Button 
                   onClick={handleDeleteRealisasi}
@@ -398,13 +453,13 @@ export default function AdminTataKelolaDesa() {
                             <td className="px-4 py-3 text-slate-600">{item.kodeRekening}</td>
                             <td className="px-4 py-3 text-slate-600">{item.kegiatan}</td>
                             <td className="px-4 py-3 text-right">{item.volume}</td>
-                            <td className="px-4 py-3 text-right text-sky-600 font-bold">Rp {item.nominal.toLocaleString('id-ID')}</td>
+                            <td className="px-4 py-3 text-right text-teal-700 font-bold">Rp {item.nominal.toLocaleString('id-ID')}</td>
                             <td className="px-4 py-3 text-slate-600">{item.sumberAnggaran}</td>
                           </tr>
                         ))}
-                        <tr className="bg-sky-50 font-bold">
-                          <td colSpan={4} className="px-4 py-3 text-right">Total Realisasi:</td>
-                          <td className="px-4 py-3 text-right text-sky-600">Rp {currentRealisasi.totalRealisasi.toLocaleString('id-ID')}</td>
+                        <tr className="bg-emerald-50 font-bold">
+                          <td colSpan={4} className="px-4 py-3 text-right text-emerald-950">Total Realisasi:</td>
+                          <td className="px-4 py-3 text-right text-emerald-700">Rp {currentRealisasi.totalRealisasi.toLocaleString('id-ID')}</td>
                           <td></td>
                         </tr>
                       </tbody>

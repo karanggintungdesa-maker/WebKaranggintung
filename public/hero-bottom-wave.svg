@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 240" fill="none" preserveAspectRatio="none" class="w-full h-full">
+  <defs>
+    <!-- Gradient for Top Light Mint Wave -->
+    <linearGradient id="mintWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A7F3D0" stop-opacity="0.75" />
+      <stop offset="35%" stop-color="#6EE7B7" stop-opacity="0.65" />
+      <stop offset="70%" stop-color="#A7F3D0" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#D1FAE5" stop-opacity="0.70" />
+    </linearGradient>
+
+    <!-- Gradient for Mid Emerald Wave -->
+    <linearGradient id="emeraldWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.90" />
+      <stop offset="40%" stop-color="#10B981" stop-opacity="0.85" />
+      <stop offset="80%" stop-color="#047857" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#065F46" stop-opacity="0.90" />
+    </linearGradient>
+
+    <!-- Gradient for Deep Green Wave -->
+    <linearGradient id="deepGreenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#064E3B" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#047857" stop-opacity="0.90" />
+      <stop offset="100%" stop-color="#065F46" stop-opacity="0.95" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Top Soft Mint Ribbon Wave -->
+  <path
+    d="M0,110 C320,80 620,150 960,130 C1300,110 1560,50 1920,70 L1920,240 L0,240 Z"
+    fill="url(#mintWaveGrad)"
+  />
+
+  <!-- 2. Mid Emerald Flowing Wave -->
+  <path
+    d="M0,210 C380,210 580,140 920,135 C1280,130 1540,75 1920,95 L1920,240 L0,240 Z"
+    fill="url(#emeraldWaveGrad)"
+  />
+
+  <!-- 3. Bottom Dark Emerald Wave Accent -->
+  <path
+    d="M340,240 C560,195 820,165 1100,175 C1420,185 1680,120 1920,130 L1920,240 Z"
+    fill="url(#deepGreenGrad)"
+  />
+</svg>

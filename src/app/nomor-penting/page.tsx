@@ -63,15 +63,15 @@ const formatPhoneDisplay = (number: string) => {
 };
 
 const categoryLabels: Record<string, { label: string; icon: React.ElementType; color: string; border: string }> = {
-  pemerintah: { label: 'Pemerintahan', icon: Landmark, color: 'text-sky-700 bg-sky-50', border: 'border-sky-200' },
-  keamanan: { label: 'Keamanan & Ketertiban', icon: Shield, color: 'text-blue-700 bg-blue-50', border: 'border-blue-200' },
+  pemerintah: { label: 'Pemerintahan', icon: Landmark, color: 'text-emerald-700 bg-emerald-50', border: 'border-emerald-200' },
+  keamanan: { label: 'Keamanan & Ketertiban', icon: Shield, color: 'text-teal-700 bg-teal-50', border: 'border-teal-200' },
   kesehatan: { label: 'Kesehatan', icon: Heart, color: 'text-rose-700 bg-rose-50', border: 'border-rose-200' },
   wilayah: { label: 'Kepala Dusun', icon: Users, color: 'text-violet-700 bg-violet-50', border: 'border-violet-200' },
 };
 
 const categoryStyles: Record<string, { icon: React.ElementType; color: string; bgColor: string }> = {
-  pemerintah: { icon: Landmark, color: 'text-sky-600', bgColor: 'bg-sky-50' },
-  keamanan: { icon: Shield, color: 'text-blue-600', bgColor: 'bg-blue-50' },
+  pemerintah: { icon: Landmark, color: 'text-emerald-600', bgColor: 'bg-emerald-50' },
+  keamanan: { icon: Shield, color: 'text-teal-600', bgColor: 'bg-teal-50' },
   kesehatan: { icon: Heart, color: 'text-rose-600', bgColor: 'bg-rose-50' },
   wilayah: { icon: Users, color: 'text-violet-600', bgColor: 'bg-violet-50' },
 };
@@ -162,7 +162,7 @@ export default function NomorPentingPage() {
                   </div>
                 </div>
                 <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-slate-900 font-display">
-                  Pemerintah Desa Sidaurip
+                  Pemerintah Desa Karanggintung
                 </h2>
                 <p className="text-sm md:text-base font-bold uppercase tracking-widest text-slate-500">
                   Kecamatan Gandrungmangu
@@ -172,7 +172,7 @@ export default function NomorPentingPage() {
                 </p>
                 <div className="flex items-center justify-center gap-2 text-slate-400 text-xs md:text-sm font-medium pt-2">
                   <MapPin className="h-3.5 w-3.5 text-primary/60" />
-                  <span>Jl. Desa Sidaurip No. 1 Gandrungmangu Cilacap Kode Pos 53255</span>
+                  <span>Jl. Desa Karanggintung No. 1 Gandrungmangu Cilacap Kode Pos 53255</span>
                 </div>
               </div>
 
@@ -298,7 +298,7 @@ export default function NomorPentingPage() {
                   Nomor Pelayanan
                 </Badge>
                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight font-display italic">
-                  Nomor Pelayanan Desa Sidaurip
+                  Nomor Pelayanan Desa Karanggintung
                 </h3>
               </div>
 
@@ -309,7 +309,7 @@ export default function NomorPentingPage() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-white/10 rounded-[2rem] blur-xl group-hover:bg-white/20 transition-all duration-500" />
                   <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-[2rem] px-10 md:px-16 py-8 group-hover:bg-white/15 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
-                    <p className="text-4xl md:text-6xl font-black tracking-wider font-mono text-secondary">
+                    <p className="text-4xl md:text-6xl font-black tracking-wider font-mono text-white">
                       {formatPhoneDisplay(servicePhoneNumber)}
                     </p>
                   </div>
@@ -317,7 +317,7 @@ export default function NomorPentingPage() {
               </a>
 
               <p className="text-sm text-white/60 font-semibold max-w-md mx-auto">
-                Hubungi nomor di atas untuk informasi pelayanan administrasi Desa Sidaurip.
+                Hubungi nomor di atas untuk informasi pelayanan administrasi Desa Karanggintung.
               </p>
             </CardContent>
           </Card>
@@ -325,11 +325,11 @@ export default function NomorPentingPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-primary text-white/40 py-12 border-t border-white/5 mt-auto">
+      <footer className="bg-[#081325] text-slate-400 py-12 border-t border-slate-800/80 mt-auto">
         <div className="container mx-auto px-4 text-center">
           <Logo />
-          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest">
-            © 2026 Pemerintah Desa Sidaurip Digital Portal
+          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+            © 2026 Pemerintah Desa Karanggintung Digital Portal
           </p>
         </div>
       </footer>

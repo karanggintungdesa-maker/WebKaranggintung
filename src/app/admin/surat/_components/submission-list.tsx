@@ -39,7 +39,7 @@ import {
 } from '@/lib/submissions';
 import { query as firestoreQuery, where } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
-import { generateDocumentNumber } from '@/ai/flows/generate-document-number-flow';
+import { generateDocumentNumber } from '@/lib/gemini-client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -65,12 +65,14 @@ export function SubmissionList() {
   const { user } = useUser();
   const firestore = useFirestore();
 
-  const isAdmin = !!user;
+  const isAdminFromStorage = typeof window !== 'undefined' && localStorage.getItem('isAdmin') === 'true';
+  const isAdmin = isAdminFromStorage || !!(user && !user.isAnonymous);
 
   const query = useMemoFirebase(() => {
-    if (!firestore || !user || user.isAnonymous) return null;
+    if (!firestore || !user) return null;
 
     if (!isAdmin) {
+      if (user.isAnonymous) return null;
       return firestoreQuery(
         getLetterRequestsQuery(firestore),
         where('requestorAuthUid', '==', (user as any).uid)
@@ -170,7 +172,7 @@ export function SubmissionList() {
     if (!signatorySubmission) return;
     const submissionId = signatorySubmission.id;
     setSignatorySubmission(null);
-    const printUrl = `/print/${submissionId}?signer=${selectedSigner}`;
+    const printUrl = `/print/preview?id=${encodeURIComponent(submissionId)}&signer=${encodeURIComponent(selectedSigner)}`;
     window.open(printUrl, '_blank');
   };
 
@@ -196,7 +198,15 @@ export function SubmissionList() {
     if (value instanceof Date) {
       return value.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
     }
-    if (typeof value === 'object' && value !== null && 'name' in value) return value.name;
+    if (typeof value === 'object' && value !== null) {
+      if ('toDate' in value && typeof value.toDate === 'function') {
+        return value.toDate().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+      }
+      if ('seconds' in value && typeof value.seconds === 'number') {
+        return new Date(value.seconds * 1000).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+      }
+      if ('name' in value) return value.name;
+    }
     if (value === null || value === undefined || value === '') return '-';
     return String(value);
   }
@@ -291,7 +301,7 @@ export function SubmissionList() {
                           <span>Lihat Detail</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="opacity-50" />
-                        <DropdownMenuItem onClick={() => handleStatusChange(submission.id, 'approved')} className="rounded-xl font-bold cursor-pointer text-sky-600 focus:text-sky-700 focus:bg-sky-50"><CheckCircle className="mr-2 h-4 w-4" /><span>Setujui</span></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleStatusChange(submission.id, 'approved')} className="rounded-xl font-bold cursor-pointer text-emerald-600 focus:text-emerald-700 focus:bg-emerald-50"><CheckCircle className="mr-2 h-4 w-4" /><span>Setujui</span></DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleStatusChange(submission.id, 'rejected')} className="rounded-xl font-bold cursor-pointer text-red-600 focus:text-red-700 focus:bg-red-50"><XCircle className="mr-2 h-4 w-4" /><span>Tolak</span></DropdownMenuItem>
 
                         <DropdownMenuItem
@@ -329,7 +339,7 @@ export function SubmissionList() {
       {/* Detail Dialog */}
       <Dialog
         open={!!selectedSubmission}
-        onOpenChange={(isOpen) => {
+        onOpenChange={(isOpen: boolean) => {
           if (!isOpen) {
             setSelectedSubmission(null);
             if (typeof document !== 'undefined') {
@@ -348,17 +358,17 @@ export function SubmissionList() {
             {selectedSubmission && (
               <>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-5 rounded-2xl bg-sky-50 border border-sky-100 flex items-center gap-4">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><Phone className="h-5 w-5 text-sky-600" /></div>
+                  <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center gap-4">
+                    <div className="p-3 bg-white rounded-xl shadow-sm"><Phone className="h-5 w-5 text-emerald-600" /></div>
                     <div>
-                      <p className="text-[10px] text-sky-600/70 font-black uppercase tracking-widest">WhatsApp</p>
+                      <p className="text-[10px] text-emerald-600/70 font-black uppercase tracking-widest">WhatsApp</p>
                       <p className="text-sm font-black">{selectedSubmission.phoneNumber || 'Tidak ada'}</p>
                     </div>
                   </div>
-                  <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 flex items-center gap-4">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><Mail className="h-5 w-5 text-blue-600" /></div>
+                  <div className="p-5 rounded-2xl bg-teal-50 border border-teal-100 flex items-center gap-4">
+                    <div className="p-3 bg-white rounded-xl shadow-sm"><Mail className="h-5 w-5 text-teal-600" /></div>
                     <div>
-                      <p className="text-[10px] text-blue-600/70 font-black uppercase tracking-widest">Email</p>
+                      <p className="text-[10px] text-teal-600/70 font-black uppercase tracking-widest">Email</p>
                       <p className="text-sm font-black truncate max-w-[150px]">{selectedSubmission.email || 'Tidak ada'}</p>
                     </div>
                   </div>
@@ -411,7 +421,7 @@ export function SubmissionList() {
       </Dialog>
 
       {/* Manual Number Dialog */}
-      <Dialog open={!!manualNumberSubmission} onOpenChange={(isOpen) => { if (!isOpen) { setManualNumberSubmission(null); if (typeof document !== 'undefined') document.body.style.pointerEvents = 'auto'; } }}>
+      <Dialog open={!!manualNumberSubmission} onOpenChange={(isOpen: boolean) => { if (!isOpen) { setManualNumberSubmission(null); if (typeof document !== 'undefined') document.body.style.pointerEvents = 'auto'; } }}>
         <DialogContent className="sm:max-w-[400px] rounded-[2.5rem] p-8">
           <DialogHeader className="space-y-3">
             <DialogTitle className="text-2xl font-black uppercase tracking-tight italic">Buat Nomor Surat</DialogTitle>
@@ -420,7 +430,7 @@ export function SubmissionList() {
           <div className="grid gap-6 py-6">
             <div className="space-y-3">
               <Label htmlFor="manual-number" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Nomor Urut Surat</Label>
-              <Input id="manual-number" type="number" value={manualNumberInput} onChange={(e) => setManualNumberInput(e.target.value)} placeholder="Contoh: 152" disabled={isSubmittingManualNumber} className="h-14 rounded-2xl text-xl font-black text-center" />
+              <Input id="manual-number" type="number" value={manualNumberInput} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setManualNumberInput(e.target.value)} placeholder="Contoh: 152" disabled={isSubmittingManualNumber} className="h-14 rounded-2xl text-xl font-black text-center" />
             </div>
           </div>
           <DialogFooter>
@@ -433,7 +443,7 @@ export function SubmissionList() {
       </Dialog>
 
       {/* Signatory Choice Dialog */}
-      <Dialog open={!!signatorySubmission} onOpenChange={(isOpen) => { if (!isOpen) { setSignatorySubmission(null); if (typeof document !== 'undefined') document.body.style.pointerEvents = 'auto'; } }}>
+      <Dialog open={!!signatorySubmission} onOpenChange={(isOpen: boolean) => { if (!isOpen) { setSignatorySubmission(null); if (typeof document !== 'undefined') document.body.style.pointerEvents = 'auto'; } }}>
         <DialogContent className="sm:max-w-[450px] rounded-[2.5rem] p-8 border-none shadow-2xl">
           <DialogHeader className="space-y-3">
             <DialogTitle className="flex items-center gap-3 text-2xl font-black uppercase tracking-tight italic">
@@ -446,12 +456,12 @@ export function SubmissionList() {
           </DialogHeader>
 
           <div className="py-8">
-            <RadioGroup value={selectedSigner} onValueChange={(v) => setSelectedSigner(v as 'kades' | 'sekdes')} className="grid gap-4">
+            <RadioGroup value={selectedSigner} onValueChange={(v: string) => setSelectedSigner(v as 'kades' | 'sekdes')} className="grid gap-4">
               <div className="flex items-center space-x-4 p-5 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 has-[:checked]:border-primary has-[:checked]:bg-primary/5 transition-all">
                 <RadioGroupItem value="kades" id="signer-kades" />
                 <Label htmlFor="signer-kades" className="flex-1 cursor-pointer space-y-1">
                   <p className="font-black uppercase tracking-tight text-slate-800">Kepala Desa</p>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">TASIMIN</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">TURMONO</p>
                 </Label>
               </div>
 
@@ -459,7 +469,7 @@ export function SubmissionList() {
                 <RadioGroupItem value="sekdes" id="signer-sekdes" />
                 <Label htmlFor="signer-sekdes" className="flex-1 cursor-pointer space-y-1">
                   <p className="font-black uppercase tracking-tight text-slate-800">Sekretaris Desa</p>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">SOFA BURHANI</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">ARIS YULIANTO</p>
                 </Label>
               </div>
             </RadioGroup>

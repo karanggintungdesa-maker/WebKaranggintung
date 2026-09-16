@@ -40,8 +40,8 @@ export function TrackTicket() {
         return {
           title: 'Telah Diproses',
           variant: 'default',
-          icon: <CheckCircle className="h-4 w-4 text-sky-500" />,
-          description: 'Surat pengajuan Anda telah selesai diproses dan sudah bisa diambil ke Pelayanan Desa Sidaurip pada pukul 07.00 WIB s.d 16.00 WIB (Senin s.d Jumat). Terima Kasih.'
+          icon: <CheckCircle className="h-4 w-4 text-emerald-500" />,
+          description: 'Surat pengajuan Anda telah selesai diproses dan sudah bisa diambil ke Pelayanan Desa Karanggintung pada pukul 07.00 WIB s.d 16.00 WIB (Senin s.d Jumat). Terima Kasih.'
         };
       case 'pending':
       case 'processing':

@@ -32,12 +32,6 @@ export function AuthGuard({
         return;
       }
 
-      // Bypass for admin
-      if (user) {
-        setHasProfile(true);
-        return;
-      }
-
       if (firestore) {
         try {
           const profile = await getCitizenProfile(firestore, user.uid);
@@ -46,6 +40,8 @@ export function AuthGuard({
           console.error("Profile check error:", e);
           setHasProfile(false);
         }
+      } else {
+        setHasProfile(true);
       }
     };
 
@@ -82,7 +78,7 @@ export function AuthGuard({
           </Button>
         </div>
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-          Layanan Mandiri Desa Sidaurip
+          Layanan Mandiri Desa Karanggintung
         </p>
       </div>
     );
