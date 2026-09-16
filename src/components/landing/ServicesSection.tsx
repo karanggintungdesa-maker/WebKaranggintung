@@ -319,9 +319,9 @@ export function ServicesSection() {
   const allServiceItems = [...serviceItemsRow1, ...serviceItemsRow2];
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
+    <section className="mx-auto max-w-7xl px-3 sm:px-6 sm:py-16 lg:px-8 py-8">
       {/* KONTINER UTAMA (Banner Hijau Hutan Elegan Sesuai Tema Desa) */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#042f24] via-[#064e3b] to-[#022c22] p-6 sm:p-10 lg:p-12 shadow-2xl border border-emerald-700/40">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#042f24] via-[#064e3b] to-[#022c22] p-2.5 min-[380px]:p-3.5 sm:p-10 lg:p-12 shadow-2xl border border-emerald-700/40">
         {/* Background Network Mesh / Glow Lines Hijau */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
           <svg className="absolute -right-20 -top-20 w-[600px] h-[600px] opacity-15" viewBox="0 0 600 600" fill="none">
@@ -336,40 +336,40 @@ export function ServicesSection() {
         </div>
 
         {/* HEADER LAYANAN */}
-        <div className="relative z-10 mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[11px] font-bold uppercase tracking-wider mb-3 backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
+        <div className="relative z-10 mb-4 sm:mb-10">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-sm">
+            <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-300" />
             Layanan Utama Desa
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-display leading-tight">
+          <h2 className="text-lg sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-display leading-tight">
             Layanan digital desa yang mudah dipahami dan diakses.
           </h2>
-          <p className="mt-2.5 text-sm sm:text-base text-emerald-100/80 max-w-2xl font-medium leading-relaxed">
+          <p className="mt-1 sm:mt-2.5 text-[11px] sm:text-base text-emerald-100/80 max-w-2xl font-medium leading-relaxed">
             Seluruh fitur administrasi dan informasi desa dapat dijangkau secara cepat melalui portal digital terpadu untuk kemudahan masyarakat.
           </p>
         </div>
 
-        {/* 10 KARTU KOTAK PERSEGI DENGAN ELEMEN VEKTOR TEMATIK (5 Kartu Per Baris) */}
-        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5">
+        {/* 10 KARTU KOTAK PERSEGI (Mobile: 4 per baris compact, Desktop: 5 per baris) */}
+        <div className="relative z-10 grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-5 gap-2 min-[380px]:gap-2.5 sm:gap-4 lg:gap-5">
           {allServiceItems.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.35, delay: idx * 0.04 }}
+              transition={{ duration: 0.3, delay: idx * 0.03 }}
             >
               <Link
                 href={item.href}
-                className="group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46] p-4 sm:p-5 text-white shadow-lg border border-emerald-400/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-300/60 hover:shadow-2xl hover:shadow-emerald-950/70 overflow-hidden aspect-auto min-h-[220px] sm:aspect-square"
+                className="group relative flex flex-col justify-between rounded-lg min-[380px]:rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46] p-1.5 min-[380px]:p-2 sm:p-5 text-white shadow-xs sm:shadow-lg border border-emerald-400/25 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/60 hover:shadow-xl hover:shadow-emerald-950/70 overflow-hidden aspect-square"
               >
                 {/* Elemen Vektor Tematik Latar Belakang (Mencerminkan Judul Kartu) */}
-                <div className="absolute right-0 top-8 sm:top-9 w-24 h-24 sm:w-28 sm:h-28 pointer-events-none select-none text-emerald-100 opacity-20 group-hover:opacity-40 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out">
+                <div className="absolute right-0 top-0.5 sm:right-0 sm:top-9 w-8 h-8 min-[380px]:w-10 min-[380px]:h-10 sm:w-28 sm:h-28 pointer-events-none select-none text-emerald-100 opacity-10 sm:opacity-20 group-hover:opacity-35 sm:group-hover:opacity-40 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out">
                   {item.vector}
                 </div>
 
-                {/* Subtle Dot Particles Overlay */}
-                <div className="absolute top-5 left-3 w-16 h-16 pointer-events-none select-none opacity-20 group-hover:opacity-35 transition-opacity">
+                {/* Subtle Dot Particles Overlay (Desktop Only) */}
+                <div className="hidden sm:block absolute top-3 left-2.5 sm:top-5 sm:left-3 w-12 h-12 sm:w-16 sm:h-16 pointer-events-none select-none opacity-15 sm:opacity-20 group-hover:opacity-35 transition-opacity">
                   <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
                     <circle cx="10" cy="10" r="1.5" fill="white" />
                     <circle cx="28" cy="18" r="2" fill="white" />
@@ -382,24 +382,27 @@ export function ServicesSection() {
                   </svg>
                 </div>
 
-                {/* Baris Atas: Ikon Glowing Badge & Tombol Panah */}
-                <div className="relative z-10 flex items-center justify-between">
-                  <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-white/15 border border-white/20 backdrop-blur-md shadow-inner transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/25">
-                    {item.icon}
+                {/* Baris Atas: Ikon Glowing Badge & Tombol Panah (Panah tampil di tablet/desktop) */}
+                <div className="relative z-10 flex items-start justify-between">
+                  <div className="flex h-6 w-6 min-[380px]:h-7 min-[380px]:w-7 sm:h-12 sm:w-12 items-center justify-center rounded-md sm:rounded-xl bg-white/15 border border-white/20 backdrop-blur-md shadow-inner transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/25">
+                    {/* Render icon scaled nicely for mobile */}
+                    <div className="[&>svg]:h-3 [&>svg]:w-3 min-[380px]:[&>svg]:h-3.5 min-[380px]:[&>svg]:w-3.5 sm:[&>svg]:h-6 sm:[&>svg]:w-6">
+                      {item.icon}
+                    </div>
                   </div>
 
                   {/* Tombol Panah Lingkaran Minimalis */}
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#047857] group-hover:scale-110 shadow-sm">
-                    <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
+                  <div className="hidden sm:flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full border border-white/50 text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#047857] group-hover:scale-110 shadow-sm">
+                    <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 stroke-[2.5]" />
                   </div>
                 </div>
 
                 {/* Bagian Bawah: Judul & Deskripsi */}
-                <div className="relative z-10 mt-3 sm:mt-4">
-                  <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-wider text-white leading-snug line-clamp-1">
+                <div className="relative z-10 mt-auto">
+                  <h3 className="text-[7.5px] min-[380px]:text-[8.5px] sm:text-[13px] font-bold sm:font-black uppercase tracking-tight text-white leading-[1.1] sm:leading-snug line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="mt-1 text-[11px] sm:text-xs leading-snug text-emerald-100/90 font-normal line-clamp-2">
+                  <p className="hidden sm:block mt-0.5 sm:mt-1 text-[9.5px] sm:text-xs leading-tight sm:leading-snug text-emerald-100/90 font-normal line-clamp-2">
                     {item.subtitle}
                   </p>
                 </div>

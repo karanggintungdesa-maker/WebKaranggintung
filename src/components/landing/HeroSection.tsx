@@ -172,8 +172,8 @@ export function HeroSection() {
       </motion.div>
 
       {/* ═══════════════════ Main Content ═══════════════════ */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-[92vh] sm:min-h-[88vh] lg:min-h-[90vh] flex-col justify-center pt-20 pb-16 sm:pt-20 sm:pb-24 lg:pt-16 lg:pb-24">
+      <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex min-h-0 sm:min-h-[88vh] lg:min-h-[90vh] flex-col justify-center pt-24 pb-16 sm:pt-24 sm:pb-24 lg:pt-16 lg:pb-24">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] xl:gap-12">
 
             {/* ═══════════ LEFT COLUMN — Text & CTA ═══════════ */}
@@ -183,19 +183,19 @@ export function HeroSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="mb-3 sm:mb-3.5 flex items-center gap-2.5"
+                className="mb-2 sm:mb-3.5 flex items-center gap-2 sm:gap-2.5"
               >
                 <motion.span
                   initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: 32, opacity: 1 }}
+                  animate={{ width: 28, opacity: 1 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="h-[2.5px] rounded-full bg-emerald-500 block shrink-0"
+                  className="h-[2px] sm:h-[2.5px] rounded-full bg-emerald-500 block shrink-0"
                 />
                 <motion.span
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.05, ease: 'easeOut' }}
-                  className="text-[11px] font-bold uppercase tracking-[0.25em] text-emerald-700"
+                  className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-emerald-700"
                 >
                   Selamat Datang di Portal Desa Digital
                 </motion.span>
@@ -208,12 +208,12 @@ export function HeroSection() {
                 transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="font-display font-extrabold tracking-tight leading-[1.05]"
               >
-                <span className="block text-4xl sm:text-5xl lg:text-6xl text-slate-900">
+                <span className="block text-3xl sm:text-5xl lg:text-6xl text-slate-900">
                   Desa
                 </span>
-                <span className="relative inline-flex items-center text-4xl sm:text-5xl lg:text-[3.8rem] xl:text-[4.3rem] bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-700 bg-clip-text text-transparent">
+                <span className="relative inline-flex items-center text-3xl sm:text-5xl lg:text-[3.8rem] xl:text-[4.3rem] bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-700 bg-clip-text text-transparent">
                   Karanggintung
-                  <Leaf className="inline-block ml-2 sm:ml-3 h-7 w-7 sm:h-9 sm:w-9 lg:h-11 lg:w-11 text-emerald-600 fill-emerald-500/30 -rotate-12 transform" />
+                  <Leaf className="inline-block ml-1.5 sm:ml-3 h-6 w-6 sm:h-9 sm:w-9 lg:h-11 lg:w-11 text-emerald-600 fill-emerald-500/30 -rotate-12 transform" />
                 </span>
               </motion.h1>
 
@@ -222,7 +222,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-                className="mt-1.5 text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-emerald-700/80"
+                className="mt-1 sm:mt-1.5 text-[11px] sm:text-sm font-bold uppercase tracking-[0.1em] sm:tracking-[0.16em] text-emerald-700/80"
               >
                 Kecamatan Gandrungmangu&ensp;•&ensp;Kabupaten Cilacap
               </motion.p>
@@ -232,7 +232,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-3.5 sm:mt-4 max-w-lg text-[14px] sm:text-[14.5px] leading-relaxed text-slate-600/95"
+                className="mt-2.5 sm:mt-4 max-w-lg text-[13px] sm:text-[14.5px] leading-relaxed text-slate-600/95"
               >
                 Melayani masyarakat dengan cepat, mudah, dan transparan
                 melalui layanan digital, informasi desa, statistik, berita,
@@ -244,20 +244,20 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3"
+                className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3"
               >
                 <Link href="/layanan-surat/" aria-label="Ajukan layanan desa">
-                  <Button className="hero-btn-sweep group h-10 sm:h-12 rounded-full bg-emerald-700 hover:bg-emerald-600 px-5 sm:px-7 text-sm sm:text-[14.5px] font-semibold text-white shadow-[0_8px_24px_rgba(5,150,105,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(5,150,105,0.34)]">
+                  <Button className="hero-btn-sweep group h-10 sm:h-12 rounded-xl sm:rounded-full bg-emerald-700 hover:bg-emerald-600 px-4 sm:px-7 text-xs sm:text-[14.5px] font-semibold text-white shadow-[0_8px_24px_rgba(5,150,105,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(5,150,105,0.34)]">
                     Ajukan Layanan
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="ml-1.5 sm:ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </Link>
                 <Link href="/profil-desa/" aria-label="Lihat profil desa">
                   <Button
                     variant="outline"
-                    className="h-10 sm:h-12 rounded-full border-2 border-emerald-300/80 bg-white/80 px-5 sm:px-7 text-sm sm:text-[14.5px] font-semibold text-emerald-800 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400 hover:bg-white hover:shadow-lg"
+                    className="h-10 sm:h-12 rounded-xl sm:rounded-full border-2 border-emerald-300/80 bg-white/80 px-4 sm:px-7 text-xs sm:text-[14.5px] font-semibold text-emerald-800 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400 hover:bg-white hover:shadow-lg"
                   >
-                    <Landmark className="mr-2 h-4 w-4 text-emerald-600" />
+                    <Landmark className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
                     Profil Desa
                   </Button>
                 </Link>
@@ -268,7 +268,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-5 grid grid-cols-2 gap-2.5 lg:hidden"
+                className="mt-4 grid grid-cols-2 gap-2 lg:hidden"
               >
                 {[
                   { href: '/statistik/', icon: BarChart3, label: 'Statistik Desa', color: 'bg-emerald-50 text-emerald-700' },
@@ -277,11 +277,11 @@ export function HeroSection() {
                   { href: '/pengumuman/', icon: CheckCircle2, label: 'Pengumuman', color: 'bg-violet-50 text-violet-700' },
                 ].map((item) => (
                   <Link key={item.href} href={item.href}>
-                    <div className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 border border-slate-100 bg-white shadow-sm hover:shadow-md transition-all`}>
-                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${item.color}`}>
-                        <item.icon className="h-4 w-4" />
+                    <div className="flex items-center gap-2 rounded-xl px-2.5 py-2 border border-slate-100 bg-white/95 shadow-xs hover:shadow-sm transition-all">
+                      <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${item.color}`}>
+                        <item.icon className="h-3.5 w-3.5" />
                       </div>
-                      <span className="text-[11px] font-bold text-slate-700 leading-tight">{item.label}</span>
+                      <span className="text-[10.5px] font-bold text-slate-700 leading-tight truncate">{item.label}</span>
                     </div>
                   </Link>
                 ))}
@@ -292,20 +292,20 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-5 sm:mt-7 grid grid-cols-2 gap-y-3 gap-x-4 sm:grid-cols-4 sm:gap-x-5 pt-3.5 border-t border-emerald-100/60"
+                className="mt-4 sm:mt-7 grid grid-cols-2 gap-y-2.5 gap-x-3 sm:grid-cols-4 sm:gap-x-5 pt-3 sm:pt-3.5 border-t border-emerald-100/60"
               >
                 {statsItems.map((s) => {
                   const Icon = s.icon;
                   return (
                     <div key={s.label} className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100/70 text-emerald-700">
-                        <Icon className="h-3.5 w-3.5" />
+                      <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-emerald-100/70 text-emerald-700">
+                        <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                       </div>
                       <div>
                         <p className="text-sm sm:text-lg font-extrabold tabular-nums leading-tight text-slate-800">
                           <AnimatedCounter target={s.value} suffix={s.suffix} />
                         </p>
-                        <p className="text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
+                        <p className="text-[8.5px] sm:text-[10.5px] font-semibold uppercase tracking-wider text-slate-500">
                           {s.label}
                         </p>
                       </div>
@@ -500,7 +500,7 @@ export function HeroSection() {
       </div>
 
       {/* ═══ Bottom Flowing Organic Wave Element (In Front of Mascot Legs) ═══ */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 sm:h-44 lg:h-56 xl:h-64 w-full pointer-events-none overflow-hidden z-20 select-none">
+      <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-44 lg:h-56 xl:h-64 w-full pointer-events-none overflow-hidden z-10 select-none">
         <div className="relative w-full h-full">
           <Image
             src="/hero-bottom-wave.svg"

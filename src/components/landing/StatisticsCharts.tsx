@@ -94,16 +94,16 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
 
   if (isLoading) {
     return (
-      <div className="mt-8 grid gap-6 lg:grid-cols-3">
-        <Skeleton className="h-[340px] rounded-[2rem]" />
-        <Skeleton className="h-[340px] rounded-[2rem]" />
-        <Skeleton className="h-[340px] rounded-[2rem]" />
+      <div className="mt-5 sm:mt-8 grid grid-cols-2 lg:grid-cols-3 gap-2 min-[380px]:gap-2.5 sm:gap-6">
+        <Skeleton className="col-span-2 lg:col-span-1 h-[260px] sm:h-[340px] rounded-xl sm:rounded-[2rem]" />
+        <Skeleton className="col-span-1 h-[240px] sm:h-[340px] rounded-xl sm:rounded-[2rem]" />
+        <Skeleton className="col-span-1 h-[240px] sm:h-[340px] rounded-xl sm:rounded-[2rem]" />
       </div>
     );
   }
 
   return (
-    <div className="mt-8 grid gap-6 lg:grid-cols-3">
+    <div className="mt-5 sm:mt-8 grid grid-cols-2 lg:grid-cols-3 gap-2 min-[380px]:gap-2.5 sm:gap-6">
       {/* CARD 1: KILAS DATA WILAYAH & DEMOGRAFI */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -111,119 +111,119 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.45 }}
         whileHover={{ y: -6, scale: 1.01 }}
-        className="relative overflow-hidden rounded-[2rem] border-0 bg-white/95 backdrop-blur-md p-6 sm:p-7 shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+        className="col-span-2 lg:col-span-1 relative overflow-hidden rounded-2xl sm:rounded-[2rem] border border-slate-100 bg-white/95 backdrop-blur-md p-3.5 sm:p-7 shadow-xs sm:shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
       >
         <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-emerald-500/5 blur-xl pointer-events-none" />
 
         <div>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="p-3 bg-emerald-50 text-emerald-700 rounded-2xl">
-              <Layers className="h-5 w-5" />
+          <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-5">
+            <div className="p-2 sm:p-3 bg-emerald-50 text-emerald-700 rounded-xl sm:rounded-2xl">
+              <Layers className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-700">Demografi Resmi</p>
-              <h4 className="text-base font-bold text-slate-900">Kilas Data Wilayah & Penduduk</h4>
+              <p className="text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-emerald-700">Demografi Resmi</p>
+              <h4 className="text-sm sm:text-base font-bold text-slate-900">Kilas Data Wilayah & Penduduk</h4>
             </div>
           </div>
 
-          <div className="space-y-3 pt-1">
-            <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50/90 border-0">
-              <div className="flex items-center gap-2.5">
-                <Users className="h-4 w-4 text-emerald-600" />
-                <span className="text-xs font-semibold text-slate-600">Total Penduduk</span>
+          <div className="space-y-2 sm:space-y-3 pt-1">
+            <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50/90 border-0">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-600">Total Penduduk</span>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-slate-900 font-mono">{population.toLocaleString('id-ID')}</span>
-                <span className="text-[10px] text-slate-500 font-medium ml-1">Jiwa</span>
+                <span className="text-xs sm:text-sm font-black text-slate-900 font-mono">{population.toLocaleString('id-ID')}</span>
+                <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium ml-1">Jiwa</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 rounded-2xl bg-blue-50/70 border-0">
-                <p className="text-[9px] font-black uppercase tracking-wider text-blue-700">Laki-laki</p>
-                <p className="text-sm font-black text-blue-900 font-mono mt-0.5">{male.toLocaleString('id-ID')} <span className="text-[9px] font-semibold text-blue-600">(51%)</span></p>
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+              <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-blue-50/70 border-0">
+                <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-blue-700">Laki-laki</p>
+                <p className="text-xs sm:text-sm font-black text-blue-900 font-mono mt-0.5">{male.toLocaleString('id-ID')} <span className="text-[8px] sm:text-[9px] font-semibold text-blue-600">(51%)</span></p>
               </div>
-              <div className="p-3 rounded-2xl bg-rose-50/70 border-0">
-                <p className="text-[9px] font-black uppercase tracking-wider text-rose-700">Perempuan</p>
-                <p className="text-sm font-black text-rose-900 font-mono mt-0.5">{female.toLocaleString('id-ID')} <span className="text-[9px] font-semibold text-rose-600">(49%)</span></p>
+              <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-rose-50/70 border-0">
+                <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-rose-700">Perempuan</p>
+                <p className="text-xs sm:text-sm font-black text-rose-900 font-mono mt-0.5">{female.toLocaleString('id-ID')} <span className="text-[8px] sm:text-[9px] font-semibold text-rose-600">(49%)</span></p>
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50/90 border-0">
-              <div className="flex items-center gap-2.5">
-                <Home className="h-4 w-4 text-amber-600" />
-                <span className="text-xs font-semibold text-slate-600">Kepala Keluarga (KK)</span>
+            <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50/90 border-0">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-amber-600" />
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-600">Kepala Keluarga (KK)</span>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-slate-900 font-mono">{totalKK.toLocaleString('id-ID')}</span>
-                <span className="text-[10px] text-slate-500 font-medium ml-1">KK</span>
+                <span className="text-xs sm:text-sm font-black text-slate-900 font-mono">{totalKK.toLocaleString('id-ID')}</span>
+                <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium ml-1">KK</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50/90 border-0">
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-4 w-4 text-emerald-600" />
-                <span className="text-xs font-semibold text-slate-600">Luas & Kepadatan</span>
+            <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50/90 border-0">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-600">Luas & Kepadatan</span>
               </div>
               <div className="text-right">
-                <span className="text-xs font-black text-slate-900 font-mono">{areaKm} km² · 986 jiwa/km²</span>
+                <span className="text-[11px] sm:text-xs font-black text-slate-900 font-mono">{areaKm} km² · 986 jiwa/km²</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-2xl bg-emerald-50/50 border-0">
-              <div className="flex items-center gap-2.5">
-                <Activity className="h-4 w-4 text-emerald-600" />
-                <span className="text-xs font-semibold text-slate-700">Sex Ratio (Rasio Jenis Kelamin)</span>
+            <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-50/50 border-0">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-700">Sex Ratio (Rasio Gender)</span>
               </div>
-              <span className="text-xs font-black text-emerald-800 font-mono">104,10</span>
+              <span className="text-[11px] sm:text-xs font-black text-emerald-800 font-mono">104,10</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-4 pt-3 flex items-center justify-between text-xs text-slate-500 font-medium border-t border-slate-100">
-          <span className="flex items-center gap-1.5 text-emerald-700 font-semibold text-[11px]">
-            <Sparkles className="h-3.5 w-3.5" />
+        <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 flex items-center justify-between text-xs text-slate-500 font-medium border-t border-slate-100">
+          <span className="flex items-center gap-1.5 text-emerald-700 font-semibold text-[10px] sm:text-[11px]">
+            <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             Data Resmi Desa Karanggintung
           </span>
-          <span className="text-[9px] uppercase font-bold text-slate-400">Kec. Gandrungmangu</span>
+          <span className="text-[8px] sm:text-[9px] uppercase font-bold text-slate-400">Kec. Gandrungmangu</span>
         </div>
       </motion.div>
 
-      {/* CARD 2: KOMPOSISI JENIS KELAMIN */}
+      {/* CARD 2: KOMPOSISI JENIS KELAMIN (Satu baris kiri di mobile) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.45, delay: 0.08 }}
         whileHover={{ y: -6, scale: 1.01 }}
-        className="relative overflow-hidden rounded-[2rem] border-0 bg-white/95 backdrop-blur-md p-6 sm:p-7 shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+        className="col-span-1 relative overflow-hidden rounded-xl sm:rounded-[2rem] border border-slate-100 bg-white/95 backdrop-blur-md p-2.5 min-[380px]:p-3 sm:p-7 shadow-xs sm:shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
       >
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-emerald-50 text-emerald-700 rounded-2xl">
-                <PieIcon className="h-5 w-5" />
+          <div className="flex items-center justify-between mb-1 sm:mb-2">
+            <div className="flex items-center gap-1.5 sm:gap-3">
+              <div className="p-1.5 sm:p-3 bg-emerald-50 text-emerald-700 rounded-lg sm:rounded-2xl">
+                <PieIcon className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-700">Persentase</p>
-                <h4 className="text-base font-bold text-slate-900">Komposisi Jenis Kelamin</h4>
+                <p className="text-[7.5px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-[0.25em] text-emerald-700">Persentase</p>
+                <h4 className="text-[10.5px] sm:text-base font-bold text-slate-900 leading-tight">Jenis Kelamin</h4>
               </div>
             </div>
-            <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-bold text-emerald-700">
+            <span className="hidden sm:inline-block rounded-full bg-emerald-50 px-2.5 py-0.5 sm:px-3 sm:py-1 text-[9px] sm:text-[10px] font-bold text-emerald-700">
               9.746 Jiwa
             </span>
           </div>
 
-          <div style={{ width: '100%', height: 210 }} className="my-2">
-            <ResponsiveContainer>
+          <div className="w-full h-[140px] sm:h-[210px] my-1 sm:my-2">
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                 <Pie
                   data={genderData}
                   dataKey="value"
                   nameKey="name"
-                  outerRadius={75}
-                  innerRadius={45}
-                  paddingAngle={4}
+                  outerRadius="75%"
+                  innerRadius="44%"
+                  paddingAngle={3}
                   startAngle={90}
                   endAngle={-270}
                 >
@@ -232,53 +232,53 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
-                <Legend verticalAlign="bottom" height={36} wrapperStyle={{ fontSize: 11, fontWeight: 600 }} />
+                <Legend verticalAlign="bottom" height={26} wrapperStyle={{ fontSize: 8.5, fontWeight: 600, bottom: 0 }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="mt-2 pt-3 grid grid-cols-2 gap-2 border-t border-slate-100 text-center">
-          <div className="p-2 rounded-xl bg-slate-50">
-            <p className="text-[10px] font-bold text-slate-500 uppercase">Laki-Laki</p>
-            <p className="text-xs font-black text-emerald-700 font-mono">4.971 Jiwa (51%)</p>
+        <div className="mt-1 pt-1.5 sm:mt-2 sm:pt-3 grid grid-cols-2 gap-1 sm:gap-2 border-t border-slate-100 text-center">
+          <div className="p-1 sm:p-2 rounded-lg sm:rounded-xl bg-slate-50">
+            <p className="text-[7px] sm:text-[10px] font-bold text-slate-500 uppercase">Laki-Laki</p>
+            <p className="text-[8.5px] sm:text-xs font-black text-emerald-700 font-mono">4.971 (51%)</p>
           </div>
-          <div className="p-2 rounded-xl bg-slate-50">
-            <p className="text-[10px] font-bold text-slate-500 uppercase">Perempuan</p>
-            <p className="text-xs font-black text-sky-700 font-mono">4.775 Jiwa (49%)</p>
+          <div className="p-1 sm:p-2 rounded-lg sm:rounded-xl bg-slate-50">
+            <p className="text-[7px] sm:text-[10px] font-bold text-slate-500 uppercase">Perempuan</p>
+            <p className="text-[8.5px] sm:text-xs font-black text-sky-700 font-mono">4.775 (49%)</p>
           </div>
         </div>
       </motion.div>
 
-      {/* CARD 3: SEBARAN PENDUDUK PER DUSUN & USIA */}
+      {/* CARD 3: SEBARAN PENDUDUK PER DUSUN & USIA (Satu baris kanan di mobile) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.45, delay: 0.16 }}
         whileHover={{ y: -6, scale: 1.01 }}
-        className="relative overflow-hidden rounded-[2rem] border-0 bg-white/95 backdrop-blur-md p-6 sm:p-7 shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+        className="col-span-1 relative overflow-hidden rounded-xl sm:rounded-[2rem] border border-slate-100 bg-white/95 backdrop-blur-md p-2.5 min-[380px]:p-3 sm:p-7 shadow-xs sm:shadow-md transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
       >
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-emerald-50 text-emerald-700 rounded-2xl">
-                <BarChart2 className="h-5 w-5" />
+          <div className="flex items-center justify-between mb-1 sm:mb-3">
+            <div className="flex items-center gap-1.5 sm:gap-3">
+              <div className="p-1.5 sm:p-3 bg-emerald-50 text-emerald-700 rounded-lg sm:rounded-2xl">
+                <BarChart2 className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-700">Distribusi</p>
-                <h4 className="text-base font-bold text-slate-900">
-                  {chartView === 'dusun' ? 'Sebaran 5 Dusun' : 'Piramida Kelompok Usia'}
+                <p className="text-[7.5px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-[0.25em] text-emerald-700">Distribusi</p>
+                <h4 className="text-[10.5px] sm:text-base font-bold text-slate-900 leading-tight">
+                  {chartView === 'dusun' ? 'Sebaran Dusun' : 'Kelompok Usia'}
                 </h4>
               </div>
             </div>
 
             {/* View Switch Buttons */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl">
+            <div className="flex items-center bg-slate-100 p-0.5 sm:p-1 rounded-md sm:rounded-xl">
               <button
                 type="button"
                 onClick={() => setChartView('dusun')}
-                className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                className={`px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-bold rounded-sm sm:rounded-lg transition-all ${
                   chartView === 'dusun'
                     ? 'bg-emerald-700 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -289,7 +289,7 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
               <button
                 type="button"
                 onClick={() => setChartView('umur')}
-                className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                className={`px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-bold rounded-sm sm:rounded-lg transition-all ${
                   chartView === 'umur'
                     ? 'bg-emerald-700 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -300,11 +300,11 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
             </div>
           </div>
 
-          <div style={{ width: '100%', height: 210 }} className="my-2">
-            <ResponsiveContainer>
+          <div className="w-full h-[140px] sm:h-[210px] my-1 sm:my-2">
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartView === 'dusun' ? dusunDistribution : ageDistribution}
-                margin={{ top: 12, right: 10, left: -20, bottom: chartView === 'dusun' ? 15 : 0 }}
+                margin={{ top: 8, right: 4, left: -26, bottom: chartView === 'dusun' ? 10 : 0 }}
               >
                 <defs>
                   <linearGradient id="barGradientDusun" x1="0" y1="0" x2="0" y2="1">
@@ -315,27 +315,28 @@ export function StatisticsCharts({ statsDoc, isLoading }: StatisticsChartsProps)
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis
                   dataKey="name"
-                  tick={{ fontSize: 9, fill: '#64748b' }}
+                  tick={{ fontSize: 7.5, fill: '#64748b' }}
+                  tickFormatter={(val: string) => val.replace('Dsn. ', '')}
                   axisLine={false}
                   tickLine={false}
                   interval={0}
-                  angle={chartView === 'dusun' ? -15 : -35}
+                  angle={chartView === 'dusun' ? -20 : -35}
                   textAnchor="end"
                 />
-                <YAxis tick={{ fontSize: 9, fill: '#64748b' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 7.5, fill: '#64748b' }} axisLine={false} tickLine={false} width={24} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="count" fill="url(#barGradientDusun)" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="url(#barGradientDusun)" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="mt-2 pt-3 flex items-center justify-between text-xs text-slate-500 font-medium border-t border-slate-100">
-          <span className="text-[10px] font-bold text-slate-500 uppercase">
-            {chartView === 'dusun' ? '5 Dusun Terdata Lengkap' : '13 Kategori Rentang Umur'}
+        <div className="mt-1 pt-1.5 sm:mt-2 sm:pt-3 flex items-center justify-between text-[7.5px] sm:text-xs text-slate-500 font-medium border-t border-slate-100">
+          <span className="font-bold text-slate-500 uppercase truncate">
+            {chartView === 'dusun' ? '5 Dusun' : '13 Kategori'}
           </span>
-          <span className="text-[10px] font-black text-emerald-700">
-            Total 9.746 Jiwa
+          <span className="font-black text-emerald-700 shrink-0 ml-1">
+            9.746 Jiwa
           </span>
         </div>
       </motion.div>

@@ -248,8 +248,8 @@ export function PbbSearchSection() {
     : 0;
 
   return (
-    <section id="cek-pbb" className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 scroll-mt-24">
-      <div className="relative rounded-[3rem] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white p-6 sm:p-12 lg:p-16 shadow-2xl border border-emerald-900/40 overflow-hidden">
+    <section id="cek-pbb" className="relative mx-auto max-w-7xl px-3.5 py-8 sm:px-6 sm:py-12 lg:px-8 scroll-mt-24">
+      <div className="relative rounded-2xl sm:rounded-[3rem] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white p-4 sm:p-12 lg:p-16 shadow-2xl border border-emerald-900/40 overflow-hidden">
         {/* Background Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/30 via-slate-900 to-slate-950 pointer-events-none" />
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -257,31 +257,31 @@ export function PbbSearchSection() {
 
         <div className="relative mx-auto max-w-5xl">
         {/* Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-emerald-400">
-            <Receipt className="h-4 w-4" />
+        <div className="text-center space-y-2 sm:space-y-4 max-w-3xl mx-auto mb-6 sm:mb-10">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-emerald-400">
+            <Receipt className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Layanan Perpajakan Desa
           </div>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight font-display uppercase leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight font-display uppercase leading-tight">
             Cek Pajak <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200">PBB-P2</span> Online
           </h2>
-          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-400 text-xs sm:text-base leading-relaxed">
             Pengecekan tagihan, rincian objek pajak, dan status pelunasan Pajak Bumi & Bangunan (PBB-P2) warga Desa Karanggintung secara transparan dan real-time langsung dari data SPPT desa.
           </p>
         </div>
 
         {/* Search Box Card */}
-        <div className="bg-white/10 backdrop-blur-xl border border-white/15 p-4 md:p-8 rounded-[2.5rem] shadow-2xl mb-12">
-          <form onSubmit={(e) => handleSearch(e)} className="space-y-4">
-            <div className="relative flex flex-col sm:flex-row gap-3">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/15 p-3.5 sm:p-8 rounded-xl sm:rounded-[2.5rem] shadow-xl sm:shadow-2xl mb-8 sm:mb-12">
+          <form onSubmit={(e) => handleSearch(e)} className="space-y-3 sm:space-y-4">
+            <div className="relative flex flex-col sm:flex-row gap-2.5 sm:gap-3">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Search className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
                 <Input
                   type="text"
                   value={nopInput}
                   onChange={(e) => setNopInput(e.target.value)}
-                  placeholder="Masukkan Nomor Objek Pajak (NOP) Anda..."
-                  className="w-full h-14 pl-12 pr-10 rounded-2xl bg-white text-slate-900 placeholder:text-slate-400 font-semibold border-none focus-visible:ring-2 focus-visible:ring-emerald-400 text-base shadow-inner"
+                  placeholder="Masukkan NOP Anda (misal: 33.01.070...)"
+                  className="w-full h-12 sm:h-14 pl-10 pr-9 sm:pl-12 sm:pr-10 rounded-xl sm:rounded-2xl bg-white text-slate-900 placeholder:text-slate-400 font-semibold border-none focus-visible:ring-2 focus-visible:ring-emerald-400 text-sm sm:text-base shadow-inner"
                 />
                 {nopInput && (
                   <button
@@ -297,16 +297,16 @@ export function PbbSearchSection() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="h-14 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shrink-0"
+                className="h-12 sm:h-14 px-6 sm:px-8 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-md sm:shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shrink-0"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin mr-2" />
                     Mencari...
                   </>
                 ) : (
                   <>
-                    <Search className="h-5 w-5 mr-2" />
+                    <Search className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Cek Tagihan
                   </>
                 )}
@@ -314,12 +314,12 @@ export function PbbSearchSection() {
             </div>
 
             {/* Contoh Cara Input NOP */}
-            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300 pt-2 px-1">
-              <HelpCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-300 pt-1 sm:pt-2 px-1">
+              <HelpCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-400 shrink-0" />
               <span>
                 <strong>Contoh format NOP:</strong>{' '}
-                <code className="bg-white/10 px-2 py-0.5 rounded text-emerald-300 font-mono">33.01.070.008.001.0016.0</code>{' '}
-                <span className="text-slate-400">(dapat diketik langsung dengan angka atau tanda titik sesuai SPPT Anda)</span>
+                <code className="bg-white/10 px-1.5 py-0.5 rounded text-emerald-300 font-mono text-[10px] sm:text-xs">33.01.070.008.001.0016.0</code>{' '}
+                <span className="text-slate-400 hidden sm:inline">(dapat diketik angka atau dengan tanda titik)</span>
               </span>
             </div>
           </form>

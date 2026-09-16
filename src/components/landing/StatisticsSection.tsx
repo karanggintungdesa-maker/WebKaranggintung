@@ -98,70 +98,70 @@ export function StatisticsSection() {
   ];
 
   return (
-    <section className="py-24 sm:py-28 relative">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="py-10 sm:py-24 relative">
+      <div className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.45 }}
-          className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"
+          className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between"
         >
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700 flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-emerald-600" />
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-emerald-700 flex items-center gap-1.5 sm:gap-2">
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
               Statistik Desa Karanggintung
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="mt-2 sm:mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Data terbaru mengenai kondisi Desa Karanggintung.
             </h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
+            <p className="mt-2 sm:mt-4 text-xs sm:text-lg leading-relaxed sm:leading-8 text-slate-600">
               Informasi terbuka mengenai demografi kependudukan, wilayah administratif, dan perkembangan Desa Karanggintung, Kecamatan Gandrungmangu.
             </p>
           </div>
           <a
             href="/statistik?tab=kependudukan"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 transition-colors group"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 transition-colors group"
           >
             <span>Lihat statistik lengkap</span>
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </motion.div>
 
-        {/* Live Metric Cards Grid */}
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 md:gap-6">
+        {/* Live Metric Cards Grid (3 cards per row on mobile, 6 on desktop) */}
+        <div className="mt-5 sm:mt-12 grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 min-[380px]:gap-2.5 sm:gap-4 md:gap-6">
           {metricsList.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={item.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.35, delay: index * 0.05 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
                 whileHover={{ y: -6, scale: 1.03 }}
-                className="group relative overflow-hidden rounded-[1.75rem] border-0 bg-white/95 backdrop-blur-sm p-5 shadow-sm transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+                className="group relative overflow-hidden rounded-xl sm:rounded-[1.75rem] border border-slate-100 bg-white/95 backdrop-blur-sm p-2 min-[380px]:p-2.5 sm:p-5 shadow-xs sm:shadow-sm transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
               >
-                <div className={`absolute top-0 right-0 h-20 w-20 rounded-full bg-gradient-to-bl ${item.gradient} blur-xl pointer-events-none group-hover:scale-125 transition-transform duration-500`} />
+                <div className={`absolute top-0 right-0 h-12 w-12 sm:h-20 sm:w-20 rounded-full bg-gradient-to-bl ${item.gradient} blur-lg pointer-events-none group-hover:scale-125 transition-transform duration-500`} />
 
                 <div>
-                  <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${item.bgColor} ${item.color} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
-                    <Icon className="h-5 w-5" />
+                  <div className={`flex h-6 w-6 min-[380px]:h-7 min-[380px]:w-7 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-2xl ${item.bgColor} ${item.color} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                    <Icon className="h-3 w-3 min-[380px]:h-3.5 min-[380px]:w-3.5 sm:h-5 sm:w-5" />
                   </div>
-                  <p className="mt-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-tight">
+                  <p className="mt-1.5 sm:mt-4 text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight line-clamp-2">
                     {item.label}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-2">
-                  <p className="text-2xl font-black tracking-tight text-slate-900 font-mono font-display">
+                <div className="mt-2 sm:mt-4 pt-1 sm:pt-2 border-t border-slate-100/60">
+                  <p className="text-xs min-[380px]:text-sm sm:text-2xl font-black tracking-tight text-slate-900 font-mono font-display">
                     {item.value}
                   </p>
-                  <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-0.5">
+                  <p className="text-[7px] min-[380px]:text-[8px] sm:text-[10px] font-bold text-emerald-700 uppercase tracking-tight mt-0.5 line-clamp-1">
                     {item.unit}
                   </p>
                   {item.subtext && (
-                    <p className="text-[9px] font-medium text-slate-400 mt-1">
+                    <p className="text-[6.5px] min-[380px]:text-[7.5px] sm:text-[9px] font-medium text-slate-400 mt-0.5 line-clamp-1">
                       {item.subtext}
                     </p>
                   )}
@@ -172,7 +172,7 @@ export function StatisticsSection() {
         </div>
 
         {/* Charts Container */}
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
           <StatisticsCharts statsDoc={statsDoc} isLoading={statsLoading} />
         </div>
       </div>
