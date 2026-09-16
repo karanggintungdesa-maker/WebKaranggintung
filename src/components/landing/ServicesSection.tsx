@@ -1,629 +1,412 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
   BarChart3,
-  CheckCircle2,
-  Clock,
   Compass,
+  FileCheck2,
   FileText,
   Landmark,
-  Megaphone,
-  Newspaper,
-  PieChart,
+  MessageSquareQuote,
+  PhoneCall,
+  Receipt,
   ShieldCheck,
   Sparkles,
-  Users,
-  Send,
-  Mail,
-  MapPin,
-  FileCheck,
+  Store,
 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 
-/* ═══════════════════════════════════════════════════════════
-   VECTOR ILLUSTRATIONS (Clean, High-DPI SVGs for Cards)
-   ═══════════════════════════════════════════════════════════ */
+interface ServiceCardItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  icon: React.ReactNode;
+  vector: React.ReactNode;
+}
 
-/* Card 1 Vector: Stacked Official Documents with Green Check Circle */
-function DocumentVector() {
-  return (
-    <div className="absolute right-0 bottom-14 w-44 h-44 pointer-events-none select-none opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-1">
-      <svg viewBox="0 0 160 160" fill="none" className="w-full h-full">
-        {/* Back document */}
-        <rect
-          x="35"
-          y="15"
-          width="75"
-          height="100"
-          rx="12"
-          transform="rotate(8 35 15)"
-          fill="#E6F4EA"
-          stroke="#CEEAD6"
-          strokeWidth="2"
-        />
-        {/* Front document */}
-        <rect
-          x="20"
-          y="25"
-          width="85"
-          height="105"
-          rx="14"
-          fill="url(#docGrad)"
-          stroke="#E2E8F0"
-          strokeWidth="2.5"
-          className="drop-shadow-md"
-        />
-        {/* Document lines */}
-        <rect x="36" y="45" width="52" height="5" rx="2.5" fill="#CBD5E1" />
-        <rect x="36" y="58" width="44" height="4" rx="2" fill="#E2E8F0" />
-        <rect x="36" y="69" width="48" height="4" rx="2" fill="#E2E8F0" />
-        <rect x="36" y="80" width="38" height="4" rx="2" fill="#E2E8F0" />
-        <rect x="36" y="91" width="46" height="4" rx="2" fill="#E2E8F0" />
-        {/* Green Checkmark Circle Badge */}
-        <g transform="translate(82, 90)">
-          <circle cx="24" cy="24" r="22" fill="#10B981" className="drop-shadow-lg" />
-          <path
-            d="M16 24L21 29L32 18"
-            stroke="white"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+const serviceItemsRow1: ServiceCardItem[] = [
+  {
+    id: 'surat',
+    title: 'SURAT MANDIRI',
+    subtitle: 'Pengajuan surat & dokumen resmi warga mandiri online',
+    href: '/layanan-surat/',
+    icon: <FileCheck2 className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Lembar Dokumen Resmi */}
+        <path d="M24 14 H64 L80 30 V86 C80 88.2 78.2 90 76 90 H24 C21.8 90 20 88.2 20 86 V18 C20 15.8 21.8 14 24 14 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.08" />
+        <path d="M64 14 V30 H80" strokeWidth="2.5" strokeLinejoin="round" />
+        {/* Garis isi surat */}
+        <line x1="30" y1="36" x2="56" y2="36" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="30" y1="45" x2="68" y2="45" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 3" />
+        <line x1="30" y1="53" x2="64" y2="53" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 3" />
+        <line x1="30" y1="61" x2="50" y2="61" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 3" />
+        {/* Stempel Segel Lilin & Pita Pengesahan */}
+        <circle cx="66" cy="71" r="10" strokeWidth="2.5" fill="white" fillOpacity="0.2" />
+        <path d="M62 79 L60 89 L66 86 L72 89 L70 79" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.15" />
+        <path d="M63 71 L65 74 L70 69" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    id: 'pelayanan',
+    title: 'PELAYANAN DESA',
+    subtitle: 'Standar operasional & kepengurusan warga 100% gratis',
+    href: '/pelayanan-desa/',
+    icon: <FileText className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Papan Klip SOP */}
+        <rect x="36" y="8" width="28" height="12" rx="3" strokeWidth="2.5" fill="white" fillOpacity="0.18" />
+        <circle cx="50" cy="14" r="2.5" fill="white" />
+        <rect x="20" y="16" width="60" height="74" rx="6" strokeWidth="2.5" fill="white" fillOpacity="0.08" />
+        {/* Baris Checklist 1 */}
+        <rect x="28" y="32" width="11" height="11" rx="2" strokeWidth="2" fill="white" fillOpacity="0.15" />
+        <path d="M30 38 L34 41 L39 34" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="45" y1="38" x2="70" y2="38" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Baris Checklist 2 */}
+        <rect x="28" y="48" width="11" height="11" rx="2" strokeWidth="2" fill="white" fillOpacity="0.15" />
+        <path d="M30 54 L34 57 L39 50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="45" y1="54" x2="68" y2="54" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Baris Checklist 3 */}
+        <rect x="28" y="64" width="11" height="11" rx="2" strokeWidth="2" fill="white" fillOpacity="0.15" />
+        <path d="M30 70 L34 73 L39 66" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="45" y1="70" x2="60" y2="70" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Bintang Mutu Pelayanan */}
+        <circle cx="71" cy="74" r="9" strokeWidth="2" fill="white" fillOpacity="0.18" />
+        <path d="M71 68 L72.5 72 L77 72 L73.5 74.5 L75 79 L71 76 L67 79 L68.5 74.5 L65 72 L69.5 72 Z" fill="white" fillOpacity="0.8" />
+      </svg>
+    ),
+  },
+  {
+    id: 'pbb',
+    title: 'CEK PBB-P2',
+    subtitle: 'Cek tagihan & status lunas pajak PBB-P2 desa cepat',
+    href: '/#pbb-section',
+    icon: <Receipt className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Siluet Bangunan Rumah Warga */}
+        <path d="M14 46 L44 20 L74 46 V78 C74 80 72.5 82 70 82 H18 C15.5 82 14 80 14 78 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.06" />
+        <path d="M58 26 V18 H66 V33" strokeWidth="2" strokeLinejoin="round" />
+        <rect x="24" y="50" width="16" height="16" rx="2" strokeWidth="2" fill="white" fillOpacity="0.12" />
+        <line x1="32" y1="50" x2="32" y2="66" strokeWidth="1.5" />
+        <line x1="24" y1="58" x2="40" y2="58" strokeWidth="1.5" />
+        {/* Lembar Bukti Tagihan Pajak PBB */}
+        <g transform="translate(46, 38)">
+          <path d="M0 0 H36 V44 L30 40 L24 44 L18 40 L12 44 L6 40 L0 44 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.2" />
+          <text x="6" y="14" fill="white" fontSize="9" fontWeight="900" fontFamily="sans-serif">PBB</text>
+          {/* Garis Barcode Pajak */}
+          <line x1="6" y1="22" x2="6" y2="34" strokeWidth="1.5" />
+          <line x1="10" y1="22" x2="10" y2="34" strokeWidth="2.5" />
+          <line x1="15" y1="22" x2="15" y2="34" strokeWidth="1" />
+          <line x1="18" y1="22" x2="18" y2="34" strokeWidth="2" />
+          <line x1="23" y1="22" x2="23" y2="34" strokeWidth="1.5" />
+          <line x1="28" y1="22" x2="28" y2="34" strokeWidth="2" />
         </g>
-        <defs>
-          <linearGradient id="docGrad" x1="20" y1="25" x2="105" y2="130" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FFFFFF" />
-            <stop stopColor="#F8FAFC" />
-          </linearGradient>
-        </defs>
+        {/* Tumpukan Koin Setoran */}
+        <ellipse cx="44" cy="85" rx="14" ry="4" strokeWidth="1.5" fill="white" fillOpacity="0.2" />
+        <ellipse cx="44" cy="81" rx="14" ry="4" strokeWidth="1.5" fill="white" fillOpacity="0.2" />
+        <ellipse cx="44" cy="77" rx="14" ry="4" strokeWidth="1.5" fill="white" fillOpacity="0.2" />
       </svg>
-    </div>
-  );
-}
-
-/* Card 4 Vector: Folded 3D Newspaper */
-function NewspaperVector() {
-  return (
-    <div className="absolute -right-2 bottom-6 w-36 h-36 pointer-events-none select-none opacity-85 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
-      <svg viewBox="0 0 140 140" fill="none" className="w-full h-full">
-        <rect
-          x="20"
-          y="20"
-          width="85"
-          height="100"
-          rx="10"
-          transform="rotate(10 20 20)"
-          fill="#E2E8F0"
-          stroke="#CBD5E1"
-          strokeWidth="2"
-        />
-        <rect
-          x="10"
-          y="25"
-          width="90"
-          height="95"
-          rx="10"
-          fill="#FFFFFF"
-          stroke="#E2E8F0"
-          strokeWidth="2.5"
-          className="drop-shadow-md"
-        />
-        {/* NEWS Header */}
-        <rect x="22" y="38" width="66" height="12" rx="3" fill="#F1F5F9" />
-        <text x="36" y="47" fill="#94A3B8" fontSize="8" fontWeight="bold" letterSpacing="2">
-          NEWS
-        </text>
-        {/* Photo Box */}
-        <rect x="22" y="56" width="30" height="26" rx="4" fill="#E2E8F0" />
-        {/* Article text lines */}
-        <rect x="58" y="57" width="30" height="3" rx="1.5" fill="#CBD5E1" />
-        <rect x="58" y="64" width="26" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="58" y="71" width="28" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="58" y="78" width="20" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="22" y="88" width="66" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="22" y="95" width="58" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="22" y="102" width="62" height="3" rx="1.5" fill="#CBD5E1" />
-      </svg>
-    </div>
-  );
-}
-
-/* Card 5 Vector: 3D Laptop with Paper Airplane Flying */
-function LaptopVector() {
-  return (
-    <div className="absolute right-0 bottom-4 w-44 h-40 pointer-events-none select-none opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:translate-x-1">
-      <svg viewBox="0 0 160 140" fill="none" className="w-full h-full">
-        {/* Laptop Screen */}
-        <rect
-          x="30"
-          y="25"
-          width="90"
-          height="62"
-          rx="8"
-          fill="#FFFFFF"
-          stroke="#CBD5E1"
-          strokeWidth="3"
-          className="drop-shadow-sm"
-        />
-        {/* Screen inner content */}
-        <rect x="38" y="34" width="74" height="44" rx="4" fill="#F8FAFC" />
-        <rect x="44" y="44" width="40" height="3" rx="1.5" fill="#CBD5E1" />
-        <rect x="44" y="52" width="34" height="3" rx="1.5" fill="#E2E8F0" />
-        <rect x="44" y="60" width="48" height="3" rx="1.5" fill="#E2E8F0" />
-        {/* Laptop Base */}
-        <path
-          d="M18 90C18 88.3431 19.3431 87 21 87H129C130.657 87 132 88.3431 132 90L136 98C136 100.209 134.209 102 132 102H18C15.7909 102 14 100.209 14 98L18 90Z"
-          fill="#E2E8F0"
-          stroke="#CBD5E1"
-          strokeWidth="2"
-        />
-        <rect x="68" y="89" width="14" height="2" rx="1" fill="#94A3B8" />
-        {/* Paper Plane Flying */}
-        <g transform="translate(100, 22) rotate(-15)">
-          <path
-            d="M0 16L32 0L20 28L14 18L0 16Z"
-            fill="#34D399"
-            className="drop-shadow-md"
-          />
-          <path d="M32 0L14 18V26L18 21" fill="#059669" />
-          <path d="M14 18L32 0" stroke="#047857" strokeWidth="1" />
+    ),
+  },
+  {
+    id: 'pengaduan',
+    title: 'PENGADUAN',
+    subtitle: 'Aspirasi & laporan warga langsung ke pemerintah desa',
+    href: '/pengaduan/',
+    icon: <MessageSquareQuote className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Balon Dialog Aspirasi Utama */}
+        <path d="M16 22 C16 16.5 20.5 12 26 12 H66 C71.5 12 76 16.5 76 22 V42 C76 47.5 71.5 52 66 52 H36 L22 62 V52 H26 C20.5 52 16 47.5 16 42 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.08" />
+        {/* Titik Suara Dialog */}
+        <circle cx="34" cy="32" r="3" fill="white" fillOpacity="0.7" />
+        <circle cx="46" cy="32" r="3" fill="white" fillOpacity="0.9" />
+        <circle cx="58" cy="32" r="3" fill="white" fillOpacity="0.7" />
+        {/* Megafon Suara Pengaduan Warga */}
+        <g transform="translate(32, 44)">
+          <path d="M8 20 L24 28 V8 L8 16 H2 C0.9 16 0 16.9 0 18 V22 C0 23.1 0.9 24 2 24 H8 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.2" />
+          <path d="M6 24 V34 C6 35.1 6.9 36 8 36 H12 C13.1 36 14 35.1 14 34 V25" strokeWidth="2" strokeLinejoin="round" />
+          {/* Gelombang Suara / Broadcast */}
+          <path d="M29 13 C32 16 32 20 29 23" strokeWidth="2" strokeLinecap="round" />
+          <path d="M35 8 C40 14 40 22 35 28" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 3" />
+          <path d="M41 4 C48 12 48 24 41 32" strokeWidth="2" strokeLinecap="round" />
         </g>
       </svg>
-    </div>
-  );
-}
-
-/* Card 6 Vector: 3D Loudspeaker / Megaphone with Audio Waves */
-function MegaphoneVector() {
-  return (
-    <div className="absolute right-0 bottom-4 w-40 h-40 pointer-events-none select-none opacity-85 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-      <svg viewBox="0 0 150 150" fill="none" className="w-full h-full">
-        {/* Megaphone Body */}
-        <g transform="translate(30, 30) rotate(-15)">
-          {/* Cone */}
-          <path
-            d="M20 30L65 10V60L20 40V30Z"
-            fill="url(#megaGrad)"
-            stroke="#059669"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-            className="drop-shadow-md"
-          />
-          {/* Rear Cap */}
-          <rect
-            x="8"
-            y="26"
-            width="12"
-            height="18"
-            rx="4"
-            fill="#34D399"
-            stroke="#059669"
-            strokeWidth="2"
-          />
-          {/* Handle */}
-          <path
-            d="M28 40L24 64C24 66.2091 25.7909 68 28 68C30.2091 68 32 66.2091 32 64L34 40"
-            fill="#10B981"
-            stroke="#047857"
-            strokeWidth="2"
-          />
-          {/* Front Rim */}
-          <ellipse
-            cx="65"
-            cy="35"
-            rx="5"
-            ry="25"
-            fill="#6EE7B7"
-            stroke="#059669"
-            strokeWidth="2"
-          />
+    ),
+  },
+  {
+    id: 'statistik',
+    title: 'STATISTIK DESA',
+    subtitle: 'Transparansi data kependudukan & demografi realtime',
+    href: '/statistik/',
+    icon: <BarChart3 className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Sumbu Grafik */}
+        <path d="M16 16 V82 H86" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="16" y1="36" x2="86" y2="36" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+        <line x1="16" y1="56" x2="86" y2="56" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+        {/* Batang Statistik Bertumbuh */}
+        <rect x="24" y="56" width="10" height="26" rx="2" strokeWidth="2" fill="white" fillOpacity="0.15" />
+        <rect x="40" y="40" width="10" height="42" rx="2" strokeWidth="2" fill="white" fillOpacity="0.22" />
+        <rect x="56" y="26" width="10" height="56" rx="2" strokeWidth="2" fill="white" fillOpacity="0.3" />
+        <rect x="72" y="18" width="10" height="64" rx="2" strokeWidth="2" fill="white" fillOpacity="0.38" />
+        {/* Garis Tren Pertumbuhan */}
+        <path d="M22 62 L36 50 L52 42 L68 22 L82 12" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M72 12 H82 V22" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* Diagram Lingkaran Mini */}
+        <g transform="translate(60, 46)">
+          <circle cx="15" cy="15" r="13" strokeWidth="2" fill="white" fillOpacity="0.1" />
+          <path d="M15 15 L15 2 A13 13 0 0 1 28 15 Z" fill="white" fillOpacity="0.4" strokeWidth="1.5" />
         </g>
-        {/* Sound Waves */}
-        <path
-          d="M102 42C108 52 108 68 102 78"
-          stroke="#34D399"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M112 34C122 48 122 72 112 86"
-          stroke="#6EE7B7"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <defs>
-          <linearGradient id="megaGrad" x1="20" y1="10" x2="65" y2="60" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#6EE7B7" />
-            <stop stopColor="#10B981" />
-          </linearGradient>
-        </defs>
       </svg>
-    </div>
-  );
-}
+    ),
+  },
+];
 
-/* ═══════════════════════════════════════════════════════════
-   MAIN COMPONENT: ServicesSection
-   ═══════════════════════════════════════════════════════════ */
+const serviceItemsRow2: ServiceCardItem[] = [
+  {
+    id: 'umkm',
+    title: 'UMKM DESA',
+    subtitle: 'Katalog etalase produk kreatif & usaha warga desa',
+    href: '/umkm-dan-industri-kreatif/',
+    icon: <Store className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Kanopi Toko UMKM */}
+        <path d="M16 34 L22 18 H78 L84 34 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.12" />
+        <path d="M16 34 C16 38 20 41 24 41 C28 41 32 38 32 34 C32 38 36 41 40 41 C44 41 48 38 48 34 C48 38 52 41 56 41 C60 41 64 38 64 34 C64 38 68 41 72 41 C76 41 80 38 80 34 C80 38 84 41 84 34" strokeWidth="2" strokeLinejoin="round" />
+        <line x1="32" y1="18" x2="32" y2="34" strokeWidth="1.5" />
+        <line x1="48" y1="18" x2="48" y2="34" strokeWidth="1.5" />
+        <line x1="64" y1="18" x2="64" y2="34" strokeWidth="1.5" />
+        {/* Dinding Toko */}
+        <rect x="22" y="41" width="56" height="42" strokeWidth="2.5" fill="white" fillOpacity="0.06" />
+        <rect x="28" y="48" width="22" height="22" rx="2" strokeWidth="2" fill="white" fillOpacity="0.12" />
+        {/* Tas Belanja Produk Kreatif */}
+        <g transform="translate(54, 48)">
+          <rect x="0" y="8" width="26" height="28" rx="3" strokeWidth="2" fill="white" fillOpacity="0.22" />
+          <path d="M6 8 V5 C6 2.5 8.5 0 13 0 C17.5 0 20 2.5 20 5 V8" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="13" cy="20" r="3" fill="white" fillOpacity="0.7" />
+        </g>
+        {/* Kilau Bintang Kreativitas */}
+        <path d="M86 16 L88 22 L94 24 L88 26 L86 32 L84 26 L78 24 L84 22 Z" fill="white" fillOpacity="0.8" />
+        <path d="M12 60 L13 63 L16 64 L13 65 L12 68 L11 65 L8 64 L11 63 Z" fill="white" fillOpacity="0.6" />
+      </svg>
+    ),
+  },
+  {
+    id: 'anti-korupsi',
+    title: 'ANTI KORUPSI',
+    subtitle: 'Keterbukaan informasi & integritas tata kelola anggaran',
+    href: '/desa-anti-korupsi/',
+    icon: <ShieldCheck className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Perisai Integritas Desa */}
+        <path d="M50 12 L84 24 V52 C84 72 68 86 50 92 C32 86 16 72 16 52 V24 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.08" />
+        <path d="M50 20 L76 30 V52 C76 67 64 78 50 84 C36 78 24 67 24 52 V30 Z" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.6" />
+        {/* Timbangan Keadilan & Kejujuran (Scales of Justice) */}
+        <line x1="50" y1="32" x2="50" y2="70" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="50" cy="32" r="3.5" fill="white" />
+        <line x1="42" y1="70" x2="58" y2="70" strokeWidth="3" strokeLinecap="round" />
+        <line x1="30" y1="40" x2="70" y2="40" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Piring Timbangan Kiri */}
+        <line x1="30" y1="40" x2="24" y2="54" strokeWidth="1.5" />
+        <line x1="30" y1="40" x2="36" y2="54" strokeWidth="1.5" />
+        <path d="M22 54 C22 60 38 60 38 54 Z" strokeWidth="2" fill="white" fillOpacity="0.22" />
+        {/* Piring Timbangan Kanan */}
+        <line x1="70" y1="40" x2="64" y2="54" strokeWidth="1.5" />
+        <line x1="70" y1="40" x2="76" y2="54" strokeWidth="1.5" />
+        <path d="M62 54 C62 60 78 60 78 54 Z" strokeWidth="2" fill="white" fillOpacity="0.22" />
+        {/* Bintang Kejujuran */}
+        <path d="M50 16 L51.5 20 L55 20.5 L52.5 22.5 L53.5 26 L50 24 L46.5 26 L47.5 22.5 L45 20.5 L48.5 20 Z" fill="white" fillOpacity="0.8" />
+      </svg>
+    ),
+  },
+  {
+    id: 'tata-kelola',
+    title: 'TATA KELOLA',
+    subtitle: 'Struktur aparatur, BPD, dan kelembagaan desa resmi',
+    href: '/tata-kelola-desa/',
+    icon: <Landmark className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Atap Balai Desa / Kantor Pemerintahan */}
+        <path d="M16 32 L50 14 L84 32 Z" strokeWidth="2.5" strokeLinejoin="round" fill="white" fillOpacity="0.12" />
+        <circle cx="50" cy="24" r="3" fill="white" fillOpacity="0.8" />
+        <rect x="14" y="32" width="72" height="6" rx="1" strokeWidth="2" fill="white" fillOpacity="0.22" />
+        {/* 4 Pilar Kokoh Lembaga Desa */}
+        <rect x="22" y="38" width="8" height="34" rx="1" strokeWidth="2" fill="white" fillOpacity="0.1" />
+        <rect x="37" y="38" width="8" height="34" rx="1" strokeWidth="2" fill="white" fillOpacity="0.1" />
+        <rect x="55" y="38" width="8" height="34" rx="1" strokeWidth="2" fill="white" fillOpacity="0.1" />
+        <rect x="70" y="38" width="8" height="34" rx="1" strokeWidth="2" fill="white" fillOpacity="0.1" />
+        {/* Pondasi Lantai Balai */}
+        <rect x="12" y="72" width="76" height="5" strokeWidth="2" fill="white" fillOpacity="0.2" />
+        <rect x="8" y="77" width="84" height="6" strokeWidth="2" fill="white" fillOpacity="0.15" />
+        {/* Bagan Hierarki Struktur Organisasi */}
+        <g transform="translate(32, 52)">
+          <rect x="12" y="0" width="12" height="7" rx="1.5" strokeWidth="1.5" fill="white" fillOpacity="0.45" />
+          <line x1="18" y1="7" x2="18" y2="12" strokeWidth="1.5" />
+          <line x1="6" y1="12" x2="30" y2="12" strokeWidth="1.5" />
+          <rect x="0" y="12" width="12" height="7" rx="1.5" strokeWidth="1.5" fill="white" fillOpacity="0.35" />
+          <rect x="24" y="12" width="12" height="7" rx="1.5" strokeWidth="1.5" fill="white" fillOpacity="0.35" />
+        </g>
+      </svg>
+    ),
+  },
+  {
+    id: 'potensi',
+    title: 'POTENSI DESA',
+    subtitle: 'Eksplorasi potensi pertanian, alam, dan keunggulan desa',
+    href: '/potensi-desa/',
+    icon: <Compass className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Mentari & Panorama Alam Desa */}
+        <circle cx="50" cy="36" r="14" strokeWidth="2" fill="white" fillOpacity="0.16" />
+        <line x1="50" y1="14" x2="50" y2="19" strokeWidth="2" strokeLinecap="round" />
+        <line x1="68" y1="21" x2="64" y2="25" strokeWidth="2" strokeLinecap="round" />
+        <line x1="74" y1="36" x2="69" y2="36" strokeWidth="2" strokeLinecap="round" />
+        <line x1="32" y1="21" x2="36" y2="25" strokeWidth="2" strokeLinecap="round" />
+        <line x1="26" y1="36" x2="31" y2="36" strokeWidth="2" strokeLinecap="round" />
+        {/* Bukit & Lembah Sawah */}
+        <path d="M12 74 L36 44 L60 74 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.08" />
+        <path d="M44 74 L66 48 L88 74 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.08" />
+        {/* Bulir Padi Subur */}
+        <path d="M26 88 C32 68 45 42 70 30" strokeWidth="2.5" strokeLinecap="round" />
+        <ellipse cx="68" cy="24" rx="4" ry="7" transform="rotate(35 68 24)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <ellipse cx="58" cy="32" rx="4" ry="7" transform="rotate(25 58 32)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <ellipse cx="50" cy="42" rx="4" ry="7" transform="rotate(40 50 42)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <ellipse cx="62" cy="40" rx="4" ry="7" transform="rotate(-15 62 40)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <ellipse cx="42" cy="54" rx="4" ry="7" transform="rotate(50 42 54)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <ellipse cx="53" cy="52" rx="4" ry="7" transform="rotate(-10 53 52)" strokeWidth="1.5" fill="white" fillOpacity="0.3" />
+        <path d="M10 82 C30 76 50 86 90 78" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      </svg>
+    ),
+  },
+  {
+    id: 'nomor-penting',
+    title: 'NOMOR PENTING',
+    subtitle: 'Panggilan darurat ambulans, medis, dan kontak layanan',
+    href: '/nomor-penting/',
+    icon: <PhoneCall className="h-6 w-6 text-emerald-100" />,
+    vector: (
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" className="w-full h-full">
+        {/* Palang Medis Darurat */}
+        <path d="M42 16 H58 V32 H74 V48 H58 V64 H42 V48 H26 V32 H42 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.12" />
+        {/* Lingkaran Frekuensi Sinyal Radar */}
+        <circle cx="50" cy="40" r="32" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.4" />
+        <circle cx="50" cy="40" r="42" strokeWidth="1" strokeDasharray="2 4" opacity="0.25" />
+        {/* Denyut Jantung / Garis EKG */}
+        <path d="M14 68 H34 L40 56 L46 78 L52 62 L58 72 L64 68 H86" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* Gagang Telepon Siaga */}
+        <g transform="translate(30, 22)">
+          <path d="M28 20 C28 26 22 32 16 32 C10 32 4 26 4 20 L7 16 C8 15 9.5 15 10.5 16 L13 18.5 C14 19.5 14 21 13 22 L11.5 23.5 C12.5 25.5 14.5 27.5 16.5 28.5 L18 27 C19 26 20.5 26 21.5 27 L24 29.5 C25 30.5 25 32 24 33 Z" strokeWidth="2" strokeLinejoin="round" fill="white" fillOpacity="0.28" />
+          <path d="M26 12 C30 15 32 19 32 24" strokeWidth="2" strokeLinecap="round" />
+          <path d="M30 6 C36 11 40 18 40 25" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 3" />
+        </g>
+      </svg>
+    ),
+  },
+];
 
 export function ServicesSection() {
+  const allServiceItems = [...serviceItemsRow1, ...serviceItemsRow2];
+
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
-      {/* SECTION HEADER */}
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl"
-        >
-          <p className="text-sm font-bold uppercase tracking-[0.3em] text-emerald-700 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-emerald-600" />
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
+      {/* KONTINER UTAMA (Banner Hijau Hutan Elegan Sesuai Tema Desa) */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#042f24] via-[#064e3b] to-[#022c22] p-6 sm:p-10 lg:p-12 shadow-2xl border border-emerald-700/40">
+        {/* Background Network Mesh / Glow Lines Hijau */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          <svg className="absolute -right-20 -top-20 w-[600px] h-[600px] opacity-15" viewBox="0 0 600 600" fill="none">
+            <circle cx="300" cy="300" r="250" stroke="#34d399" strokeWidth="1" strokeDasharray="4 4" />
+            <circle cx="300" cy="300" r="180" stroke="#34d399" strokeWidth="1.5" />
+            <circle cx="300" cy="300" r="100" stroke="#34d399" strokeWidth="1" strokeDasharray="3 3" />
+            <line x1="100" y1="100" x2="500" y2="500" stroke="#34d399" strokeWidth="0.75" />
+            <line x1="500" y1="100" x2="100" y2="500" stroke="#34d399" strokeWidth="0.75" />
+          </svg>
+          <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl" />
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-teal-600/15 blur-3xl" />
+        </div>
+
+        {/* HEADER LAYANAN */}
+        <div className="relative z-10 mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[11px] font-bold uppercase tracking-wider mb-3 backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
             Layanan Utama Desa
-          </p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl font-display">
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-display leading-tight">
             Layanan digital desa yang mudah dipahami dan diakses.
           </h2>
-          <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 font-medium">
-            Seluruh pelayanan desa dapat dijangkau secara cepat melalui portal digital yang dirancang khusus untuk kemudahan masyarakat.
+          <p className="mt-2.5 text-sm sm:text-base text-emerald-100/80 max-w-2xl font-medium leading-relaxed">
+            Seluruh fitur administrasi dan informasi desa dapat dijangkau secara cepat melalui portal digital terpadu untuk kemudahan masyarakat.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full lg:max-w-md shrink-0"
-        >
-          <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-500/10 via-amber-50 to-orange-500/10 rounded-2xl flex items-center gap-3 shadow-sm border border-amber-200/50">
-            <div className="p-2.5 bg-amber-500 text-white rounded-xl shadow-md shadow-amber-500/25 shrink-0">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <div className="space-y-0.5">
-              <h3 className="text-[10px] font-black uppercase tracking-wider text-amber-900">Transparansi Biaya</h3>
-              <p className="text-[11px] leading-relaxed font-bold text-amber-800">
-                Seluruh layanan administrasi adalah <strong className="text-amber-950 font-black underline decoration-amber-400">GRATIS</strong> (Rp. 0,-) tanpa biaya apapun.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
+        {/* 10 KARTU KOTAK PERSEGI DENGAN ELEMEN VEKTOR TEMATIK (5 Kartu Per Baris) */}
+        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5">
+          {allServiceItems.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.35, delay: idx * 0.04 }}
+            >
+              <Link
+                href={item.href}
+                className="group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46] p-4 sm:p-5 text-white shadow-lg border border-emerald-400/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-300/60 hover:shadow-2xl hover:shadow-emerald-950/70 overflow-hidden aspect-auto min-h-[220px] sm:aspect-square"
+              >
+                {/* Elemen Vektor Tematik Latar Belakang (Mencerminkan Judul Kartu) */}
+                <div className="absolute right-0 top-8 sm:top-9 w-24 h-24 sm:w-28 sm:h-28 pointer-events-none select-none text-emerald-100 opacity-20 group-hover:opacity-40 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out">
+                  {item.vector}
+                </div>
 
-      {/* SERVICES CARDS GRID */}
-      <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Subtle Dot Particles Overlay */}
+                <div className="absolute top-5 left-3 w-16 h-16 pointer-events-none select-none opacity-20 group-hover:opacity-35 transition-opacity">
+                  <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
+                    <circle cx="10" cy="10" r="1.5" fill="white" />
+                    <circle cx="28" cy="18" r="2" fill="white" />
+                    <circle cx="16" cy="34" r="1.5" fill="white" />
+                    <circle cx="36" cy="30" r="2" fill="white" />
+                    <circle cx="24" cy="48" r="2" fill="white" />
+                    <circle cx="44" cy="44" r="1.5" fill="white" />
+                    <circle cx="20" cy="62" r="1.5" fill="white" />
+                    <circle cx="40" cy="58" r="2" fill="white" />
+                  </svg>
+                </div>
 
-        {/* ── CARD 1: Pelayanan Desa ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Faint Background Vector */}
-          <DocumentVector />
+                {/* Baris Atas: Ikon Glowing Badge & Tombol Panah */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-white/15 border border-white/20 backdrop-blur-md shadow-inner transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/25">
+                    {item.icon}
+                  </div>
 
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-md shadow-emerald-700/20 transition-transform duration-300 group-hover:scale-105">
-                <FileText className="h-6 w-6" />
-              </div>
-              <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-                Layanan Utama
-              </Badge>
-            </div>
+                  {/* Tombol Panah Lingkaran Minimalis */}
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#047857] group-hover:scale-110 shadow-sm">
+                    <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
+                  </div>
+                </div>
 
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Pelayanan Desa
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
-              Akses layanan administrasi dan dokumen resmi dengan langkah yang sederhana.
-            </p>
-
-            {/* Highlights List */}
-            <div className="mt-6 space-y-2.5">
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <FileCheck className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">Surat Keterangan & Dokumen Resmi</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <Clock className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">Proses Cepat & Terintegrasi</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">100% Gratis Tanpa Biaya Pungutan</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Button (Solid Dark Emerald) */}
-          <div className="mt-8 relative z-10">
-            <Link href="/pelayanan-desa/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all duration-300 group-hover:bg-emerald-800">
-                <span>Akses Layanan</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
-        {/* ── CARD 2: Profil Desa ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Right Arched Landscape Image + Script Text */}
-          <div className="absolute right-3 top-6 w-32 sm:w-36 h-48 pointer-events-none select-none z-0 flex flex-col items-center">
-            <div className="relative w-28 sm:w-32 h-36 rounded-t-full overflow-hidden border-2 border-white shadow-md">
-              <Image
-                src="https://images.unsplash.com/photo-1602989106211-81de671c23a9?q=80&w=400"
-                alt="Desa Karanggintung"
-                fill
-                sizes="140px"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-            <div className="mt-2 text-center">
-              <p className="text-[11px] font-bold italic text-emerald-850 tracking-tight leading-none font-serif">
-                Mengenal Desa
-              </p>
-              <p className="text-[11px] font-bold italic text-emerald-850 tracking-tight leading-none font-serif mt-0.5">
-                Lebih Dekat
-              </p>
-              <div className="w-12 h-1 bg-emerald-500 rounded-full mx-auto mt-1 opacity-70" />
-            </div>
-          </div>
-
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10 max-w-[62%] sm:max-w-[65%]">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-md shadow-emerald-700/20 transition-transform duration-300 group-hover:scale-105">
-                <Landmark className="h-6 w-6" />
-              </div>
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Profil Desa
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
-              Kenali sejarah, struktur, dan identitas pemerintahan desa secara lengkap.
-            </p>
-          </div>
-
-          {/* Top Right Badge absolute position */}
-          <div className="absolute top-7 right-7 z-10">
-            <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-              Informasi
-            </Badge>
-          </div>
-
-          {/* Highlights List */}
-          <div className="mt-6 space-y-2.5 relative z-10 max-w-[70%] sm:max-w-[72%]">
-            <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-              <Clock className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span className="text-xs font-bold text-slate-700">Sejarah & Visi Misi Desa</span>
-            </div>
-            <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-              <Users className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span className="text-xs font-bold text-slate-700">Struktur Organisasi Pemdes</span>
-            </div>
-            <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-              <Compass className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span className="text-xs font-bold text-slate-700">Peta Wilayah & Potensi Utama</span>
-            </div>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="mt-8 relative z-10">
-            <Link href="/profil-desa/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 font-bold text-sm border border-emerald-100/80 transition-all duration-300">
-                <span>Lihat Profil Desa</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
-        {/* ── CARD 3: Statistik Desa ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-md shadow-emerald-700/20 transition-transform duration-300 group-hover:scale-105">
-                <BarChart3 className="h-6 w-6" />
-              </div>
-              <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-                Data
-              </Badge>
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Statistik Desa
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
-              Lihat data kependudukan dan informasi desa secara realtime dan transparan.
-            </p>
-
-            {/* Highlights List */}
-            <div className="mt-6 space-y-2.5">
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <Users className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">Data Kependudukan Realtime</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <PieChart className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">Statistik Demografi & Pekerjaan</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50/70 border border-slate-100/60">
-                <FileText className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold text-slate-700">Transparansi Informasi Publik</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="mt-8 relative z-10">
-            <Link href="/statistik/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 font-bold text-sm border border-emerald-100/80 transition-all duration-300">
-                <span>Lihat Statistik</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
-        {/* ── CARD 4: Berita Desa ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Newspaper Vector Illustration */}
-          <NewspaperVector />
-
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-md shadow-amber-500/20 transition-transform duration-300 group-hover:scale-105">
-                <Newspaper className="h-6 w-6" />
-              </div>
-              <Badge className="bg-amber-50 text-amber-700 border border-amber-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-                Informasi
-              </Badge>
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Berita Desa
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium max-w-[70%]">
-              Ikuti informasi dan kegiatan terbaru dari Pemerintah Desa Karanggintung.
-            </p>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="mt-14 relative z-10">
-            <Link href="/BeritaDesa/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 font-bold text-sm border border-emerald-100/80 transition-all duration-300">
-                <span>Lihat Berita</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
-        {/* ── CARD 5: Layanan Surat ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Laptop + Paper Airplane Vector */}
-          <LaptopVector />
-
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20 transition-transform duration-300 group-hover:scale-105">
-                <Users className="h-6 w-6" />
-              </div>
-              <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-                Online 24/7
-              </Badge>
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Layanan Surat
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium max-w-[68%]">
-              Ajukan berbagai surat keterangan dan kebutuhan administrasi secara online.
-            </p>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="mt-14 relative z-10">
-            <Link href="/layanan-surat/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 font-bold text-sm border border-emerald-100/80 transition-all duration-300">
-                <span>Ajukan Surat</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
-        {/* ── CARD 6: Pengumuman ── */}
-        <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          whileHover={{ y: -6 }}
-          className="group relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white border border-slate-100/90 p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-        >
-          {/* Megaphone Vector */}
-          <MegaphoneVector />
-
-          {/* Top Row: Icon + Badge */}
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-800 text-white shadow-md shadow-emerald-800/20 transition-transform duration-300 group-hover:scale-105">
-                <Megaphone className="h-6 w-6" />
-              </div>
-              <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-none">
-                Pengumuman
-              </Badge>
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="mt-6 text-2xl font-black tracking-tight text-slate-900 font-display">
-              Pengumuman
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium max-w-[68%]">
-              Temukan pengumuman penting serta agenda desa yang harus diketahui.
-            </p>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="mt-14 relative z-10">
-            <Link href="/pengumuman/">
-              <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 font-bold text-sm border border-emerald-100/80 transition-all duration-300">
-                <span>Lihat Pengumuman</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </div>
-            </Link>
-          </div>
-        </motion.article>
-
+                {/* Bagian Bawah: Judul & Deskripsi */}
+                <div className="relative z-10 mt-3 sm:mt-4">
+                  <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-wider text-white leading-snug line-clamp-1">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1 text-[11px] sm:text-xs leading-snug text-emerald-100/90 font-normal line-clamp-2">
+                    {item.subtitle}
+                  </p>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

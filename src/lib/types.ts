@@ -193,6 +193,13 @@ export type ProdukHukumDesa = {
   updatedAt?: Timestamp;
 };
 
+export type FooterLogoItem = {
+  id: string;
+  url: string;
+  link?: string;
+  name?: string;
+};
+
 export type FooterLogosInfo = {
   logo1Url?: string;
   logo2Url?: string;
@@ -202,6 +209,7 @@ export type FooterLogosInfo = {
   logo2Link?: string;
   logo3Link?: string;
   logo4Link?: string;
+  items?: FooterLogoItem[];
 };
 
 export type PotensiDesa = {
