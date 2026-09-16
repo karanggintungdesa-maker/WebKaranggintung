@@ -137,35 +137,35 @@ export function OfficialForm({ open, onOpenChange, official, defaultCategory = '
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[95vw] max-w-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 max-h-[92vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{official ? 'Edit Pengurus' : 'Tambah Pengurus Baru'}</DialogTitle>
-          <DialogDescription>Isi detail pengurus atau kelembagaan desa di bawah ini.</DialogDescription>
+          <DialogTitle className="text-base sm:text-lg font-bold">{official ? 'Edit Pengurus' : 'Tambah Pengurus Baru'}</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm">Isi detail pengurus atau kelembagaan desa di bawah ini.</DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <Label>Foto Profil</Label>
-            <div className="flex flex-col gap-4">
+            <Label className="text-xs sm:text-sm font-semibold">Foto Profil</Label>
+            <div className="flex flex-col gap-3">
               {formData.imageUrl && (
-                <div className="relative aspect-[3/4] w-32 overflow-hidden rounded-2xl border-2 border-primary/10 bg-muted">
+                <div className="relative aspect-[3/4] w-28 sm:w-32 overflow-hidden rounded-2xl border-2 border-primary/10 bg-muted">
                   <img src={formData.imageUrl} alt="Preview" className="h-full w-full object-cover" />
                 </div>
               )}
-              <div className="flex items-center gap-4">
-                <Input type="file" accept="image/*" onChange={handleFileChange} disabled={isUploading || isSubmitting} className="max-w-xs" />
-                {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
+              <div className="flex items-center gap-3">
+                <Input type="file" accept="image/*" onChange={handleFileChange} disabled={isUploading || isSubmitting} className="h-9 sm:h-10 text-xs sm:text-sm max-w-xs rounded-xl" />
+                {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary shrink-0" />}
               </div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Maks 2MB. Rekomendasi rasio 3:4.</p>
+              <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase font-bold">Maks 2MB. Rekomendasi rasio 3:4.</p>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="category">Kategori Jabatan / Lembaga</Label>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="category" className="text-xs sm:text-sm font-semibold">Kategori Jabatan / Lembaga</Label>
             <Select
               value={formData.category}
               onValueChange={(v: any) => setFormData(p => ({ ...p, category: v }))}
             >
-              <SelectTrigger>
+              <SelectTrigger className="h-10 sm:h-11 rounded-xl text-xs sm:text-sm">
                 <SelectValue placeholder="Pilih Kategori" />
               </SelectTrigger>
               <SelectContent>
@@ -178,31 +178,33 @@ export function OfficialForm({ open, onOpenChange, official, defaultCategory = '
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="name">Nama Lengkap</Label>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="name" className="text-xs sm:text-sm font-semibold">Nama Lengkap</Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, name: e.target.value.toUpperCase() }))}
               placeholder="Contoh: BUDI SANTOSO"
+              className="h-10 sm:h-11 rounded-xl text-xs sm:text-sm"
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="position">Jabatan / Peran</Label>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="position" className="text-xs sm:text-sm font-semibold">Jabatan / Peran</Label>
             <Input
               id="position"
               value={formData.position}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(p => ({ ...p, position: e.target.value }))}
               placeholder={getPositionPlaceholder()}
+              className="h-10 sm:h-11 rounded-xl text-xs sm:text-sm"
               required
             />
           </div>
 
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Batal</Button>
-            <Button type="submit" disabled={isSubmitting || isUploading}>
+          <DialogFooter className="flex-row gap-2 pt-2">
+            <Button type="button" variant="outline" className="flex-1 h-9 sm:h-10 rounded-xl text-xs sm:text-sm" onClick={() => onOpenChange(false)}>Batal</Button>
+            <Button type="submit" className="flex-1 h-9 sm:h-10 rounded-xl text-xs sm:text-sm bg-emerald-700 hover:bg-emerald-800 text-white" disabled={isSubmitting || isUploading}>
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
               Simpan
             </Button>

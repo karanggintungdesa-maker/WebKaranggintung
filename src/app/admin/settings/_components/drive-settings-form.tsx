@@ -88,20 +88,20 @@ export function DriveSettingsForm() {
   if (isLoading) return <Skeleton className="h-64 w-full rounded-2xl" />;
 
   return (
-    <Card className="h-full flex flex-col justify-between">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Cloud className="h-5 w-5 text-primary" />
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs h-full flex flex-col">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <Cloud className="h-4 w-4 text-primary shrink-0" />
           Konfigurasi Google Drive
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-[11px] sm:text-xs">
           Atur lokasi penyimpanan berkas lampiran pengajuan surat secara dinamis.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col justify-between">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="drive-link" className="text-sm font-semibold">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4 flex-1 flex flex-col">
+        <form onSubmit={handleSubmit} className="space-y-3 flex-1 flex flex-col">
+          <div className="space-y-1.5">
+            <Label htmlFor="drive-link" className="text-xs font-semibold">
               Link Folder Google Drive (Arsip)
             </Label>
             <Input
@@ -110,16 +110,16 @@ export function DriveSettingsForm() {
               value={googleDriveLink}
               onChange={(e) => setGoogleDriveLink(e.target.value)}
               disabled={isSaving}
-              className="w-full"
+              className="w-full text-xs h-8 sm:h-9"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground">
               Pintasan folder Drive dari panel admin.
             </p>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="root-id" className="flex items-center gap-1.5 text-sm font-semibold">
-              <FolderKey className="h-4 w-4 text-muted-foreground shrink-0" />
+          <div className="space-y-1.5">
+            <Label htmlFor="root-id" className="flex items-center gap-1.5 text-xs font-semibold">
+              <FolderKey className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
               ID Folder Utama (ROOT_FOLDER_ID)
             </Label>
             <Input
@@ -128,15 +128,15 @@ export function DriveSettingsForm() {
               value={rootFolderId}
               onChange={(e) => setRootFolderId(e.target.value)}
               disabled={isSaving}
-              className="font-mono text-xs w-full"
+              className="font-mono text-xs w-full h-8 sm:h-9"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground">
               ID folder tempat sistem membuat folder per-pengajuan.
             </p>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="script-url" className="text-sm font-semibold">
+          <div className="space-y-1.5">
+            <Label htmlFor="script-url" className="text-xs font-semibold">
               Apps Script Web App URL
             </Label>
             <Input
@@ -145,15 +145,15 @@ export function DriveSettingsForm() {
               value={appsScriptUrl}
               onChange={(e) => setAppsScriptUrl(e.target.value)}
               disabled={isSaving}
-              className="w-full text-xs"
+              className="w-full text-xs h-8 sm:h-9"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground">
               URL endpoint Web App dari Google Apps Script.
             </p>
           </div>
 
-          <Button type="submit" disabled={isSaving} className="w-full sm:w-auto mt-2">
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving} className="w-full sm:w-auto h-8 sm:h-9 text-xs mt-auto">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Konfigurasi
           </Button>
         </form>

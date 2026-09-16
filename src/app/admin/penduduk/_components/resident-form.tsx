@@ -189,17 +189,17 @@ export function ResidentForm({ open, onOpenChange, resident }: ResidentFormProps
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[850px] max-h-[95vh] p-0 flex flex-col overflow-hidden">
-        <DialogHeader className="p-6 pb-2 shrink-0 border-b">
-          <DialogTitle>{resident ? 'Edit Data Penduduk' : 'Tambah Penduduk Baru'}</DialogTitle>
-          <DialogDescription>Seluruh 25 data kependudukan wajib diisi sesuai format resmi.</DialogDescription>
+      <DialogContent className="w-[95vw] sm:max-w-[850px] max-h-[92vh] p-0 flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl">
+        <DialogHeader className="p-4 sm:p-6 pb-2 shrink-0 border-b">
+          <DialogTitle className="text-base sm:text-lg font-bold">{resident ? 'Edit Data Penduduk' : 'Tambah Penduduk Baru'}</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm">Seluruh 25 data kependudukan wajib diisi sesuai format resmi.</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 overflow-hidden">
             {/* Area Form yang dapat digulir dengan Keyboard Support */}
             <div
-              className="flex-1 overflow-y-auto px-6 py-4 outline-none"
+              className="flex-1 overflow-y-auto px-4 sm:px-6 py-3 sm:py-4 outline-none"
               tabIndex={0}
             >
               <div className="space-y-8 pb-8">
@@ -324,9 +324,9 @@ export function ResidentForm({ open, onOpenChange, resident }: ResidentFormProps
               </div>
             </div>
 
-            <DialogFooter className="p-6 bg-muted/20 border-t shrink-0">
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>Batal</Button>
-              <Button type="submit" disabled={isSubmitting}>
+            <DialogFooter className="p-3.5 sm:p-6 bg-muted/20 border-t shrink-0 flex-row justify-end gap-2">
+              <Button type="button" variant="outline" className="h-9 sm:h-10 text-xs sm:text-sm rounded-xl flex-1 sm:flex-none" onClick={() => onOpenChange(false)} disabled={isSubmitting}>Batal</Button>
+              <Button type="submit" className="h-9 sm:h-10 text-xs sm:text-sm rounded-xl flex-1 sm:flex-none" disabled={isSubmitting}>
                 {isSubmitting && <Loader2 className="mr-2 animate-spin h-4 w-4" />}
                 {resident ? 'Simpan Perubahan' : 'Tambah Penduduk'}
               </Button>

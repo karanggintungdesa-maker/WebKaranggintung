@@ -951,28 +951,28 @@ export default function AdminDesaAntiKorupsi() {
       {/* Header Title */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <h1 className="text-2xl font-black text-slate-850 uppercase tracking-wider flex items-center gap-2">
-            <ShieldCheck className="h-6 w-6 text-emerald-600" />
+          <h1 className="text-xl sm:text-2xl font-black text-slate-850 uppercase tracking-wider flex items-center gap-2">
+            <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600 shrink-0" />
             <span>Kelola Desa Anti Korupsi</span>
           </h1>
-          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+          <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">
             Sistem Unggah Dokumen Pilar Anti Korupsi Desa Karanggintung ke Google Drive
           </p>
         </div>
       </div>
 
       {/* Selectors Panel */}
-      <Card className="border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white">
-        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-6">
-          <CardTitle className="text-slate-800 text-sm font-bold flex items-center gap-2">
-            <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600" />
+      <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm bg-white">
+        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-4 sm:p-6">
+          <CardTitle className="text-slate-800 text-xs sm:text-sm font-bold flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-emerald-600" />
             <span>PILIH RINCIAN SUB MENU</span>
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-[11px] sm:text-xs">
             Gunakan filter bertingkat untuk memilih item dokumen yang akan diatur.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {/* Pilar Selector */}
             <div className="space-y-2">

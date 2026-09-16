@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
-import { Menu, ArrowRight, ChevronDown } from 'lucide-react';
+import { Menu, ArrowRight, ChevronDown, Home, Lock } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -61,11 +62,15 @@ const umkmSubLinks = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrollable, setIsScrollable] = useState(false);
   const [mobileStatistikOpen, setMobileStatistikOpen] = useState(false);
   const [mobilePotensiOpen, setMobilePotensiOpen] = useState(false);
   const [mobileUmkmOpen, setMobileUmkmOpen] = useState(false);
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+
+  const isSolid = isScrolled || (pathname !== null && pathname !== '/');
 
   useEffect(() => {
     const checkScrollable = () => {
@@ -107,13 +112,13 @@ export function Header() {
     <header
       className={cn(
         'fixed top-0 left-0 z-50 w-full border-b transition-all duration-300',
-        isScrolled
-          ? 'border-slate-200/80 bg-white/85 backdrop-blur-xl shadow-[0_8px_30px_rgba(15,23,42,0.06)]'
+        isSolid
+          ? 'border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(15,23,42,0.06)]'
           : 'border-transparent bg-transparent backdrop-blur-none'
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className={cn('transition-colors', isScrolled ? 'text-slate-900' : 'text-white')} aria-label="Beranda Portal Portal Desa Karanggintung">
+        <Link href="/" className={cn('transition-colors', isSolid ? 'text-slate-900' : 'text-white')} aria-label="Beranda Portal Portal Desa Karanggintung">
           <Logo />
         </Link>
 
@@ -122,13 +127,13 @@ export function Header() {
             href="/pelayanan-desa/"
             className={cn(
               'group relative text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}
           >
             <span>Pelayanan Desa</span>
             <span className={cn(
               'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-              isScrolled ? 'bg-emerald-600' : 'bg-white'
+              isSolid ? 'bg-emerald-600' : 'bg-white'
             )} />
           </Link>
 
@@ -136,7 +141,7 @@ export function Header() {
             href="/profil-desa/"
             className={cn(
               'group relative text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}
           >
             <span>Profil Desa</span>
@@ -150,13 +155,13 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className={cn(
               'group relative flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap outline-none',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}>
               <span>Statistik</span>
               <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               <span className={cn(
                 'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-                isScrolled ? 'bg-emerald-600' : 'bg-white'
+                isSolid ? 'bg-emerald-600' : 'bg-white'
               )} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="mt-3 w-56 rounded-xl border border-slate-100 bg-white/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-200/50">
@@ -172,13 +177,13 @@ export function Header() {
             href="/BeritaDesa/"
             className={cn(
               'group relative text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}
           >
             <span>Berita Desa</span>
             <span className={cn(
               'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-              isScrolled ? 'bg-emerald-600' : 'bg-white'
+              isSolid ? 'bg-emerald-600' : 'bg-white'
             )} />
           </Link>
 
@@ -186,13 +191,13 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className={cn(
               'group relative flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap outline-none',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}>
               <span>Potensi Desa</span>
               <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               <span className={cn(
                 'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-                isScrolled ? 'bg-emerald-600' : 'bg-white'
+                isSolid ? 'bg-emerald-600' : 'bg-white'
               )} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="mt-3 w-60 rounded-xl border border-slate-100 bg-white/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-200/50">
@@ -208,13 +213,13 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className={cn(
               'group relative flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap outline-none',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}>
               <span>UMKM & Industri Kreatif</span>
               <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               <span className={cn(
                 'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-                isScrolled ? 'bg-emerald-600' : 'bg-white'
+                isSolid ? 'bg-emerald-600' : 'bg-white'
               )} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="mt-3 w-52 rounded-xl border border-slate-100 bg-white/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-200/50">
@@ -230,13 +235,13 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className={cn(
               'group relative flex items-center gap-1 text-[10.5px] font-semibold uppercase tracking-[0.10em] transition-colors duration-300 whitespace-nowrap outline-none',
-              isScrolled ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
+              isSolid ? 'text-emerald-800 hover:text-emerald-700' : 'text-white/90 hover:text-white'
             )}>
               <span>Lainnya</span>
               <ChevronDown className="h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               <span className={cn(
                 'absolute bottom-[-0.4rem] left-0 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-300 group-hover:scale-x-100',
-                isScrolled ? 'bg-emerald-600' : 'bg-white'
+                isSolid ? 'bg-emerald-600' : 'bg-white'
               )} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="mt-3 w-52 rounded-xl border border-slate-100 bg-white/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-200/50">
@@ -253,7 +258,7 @@ export function Header() {
           <Link href="/login/" aria-label="Masuk area admin">
             <Button variant="outline" size="sm" className={cn(
               'h-7 rounded-full border px-3 text-[9px] font-medium',
-              isScrolled
+              isSolid
                 ? 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 : 'border-white/20 bg-white/10 text-white hover:bg-white/15'
             )}>
@@ -267,47 +272,63 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="lg:hidden">
-          <Sheet>
+        <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+          <Link href="/login/" aria-label="Masuk area admin">
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn(
+                'h-7 rounded-full border px-2.5 text-[10px] font-bold tracking-wider gap-1 transition-all',
+                isSolid
+                  ? 'border-slate-300/80 bg-white/90 text-slate-700 hover:bg-slate-100 hover:text-emerald-700 shadow-xs'
+                  : 'border-white/30 bg-black/20 backdrop-blur-md text-white hover:bg-black/30'
+              )}
+            >
+              <Lock className="h-2.5 w-2.5" />
+              <span>Admin</span>
+            </Button>
+          </Link>
+
+          <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className={cn('rounded-full', isScrolled ? 'text-slate-700' : 'text-white')} aria-label="Buka menu navigasi">
+              <Button variant="ghost" size="icon" className={cn('rounded-full h-8 w-8 sm:h-9 sm:w-9 flex items-center justify-center', isSolid ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10')} aria-label="Buka menu navigasi">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[320px] border-l border-white/10 bg-slate-950/95 text-white">
+            <SheetContent side="right" className="w-[300px] sm:w-[340px] max-w-[85vw] border-l border-white/10 bg-slate-950/95 text-white p-4 sm:p-6">
               <SheetHeader className="sr-only">
                 <SheetTitle>Menu navigasi</SheetTitle>
                 <SheetDescription>Menu cepat layanan desa</SheetDescription>
               </SheetHeader>
-              <div className="mt-6 flex flex-col gap-6 h-[calc(100vh-80px)] overflow-y-auto pb-12 pr-2 no-scrollbar">
-                <Link href="/" className="inline-flex shrink-0">
+              <div className="mt-4 flex flex-col gap-4 h-[calc(100vh-64px)] overflow-y-auto pb-12 pr-1 no-scrollbar">
+                <Link href="/" onClick={() => setMobileSheetOpen(false)} className="inline-flex shrink-0">
                   <Logo />
                 </Link>
-                <div className="space-y-3">
-                  <Link href="/pelayanan-desa/" className="block rounded-2xl border border-white/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                <div className="space-y-2">
+                  <Link href="/pelayanan-desa/" onClick={() => setMobileSheetOpen(false)} className="block rounded-xl border border-white/10 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                     Pelayanan Desa
                   </Link>
 
-                  <Link href="/profil-desa/" className="block rounded-2xl border border-white/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                  <Link href="/profil-desa/" onClick={() => setMobileSheetOpen(false)} className="block rounded-xl border border-white/10 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                     Profil Desa
                   </Link>
 
                   {/* Collapsible Statistik on Mobile */}
-                  <div className="rounded-2xl border border-white/10 overflow-hidden">
+                  <div className="rounded-xl border border-white/10 overflow-hidden">
                     <button
                       onClick={() => setMobileStatistikOpen(!mobileStatistikOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                     >
                       <span>Statistik</span>
-                      <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", mobileStatistikOpen && "rotate-180")} />
+                      <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", mobileStatistikOpen && "rotate-180")} />
                     </button>
                     {mobileStatistikOpen && (
-                      <div className="bg-white/5 border-t border-white/5 p-2 space-y-1">
+                      <div className="bg-white/5 border-t border-white/5 p-1.5 space-y-0.5">
                         {statistikSubLinks.map((link) => (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="block rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                            className="block rounded-lg px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/60 hover:bg-white/10 hover:text-white transition-colors"
                           >
                             {link.label}
                           </Link>
@@ -316,26 +337,26 @@ export function Header() {
                     )}
                   </div>
 
-                  <Link href="/BeritaDesa/" className="block rounded-2xl border border-white/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                  <Link href="/BeritaDesa/" className="block rounded-xl border border-white/10 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                     Berita Desa
                   </Link>
 
                   {/* Collapsible Potensi Desa on Mobile */}
-                  <div className="rounded-2xl border border-white/10 overflow-hidden">
+                  <div className="rounded-xl border border-white/10 overflow-hidden">
                     <button
                       onClick={() => setMobilePotensiOpen(!mobilePotensiOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                     >
                       <span>Potensi Desa</span>
-                      <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", mobilePotensiOpen && "rotate-180")} />
+                      <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", mobilePotensiOpen && "rotate-180")} />
                     </button>
                     {mobilePotensiOpen && (
-                      <div className="bg-white/5 border-t border-white/5 p-2 space-y-1">
+                      <div className="bg-white/5 border-t border-white/5 p-1.5 space-y-0.5">
                         {potensiSubLinks.map((link) => (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="block rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                            className="block rounded-lg px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/60 hover:bg-white/10 hover:text-white transition-colors"
                           >
                             {link.label}
                           </Link>
@@ -345,21 +366,21 @@ export function Header() {
                   </div>
 
                   {/* Collapsible UMKM & Industri Kreatif on Mobile */}
-                  <div className="rounded-2xl border border-white/10 overflow-hidden">
+                  <div className="rounded-xl border border-white/10 overflow-hidden">
                     <button
                       onClick={() => setMobileUmkmOpen(!mobileUmkmOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                     >
                       <span>UMKM & Industri Kreatif</span>
-                      <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", mobileUmkmOpen && "rotate-180")} />
+                      <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", mobileUmkmOpen && "rotate-180")} />
                     </button>
                     {mobileUmkmOpen && (
-                      <div className="bg-white/5 border-t border-white/5 p-2 space-y-1">
+                      <div className="bg-white/5 border-t border-white/5 p-1.5 space-y-0.5">
                         {umkmSubLinks.map((link) => (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="block rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                            className="block rounded-lg px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/60 hover:bg-white/10 hover:text-white transition-colors"
                           >
                             {link.label}
                           </Link>
@@ -369,21 +390,22 @@ export function Header() {
                   </div>
 
                   {moreLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="block rounded-2xl border border-white/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                    <Link key={link.href} href={link.href} className="block rounded-xl border border-white/10 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                       {link.label}
                     </Link>
                   ))}
                 </div>
                 <div className="space-y-2 mt-2">
-                  <Link href="/layanan-surat/" className="block">
-                    <Button className="h-12 w-full rounded-full bg-emerald-600 text-white font-bold">
+                  <Link href="/layanan-surat/" onClick={() => setMobileSheetOpen(false)} className="block">
+                    <Button className="h-10 sm:h-12 w-full rounded-xl sm:rounded-full bg-emerald-600 text-white font-bold text-xs">
                       Ajukan Layanan
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
                   </Link>
-                  <Link href="/login/" className="block">
-                    <Button variant="outline" className="h-12 w-full rounded-full border-white/20 bg-white/10 text-white hover:bg-white/20 font-bold">
-                      Portal Admin Desa
+                  <Link href="/" onClick={() => setMobileSheetOpen(false)} className="block">
+                    <Button variant="outline" className="h-10 sm:h-12 w-full rounded-xl sm:rounded-full border-white/20 bg-white/10 text-white hover:bg-white/20 font-bold text-xs gap-2">
+                      <Home className="h-4 w-4" />
+                      Beranda
                     </Button>
                   </Link>
                 </div>

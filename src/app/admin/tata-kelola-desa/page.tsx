@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
+import { PageHeader } from '@/components/page-header';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Upload, Plus, Trash2, Eye, Download } from 'lucide-react';
@@ -244,42 +245,27 @@ export default function AdminTataKelolaDesa() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
-      {/* HEADER */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Logo />
-          <Link href="/admin">
-            <Button variant="ghost" className="font-bold gap-2 text-primary">
-              <ArrowLeft className="h-4 w-4" />
-              Kembali
-            </Button>
-          </Link>
-        </div>
-      </header>
+    <div className="space-y-6 sm:space-y-8">
+      <PageHeader
+        title="Manajemen Tata Kelola Desa"
+        description="Kelola data APBDes tahunan, Realisasi APBDes, dan Produk Hukum Desa Karanggintung."
+      />
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        {/* JUDUL */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-slate-900 uppercase">Manajemen Tata Kelola Desa</h1>
-          <p className="text-slate-600 mt-2">Kelola APBDes, Realisasi, dan Produk Hukum Desa</p>
-        </div>
-
-        {/* TABS */}
-        <Tabs defaultValue="apbdes" className="space-y-8" onValueChange={setActiveTab}>
-          <TabsList className="bg-slate-100 p-1 rounded-xl">
-            <TabsTrigger value="apbdes" className="rounded-lg font-bold">APBDes</TabsTrigger>
-            <TabsTrigger value="realisasi" className="rounded-lg font-bold">Realisasi APBDes</TabsTrigger>
-            <TabsTrigger value="produk" className="rounded-lg font-bold">Produk Hukum Desa</TabsTrigger>
-          </TabsList>
+      {/* TABS */}
+      <Tabs defaultValue="apbdes" className="space-y-4 sm:space-y-8" onValueChange={setActiveTab}>
+        <TabsList className="bg-slate-100/80 p-1 sm:p-1.5 rounded-2xl flex flex-wrap h-auto gap-1 shadow-inner">
+          <TabsTrigger value="apbdes" className="rounded-xl font-black text-xs sm:text-sm py-2 px-3.5 sm:px-5 data-[state=active]:bg-white data-[state=active]:shadow-sm">APBDes</TabsTrigger>
+          <TabsTrigger value="realisasi" className="rounded-xl font-black text-xs sm:text-sm py-2 px-3.5 sm:px-5 data-[state=active]:bg-white data-[state=active]:shadow-sm">Realisasi APBDes</TabsTrigger>
+          <TabsTrigger value="produk" className="rounded-xl font-black text-xs sm:text-sm py-2 px-3.5 sm:px-5 data-[state=active]:bg-white data-[state=active]:shadow-sm">Produk Hukum Desa</TabsTrigger>
+        </TabsList>
 
           {/* APBDES TAB */}
-          <TabsContent value="apbdes" className="space-y-6">
-            <div className="flex gap-4 items-end">
-              <div className="space-y-2">
-                <Label className="font-bold">Pilih Tahun</Label>
+          <TabsContent value="apbdes" className="space-y-4 sm:space-y-6 outline-none">
+            <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
+              <div className="space-y-1.5 flex-1 sm:flex-none">
+                <Label className="font-bold text-xs sm:text-sm">Pilih Tahun</Label>
                 <Select value={selectedYear.toString()} onValueChange={(v) => setSelectedYear(parseInt(v))}>
-                  <SelectTrigger className="w-48 rounded-lg border-slate-300">
+                  <SelectTrigger className="w-full sm:w-48 rounded-xl border-slate-300 h-10 text-xs sm:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -292,47 +278,87 @@ export default function AdminTataKelolaDesa() {
                 </Select>
               </div>
 
-              <Button 
-                onClick={() => fileInputRef.current?.click()}
-                className="rounded-lg gap-2 font-bold bg-primary hover:bg-slate-800"
-              >
-                <Upload className="h-4 w-4" />
-                Impor Excel
-              </Button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx,.xls"
-                onChange={handleApbdesImport}
-                className="hidden"
-              />
-
-              <Button
-                onClick={handleDownloadApbdesTemplate}
-                variant="outline"
-                className="rounded-lg gap-2 font-bold border-emerald-600 text-emerald-700 hover:bg-emerald-50"
-              >
-                <Download className="h-4 w-4" />
-                Download Format
-              </Button>
-
-              {currentApbdes && (
+              <div className="flex flex-wrap items-center gap-2">
                 <Button 
-                  onClick={handleDeleteApbdes}
-                  variant="destructive"
-                  className="rounded-lg gap-2 font-bold"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-xl gap-1.5 font-bold bg-primary hover:bg-slate-800 h-9 sm:h-10 text-xs sm:text-sm px-3.5"
                 >
-                  <Trash2 className="h-4 w-4" />
-                  Hapus Data
+                  <Upload className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  Impor Excel
                 </Button>
-              )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx,.xls"
+                  onChange={handleApbdesImport}
+                  className="hidden"
+                />
+
+                <Button
+                  onClick={handleDownloadApbdesTemplate}
+                  variant="outline"
+                  className="rounded-xl gap-1.5 font-bold border-emerald-600 text-emerald-700 hover:bg-emerald-50 h-9 sm:h-10 text-xs sm:text-sm px-3.5"
+                >
+                  <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  Download Format
+                </Button>
+
+                {currentApbdes && (
+                  <Button 
+                    onClick={handleDeleteApbdes}
+                    variant="destructive"
+                    className="rounded-xl gap-1.5 font-bold h-9 sm:h-10 text-xs sm:text-sm px-3.5"
+                  >
+                    <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Hapus Data
+                  </Button>
+                )}
+              </div>
             </div>
 
             {currentApbdes ? (
-              <Card className="rounded-2xl border-none shadow-lg">
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-black mb-6 text-slate-900">Data APBDes Tahun {selectedYear}</h3>
-                  <div className="overflow-x-auto">
+              <Card className="rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden bg-white">
+                <div className="p-3.5 sm:p-6 border-b bg-slate-50/50 flex items-center justify-between">
+                  <h3 className="text-xs sm:text-base font-black text-slate-900 uppercase">Data APBDes Tahun {selectedYear}</h3>
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-500 bg-slate-200/60 px-2 py-0.5 rounded-full">
+                    {currentApbdes.items?.length || 0} Kegiatan
+                  </span>
+                </div>
+                <CardContent className="p-0">
+                  {/* Mobile Card List View (block sm:hidden) - Zero horizontal scroll */}
+                  <div className="block sm:hidden divide-y divide-slate-100">
+                    {currentApbdes.items?.map((item, i) => (
+                      <div key={i} className="p-3.5 space-y-2 bg-white">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="text-[9px] font-black uppercase px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded-md">
+                            {item.bidang || 'Umum'}
+                          </span>
+                          <span className="font-mono text-[9px] text-slate-400 font-bold">
+                            {item.kodeRekening}
+                          </span>
+                        </div>
+                        <p className="font-bold text-xs uppercase text-slate-800 leading-snug break-words">
+                          {item.kegiatan}
+                        </p>
+                        <div className="flex items-center justify-between text-[11px] pt-1 border-t border-slate-50">
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            Vol: <strong className="text-slate-700">{item.volume}</strong> • Sumber: <strong className="text-slate-700">{item.sumberAnggaran || '-'}</strong>
+                          </span>
+                          <span className="font-black text-primary text-xs">
+                            Rp {item.nominal.toLocaleString('id-ID')}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                    {/* Total Box Mobile */}
+                    <div className="p-3.5 bg-primary/5 flex items-center justify-between border-t border-primary/10">
+                      <span className="text-xs font-bold text-slate-700">Total Anggaran:</span>
+                      <span className="text-sm font-black text-primary">Rp {currentApbdes.totalAnggaran.toLocaleString('id-ID')}</span>
+                    </div>
+                  </div>
+
+                  {/* Desktop Table View (hidden sm:block) */}
+                  <div className="hidden sm:block overflow-x-auto w-full">
                     <table className="w-full text-sm">
                       <thead className="bg-slate-100">
                         <tr>
@@ -348,8 +374,8 @@ export default function AdminTataKelolaDesa() {
                         {currentApbdes.items?.map((item, i) => (
                           <tr key={i} className="border-b hover:bg-slate-50">
                             <td className="px-4 py-3 font-semibold">{item.bidang}</td>
-                            <td className="px-4 py-3 text-slate-600">{item.kodeRekening}</td>
-                            <td className="px-4 py-3 text-slate-600">{item.kegiatan}</td>
+                            <td className="px-4 py-3 text-slate-600 font-mono text-xs">{item.kodeRekening}</td>
+                            <td className="px-4 py-3 text-slate-700">{item.kegiatan}</td>
                             <td className="px-4 py-3 text-right">{item.volume}</td>
                             <td className="px-4 py-3 text-right text-primary font-bold">Rp {item.nominal.toLocaleString('id-ID')}</td>
                             <td className="px-4 py-3 text-slate-600">{item.sumberAnggaran}</td>
@@ -367,21 +393,21 @@ export default function AdminTataKelolaDesa() {
               </Card>
             ) : (
               <Card className="rounded-2xl border-2 border-dashed border-slate-300 shadow-none">
-                <CardContent className="p-12 text-center">
-                  <p className="text-slate-600 font-semibold">Belum ada data APBDes untuk tahun {selectedYear}</p>
-                  <p className="text-slate-500 text-sm">Klik tombol "Impor Excel" untuk menambahkan data</p>
+                <CardContent className="p-8 sm:p-12 text-center">
+                  <p className="text-slate-600 font-semibold text-xs sm:text-sm">Belum ada data APBDes untuk tahun {selectedYear}</p>
+                  <p className="text-slate-400 text-[11px] sm:text-xs">Klik tombol "Impor Excel" untuk menambahkan data</p>
                 </CardContent>
               </Card>
             )}
           </TabsContent>
 
           {/* REALISASI TAB */}
-          <TabsContent value="realisasi" className="space-y-6">
-            <div className="flex gap-4 items-end">
-              <div className="space-y-2">
-                <Label className="font-bold">Pilih Tahun</Label>
+          <TabsContent value="realisasi" className="space-y-4 sm:space-y-6 outline-none">
+            <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
+              <div className="space-y-1.5 flex-1 sm:flex-none">
+                <Label className="font-bold text-xs sm:text-sm">Pilih Tahun</Label>
                 <Select value={selectedYear.toString()} onValueChange={(v) => setSelectedYear(parseInt(v))}>
-                  <SelectTrigger className="w-48 rounded-lg border-slate-300">
+                  <SelectTrigger className="w-full sm:w-48 rounded-xl border-slate-300 h-10 text-xs sm:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -394,47 +420,87 @@ export default function AdminTataKelolaDesa() {
                 </Select>
               </div>
 
-              <Button 
-                onClick={() => fileInputRef.current?.click()}
-                className="rounded-lg gap-2 font-bold bg-primary hover:bg-slate-800"
-              >
-                <Upload className="h-4 w-4" />
-                Impor Excel
-              </Button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx,.xls"
-                onChange={handleRealisasiImport}
-                className="hidden"
-              />
-
-              <Button
-                onClick={handleDownloadRealisasiTemplate}
-                variant="outline"
-                className="rounded-lg gap-2 font-bold border-teal-600 text-teal-700 hover:bg-teal-50"
-              >
-                <Download className="h-4 w-4" />
-                Download Format
-              </Button>
-
-              {currentRealisasi && (
+              <div className="flex flex-wrap items-center gap-2">
                 <Button 
-                  onClick={handleDeleteRealisasi}
-                  variant="destructive"
-                  className="rounded-lg gap-2 font-bold"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-xl gap-1.5 font-bold bg-primary hover:bg-slate-800 h-9 sm:h-10 text-xs sm:text-sm px-3.5"
                 >
-                  <Trash2 className="h-4 w-4" />
-                  Hapus Data
+                  <Upload className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  Impor Excel
                 </Button>
-              )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx,.xls"
+                  onChange={handleRealisasiImport}
+                  className="hidden"
+                />
+
+                <Button
+                  onClick={handleDownloadRealisasiTemplate}
+                  variant="outline"
+                  className="rounded-xl gap-1.5 font-bold border-teal-600 text-teal-700 hover:bg-teal-50 h-9 sm:h-10 text-xs sm:text-sm px-3.5"
+                >
+                  <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  Download Format
+                </Button>
+
+                {currentRealisasi && (
+                  <Button 
+                    onClick={handleDeleteRealisasi}
+                    variant="destructive"
+                    className="rounded-xl gap-1.5 font-bold h-9 sm:h-10 text-xs sm:text-sm px-3.5"
+                  >
+                    <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Hapus Data
+                  </Button>
+                )}
+              </div>
             </div>
 
             {currentRealisasi ? (
-              <Card className="rounded-2xl border-none shadow-lg">
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-black mb-6 text-slate-900">Data Realisasi APBDes Tahun {selectedYear}</h3>
-                  <div className="overflow-x-auto">
+              <Card className="rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden bg-white">
+                <div className="p-3.5 sm:p-6 border-b bg-slate-50/50 flex items-center justify-between">
+                  <h3 className="text-xs sm:text-base font-black text-slate-900 uppercase">Data Realisasi APBDes Tahun {selectedYear}</h3>
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-500 bg-slate-200/60 px-2 py-0.5 rounded-full">
+                    {currentRealisasi.items?.length || 0} Kegiatan
+                  </span>
+                </div>
+                <CardContent className="p-0">
+                  {/* Mobile Card List View (block sm:hidden) - Zero horizontal scroll */}
+                  <div className="block sm:hidden divide-y divide-slate-100">
+                    {currentRealisasi.items?.map((item, i) => (
+                      <div key={i} className="p-3.5 space-y-2 bg-white">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="text-[9px] font-black uppercase px-2 py-0.5 bg-teal-50 text-teal-800 rounded-md">
+                            {item.bidang || 'Umum'}
+                          </span>
+                          <span className="font-mono text-[9px] text-slate-400 font-bold">
+                            {item.kodeRekening}
+                          </span>
+                        </div>
+                        <p className="font-bold text-xs uppercase text-slate-800 leading-snug break-words">
+                          {item.kegiatan}
+                        </p>
+                        <div className="flex items-center justify-between text-[11px] pt-1 border-t border-slate-50">
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            Vol: <strong className="text-slate-700">{item.volume}</strong> • Sumber: <strong className="text-slate-700">{item.sumberAnggaran || '-'}</strong>
+                          </span>
+                          <span className="font-black text-teal-700 text-xs">
+                            Rp {item.nominal.toLocaleString('id-ID')}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                    {/* Total Box Mobile */}
+                    <div className="p-3.5 bg-emerald-50 flex items-center justify-between border-t border-emerald-100">
+                      <span className="text-xs font-bold text-emerald-950">Total Realisasi:</span>
+                      <span className="text-sm font-black text-emerald-700">Rp {currentRealisasi.totalRealisasi.toLocaleString('id-ID')}</span>
+                    </div>
+                  </div>
+
+                  {/* Desktop Table View (hidden sm:block) */}
+                  <div className="hidden sm:block overflow-x-auto w-full">
                     <table className="w-full text-sm">
                       <thead className="bg-slate-100">
                         <tr>
@@ -450,8 +516,8 @@ export default function AdminTataKelolaDesa() {
                         {currentRealisasi.items?.map((item, i) => (
                           <tr key={i} className="border-b hover:bg-slate-50">
                             <td className="px-4 py-3 font-semibold">{item.bidang}</td>
-                            <td className="px-4 py-3 text-slate-600">{item.kodeRekening}</td>
-                            <td className="px-4 py-3 text-slate-600">{item.kegiatan}</td>
+                            <td className="px-4 py-3 text-slate-600 font-mono text-xs">{item.kodeRekening}</td>
+                            <td className="px-4 py-3 text-slate-700">{item.kegiatan}</td>
                             <td className="px-4 py-3 text-right">{item.volume}</td>
                             <td className="px-4 py-3 text-right text-teal-700 font-bold">Rp {item.nominal.toLocaleString('id-ID')}</td>
                             <td className="px-4 py-3 text-slate-600">{item.sumberAnggaran}</td>
@@ -469,20 +535,19 @@ export default function AdminTataKelolaDesa() {
               </Card>
             ) : (
               <Card className="rounded-2xl border-2 border-dashed border-slate-300 shadow-none">
-                <CardContent className="p-12 text-center">
-                  <p className="text-slate-600 font-semibold">Belum ada data Realisasi untuk tahun {selectedYear}</p>
-                  <p className="text-slate-500 text-sm">Klik tombol "Impor Excel" untuk menambahkan data</p>
+                <CardContent className="p-8 sm:p-12 text-center">
+                  <p className="text-slate-600 font-semibold text-xs sm:text-sm">Belum ada data Realisasi untuk tahun {selectedYear}</p>
+                  <p className="text-slate-400 text-[11px] sm:text-xs">Klik tombol "Impor Excel" untuk menambahkan data</p>
                 </CardContent>
               </Card>
             )}
           </TabsContent>
 
           {/* PRODUK HUKUM TAB */}
-          <TabsContent value="produk" className="space-y-6">
+          <TabsContent value="produk" className="space-y-4 sm:space-y-6 outline-none">
             <AdminProdukHukumTab produkHukumList={allProdukHukum} isLoading={isLoadingProduk} firestore={firestore} />
           </TabsContent>
         </Tabs>
-      </main>
     </div>
   );
 }
@@ -523,17 +588,27 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    if (!firestore) return;
+    try {
+      await deleteDoc(doc(firestore, 'produkHukumDesa', id));
+      toast({ title: 'Produk Hukum dihapus' });
+    } catch (error: any) {
+      toast({ title: 'Gagal menghapus', description: error.message, variant: 'destructive' });
+    }
+  };
+
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className="grid lg:grid-cols-3 gap-4 sm:gap-8">
       {/* Form */}
-      <Card className="lg:col-span-1 rounded-2xl border-none shadow-lg">
-        <CardContent className="p-6 space-y-6">
-          <h3 className="text-lg font-black text-slate-900">Tambah Produk Hukum</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
+      <Card className="lg:col-span-1 rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden bg-white">
+        <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+          <h3 className="text-base sm:text-lg font-black text-slate-900 uppercase">Tambah Produk Hukum</h3>
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div>
               <Label className="font-bold text-xs">Jenis Produk</Label>
               <Select value={formData.jenis} onValueChange={(v) => setFormData({...formData, jenis: v})}>
-                <SelectTrigger className="rounded-lg border-slate-300">
+                <SelectTrigger className="rounded-xl border-slate-300 h-10 text-xs sm:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -547,7 +622,7 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
             <div>
               <Label className="font-bold text-xs">Tahun</Label>
               <Select value={formData.tahun.toString()} onValueChange={(v) => setFormData({...formData, tahun: parseInt(v)})}>
-                <SelectTrigger className="rounded-lg border-slate-300">
+                <SelectTrigger className="rounded-xl border-slate-300 h-10 text-xs sm:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -564,7 +639,7 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
                 value={formData.nama}
                 onChange={(e) => setFormData({...formData, nama: e.target.value})}
                 placeholder="Nama lengkap produk hukum"
-                className="rounded-lg border-slate-300"
+                className="rounded-xl border-slate-300 h-10 text-xs sm:text-sm"
                 required
               />
             </div>
@@ -575,7 +650,7 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
                 value={formData.nomor}
                 onChange={(e) => setFormData({...formData, nomor: e.target.value})}
                 placeholder="e.g. 1/2026"
-                className="rounded-lg border-slate-300"
+                className="rounded-xl border-slate-300 h-10 text-xs sm:text-sm"
                 required
               />
             </div>
@@ -586,13 +661,13 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
                 value={formData.driveLink}
                 onChange={(e) => setFormData({...formData, driveLink: e.target.value})}
                 placeholder="https://drive.google.com/..."
-                className="rounded-lg border-slate-300"
+                className="rounded-xl border-slate-300 h-10 text-xs sm:text-sm"
                 type="url"
               />
             </div>
 
-            <Button type="submit" className="w-full rounded-lg font-bold bg-primary hover:bg-slate-800">
-              <Plus className="h-4 w-4 mr-2" />
+            <Button type="submit" className="w-full rounded-xl font-bold bg-primary hover:bg-slate-800 h-10 text-xs sm:text-sm">
+              <Plus className="h-4 w-4 mr-1.5" />
               Tambahkan
             </Button>
           </form>
@@ -600,41 +675,46 @@ function AdminProdukHukumTab({ produkHukumList, isLoading, firestore }: any) {
       </Card>
 
       {/* List */}
-      <div className="lg:col-span-2 space-y-4">
-        <h3 className="text-lg font-black text-slate-900">Daftar Produk Hukum</h3>
+      <div className="lg:col-span-2 space-y-3 sm:space-y-4">
+        <h3 className="text-base sm:text-lg font-black text-slate-900 uppercase">Daftar Produk Hukum</h3>
         {isLoading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-24 rounded-xl" />
+              <Skeleton key={i} className="h-20 rounded-xl" />
             ))}
           </div>
         ) : produkHukumList?.length === 0 ? (
           <Card className="rounded-2xl border-2 border-dashed border-slate-300 shadow-none">
-            <CardContent className="p-12 text-center">
-              <p className="text-slate-600 font-semibold">Belum ada produk hukum</p>
+            <CardContent className="p-8 sm:p-12 text-center">
+              <p className="text-slate-600 font-semibold text-xs sm:text-sm">Belum ada produk hukum</p>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {produkHukumList?.map((produk: any) => (
-              <Card key={produk.id} className="rounded-xl border-none shadow-sm">
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-black bg-primary/10 text-primary px-2 py-1 rounded">{produk.jenis.toUpperCase()}</span>
-                        <span className="text-xs text-slate-500 font-bold">{produk.tahun}</span>
+              <Card key={produk.id} className="rounded-xl sm:rounded-2xl border-none shadow-sm bg-white overflow-hidden">
+                <CardContent className="p-3.5 sm:p-4">
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="text-[9px] font-black bg-primary/10 text-primary px-2 py-0.5 rounded">{produk.jenis.toUpperCase()}</span>
+                        <span className="text-[9px] text-slate-500 font-bold">{produk.tahun}</span>
                       </div>
-                      <p className="font-bold text-slate-900 line-clamp-1">{produk.nama}</p>
-                      <p className="text-sm text-slate-600">Nomor: {produk.nomor}</p>
+                      <p className="font-bold text-xs sm:text-sm text-slate-900 leading-snug break-words">{produk.nama}</p>
+                      <p className="text-[11px] text-slate-500">Nomor: <span className="font-semibold text-slate-700">{produk.nomor}</span></p>
                     </div>
-                    {produk.driveLink && (
-                      <a href={produk.driveLink} target="_blank" rel="noopener noreferrer" className="ml-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      </a>
-                    )}
+                    <div className="flex items-center gap-1 shrink-0">
+                      {produk.driveLink && (
+                        <a href={produk.driveLink} target="_blank" rel="noopener noreferrer">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg text-primary hover:bg-primary/5">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </a>
+                      )}
+                      <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg text-red-400 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(produk.id)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

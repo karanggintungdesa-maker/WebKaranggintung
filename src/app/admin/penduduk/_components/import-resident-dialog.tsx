@@ -142,54 +142,54 @@ export function ImportResidentDialog({ open, onOpenChange }: ImportResidentDialo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className="w-[95vw] max-w-md rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
             <FileSpreadsheet className="h-5 w-5 text-emerald-600" />
             Impor Data Penduduk
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             Unggah file Excel (.xlsx). Seluruh nilai teks akan disimpan persis sesuai isi kolom di spreadsheet.
           </DialogDescription>
         </DialogHeader>
-        <div className="py-6 space-y-6">
+        <div className="py-4 sm:py-6 space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="file">Pilih File Excel</Label>
-            <Input id="file" type="file" accept=".xlsx,.xls" onChange={handleFileChange} disabled={isProcessing} />
+            <Label htmlFor="file" className="text-xs sm:text-sm font-semibold">Pilih File Excel</Label>
+            <Input id="file" type="file" accept=".xlsx,.xls" onChange={handleFileChange} disabled={isProcessing} className="h-10 text-xs sm:text-sm rounded-xl" />
           </div>
 
-          <div className="p-4 bg-muted/50 rounded-lg text-[10px] space-y-1 font-mono">
-            <p className="font-bold text-primary mb-2">FORMAT HEADER KOLOM:</p>
+          <div className="p-3 sm:p-4 bg-muted/50 rounded-xl text-[9px] sm:text-[10px] space-y-1 font-mono break-all">
+            <p className="font-bold text-primary mb-1">FORMAT HEADER KOLOM:</p>
             <p>NIK, NO_KK, NAMA_LGKP, JENIS_KLM, TGL_LAHIR, UMUR, TEMPAT_LAHIR, ALAMAT, NO_RT, NO_RW, KELURAHAN, SHDK, STATUS_KAWIN, PENDIDIKAN, AGAMA, PEKERJAAN, GOLONGAN_DARAH, AKTA_LAHIR, NO_AKTA_LAHIR, AKTA_KAWIN, NO_AKTA_KAWIN, AKTA_CERAI, NO_AKTA_CERAI, NAMA_AYAH, NAMA_IBU</p>
           </div>
 
           {isProcessing && (
             <div className="flex flex-col items-center justify-center p-4 space-y-2">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <p className="text-sm font-medium animate-pulse">Sedang memproses data... Mohon tunggu.</p>
+              <Loader2 className="h-7 w-7 animate-spin text-primary" />
+              <p className="text-xs sm:text-sm font-medium animate-pulse">Sedang memproses data... Mohon tunggu.</p>
             </div>
           )}
 
           {error && (
-            <Alert variant="destructive">
+            <Alert variant="destructive" className="rounded-xl">
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Gagal</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <AlertTitle className="text-xs sm:text-sm font-bold">Gagal</AlertTitle>
+              <AlertDescription className="text-xs">{error}</AlertDescription>
             </Alert>
           )}
 
           {importCount !== null && (
-            <Alert className="bg-emerald-50 text-emerald-800 border-emerald-200">
+            <Alert className="bg-emerald-50 text-emerald-800 border-emerald-200 rounded-xl">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-              <AlertTitle>Berhasil</AlertTitle>
-              <AlertDescription>{importCount} data penduduk berhasil diimpor.</AlertDescription>
+              <AlertTitle className="text-xs sm:text-sm font-bold">Berhasil</AlertTitle>
+              <AlertDescription className="text-xs">{importCount} data penduduk berhasil diimpor.</AlertDescription>
             </Alert>
           )}
         </div>
-        <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isProcessing}>Tutup</Button>
-          <Button onClick={handleImport} disabled={isProcessing || !selectedFile} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-            <Save className="mr-2 h-4 w-4" /> Mulai Impor
+        <DialogFooter className="flex-row gap-2">
+          <Button variant="outline" className="flex-1 h-9 sm:h-10 text-xs sm:text-sm rounded-xl" onClick={() => onOpenChange(false)} disabled={isProcessing}>Tutup</Button>
+          <Button onClick={handleImport} disabled={isProcessing || !selectedFile} className="flex-1 h-9 sm:h-10 text-xs sm:text-sm rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Save className="mr-1.5 h-4 w-4" /> Mulai Impor
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -2,9 +2,11 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Logo } from '@/components/logo';
+import { Header } from '@/components/landing/Header';
+import { Footer } from '@/components/landing/Footer';
+import { BackgroundPattern } from '@/components/landing/BackgroundPattern';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BarChart3, TrendingUp, FileText, ChevronRight } from 'lucide-react';
+import { BarChart3, TrendingUp, FileText, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -211,15 +213,15 @@ function IsometricChart({ data, title, subtitle, emptyText }: IsometricChartProp
   const maxNominal = Math.max(...data.map(d => d.nominal), 1);
 
   return (
-    <Card className="rounded-[2.5rem] border-none shadow-xl">
-      <CardContent className="p-8 space-y-6">
+    <Card className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-md sm:shadow-xl bg-white overflow-hidden">
+      <CardContent className="p-3.5 min-[380px]:p-4 sm:p-8 space-y-4 sm:space-y-6">
         <div>
-          <h4 className="text-xl font-black text-slate-900 font-display">{title}</h4>
-          <p className="text-sm text-slate-500 font-medium">{subtitle}</p>
+          <h4 className="text-sm min-[380px]:text-base sm:text-xl font-black text-slate-900 font-display uppercase tracking-tight">{title}</h4>
+          <p className="text-[11px] sm:text-sm text-slate-500 font-medium leading-relaxed">{subtitle}</p>
         </div>
 
         {data.length === 0 ? (
-          <div className="text-center py-12 text-slate-400 font-bold">{emptyText || 'Data kosong'}</div>
+          <div className="text-center py-8 sm:py-12 text-slate-400 font-bold text-xs sm:text-sm">{emptyText || 'Data kosong'}</div>
         ) : (
           <>
             {/* CSS animation keyframe injected once */}
@@ -231,10 +233,10 @@ function IsometricChart({ data, title, subtitle, emptyText }: IsometricChartProp
             `}</style>
 
             {/* Scrollable bar area */}
-            <div className="overflow-x-auto pb-2">
+            <div className="overflow-x-auto pb-2 -mx-1 sm:mx-0">
               <div
-                className="flex gap-6 items-end justify-start min-w-max px-4 pt-4"
-                style={{ minHeight: 340 }}
+                className="flex gap-4 sm:gap-6 items-end justify-start min-w-max px-2 sm:px-4 pt-2 sm:pt-4"
+                style={{ minHeight: 320 }}
               >
                 {data.map((item, i) => {
                   const pct = (item.nominal / maxNominal) * 100;
@@ -248,7 +250,7 @@ function IsometricChart({ data, title, subtitle, emptyText }: IsometricChartProp
                       colorTop={palette.top}
                       colorFront={palette.front}
                       colorSide={palette.side}
-                      maxHeightPx={220}
+                      maxHeightPx={200}
                       delay={i * 100}
                       formatter={(v) => `Rp ${(v / 1e6).toFixed(1)}jt`}
                     />
@@ -258,16 +260,16 @@ function IsometricChart({ data, title, subtitle, emptyText }: IsometricChartProp
             </div>
 
             {/* Legend / total */}
-            <div className="flex flex-wrap gap-3 pt-2 border-t border-slate-100">
+            <div className="flex flex-wrap gap-2 sm:gap-3 pt-2 sm:pt-3 border-t border-slate-100">
               {data.map((item, i) => {
                 const palette = ISO_PALETTES[i % ISO_PALETTES.length];
                 return (
-                  <div key={item.name} className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                  <div key={item.name} className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold text-slate-600 bg-slate-50 sm:bg-transparent px-2 py-1 rounded-lg sm:p-0">
                     <span
-                      className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
+                      className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-sm flex-shrink-0"
                       style={{ backgroundColor: palette.front }}
                     />
-                    <span className="truncate max-w-[150px]">{item.name}</span>
+                    <span className="truncate max-w-[120px] sm:max-w-[150px]">{item.name}</span>
                     <span className="text-slate-400">
                       Rp {item.nominal.toLocaleString('id-ID')}
                     </span>
@@ -399,61 +401,55 @@ export default function TataKelolaDesa() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans">
-      {/* HEADER */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Logo />
-          <Link href="/">
-            <Button variant="ghost" className="font-bold gap-2 text-primary hover:bg-slate-100 rounded-xl">
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Beranda</span>
-            </Button>
-          </Link>
-        </div>
-      </header>
+    <div className="relative flex flex-col min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden pt-20 sm:pt-24 font-sans">
+      <BackgroundPattern />
+      <Header />
 
-      <div className="flex-1 container mx-auto px-4 py-8 md:py-12">
+      <main className="relative flex-1 container mx-auto px-3 sm:px-4 py-6 sm:py-10 md:py-12 max-w-7xl">
         {/* JUDUL */}
-        <div className="mb-12 space-y-4">
-          <h1 className="text-5xl font-black text-slate-900 uppercase font-display italic">
+        <div className="mb-6 sm:mb-10 space-y-2 sm:space-y-3">
+          <Badge className="bg-emerald-50 text-emerald-700 font-black uppercase text-[9px] sm:text-[10px] tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 border-none shadow-sm">
+            Transparansi &amp; Akuntabilitas
+          </Badge>
+          <h1 className="text-2xl min-[380px]:text-3xl md:text-5xl font-black text-slate-900 uppercase font-display italic tracking-tight leading-tight">
             Tata Kelola <span className="text-primary not-italic">Desa</span>
           </h1>
-          <p className="text-slate-500 font-bold max-w-2xl">
-            Transparansi anggaran dan produk hukum desa Karanggintung untuk akuntabilitas publik.
+          <p className="text-slate-500 font-medium text-xs sm:text-base max-w-2xl leading-relaxed">
+            Transparansi anggaran dan produk hukum Desa Karanggintung demi mewujudkan akuntabilitas publik yang bersih dan terbuka.
           </p>
         </div>
 
-        {/* TABS */}
-        <div className="mb-12">
-          <div className="flex gap-2 flex-wrap">
+        {/* TABS - 3 Columns on Mobile */}
+        <div className="mb-6 sm:mb-8">
+          <div className="grid grid-cols-3 sm:flex gap-1.5 sm:gap-2 max-w-xl">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => { setActiveTab(tab.id); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={cn(
-                  'px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all flex items-center gap-2',
+                  'px-2 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-bold uppercase text-[8px] min-[380px]:text-[9px] sm:text-[10px] tracking-tight sm:tracking-widest transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center',
                   activeTab === tab.id
-                    ? 'bg-primary text-white shadow-lg'
+                    ? 'bg-primary text-white shadow-md'
                     : 'bg-white border border-slate-200 text-slate-600 hover:border-primary hover:text-primary'
                 )}
               >
-                <tab.icon className="h-4 w-4" />
-                {tab.label}
+                <tab.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                <span className="line-clamp-1">{tab.label}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* YEAR SELECTOR */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8 flex items-center gap-2">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider hidden sm:inline">Pilih Tahun:</span>
           <Select value={selectedYear.toString()} onValueChange={(v) => setSelectedYear(parseInt(v))}>
-            <SelectTrigger className="w-48 rounded-xl border-slate-300">
+            <SelectTrigger className="w-36 sm:w-48 h-9 sm:h-10 text-xs sm:text-sm rounded-xl border-slate-300 bg-white font-bold">
               <SelectValue placeholder="Pilih Tahun" />
             </SelectTrigger>
             <SelectContent>
               {availableYears.map(year => (
-                <SelectItem key={year} value={year.toString()}>Tahun {year}</SelectItem>
+                <SelectItem key={year} value={year.toString()} className="text-xs sm:text-sm font-bold">Tahun {year}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -461,24 +457,24 @@ export default function TataKelolaDesa() {
 
         {/* ── APBDES TAB ── */}
         {activeTab === 'apbdes' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {isLoadingApbdes ? (
-              <Skeleton className="h-96 rounded-3xl" />
+              <Skeleton className="h-64 sm:h-96 rounded-2xl sm:rounded-3xl" />
             ) : currentApbdes ? (
               <>
                 {/* Overview card */}
-                <Card className="rounded-[2.5rem] border-none shadow-xl bg-gradient-to-br from-emerald-50 to-teal-50/50">
-                  <CardContent className="p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="space-y-2">
-                      <span className="text-xs font-black bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase tracking-wider">
+                <Card className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-md sm:shadow-xl bg-gradient-to-br from-emerald-50 to-teal-50/50">
+                  <CardContent className="p-4 min-[380px]:p-5 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <span className="text-[9px] sm:text-xs font-black bg-emerald-100 text-emerald-800 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase tracking-wider">
                         Anggaran Pendapatan &amp; Belanja Desa
                       </span>
-                      <h3 className="text-3xl font-black text-slate-900">APBDes Tahun {selectedYear}</h3>
-                      <p className="text-slate-500 font-medium">Rekapitulasi rencana anggaran belanja desa Karanggintung.</p>
+                      <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-900 font-display uppercase tracking-tight">APBDes Tahun {selectedYear}</h3>
+                      <p className="text-slate-500 font-medium text-xs sm:text-sm">Rekapitulasi rencana alokasi anggaran belanja Desa Karanggintung.</p>
                     </div>
-                    <div className="p-6 bg-white rounded-3xl shadow-sm border border-slate-100/80 min-w-[280px]">
-                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Rencana Anggaran</span>
-                      <div className="text-3xl font-black text-emerald-700 mt-1 font-display">
+                    <div className="p-4 sm:p-6 bg-white rounded-2xl sm:rounded-3xl shadow-xs sm:shadow-sm border border-slate-100/80 min-w-[220px] sm:min-w-[280px]">
+                      <span className="text-[9px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Total Rencana Anggaran</span>
+                      <div className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-emerald-700 mt-0.5 sm:mt-1 font-display">
                         Rp {currentApbdes.totalAnggaran.toLocaleString('id-ID')}
                       </div>
                     </div>
@@ -486,7 +482,7 @@ export default function TataKelolaDesa() {
                 </Card>
 
                 {/* 3D Isometric Charts */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
                   <IsometricChart
                     data={apbdesChartData}
                     title="Perbandingan Total per Bidang"
@@ -502,9 +498,9 @@ export default function TataKelolaDesa() {
                 </div>
               </>
             ) : (
-              <div className="text-center py-16 px-6">
-                <BarChart3 className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600 font-semibold">Data APBDes tahun {selectedYear} belum tersedia.</p>
+              <div className="text-center py-12 sm:py-16 px-4 bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm">
+                <BarChart3 className="h-10 w-10 sm:h-12 sm:w-12 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                <p className="text-slate-600 font-semibold text-xs sm:text-sm">Data APBDes tahun {selectedYear} belum tersedia.</p>
               </div>
             )}
           </div>
@@ -512,64 +508,64 @@ export default function TataKelolaDesa() {
 
         {/* ── REALISASI TAB ── */}
         {activeTab === 'realisasi' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {isLoadingRealisasi ? (
-              <Skeleton className="h-96 rounded-3xl" />
+              <Skeleton className="h-64 sm:h-96 rounded-2xl sm:rounded-3xl" />
             ) : currentRealisasi ? (
               <>
-                {/* Metric Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <Card className="rounded-[2.5rem] border-none shadow-xl bg-gradient-to-br from-emerald-50 to-teal-50/50 flex flex-col justify-between p-8 min-h-[220px]">
-                    <div className="space-y-2">
-                      <span className="text-xs font-black bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase tracking-wider">Realisasi Anggaran Belanja</span>
-                      <h3 className="text-2xl font-black text-slate-900 font-display">Realisasi {selectedYear}</h3>
+                {/* Metric Cards - 3 Columns responsive */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
+                  <Card className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-md sm:shadow-xl bg-gradient-to-br from-emerald-50 to-teal-50/50 flex flex-col justify-between p-4 min-[380px]:p-5 sm:p-8 min-h-[160px] sm:min-h-[220px]">
+                    <div className="space-y-1 sm:space-y-2">
+                      <span className="text-[9px] sm:text-xs font-black bg-emerald-100 text-emerald-800 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase tracking-wider">Realisasi Anggaran Belanja</span>
+                      <h3 className="text-lg sm:text-2xl font-black text-slate-900 font-display">Realisasi {selectedYear}</h3>
                     </div>
-                    <div className="space-y-3 mt-4">
+                    <div className="space-y-1.5 sm:space-y-3 mt-3 sm:mt-4">
                       <div>
-                        <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Realisasi Belanja</span>
-                        <div className="text-3xl font-black text-emerald-700 mt-1 font-display">
+                        <span className="text-[9px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">Total Realisasi Belanja</span>
+                        <div className="text-xl sm:text-3xl font-black text-emerald-700 mt-0.5 sm:mt-1 font-display">
                           Rp {currentRealisasi.totalRealisasi.toLocaleString('id-ID')}
                         </div>
                       </div>
                       {currentApbdes && (
-                        <div className="text-xs text-slate-500 font-bold">
-                          Dari Rencana Anggaran: Rp {currentApbdes.totalAnggaran.toLocaleString('id-ID')}
+                        <div className="text-[10px] sm:text-xs text-slate-500 font-bold">
+                          Dari Rencana: Rp {currentApbdes.totalAnggaran.toLocaleString('id-ID')}
                         </div>
                       )}
                     </div>
                   </Card>
 
-                  <Card className="rounded-[2.5rem] border-none shadow-xl p-8 flex flex-col justify-between min-h-[220px]">
-                    <div className="space-y-1">
-                      <h4 className="text-lg font-black text-slate-900 font-display">Penyerapan Anggaran</h4>
-                      <p className="text-xs text-slate-500 font-medium">Persentase rencana anggaran yang telah direalisasikan.</p>
+                  <Card className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-md sm:shadow-xl p-4 min-[380px]:p-5 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px] bg-white">
+                    <div className="space-y-0.5 sm:space-y-1">
+                      <h4 className="text-base sm:text-lg font-black text-slate-900 font-display">Penyerapan Anggaran</h4>
+                      <p className="text-[10.5px] sm:text-xs text-slate-500 font-medium">Persentase rencana anggaran yang telah direalisasikan.</p>
                     </div>
-                    <div className="my-4">
-                      <div className="text-5xl md:text-6xl font-black text-emerald-600 font-display italic">{absorptionStats.formatted}</div>
-                      <div className="w-full bg-slate-100 rounded-full h-3 mt-3 overflow-hidden">
+                    <div className="my-2 sm:my-4">
+                      <div className="text-3xl min-[380px]:text-4xl sm:text-5xl md:text-6xl font-black text-emerald-600 font-display italic">{absorptionStats.formatted}</div>
+                      <div className="w-full bg-slate-100 rounded-full h-2 sm:h-3 mt-2 sm:mt-3 overflow-hidden">
                         <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, absorptionStats.percentage)}%` }} />
                       </div>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Anggaran Terserap</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider">Anggaran Terserap</span>
                   </Card>
 
-                  <Card className="rounded-[2.5rem] border-none shadow-xl p-8 flex flex-col justify-between min-h-[220px]">
-                    <div className="space-y-1">
-                      <h4 className="text-lg font-black text-slate-900 font-display">Capaian Output</h4>
-                      <p className="text-xs text-slate-500 font-medium">Rata-rata persentase realisasi kegiatan pembangunan desa.</p>
+                  <Card className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-md sm:shadow-xl p-4 min-[380px]:p-5 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px] bg-white sm:col-span-2 lg:col-span-1">
+                    <div className="space-y-0.5 sm:space-y-1">
+                      <h4 className="text-base sm:text-lg font-black text-slate-900 font-display">Capaian Output</h4>
+                      <p className="text-[10.5px] sm:text-xs text-slate-500 font-medium">Rata-rata persentase realisasi kegiatan pembangunan desa.</p>
                     </div>
-                    <div className="my-4">
-                      <div className="text-5xl md:text-6xl font-black text-teal-600 font-display italic">{outputAchievementStats.formatted}</div>
-                      <div className="w-full bg-slate-100 rounded-full h-3 mt-3 overflow-hidden">
+                    <div className="my-2 sm:my-4">
+                      <div className="text-3xl min-[380px]:text-4xl sm:text-5xl md:text-6xl font-black text-teal-600 font-display italic">{outputAchievementStats.formatted}</div>
+                      <div className="w-full bg-slate-100 rounded-full h-2 sm:h-3 mt-2 sm:mt-3 overflow-hidden">
                         <div className="bg-teal-500 h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, outputAchievementStats.percentage)}%` }} />
                       </div>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Kegiatan Terealisasi</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider">Kegiatan Terealisasi</span>
                   </Card>
                 </div>
 
                 {/* 3D Isometric Charts */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
                   <IsometricChart
                     data={realisasiChartData}
                     title="Perbandingan Total per Bidang"
@@ -585,9 +581,9 @@ export default function TataKelolaDesa() {
                 </div>
               </>
             ) : (
-              <div className="text-center py-16 px-6">
-                <TrendingUp className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600 font-semibold">Data Realisasi APBDes tahun {selectedYear} belum tersedia.</p>
+              <div className="text-center py-12 sm:py-16 px-4 bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm">
+                <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                <p className="text-slate-600 font-semibold text-xs sm:text-sm">Data Realisasi APBDes tahun {selectedYear} belum tersedia.</p>
               </div>
             )}
           </div>
@@ -595,46 +591,49 @@ export default function TataKelolaDesa() {
 
         {/* ── PRODUK HUKUM TAB ── */}
         {activeTab === 'produk' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {isLoadingProduk ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <Skeleton key={i} className="h-48 rounded-3xl" />
+                  <Skeleton key={i} className="h-36 sm:h-48 rounded-2xl sm:rounded-3xl" />
                 ))}
               </div>
             ) : currentProdukHukum.length === 0 ? (
-              <div className="text-center py-16 px-6">
-                <FileText className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600 font-semibold">Belum ada produk hukum tahun {selectedYear}.</p>
+              <div className="text-center py-12 sm:py-16 px-4 bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm">
+                <FileText className="h-10 w-10 sm:h-12 sm:w-12 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                <p className="text-slate-600 font-semibold text-xs sm:text-sm">Belum ada produk hukum tahun {selectedYear}.</p>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              // 2 Columns on Mobile for Product Hukum Cards
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6">
                 {currentProdukHukum.map(produk => (
-                  <Card key={produk.id} className="rounded-[2.5rem] border-none shadow-sm hover:shadow-xl transition-all">
-                    <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <Badge className="bg-primary/10 text-primary font-black uppercase text-[9px]">
+                  <Card key={produk.id} className="rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-none shadow-xs sm:shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col justify-between bg-white">
+                    <CardContent className="p-3 min-[380px]:p-3.5 sm:p-6 space-y-2.5 sm:space-y-4 flex-1 flex flex-col justify-between">
+                      <div className="space-y-1 sm:space-y-2">
+                        <Badge className="bg-primary/10 text-primary font-black uppercase text-[7.5px] min-[380px]:text-[8.5px] sm:text-[9px] px-2 py-0.5">
                           {produk.jenis.toUpperCase()}
                         </Badge>
-                        <h3 className="text-lg font-black text-slate-900 line-clamp-2">{produk.nama}</h3>
-                        <p className="text-sm text-slate-600">Nomor: {produk.nomor}</p>
+                        <h3 className="text-xs min-[380px]:text-sm sm:text-lg font-black text-slate-900 line-clamp-2 leading-snug">{produk.nama}</h3>
+                        <p className="text-[9.5px] min-[380px]:text-[10.5px] sm:text-sm text-slate-600 font-medium line-clamp-1">No: {produk.nomor}</p>
                       </div>
-                      {produk.filePdfUrl && (
-                        <a href={produk.filePdfUrl} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" className="w-full rounded-xl gap-2 text-xs font-bold">
-                            <FileText className="h-4 w-4" />
-                            Lihat PDF
-                          </Button>
-                        </a>
-                      )}
-                      {produk.driveLink && (
-                        <a href={produk.driveLink} target="_blank" rel="noopener noreferrer">
-                          <Button variant="ghost" className="w-full rounded-xl gap-2 text-xs font-bold text-primary hover:bg-primary/10">
-                            <ChevronRight className="h-4 w-4" />
-                            Buka di Drive
-                          </Button>
-                        </a>
-                      )}
+                      <div className="space-y-1.5 pt-1">
+                        {produk.filePdfUrl && (
+                          <a href={produk.filePdfUrl} target="_blank" rel="noopener noreferrer" className="block">
+                            <Button variant="outline" className="w-full rounded-xl gap-1 sm:gap-2 h-7 sm:h-9 text-[9px] sm:text-xs font-bold">
+                              <FileText className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <span>Lihat PDF</span>
+                            </Button>
+                          </a>
+                        )}
+                        {produk.driveLink && (
+                          <a href={produk.driveLink} target="_blank" rel="noopener noreferrer" className="block">
+                            <Button variant="ghost" className="w-full rounded-xl gap-1 sm:gap-2 h-7 sm:h-9 text-[9px] sm:text-xs font-bold text-primary hover:bg-primary/10">
+                              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <span>Drive</span>
+                            </Button>
+                          </a>
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -642,14 +641,10 @@ export default function TataKelolaDesa() {
             )}
           </div>
         )}
-      </div>
+      </main>
 
-      {/* FOOTER */}
-      <footer className="bg-[#081325] text-slate-400 py-8 mt-16 border-t border-slate-800/80">
-        <div className="container mx-auto px-4 text-center text-sm text-slate-500">
-          © 2026 Pemerintah Desa Karanggintung Digital Portal - Tata Kelola Desa
-        </div>
-      </footer>
+      {/* OFFICIAL PORTAL FOOTER */}
+      <Footer />
     </div>
   );
 }

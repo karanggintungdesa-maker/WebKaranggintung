@@ -52,18 +52,18 @@ export function VideoProfileSettingsForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Video className="h-5 w-5" />
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <Video className="h-4 w-4 text-emerald-600 shrink-0" />
           Video Profil Desa
         </CardTitle>
-        <CardDescription>Masukkan tautan YouTube untuk menampilkan video profil desa di halaman depan.</CardDescription>
+        <CardDescription className="text-[11px] sm:text-xs">Masukkan tautan YouTube untuk menampilkan video profil desa di halaman depan.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="youtube-video-url">Tautan YouTube</Label>
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="youtube-video-url" className="text-xs font-semibold">Tautan YouTube</Label>
             <Input
               id="youtube-video-url"
               type="url"
@@ -71,13 +71,14 @@ export function VideoProfileSettingsForm() {
               value={youtubeVideoUrl}
               onChange={(e) => setYoutubeVideoUrl(e.target.value)}
               disabled={isSaving}
+              className="text-xs h-8 sm:h-9"
             />
-            <p className="text-sm text-muted-foreground">
-              Tautan akan disimpan dan ditampilkan di bagian video profil desa pada halaman utama.
+            <p className="text-[10px] text-muted-foreground">
+              Tautan akan ditampilkan di bagian video profil desa pada halaman utama.
             </p>
           </div>
-          <Button type="submit" disabled={isSaving}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving} className="w-full sm:w-auto h-8 sm:h-9 text-xs">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Video Profil
           </Button>
         </form>

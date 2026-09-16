@@ -2,10 +2,11 @@
 
 import React, { useMemo } from 'react';
 import Link from 'next/link';
-import { Logo } from '@/components/logo';
+import { Header } from '@/components/landing/Header';
+import { Footer } from '@/components/landing/Footer';
+import { BackgroundPattern } from '@/components/landing/BackgroundPattern';
 import { Button } from '@/components/ui/button';
 import {
-  ArrowLeft,
   Phone,
   Shield,
   Heart,
@@ -14,7 +15,6 @@ import {
   Siren,
   MapPin,
   Landmark,
-  UserCircle2,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -65,8 +65,8 @@ const formatPhoneDisplay = (number: string) => {
 const categoryLabels: Record<string, { label: string; icon: React.ElementType; color: string; border: string }> = {
   pemerintah: { label: 'Pemerintahan', icon: Landmark, color: 'text-emerald-700 bg-emerald-50', border: 'border-emerald-200' },
   keamanan: { label: 'Keamanan & Ketertiban', icon: Shield, color: 'text-teal-700 bg-teal-50', border: 'border-teal-200' },
-  kesehatan: { label: 'Kesehatan', icon: Heart, color: 'text-rose-700 bg-rose-50', border: 'border-rose-200' },
-  wilayah: { label: 'Kepala Dusun', icon: Users, color: 'text-violet-700 bg-violet-50', border: 'border-violet-200' },
+  kesehatan: { label: 'Kesehatan & Medis', icon: Heart, color: 'text-rose-700 bg-rose-50', border: 'border-rose-200' },
+  wilayah: { label: 'Kepala Dusun (Kadus)', icon: Users, color: 'text-violet-700 bg-violet-50', border: 'border-violet-200' },
 };
 
 const categoryStyles: Record<string, { icon: React.ElementType; color: string; bgColor: string }> = {
@@ -125,214 +125,185 @@ export default function NomorPentingPage() {
   const categoryOrder = ['pemerintah', 'keamanan', 'kesehatan', 'wilayah'];
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans">
-      {/* TOP HEADER */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Logo />
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <Button
-                variant="ghost"
-                className="font-bold gap-2 text-primary hover:bg-slate-100 rounded-xl"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span className="hidden sm:inline">Beranda</span>
-              </Button>
-            </Link>
-            <Link href="/layanan-surat/">
-              <Button className="bg-secondary hover:bg-yellow-600 text-primary-foreground font-black px-6 rounded-xl shadow-lg shadow-secondary/20 h-10">
-                Portal Layanan
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="relative flex min-h-screen flex-col bg-slate-50 text-slate-900 overflow-x-hidden">
+      <BackgroundPattern />
+      <Header />
 
-      <div className="flex-1 container mx-auto px-4 py-8 md:py-12">
-        {/* KOP SURAT / OFFICIAL HEADER */}
-        <div className="mb-10">
-          <Card className="rounded-[2.5rem] border-none shadow-xl overflow-hidden bg-white">
-            <div className="h-2 w-full bg-gradient-to-r from-primary via-accent to-secondary" />
-            <CardContent className="p-8 md:p-12">
-              <div className="text-center space-y-3">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
-                    <Landmark className="h-7 w-7" />
-                  </div>
-                </div>
-                <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-slate-900 font-display">
-                  Pemerintah Desa Karanggintung
-                </h2>
-                <p className="text-sm md:text-base font-bold uppercase tracking-widest text-slate-500">
-                  Kecamatan Gandrungmangu
-                </p>
-                <p className="text-sm md:text-base font-bold uppercase tracking-widest text-slate-500">
-                  Kabupaten Cilacap
-                </p>
-                <div className="flex items-center justify-center gap-2 text-slate-400 text-xs md:text-sm font-medium pt-2">
-                  <MapPin className="h-3.5 w-3.5 text-primary/60" />
-                  <span>Jl. Desa Karanggintung No. 1 Gandrungmangu Cilacap Kode Pos 53255</span>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="my-8 flex items-center gap-4">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-                <div className="w-2 h-2 rounded-full bg-primary/30" />
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-              </div>
-
-              {/* Title */}
-              <div className="text-center space-y-4">
-                <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 font-display italic">
-                  Daftar Nomor <span className="text-primary not-italic">Penting</span>
-                </h1>
-                <div className="max-w-xl mx-auto">
-                  <p className="text-sm md:text-base text-slate-500 font-semibold leading-relaxed">
-                    Jika terjadi kejadian silahkan hubungi nomor di bawah ini :
-                  </p>
-                </div>
-                <Badge className="bg-red-50 text-red-600 font-black uppercase text-[10px] tracking-widest px-6 py-2 border-none shadow-sm animate-pulse">
-                  <Siren className="h-3 w-3 mr-2" />
-                  Nomor Darurat
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* CONTACT LIST BY CATEGORY */}
-        {isLoading ? (
-          <div className="space-y-8">
-            <Skeleton className="h-12 w-64 rounded-xl" />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="h-28 rounded-[2rem]" />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-10">
-            {categoryOrder.map((catKey) => {
-              const catInfo = categoryLabels[catKey];
-              const catContacts = groupedContacts[catKey];
-              if (!catContacts || catContacts.length === 0) return null;
-
-              return (
-                <section key={catKey} className="space-y-6">
-                  {/* Category Header */}
-                  <div className="flex items-center gap-4">
-                    <div className={cn('p-3 rounded-2xl shadow-lg', catInfo.color)}>
-                      <catInfo.icon className="h-5 w-5" />
+      <main className="relative flex-1 pt-20 sm:pt-24 pb-12 sm:pb-16">
+        <div className="container mx-auto px-3 sm:px-6 lg:px-8">
+          {/* KOP SURAT / OFFICIAL HEADER CARD */}
+          <div className="mb-6 sm:mb-10">
+            <Card className="rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden bg-white">
+              <div className="h-1.5 sm:h-2 w-full bg-gradient-to-r from-primary via-emerald-600 to-secondary" />
+              <CardContent className="p-4 sm:p-8 md:p-10">
+                <div className="text-center space-y-1.5 sm:space-y-2.5">
+                  <div className="flex items-center justify-center mb-2 sm:mb-3">
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center text-white shadow-md shadow-primary/20">
+                      <Landmark className="h-5 w-5 sm:h-7 sm:w-7" />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-slate-800">
-                      {catInfo.label}
-                    </h3>
-                    <div className="h-px flex-1 bg-slate-100" />
                   </div>
+                  <h2 className="text-base sm:text-xl md:text-2xl font-extrabold uppercase tracking-tight text-slate-900 font-display">
+                    Pemerintah Desa Karanggintung
+                  </h2>
+                  <p className="text-[11px] sm:text-sm font-bold uppercase tracking-wider text-slate-500">
+                    Kecamatan Gandrungmangu &bull; Kabupaten Cilacap
+                  </p>
+                  <div className="flex items-center justify-center gap-1.5 text-slate-400 text-[10px] sm:text-xs font-medium pt-1">
+                    <MapPin className="h-3 w-3 text-primary/60 shrink-0" />
+                    <span>Jl. Desa Karanggintung No. 1 Kode Pos 53255</span>
+                  </div>
+                </div>
 
-                  {/* Contact Cards */}
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {catContacts.map((contact, i) => (
-                      <Card
-                        key={contact.id || i}
-                        className="rounded-[2rem] border-none shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 bg-white group overflow-hidden"
-                      >
-                        <CardContent className="p-0">
-                          <div className="flex items-stretch">
-                            {/* Icon side */}
-                            <div
-                              className={cn(
-                                'flex items-center justify-center w-20 md:w-24 shrink-0',
-                                contact.bgColor,
-                                contact.color
-                              )}
-                            >
-                              <contact.icon className="h-8 w-8 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6" />
-                            </div>
-                            {/* Info side */}
-                            <div className="flex-1 p-5 md:p-6 space-y-2 min-w-0">
-                              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] truncate">
-                                {contact.label}
-                              </p>
-                              <p className="text-lg md:text-xl font-black text-slate-900 tracking-tight font-mono">
-                                {formatPhoneDisplay(contact.number)}
-                              </p>
-                              <a
-                                href={`tel:${contact.number}`}
+                {/* Divider */}
+                <div className="my-4 sm:my-6 flex items-center gap-3">
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                </div>
+
+                {/* Title */}
+                <div className="text-center space-y-2 sm:space-y-3">
+                  <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-slate-900 font-display italic">
+                    Daftar Nomor <span className="text-primary not-italic">Penting</span>
+                  </h1>
+                  <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-lg mx-auto leading-relaxed">
+                    Kontak darurat dan layanan cepat pemerintah desa, keamanan, serta fasilitas kesehatan di Karanggintung.
+                  </p>
+                  <div className="pt-1">
+                    <Badge className="bg-red-50 text-red-600 font-bold uppercase text-[9px] sm:text-[10px] tracking-wider px-3 sm:px-4 py-1 border border-red-200/60 shadow-xs">
+                      <Siren className="h-3 w-3 mr-1.5 animate-pulse" />
+                      Layanan Siaga Cepat
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* CONTACT LIST BY CATEGORY */}
+          {isLoading ? (
+            <div className="space-y-6 sm:space-y-8">
+              <Skeleton className="h-9 w-48 rounded-xl" />
+              <div className="grid gap-2.5 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <Skeleton key={i} className="h-20 sm:h-24 rounded-2xl" />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-6 sm:space-y-10">
+              {categoryOrder.map((catKey) => {
+                const catInfo = categoryLabels[catKey];
+                const catContacts = groupedContacts[catKey];
+                if (!catContacts || catContacts.length === 0) return null;
+
+                return (
+                  <section key={catKey} className="space-y-3 sm:space-y-4">
+                    {/* Category Header */}
+                    <div className="flex items-center gap-2.5 sm:gap-3">
+                      <div className={cn('p-2 sm:p-2.5 rounded-xl shadow-xs', catInfo.color)}>
+                        <catInfo.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                      </div>
+                      <h3 className="text-base sm:text-lg md:text-xl font-extrabold uppercase tracking-tight text-slate-800">
+                        {catInfo.label}
+                      </h3>
+                      <div className="h-px flex-1 bg-slate-200/80" />
+                    </div>
+
+                    {/* Contact Cards */}
+                    <div className="grid gap-2.5 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                      {catContacts.map((contact, i) => (
+                        <Card
+                          key={contact.id || i}
+                          className="rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 bg-white group overflow-hidden"
+                        >
+                          <CardContent className="p-0">
+                            <div className="flex items-stretch">
+                              {/* Icon side */}
+                              <div
                                 className={cn(
-                                  'inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300',
+                                  'flex items-center justify-center w-14 min-[380px]:w-16 sm:w-20 shrink-0 transition-colors',
                                   contact.bgColor,
-                                  contact.color,
-                                  'hover:shadow-md hover:scale-105'
+                                  contact.color
                                 )}
                               >
-                                <Phone className="h-3 w-3" />
-                                Hubungi
-                              </a>
+                                <contact.icon className="h-6 w-6 sm:h-7 sm:w-7 transition-transform duration-300 group-hover:scale-110" />
+                              </div>
+                              {/* Info side */}
+                              <div className="flex-1 p-3 sm:p-4 space-y-1 sm:space-y-1.5 min-w-0">
+                                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">
+                                  {contact.label}
+                                </p>
+                                <p className="text-sm sm:text-base md:text-lg font-extrabold text-slate-900 tracking-tight font-mono truncate">
+                                  {formatPhoneDisplay(contact.number)}
+                                </p>
+                                <a
+                                  href={`tel:${contact.number}`}
+                                  className={cn(
+                                    'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider transition-all duration-200',
+                                    contact.bgColor,
+                                    contact.color,
+                                    'hover:shadow-xs hover:scale-105 active:scale-95'
+                                  )}
+                                >
+                                  <Phone className="h-3 w-3" />
+                                  Hubungi
+                                </a>
+                              </div>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        )}
-
-        {/* LAYANAN DESA PHONE NUMBER - BOTTOM CTA */}
-        <div className="mt-16 mb-8">
-          <Card className="rounded-[3rem] border-none shadow-2xl overflow-hidden bg-primary text-white relative">
-            <div className="absolute inset-0 opacity-[0.04]">
-              <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white translate-x-1/3 -translate-y-1/3" />
-              <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-white -translate-x-1/3 translate-y-1/3" />
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
             </div>
+          )}
 
-            <CardContent className="relative z-10 p-10 md:p-16 text-center space-y-8">
-              <div className="space-y-4">
-                <Badge className="bg-secondary text-primary-foreground font-black uppercase text-[10px] tracking-widest px-6 py-2 border-none shadow-lg">
-                  <Phone className="h-3 w-3 mr-2" />
-                  Nomor Pelayanan
-                </Badge>
-                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight font-display italic">
-                  Nomor Pelayanan Desa Karanggintung
-                </h3>
+          {/* LAYANAN DESA PHONE NUMBER - BOTTOM CTA */}
+          <div className="mt-8 sm:mt-12 mb-4 sm:mb-6">
+            <Card className="rounded-2xl sm:rounded-3xl border-none shadow-xl overflow-hidden bg-primary text-white relative">
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+                <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-white translate-x-1/3 -translate-y-1/3" />
+                <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-white -translate-x-1/3 translate-y-1/3" />
               </div>
 
-              <a
-                href={`tel:${servicePhoneNumber.replace(/\s+/g, '')}`}
-                className="group inline-block"
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 bg-white/10 rounded-[2rem] blur-xl group-hover:bg-white/20 transition-all duration-500" />
-                  <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-[2rem] px-10 md:px-16 py-8 group-hover:bg-white/15 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
-                    <p className="text-4xl md:text-6xl font-black tracking-wider font-mono text-white">
-                      {formatPhoneDisplay(servicePhoneNumber)}
-                    </p>
-                  </div>
+              <CardContent className="relative z-10 p-5 sm:p-10 md:p-12 text-center space-y-4 sm:space-y-6">
+                <div className="space-y-2">
+                  <Badge className="bg-secondary text-primary-foreground font-extrabold uppercase text-[9px] sm:text-[10px] tracking-wider px-3 sm:px-4 py-1 border-none shadow-sm">
+                    <Phone className="h-3 w-3 mr-1.5" />
+                    Pusat Informasi & Pelayanan
+                  </Badge>
+                  <h3 className="text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-tight font-display italic">
+                    Nomor Pelayanan Desa Karanggintung
+                  </h3>
                 </div>
-              </a>
 
-              <p className="text-sm text-white/60 font-semibold max-w-md mx-auto">
-                Hubungi nomor di atas untuk informasi pelayanan administrasi Desa Karanggintung.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+                <a
+                  href={`tel:${servicePhoneNumber.replace(/\s+/g, '')}`}
+                  className="group inline-block w-full max-w-md mx-auto"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-white/10 rounded-xl sm:rounded-2xl blur-lg group-hover:bg-white/20 transition-all duration-300" />
+                    <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-3.5 sm:py-5 group-hover:bg-white/15 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-lg">
+                      <p className="text-xl min-[380px]:text-2xl sm:text-4xl md:text-5xl font-black tracking-wider font-mono text-white">
+                        {formatPhoneDisplay(servicePhoneNumber)}
+                      </p>
+                    </div>
+                  </div>
+                </a>
 
-      {/* FOOTER */}
-      <footer className="bg-[#081325] text-slate-400 py-12 border-t border-slate-800/80 mt-auto">
-        <div className="container mx-auto px-4 text-center">
-          <Logo />
-          <p className="mt-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-            © 2026 Pemerintah Desa Karanggintung Digital Portal
-          </p>
+                <p className="text-[11px] sm:text-xs text-white/70 font-medium max-w-sm mx-auto leading-relaxed">
+                  Hubungi nomor di atas untuk informasi bantuan dan konsultasi administrasi Desa Karanggintung.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </footer>
+      </main>
+
+      <Footer />
     </div>
   );
 }

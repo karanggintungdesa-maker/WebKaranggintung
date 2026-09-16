@@ -48,7 +48,7 @@ function PotensiGalleryModal({ item }: { item: PotensiDesa }) {
   return (
     <div className="space-y-4 w-full">
       {/* Main Showcase Image (Above Narrative) */}
-      <div className="relative w-full overflow-hidden rounded-3xl bg-slate-950 border border-slate-200/80 shadow-md group flex items-center justify-center min-h-[260px] sm:min-h-[380px] md:min-h-[460px] max-h-[560px]">
+      <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-950 border border-slate-200/80 shadow-md group flex items-center justify-center min-h-[190px] sm:min-h-[380px] md:min-h-[460px] max-h-[560px]">
         {/* Ambient Blur Backdrop */}
         <div
           className="absolute inset-0 bg-cover bg-center blur-2xl opacity-40 scale-110 pointer-events-none transition-all duration-700"
@@ -66,10 +66,10 @@ function PotensiGalleryModal({ item }: { item: PotensiDesa }) {
         {/* Zoom Indicator Icon */}
         <div
           onClick={() => setFullscreenUrl(currentImage)}
-          className="absolute top-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white p-2 rounded-xl backdrop-blur-md transition-all cursor-pointer z-20 border border-white/10 opacity-0 group-hover:opacity-100"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-slate-900/80 hover:bg-slate-900 text-white p-1.5 sm:p-2 rounded-lg sm:rounded-xl backdrop-blur-md transition-all cursor-pointer z-20 border border-white/10 opacity-0 group-hover:opacity-100"
           title="Perbesar Foto"
         >
-          <Maximize2 className="h-4 w-4" />
+          <Maximize2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </div>
 
         {/* Counter Badge */}
@@ -188,22 +188,22 @@ function PotensiDesaContent() {
       <BackgroundPattern />
       <Header />
 
-      <main className="relative flex-1 container mx-auto px-4 py-12 md:py-16 max-w-7xl">
+      <main className="relative flex-1 container mx-auto px-3 sm:px-4 py-6 sm:py-12 md:py-16 max-w-7xl">
         {/* Banner Title */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 animate-in fade-in slide-in-from-top-4 duration-500">
-          <Badge className="bg-emerald-50 text-emerald-700 font-black uppercase text-[10px] tracking-widest px-4 py-1.5 border-none shadow-sm mb-2">
+        <div className="text-center space-y-2 sm:space-y-4 max-w-3xl mx-auto mb-6 sm:mb-12 md:mb-16 animate-in fade-in slide-in-from-top-4 duration-500">
+          <Badge className="bg-emerald-50 text-emerald-700 font-black uppercase text-[9px] sm:text-[10px] tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 border-none shadow-sm mb-1 sm:mb-2">
             Potensi & Keunggulan Desa
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight uppercase font-display italic tracking-tighter">
+          <h1 className="text-2xl min-[380px]:text-3xl md:text-6xl font-black text-slate-900 leading-tight uppercase font-display italic tracking-tighter">
             Kekayaan <span className="text-primary not-italic">Desa</span> Karanggintung
           </h1>
-          <p className="text-slate-500 font-medium text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-500 font-medium text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             Menelusuri keanekaragaman pariwisata, produk kreatif lokal, pertanian subur, serta tata kelola lingkungan hidup di Desa Karanggintung.
           </p>
         </div>
 
-        {/* Categories Tab Navigation */}
-        <div className="bg-white rounded-[2.5rem] p-3 border shadow-sm flex flex-wrap lg:flex-nowrap justify-center gap-2 mb-16 max-w-5xl mx-auto">
+        {/* Categories Tab Navigation - 2x2 Grid on Mobile for One-Screen Fit */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] p-1.5 sm:p-3 border shadow-sm grid grid-cols-2 lg:flex lg:flex-nowrap justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-12 md:mb-16 max-w-5xl mx-auto">
           {POTENSI_CATEGORIES.map((tab) => {
             const TabIcon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -217,49 +217,49 @@ function PotensiDesaContent() {
                   window.history.pushState({}, '', url.toString());
                 }}
                 className={cn(
-                  "flex items-center justify-center gap-3 px-6 py-4 rounded-[2rem] transition-all duration-300 whitespace-nowrap group flex-1 md:flex-initial",
+                  "flex items-center justify-center gap-1.5 sm:gap-3 px-2.5 sm:px-6 py-2 sm:py-3.5 rounded-xl sm:rounded-2xl lg:rounded-[2rem] transition-all duration-300 group text-center",
                   isActive
-                    ? "bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]"
+                    ? "bg-primary text-white shadow-md sm:shadow-xl shadow-primary/20 scale-[1.01]"
                     : "text-slate-500 hover:bg-slate-50 hover:text-primary"
                 )}
               >
-                <TabIcon className={cn("h-5 w-5 transition-transform group-hover:scale-110", isActive ? "text-white" : "text-slate-400")} />
-                <span className="font-black uppercase text-[10px] tracking-widest">{tab.label}</span>
+                <TabIcon className={cn("h-3.5 w-3.5 sm:h-5 sm:w-5 shrink-0 transition-transform group-hover:scale-110", isActive ? "text-white" : "text-slate-400")} />
+                <span className="font-black uppercase text-[8px] min-[380px]:text-[9px] sm:text-[10px] tracking-tight sm:tracking-widest line-clamp-1">{tab.label}</span>
               </button>
             );
           })}
         </div>
 
         {/* Content Area - Card Grid */}
-        <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="space-y-6 sm:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
           {isLoading ? (
-            // Skeleton Loader Grid
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            // Skeleton Loader Grid - 2 Cols Mobile
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm space-y-4">
-                  <Skeleton className="aspect-[16/10] w-full rounded-2xl" />
-                  <Skeleton className="h-6 w-3/4 rounded-lg" />
-                  <Skeleton className="h-4 w-1/2 rounded-md" />
-                  <Skeleton className="h-16 w-full rounded-md" />
+                <div key={i} className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-slate-100 shadow-sm space-y-3">
+                  <Skeleton className="aspect-[16/10] w-full rounded-xl" />
+                  <Skeleton className="h-4 sm:h-6 w-3/4 rounded-md" />
+                  <Skeleton className="h-3 sm:h-4 w-1/2 rounded-md" />
+                  <Skeleton className="h-10 sm:h-16 w-full rounded-md" />
                 </div>
               ))}
             </div>
           ) : filteredPotentials.length === 0 ? (
             // Empty State
-            <Card className="border border-dashed border-slate-300 rounded-[3rem] bg-white p-16 text-center max-w-xl mx-auto">
-              <div className="flex flex-col items-center justify-center space-y-4">
-                <div className={cn("h-16 w-16 rounded-[2rem] flex items-center justify-center border", activeCategoryDetails.bg, activeCategoryDetails.color, activeCategoryDetails.border)}>
-                  <activeCategoryDetails.icon className="h-8 w-8" />
+            <Card className="border border-dashed border-slate-300 rounded-3xl sm:rounded-[3rem] bg-white p-8 sm:p-16 text-center max-w-xl mx-auto">
+              <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4">
+                <div className={cn("h-12 w-12 sm:h-16 sm:w-16 rounded-2xl sm:rounded-[2rem] flex items-center justify-center border", activeCategoryDetails.bg, activeCategoryDetails.color, activeCategoryDetails.border)}>
+                  <activeCategoryDetails.icon className="h-6 w-6 sm:h-8 sm:w-8" />
                 </div>
-                <h3 className="text-slate-800 font-black text-lg uppercase tracking-wider italic font-display">Belum Ada Informasi</h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                <h3 className="text-slate-800 font-black text-base sm:text-lg uppercase tracking-wider italic font-display">Belum Ada Informasi</h3>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
                   Informasi untuk kategori <strong>{activeCategoryDetails.label}</strong> sedang dalam proses penyusunan oleh Pemerintah Desa. Silakan periksa kembali beberapa waktu mendatang.
                 </p>
               </div>
             </Card>
           ) : (
-            // Potentials Card Grid View
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            // Potentials Card Grid View - 2 Columns on Mobile
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
               {filteredPotentials.map((item) => {
                 const images = item.imageUrls || [];
                 const primaryImage = images[0];
@@ -269,7 +269,7 @@ function PotensiDesaContent() {
                   <div
                     key={item.id}
                     onClick={() => setSelectedPotensi(item)}
-                    className="group bg-white rounded-3xl md:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 overflow-hidden flex flex-col cursor-pointer"
+                    className="group bg-white rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-slate-100 shadow-xs sm:shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col cursor-pointer"
                   >
                     {/* Card Photo Container */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
@@ -277,25 +277,25 @@ function PotensiDesaContent() {
                         <img
                           src={primaryImage}
                           alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                          <ImageIcon className="h-12 w-12 text-slate-300" />
+                          <ImageIcon className="h-8 w-8 sm:h-12 sm:w-12 text-slate-300" />
                         </div>
                       )}
 
                       {/* Photo Count Badge if multiple */}
                       {imageCount > 1 && (
-                        <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
-                          📸 {imageCount} Foto
+                        <div className="absolute bottom-1.5 right-1.5 sm:bottom-3 sm:right-3 bg-slate-900/80 backdrop-blur-md text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-wider shadow-md">
+                          📸 {imageCount}
                         </div>
                       )}
 
                       {/* Category Badge on Image */}
-                      <div className="absolute top-3 left-3">
+                      <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3">
                         <span className={cn(
-                          "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider shadow-sm backdrop-blur-md bg-white/95",
+                          "px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[7.5px] sm:text-[9px] font-black uppercase tracking-wider shadow-xs sm:shadow-sm backdrop-blur-md bg-white/95 line-clamp-1 max-w-[120px] sm:max-w-none",
                           activeCategoryDetails.color
                         )}>
                           {activeCategoryDetails.label}
@@ -304,28 +304,28 @@ function PotensiDesaContent() {
                     </div>
 
                     {/* Card Content (Title, Subtitle, Excerpt) */}
-                    <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-2">
-                        <h3 className="text-xl font-black text-slate-900 uppercase font-display italic tracking-tight group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                    <div className="p-2.5 min-[380px]:p-3 sm:p-6 md:p-8 flex-1 flex flex-col justify-between space-y-2 sm:space-y-4">
+                      <div className="space-y-1 sm:space-y-2">
+                        <h3 className="text-xs min-[380px]:text-sm sm:text-xl font-black text-slate-900 uppercase font-display italic tracking-tight group-hover:text-primary transition-colors line-clamp-2 leading-snug">
                           {item.title}
                         </h3>
 
                         {item.subtitle && (
-                          <p className="text-xs md:text-sm font-bold text-primary uppercase tracking-wider line-clamp-1 border-l-2 border-secondary pl-2.5 py-0.5">
+                          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs md:text-sm font-bold text-primary uppercase tracking-wider line-clamp-1 border-l sm:border-l-2 border-secondary pl-1.5 sm:pl-2.5 py-0.5">
                             {item.subtitle}
                           </p>
                         )}
 
-                        <p className="text-xs md:text-sm text-slate-600 line-clamp-3 leading-relaxed font-medium pt-1">
+                        <p className="text-[9.5px] min-[380px]:text-[10.5px] sm:text-xs md:text-sm text-slate-600 line-clamp-2 sm:line-clamp-3 leading-relaxed font-medium pt-0.5">
                           {item.narrative}
                         </p>
                       </div>
 
                       {/* Read More Trigger Link */}
-                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-primary group-hover:text-primary font-black text-xs uppercase tracking-wider">
-                        <span>Lihat Isian Penuh</span>
-                        <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      <div className="pt-2 sm:pt-3 border-t border-slate-100 flex items-center justify-between text-primary group-hover:text-primary font-black text-[8.5px] sm:text-xs uppercase tracking-wider">
+                        <span>Lihat Detail</span>
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-slate-50 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
+                          <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5" />
                         </div>
                       </div>
                     </div>
@@ -340,53 +340,53 @@ function PotensiDesaContent() {
       {/* FULL DETAIL MODAL (Isian Penuh & Galeri Foto) */}
       <Dialog open={!!selectedPotensi} onOpenChange={(open) => !open && setSelectedPotensi(null)}>
         {selectedPotensi && (
-          <DialogContent className="max-w-4xl max-h-[92vh] overflow-y-auto p-6 md:p-10 rounded-3xl md:rounded-[3rem] bg-white border border-slate-100 shadow-2xl focus:outline-none">
+          <DialogContent className="max-w-4xl max-h-[92vh] overflow-y-auto p-4 sm:p-6 md:p-10 rounded-2xl sm:rounded-3xl md:rounded-[3rem] bg-white border border-slate-100 shadow-2xl focus:outline-none">
             <DialogHeader className="sr-only">
               <DialogTitle>{selectedPotensi.title}</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-8">
               {/* Top Photo Gallery Section (Foto Utama di Atas + Foto Kecil di Bawahnya) */}
               {selectedPotensi.imageUrls && selectedPotensi.imageUrls.length > 0 && (
                 <PotensiGalleryModal item={selectedPotensi} />
               )}
 
               {/* Narrative & Full Details Below Photos */}
-              <div className="space-y-6 pt-2">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className={cn("p-2 rounded-xl shrink-0", activeCategoryDetails.bg, activeCategoryDetails.color)}>
-                      <activeCategoryDetails.icon className="h-5 w-5" />
+              <div className="space-y-4 sm:space-y-6 pt-1 sm:pt-2">
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className={cn("p-1.5 sm:p-2 rounded-lg sm:rounded-xl shrink-0", activeCategoryDetails.bg, activeCategoryDetails.color)}>
+                      <activeCategoryDetails.icon className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                     </div>
-                    <span className="text-xs font-black tracking-widest text-slate-400 uppercase">
+                    <span className="text-[10px] sm:text-xs font-black tracking-widest text-slate-400 uppercase">
                       {activeCategoryDetails.label}
                     </span>
                   </div>
 
-                  <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase font-display italic tracking-tight leading-tight">
+                  <h2 className="text-xl sm:text-2xl md:text-4xl font-black text-slate-900 uppercase font-display italic tracking-tight leading-tight">
                     {selectedPotensi.title}
                   </h2>
 
                   {selectedPotensi.subtitle && (
-                    <p className="text-sm md:text-base font-bold text-primary uppercase tracking-wider border-l-4 border-secondary pl-4 py-1">
+                    <p className="text-xs sm:text-sm md:text-base font-bold text-primary uppercase tracking-wider border-l-2 sm:border-l-4 border-secondary pl-2.5 sm:pl-4 py-0.5 sm:py-1">
                       {selectedPotensi.subtitle}
                     </p>
                   )}
                 </div>
 
-                <div className="prose prose-slate max-w-none border-t border-slate-100 pt-6">
-                  <p className="text-slate-700 leading-relaxed font-medium text-sm md:text-base whitespace-pre-line">
+                <div className="prose prose-slate max-w-none border-t border-slate-100 pt-4 sm:pt-6">
+                  <p className="text-slate-700 leading-relaxed font-medium text-xs sm:text-sm md:text-base whitespace-pre-line">
                     {selectedPotensi.narrative}
                   </p>
                 </div>
               </div>
 
               {/* Modal Footer Close Action */}
-              <div className="pt-4 border-t border-slate-100 flex justify-end">
+              <div className="pt-3 sm:pt-4 border-t border-slate-100 flex justify-end">
                 <Button
                   variant="outline"
                   onClick={() => setSelectedPotensi(null)}
-                  className="rounded-xl px-6 font-bold text-xs uppercase tracking-wider"
+                  className="rounded-xl px-4 sm:px-6 h-8 sm:h-10 font-bold text-[10px] sm:text-xs uppercase tracking-wider"
                 >
                   Tutup
                 </Button>

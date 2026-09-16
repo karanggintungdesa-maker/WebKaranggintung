@@ -317,20 +317,20 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-100 shadow-2xl p-6 md:p-8">
+      <DialogContent className="w-[95vw] sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-slate-100 shadow-2xl p-4 sm:p-6 md:p-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-black uppercase italic tracking-tight font-display text-slate-800">
+          <DialogTitle className="text-lg sm:text-2xl font-black uppercase italic tracking-tight font-display text-slate-800">
             {product ? 'Edit Produk Katalog UMKM' : 'Tambah Produk UMKM Baru'}
           </DialogTitle>
-          <DialogDescription className="text-slate-500 font-medium">
+          <DialogDescription className="text-xs sm:text-sm text-slate-500 font-medium">
             Lengkapi data produk UMKM untuk dipromosikan di halaman publik Katalog Desa Karanggintung.
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="prod-name" className="text-xs font-black uppercase tracking-widest text-slate-600">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 mt-3 sm:mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div className="space-y-1.5 sm:space-y-2 sm:col-span-2">
+              <Label htmlFor="prod-name" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Nama Produk *
               </Label>
               <Input
@@ -338,24 +338,24 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.name}
                 onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                 placeholder="Contoh: Keripik Singkong Renyah Rasa Balado"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-cat" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-cat" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Kategori Produk
               </Label>
               <Select
                 value={formData.category}
                 onValueChange={(val) => setFormData((prev) => ({ ...prev, category: val }))}
               >
-                <SelectTrigger id="prod-cat" className="rounded-xl border-slate-200 h-12 font-bold text-slate-700 bg-slate-50/50">
+                <SelectTrigger id="prod-cat" className="rounded-xl border-slate-200 h-10 sm:h-12 font-bold text-xs sm:text-sm text-slate-700 bg-slate-50/50">
                   <SelectValue placeholder="Pilih Kategori" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
                   {PRODUCT_CATEGORIES.map((cat) => (
-                    <SelectItem key={cat} value={cat} className="font-semibold text-slate-600">
+                    <SelectItem key={cat} value={cat} className="font-semibold text-xs sm:text-sm text-slate-600">
                       {cat}
                     </SelectItem>
                   ))}
@@ -363,20 +363,20 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-badge" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-badge" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Label / Badge Produk
               </Label>
               <Select
                 value={formData.badge}
                 onValueChange={(val) => setFormData((prev) => ({ ...prev, badge: val }))}
               >
-                <SelectTrigger id="prod-badge" className="rounded-xl border-slate-200 h-12 font-bold text-slate-700 bg-slate-50/50">
+                <SelectTrigger id="prod-badge" className="rounded-xl border-slate-200 h-10 sm:h-12 font-bold text-xs sm:text-sm text-slate-700 bg-slate-50/50">
                   <SelectValue placeholder="Pilih Badge" />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
                   {BADGE_OPTIONS.map((badge) => (
-                    <SelectItem key={badge} value={badge} className="font-semibold text-slate-600">
+                    <SelectItem key={badge} value={badge} className="font-semibold text-xs sm:text-sm text-slate-600">
                       {badge}
                     </SelectItem>
                   ))}
@@ -384,8 +384,8 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-business" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-business" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Nama Usaha / Toko / Brand *
               </Label>
               <Input
@@ -393,12 +393,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.businessName}
                 onChange={(e) => setFormData((prev) => ({ ...prev, businessName: e.target.value }))}
                 placeholder="Contoh: UMKM Berkah Karang"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-owner" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-owner" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Nama Pemilik / Pengrajin
               </Label>
               <Input
@@ -406,12 +406,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.owner}
                 onChange={(e) => setFormData((prev) => ({ ...prev, owner: e.target.value }))}
                 placeholder="Contoh: Ibu Siti Khotimah"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-price" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-price" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Harga (Rp) *
               </Label>
               <Input
@@ -420,12 +420,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.price}
                 onChange={(e) => setFormData((prev) => ({ ...prev, price: e.target.value }))}
                 placeholder="Contoh: 15000"
-                className="rounded-xl border-slate-200 h-12 font-bold text-amber-800 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-bold text-amber-800 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-unit" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-unit" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Satuan Harga
               </Label>
               <Input
@@ -433,12 +433,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.priceUnit}
                 onChange={(e) => setFormData((prev) => ({ ...prev, priceUnit: e.target.value }))}
                 placeholder="Contoh: bks (250 gr) / pcs / botol / porsi"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-phone" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-phone" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 No. WhatsApp Pemesanan *
               </Label>
               <Input
@@ -446,12 +446,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.phone}
                 onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
                 placeholder="Contoh: 0895321109179"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="prod-location" className="text-xs font-black uppercase tracking-widest text-slate-600">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prod-location" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Lokasi / Dusun
               </Label>
               <Input
@@ -459,13 +459,13 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 value={formData.location}
                 onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
                 placeholder="Contoh: Dusun Karanganyar, RT 02 / RW 03"
-                className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
+                className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="prod-desc" className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="prod-desc" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
               Deskripsi Produk
             </Label>
             <Textarea
@@ -473,12 +473,12 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
               value={formData.description}
               onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
               placeholder="Ceritakan komposisi, cita rasa, kegunaan, atau keunikan produk ini..."
-              className="rounded-xl border-slate-200 min-h-[100px] font-semibold text-slate-700 bg-slate-50/50 focus:bg-white p-4 resize-none leading-relaxed"
+              className="rounded-xl border-slate-200 min-h-[90px] sm:min-h-[100px] text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white p-3 sm:p-4 resize-none leading-relaxed"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="prod-features" className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="prod-features" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
               Keunggulan / Fitur Utama (1 baris per poin)
             </Label>
             <Textarea
@@ -486,26 +486,26 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
               value={formData.featuresText}
               onChange={(e) => setFormData((prev) => ({ ...prev, featuresText: e.target.value }))}
               placeholder="100% Singkong Pilihan Petani Lokal&#10;Tanpa Bahan Pengawet&#10;Kemasan Standar Higienis"
-              className="rounded-xl border-slate-200 min-h-[80px] font-semibold text-slate-700 bg-slate-50/50 focus:bg-white p-4 resize-none"
+              className="rounded-xl border-slate-200 min-h-[70px] sm:min-h-[80px] text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white p-3 sm:p-4 resize-none"
             />
           </div>
 
           {/* Marketplace Online Links */}
-          <div className="space-y-3.5 pt-3 pb-1 border-t border-slate-100">
+          <div className="space-y-2.5 sm:space-y-3.5 pt-2.5 sm:pt-3 pb-1 border-t border-slate-100">
             <div>
-              <Label className="text-xs font-black uppercase tracking-widest text-slate-700">
+              <Label className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-700">
                 Link Toko Online / Marketplace (Opsional)
               </Label>
-              <p className="text-[11px] text-slate-400 font-medium">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 font-medium">
                 Masukkan tautan produk atau toko UMKM di marketplace agar pembeli dapat langsung memesan secara online.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-4">
               {/* Shopee */}
-              <div className="space-y-1.5 bg-orange-50/50 p-3 rounded-2xl border border-orange-100">
-                <Label htmlFor="prod-shopee" className="text-[11px] font-black uppercase tracking-wider text-[#EE4D2D] flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#EE4D2D]" />
+              <div className="space-y-1.5 bg-orange-50/50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-orange-100">
+                <Label htmlFor="prod-shopee" className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#EE4D2D] flex items-center gap-1.5">
+                  <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#EE4D2D]" />
                   Shopee URL
                 </Label>
                 <Input
@@ -514,14 +514,14 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                   value={formData.shopeeUrl}
                   onChange={(e) => setFormData((prev) => ({ ...prev, shopeeUrl: e.target.value }))}
                   placeholder="https://shopee.co.id/..."
-                  className="rounded-xl border-orange-200 h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#EE4D2D] focus:ring-[#EE4D2D]"
+                  className="rounded-xl border-orange-200 h-9 sm:h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#EE4D2D] focus:ring-[#EE4D2D]"
                 />
               </div>
 
               {/* Tokopedia */}
-              <div className="space-y-1.5 bg-emerald-50/50 p-3 rounded-2xl border border-emerald-100">
-                <Label htmlFor="prod-tokopedia" className="text-[11px] font-black uppercase tracking-wider text-[#03AC0E] flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#03AC0E]" />
+              <div className="space-y-1.5 bg-emerald-50/50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-emerald-100">
+                <Label htmlFor="prod-tokopedia" className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#03AC0E] flex items-center gap-1.5">
+                  <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#03AC0E]" />
                   Tokopedia URL
                 </Label>
                 <Input
@@ -530,14 +530,14 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                   value={formData.tokopediaUrl}
                   onChange={(e) => setFormData((prev) => ({ ...prev, tokopediaUrl: e.target.value }))}
                   placeholder="https://tokopedia.com/..."
-                  className="rounded-xl border-emerald-200 h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#03AC0E] focus:ring-[#03AC0E]"
+                  className="rounded-xl border-emerald-200 h-9 sm:h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#03AC0E] focus:ring-[#03AC0E]"
                 />
               </div>
 
               {/* Lazada */}
-              <div className="space-y-1.5 bg-blue-50/50 p-3 rounded-2xl border border-blue-100">
-                <Label htmlFor="prod-lazada" className="text-[11px] font-black uppercase tracking-wider text-[#0F146D] flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0F146D]" />
+              <div className="space-y-1.5 bg-blue-50/50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-blue-100">
+                <Label htmlFor="prod-lazada" className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#0F146D] flex items-center gap-1.5">
+                  <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#0F146D]" />
                   Lazada URL
                 </Label>
                 <Input
@@ -546,26 +546,26 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                   value={formData.lazadaUrl}
                   onChange={(e) => setFormData((prev) => ({ ...prev, lazadaUrl: e.target.value }))}
                   placeholder="https://lazada.co.id/..."
-                  className="rounded-xl border-blue-200 h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#0F146D] focus:ring-[#0F146D]"
+                  className="rounded-xl border-blue-200 h-9 sm:h-10 text-xs font-semibold text-slate-700 bg-white focus:border-[#0F146D] focus:ring-[#0F146D]"
                 />
               </div>
             </div>
           </div>
 
           {/* Photo Upload with Quota Compression */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <Label className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Foto Produk (Cloudinary Hemat Kuota) *
               </Label>
-              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+              <span className="text-[9px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 w-fit">
                 Preset: webdesa (Maks 1000px, &lt;250KB)
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 items-start">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
               {formData.imageUrl ? (
-                <div className="group relative aspect-[4/3] w-44 rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-50 shadow-sm shrink-0">
+                <div className="group relative aspect-[4/3] w-36 sm:w-44 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-50 shadow-xs shrink-0">
                   <img src={formData.imageUrl} alt="Preview Produk" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <Button
@@ -573,7 +573,7 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                       size="icon"
                       variant="destructive"
                       onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
-                      className="h-9 w-9 rounded-full bg-rose-600 text-white hover:bg-rose-700 shadow-md"
+                      className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-rose-600 text-white hover:bg-rose-700 shadow-md"
                       title="Ganti Foto"
                     >
                       <X className="h-4 w-4" />
@@ -582,19 +582,19 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
                 </div>
               ) : null}
 
-              <label className="flex-1 flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-amber-400 transition-all cursor-pointer group w-full">
+              <label className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-amber-400 transition-all cursor-pointer group w-full">
                 {isUploading ? (
                   <div className="flex flex-col items-center py-2">
-                    <Loader2 className="h-8 w-8 animate-spin text-amber-600 mb-2" />
+                    <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-amber-600 mb-2" />
                     <span className="text-xs font-bold text-slate-600">Sedang mengompres & mengunggah...</span>
                   </div>
                 ) : (
                   <>
-                    <ImageIcon className="h-8 w-8 text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-300 mb-2" />
-                    <span className="text-xs font-black uppercase tracking-wider text-slate-700">
+                    <ImageIcon className="h-6 w-6 sm:h-8 sm:w-8 text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-300 mb-1.5 sm:mb-2" />
+                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-700">
                       {formData.imageUrl ? 'Ganti Foto Produk' : 'Pilih / Unggah Foto Produk'}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-medium mt-1 text-center">
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium mt-1 text-center">
                       Foto otomatis dikompres sebelum dikirim ke Cloudinary agar menghemat kuota server
                     </span>
                   </>
@@ -610,19 +610,19 @@ export function KatalogProdukForm({ open, onOpenChange, product }: KatalogProduk
             </div>
           </div>
 
-          <DialogFooter className="pt-4 border-t border-slate-50 gap-2 sm:gap-0">
+          <DialogFooter className="pt-3 sm:pt-4 border-t border-slate-50 flex-col-reverse sm:flex-row gap-2 sm:gap-0">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="rounded-xl h-12 font-bold px-6 border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="w-full sm:w-auto rounded-xl h-10 sm:h-12 font-bold px-5 sm:px-6 border-slate-200 text-xs sm:text-sm text-slate-600 hover:bg-slate-50"
             >
               Batal
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting || isUploading}
-              className="rounded-xl h-12 font-black px-8 bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto rounded-xl h-10 sm:h-12 font-black px-6 sm:px-8 bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 flex items-center justify-center gap-2 text-xs sm:text-sm"
             >
               {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               <span>SIMPAN PRODUK</span>

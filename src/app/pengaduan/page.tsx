@@ -1,53 +1,44 @@
 'use client';
 
-import Link from 'next/link';
-import { Logo } from '@/components/logo';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, MessageSquareWarning } from 'lucide-react';
+import React from 'react';
+import { Header } from '@/components/landing/Header';
+import { Footer } from '@/components/landing/Footer';
+import { BackgroundPattern } from '@/components/landing/BackgroundPattern';
+import { MessageSquareWarning } from 'lucide-react';
 import { ComplaintSystem } from '@/app/(main)/pengaduan/_components/complaint-system';
 
 export default function PengaduanPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans">
-      {/* TOP HEADER */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Logo />
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <Button variant="ghost" className="font-bold gap-2 text-primary hover:bg-slate-100 rounded-xl">
-                <ArrowLeft className="h-4 w-4" />
-                <span className="hidden sm:inline">Beranda</span>
-              </Button>
-            </Link>
-            <Link href="/layanan-surat/">
-              <Button className="bg-secondary hover:bg-yellow-600 text-primary-foreground font-black px-6 rounded-xl shadow-lg shadow-secondary/20 h-10">Portal Layanan</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="relative flex min-h-screen flex-col bg-slate-50 text-slate-900 overflow-x-hidden">
+      <BackgroundPattern />
+      <Header />
 
-      <div className="flex-1 container mx-auto px-4 py-8 md:py-12">
-        {/* PAGE HEADER */}
-        <div className="mb-12 space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
-              <MessageSquareWarning className="h-8 w-8" />
+      <main className="relative flex-1 pt-20 sm:pt-24 pb-12 sm:pb-16">
+        {/* PAGE HERO */}
+        <section className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-4 sm:pb-8">
+          <div className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
+              <MessageSquareWarning className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span>Layanan Aspirasi & Pengaduan Warga</span>
             </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-slate-900 font-display">
-                Pengaduan Warga
-              </h1>
-              <p className="text-sm text-slate-500 font-medium mt-1">
-                Sampaikan keluhan dan masukan Anda untuk kemajuan Desa Karanggintung.
-              </p>
-            </div>
+
+            <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 uppercase tracking-tight font-display italic">
+              Pengaduan <span className="text-primary not-italic">Warga</span>
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-xl mx-auto leading-relaxed">
+              Sampaikan aspirasi, keluhan, dan masukan Anda secara langsung untuk transparansi dan kemajuan Desa Karanggintung.
+            </p>
           </div>
-        </div>
+        </section>
 
         {/* CONTENT */}
-        <ComplaintSystem />
-      </div>
+        <section className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <ComplaintSystem />
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

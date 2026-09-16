@@ -111,22 +111,22 @@ export function ImportantNumbersSettingsForm() {
   }
 
   return (
-    <Card className="shadow-lg border border-slate-200 rounded-3xl">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl font-bold text-slate-900">
-          <Phone className="h-5 w-5 text-primary" />
-          Pengaturan Nomor Penting & Pelayanan
+    <Card className="shadow-sm border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold text-slate-900">
+          <Phone className="h-4 w-4 text-primary shrink-0" />
+          Nomor Penting & Pelayanan
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-[11px] sm:text-xs">
           Kelola daftar nomor telepon darurat, perangkat desa, instansi, serta nomor pelayanan utama publik.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-8">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-5">
           {/* Main Service Phone Number */}
-          <div className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-100 space-y-3">
-            <Label htmlFor="service-phone" className="font-bold text-slate-800 flex items-center gap-2">
-              <Phone className="h-4 w-4 text-primary" />
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-50/70 border border-emerald-100 space-y-1.5 sm:space-y-2">
+            <Label htmlFor="service-phone" className="text-xs font-bold text-slate-800 flex items-center gap-2">
+              <Phone className="h-3.5 w-3.5 text-primary" />
               Nomor Utama Pelayanan Desa Karanggintung
             </Label>
             <Input
@@ -136,22 +136,22 @@ export function ImportantNumbersSettingsForm() {
               value={servicePhoneNumber}
               onChange={(e) => setServicePhoneNumber(e.target.value)}
               disabled={isSaving}
-              className="bg-white font-mono font-bold"
+              className="bg-white font-mono font-bold text-xs h-8 sm:h-9"
             />
-            <p className="text-xs text-slate-500 font-medium">
-              Nomor ini akan ditampilkan di kartu banner panggilan utama halaman publik /nomor-penting.
+            <p className="text-[10px] text-slate-500 font-medium">
+              Nomor ini ditampilkan di kartu banner panggilan utama halaman publik /nomor-penting.
             </p>
           </div>
 
           {/* List of Contact Items */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-2.5 sm:space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
-                <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800">
-                  Daftar Kontak Nomor Penting ({contacts.length})
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Daftar Kontak ({contacts.length})
                 </h4>
-                <p className="text-xs text-slate-500">
-                  Ubah nama instansi/jabatan, nomor HP/telepon, dan kategori kelompok kontak.
+                <p className="text-[10px] text-slate-500">
+                  Ubah nama instansi/jabatan, nomor HP, dan kategori.
                 </p>
               </div>
               <Button
@@ -160,70 +160,70 @@ export function ImportantNumbersSettingsForm() {
                 size="sm"
                 onClick={handleAddContact}
                 disabled={isSaving}
-                className="rounded-xl gap-2 font-bold text-xs border-primary text-primary hover:bg-primary/5"
+                className="w-full sm:w-auto rounded-lg sm:rounded-xl gap-1.5 font-bold text-xs border-primary text-primary hover:bg-primary/5 shrink-0 h-7 sm:h-8"
               >
-                <Plus className="h-4 w-4" />
+                <Plus className="h-3.5 w-3.5" />
                 Tambah Nomor
               </Button>
             </div>
 
-            <div className="space-y-3 max-h-[550px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
               {contacts.map((contact, index) => (
                 <div
                   key={contact.id || index}
-                  className="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3 transition-all hover:border-emerald-300"
+                  className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 bg-white shadow-xs flex flex-col gap-2 transition-all hover:border-emerald-300"
                 >
-                  <div className="flex-1 space-y-1">
-                    <Label className="text-[10px] uppercase font-bold text-slate-400">Label Kontak</Label>
-                    <Input
-                      type="text"
-                      placeholder="Nama Jabatan / Kontak"
-                      value={contact.label}
-                      onChange={(e) => handleContactChange(index, 'label', e.target.value)}
-                      disabled={isSaving}
-                      className="bg-white text-xs font-bold"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="space-y-1 min-w-0">
+                      <Label className="text-[9px] uppercase font-bold text-slate-400">Label Kontak</Label>
+                      <Input
+                        type="text"
+                        placeholder="Nama Jabatan / Kontak"
+                        value={contact.label}
+                        onChange={(e) => handleContactChange(index, 'label', e.target.value)}
+                        disabled={isSaving}
+                        className="bg-white text-xs font-bold h-8"
+                      />
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <Label className="text-[9px] uppercase font-bold text-slate-400">Nomor Telepon</Label>
+                      <Input
+                        type="text"
+                        placeholder="No. Telepon"
+                        value={contact.number}
+                        onChange={(e) => handleContactChange(index, 'number', e.target.value)}
+                        disabled={isSaving}
+                        className="bg-white font-mono text-xs font-bold h-8"
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex-1 space-y-1">
-                    <Label className="text-[10px] uppercase font-bold text-slate-400">Nomor Telepon/HP</Label>
-                    <Input
-                      type="text"
-                      placeholder="Nomor Telepon"
-                      value={contact.number}
-                      onChange={(e) => handleContactChange(index, 'number', e.target.value)}
-                      disabled={isSaving}
-                      className="bg-white font-mono text-xs font-bold"
-                    />
-                  </div>
-
-                  <div className="w-full md:w-[150px] space-y-1">
-                    <Label className="text-[10px] uppercase font-bold text-slate-400">Kategori</Label>
-                    <Select
-                      value={contact.category}
-                      onValueChange={(val) => handleContactChange(index, 'category', val)}
-                      disabled={isSaving}
-                    >
-                      <SelectTrigger className="bg-white text-xs font-bold h-10">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pemerintah" className="text-xs font-bold">Pemerintahan</SelectItem>
-                        <SelectItem value="keamanan" className="text-xs font-bold">Keamanan</SelectItem>
-                        <SelectItem value="kesehatan" className="text-xs font-bold">Kesehatan</SelectItem>
-                        <SelectItem value="wilayah" className="text-xs font-bold">Kepala Dusun</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="pt-2 md:pt-5 flex justify-end">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 space-y-1 min-w-0">
+                      <Label className="text-[9px] uppercase font-bold text-slate-400">Kategori</Label>
+                      <Select
+                        value={contact.category}
+                        onValueChange={(val) => handleContactChange(index, 'category', val)}
+                        disabled={isSaving}
+                      >
+                        <SelectTrigger className="bg-white text-xs font-bold h-8">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pemerintah" className="text-xs font-bold">Pemerintahan</SelectItem>
+                          <SelectItem value="keamanan" className="text-xs font-bold">Keamanan</SelectItem>
+                          <SelectItem value="kesehatan" className="text-xs font-bold">Kesehatan</SelectItem>
+                          <SelectItem value="wilayah" className="text-xs font-bold">Kepala Dusun</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
                       onClick={() => handleDeleteContact(index)}
                       disabled={isSaving || contacts.length <= 1}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50 rounded-xl"
+                      className="text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg sm:rounded-xl mt-3.5 h-8 w-8 shrink-0"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -236,9 +236,9 @@ export function ImportantNumbersSettingsForm() {
           <Button
             type="submit"
             disabled={isSaving}
-            className="w-full md:w-auto h-12 px-8 rounded-xl font-bold bg-primary text-white shadow-lg shadow-primary/20 hover:bg-emerald-800"
+            className="w-full sm:w-auto h-8 sm:h-9 px-5 rounded-lg sm:rounded-xl font-bold bg-primary text-white text-xs shadow-md shadow-primary/20 hover:bg-emerald-800"
           >
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Nomor Penting
           </Button>
         </form>

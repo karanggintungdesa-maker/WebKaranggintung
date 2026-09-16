@@ -96,17 +96,17 @@ export function LetterService({ isAdmin = false }: LetterServiceProps) {
         <div className="space-y-6">
 
           {/* ── Section Title ── */}
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight font-display italic">
+          <div className="text-center space-y-1.5 sm:space-y-2">
+            <h2 className="text-xl min-[380px]:text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight font-display italic">
               Pilih <span className="text-primary not-italic">Layanan Surat</span>
             </h2>
-            <p className="text-sm text-slate-500 font-medium max-w-md mx-auto">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-md mx-auto">
               Pilih jenis surat yang Anda butuhkan untuk memulai pengisian formulir pengajuan.
             </p>
           </div>
 
-          {/* ── Card Grid — compact ── */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+          {/* ── Card Grid — compact 2 columns on mobile ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3">
             {letterOptions.map((opt) => (
               <button
                 key={opt.type}
@@ -114,29 +114,29 @@ export function LetterService({ isAdmin = false }: LetterServiceProps) {
                   setSelectedLetter(opt.type);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="group relative bg-white rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center gap-2.5 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 cursor-pointer text-left"
+                className="group relative bg-white rounded-2xl p-2.5 min-[380px]:p-3 sm:p-5 flex flex-col items-center text-center gap-2 sm:gap-2.5 border border-slate-100 shadow-xs sm:shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300 cursor-pointer"
               >
                 {/* Icon */}
                 <div className={cn(
-                  'w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 flex-shrink-0',
+                  'w-8 h-8 min-[380px]:w-9 min-[380px]:h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0',
                   opt.color
                 )}>
-                  <opt.icon className="h-5 w-5 sm:h-[22px] sm:w-[22px]" />
+                  <opt.icon className="h-4 w-4 sm:h-[22px] sm:w-[22px]" />
                 </div>
 
                 {/* Name */}
-                <div className="space-y-1 w-full">
-                  <h3 className="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight group-hover:text-primary transition-colors line-clamp-2 text-center">
+                <div className="space-y-0.5 sm:space-y-1 w-full">
+                  <h3 className="text-[10px] min-[380px]:text-[11px] sm:text-xs font-bold text-slate-800 leading-tight group-hover:text-primary transition-colors line-clamp-2 text-center">
                     {opt.type}
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-400 font-medium leading-relaxed line-clamp-2 hidden sm:block text-center">
+                  <p className="text-[8.5px] min-[380px]:text-[9px] sm:text-[10px] text-slate-400 font-medium leading-relaxed line-clamp-2 hidden sm:block text-center">
                     {opt.description}
                   </p>
                 </div>
 
                 {/* CTA hint */}
-                <span className="text-[9px] font-bold text-primary/70 uppercase tracking-widest group-hover:text-primary transition-colors">
-                  Ajukan →
+                <span className="text-[8px] min-[380px]:text-[8.5px] sm:text-[9px] font-bold text-primary/80 uppercase tracking-wider group-hover:text-primary transition-colors">
+                  Ajukan &rarr;
                 </span>
               </button>
             ))}

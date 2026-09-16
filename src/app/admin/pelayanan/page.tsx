@@ -264,26 +264,26 @@ export default function AdminPelayananPage() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-4 sm:space-y-8">
       <PageHeader
         title="Manajemen Pelayanan Desa"
         description="Kelola dokumen PDF untuk setiap kategori informasi pelayanan publik."
       />
 
-      <div className="grid lg:grid-cols-12 gap-8">
+      <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8">
         <div className="lg:col-span-4">
-          <Card className="rounded-[2rem] border-none shadow-sm sticky top-28">
-            <CardHeader className="bg-primary text-white p-8">
-              <CardTitle className="text-xl font-black uppercase italic tracking-tight">
+          <Card className="rounded-2xl sm:rounded-[2rem] border-none shadow-sm lg:sticky lg:top-28 overflow-hidden">
+            <CardHeader className="bg-primary text-white p-3.5 sm:p-5 md:p-8">
+              <CardTitle className="text-base sm:text-lg md:text-xl font-black uppercase italic tracking-tight">
                 {editingDoc ? 'Edit Dokumen' : 'Input Dokumen Baru'}
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
+            <CardContent className="p-3.5 sm:p-5 md:p-8">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="space-y-1.5 sm:space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Pilih Kategori</Label>
                   <Select value={category} onValueChange={setCategory}>
-                    <SelectTrigger className="h-12 rounded-xl">
+                    <SelectTrigger className="h-10 sm:h-12 rounded-xl text-xs sm:text-sm">
                       <SelectValue placeholder="Pilih Menu" />
                     </SelectTrigger>
                     <SelectContent>
@@ -294,61 +294,61 @@ export default function AdminPelayananPage() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1.5 sm:space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Judul Dokumen</Label>
                   <Input 
                     placeholder="Contoh: SK Standar Pelayanan KTP" 
                     value={title} 
                     onChange={e => setTitle(e.target.value)}
-                    className="h-12 rounded-xl uppercase font-bold"
+                    className="h-10 sm:h-12 rounded-xl uppercase font-bold text-xs sm:text-sm"
                   />
                 </div>
 
                 {category === 'pojok-baca' && (
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 sm:space-y-2">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Link Tautan</Label>
                     <Input 
                       placeholder="Contoh: https://e-book.desa.id/buku-a" 
                       value={link} 
                       onChange={e => setLink(e.target.value)}
-                      className="h-12 rounded-xl"
+                      className="h-10 sm:h-12 rounded-xl text-xs sm:text-sm"
                     />
                   </div>
                 )}
 
                 {!editingDoc && (
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 sm:space-y-2">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                       {isImageCategory ? 'Berkas Gambar' : 'Berkas PDF'}
                     </Label>
-                    <div className="relative group border-2 border-dashed rounded-2xl p-4 transition-all hover:border-primary/50 bg-slate-50/50">
+                    <div className="relative group border-2 border-dashed rounded-2xl p-3 sm:p-4 transition-all hover:border-primary/50 bg-slate-50/50">
                         <Input 
                           type="file" 
                           accept={isImageCategory ? "image/*" : ".pdf"} 
                           onChange={handleFileChange}
                           className="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10"
                         />
-                        <div className="flex flex-col items-center justify-center text-center gap-2">
-                           <FileUp className="h-6 w-6 text-slate-400 group-hover:text-primary transition-all" />
-                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 sm:gap-2">
+                           <FileUp className="h-5 w-5 sm:h-6 sm:w-6 text-slate-400 group-hover:text-primary transition-all" />
+                           <p className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest break-all">
                              {fileToUpload ? fileToUpload.name : (isImageCategory ? 'PILIH FILE GAMBAR' : 'PILIH FILE .PDF')}
                            </p>
                         </div>
                     </div>
                     {isImageCategory && imagePreview && (
-                      <div className="mt-4 relative aspect-video w-full border rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center">
+                      <div className="mt-3 sm:mt-4 relative aspect-video w-full border rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center">
                         <img src={imagePreview} alt="Pratinjau Unggahan" className="object-contain w-full h-full" />
                       </div>
                     )}
                   </div>
                 )}
 
-                <div className="pt-4 flex gap-2">
+                <div className="pt-2 sm:pt-4 flex gap-2">
                   {editingDoc && (
-                    <Button type="button" variant="outline" className="flex-1 rounded-xl font-bold" onClick={() => { setEditingDoc(null); setTitle(''); setCategory(''); setLink(''); }}>Batal</Button>
+                    <Button type="button" variant="outline" className="flex-1 rounded-xl font-bold text-xs sm:text-sm h-10 sm:h-12" onClick={() => { setEditingDoc(null); setTitle(''); setCategory(''); setLink(''); }}>Batal</Button>
                   )}
-                  <Button type="submit" disabled={isSubmitting} className="flex-1 h-14 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-primary/20">
-                    {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}
+                  <Button type="submit" disabled={isSubmitting} className="flex-1 h-10 sm:h-12 rounded-xl font-black uppercase tracking-wider text-xs sm:text-sm shadow-md shadow-primary/20">
+                    {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     {editingDoc ? 'Simpan Edit' : 'Simpan Dokumen'}
                   </Button>
                 </div>
@@ -358,17 +358,87 @@ export default function AdminPelayananPage() {
         </div>
 
         <div className="lg:col-span-8">
-          <Card className="rounded-[2.5rem] border-none shadow-sm overflow-hidden bg-white">
-             <CardHeader className="p-8 border-b bg-slate-50/50">
-               <CardTitle className="text-lg font-black uppercase text-slate-800">Daftar Kontrol Dokumen</CardTitle>
+          <Card className="rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden bg-white">
+             <CardHeader className="p-3.5 sm:p-5 md:p-8 border-b bg-slate-50/50 flex flex-row items-center justify-between">
+               <CardTitle className="text-sm sm:text-lg font-black uppercase text-slate-800">Daftar Kontrol Dokumen</CardTitle>
+               <span className="text-[10px] font-bold text-slate-400 uppercase bg-slate-200/50 px-2 py-0.5 rounded-full">
+                 {documents?.length || 0} Dokumen
+               </span>
              </CardHeader>
              <CardContent className="p-0">
-                <Table>
+               {/* Mobile Card List View (block sm:hidden) - Full screen, zero horizontal scroll */}
+               <div className="block sm:hidden divide-y divide-slate-100">
+                 {isLoading ? (
+                   Array.from({ length: 3 }).map((_, i) => (
+                     <div key={i} className="p-3.5 space-y-2">
+                       <Skeleton className="h-4 w-3/4 rounded" />
+                       <Skeleton className="h-3 w-1/2 rounded" />
+                       <Skeleton className="h-7 w-full rounded-lg" />
+                     </div>
+                   ))
+                 ) : documents?.length === 0 ? (
+                   <div className="p-6 text-center text-slate-400 text-xs italic">
+                     Belum ada dokumen pelayanan yang diinput.
+                   </div>
+                 ) : (
+                   documents?.map((docItem) => (
+                     <div key={docItem.id} className="p-3.5 space-y-2.5 bg-white">
+                       <div className="space-y-1">
+                         <p className="font-black text-xs uppercase text-slate-800 leading-snug break-words">
+                           {docItem.title}
+                         </p>
+                         <div className="flex flex-wrap items-center gap-1.5">
+                           <Badge variant="secondary" className="text-[9px] font-black uppercase px-2 py-0.5 h-auto">
+                             {getCategoryLabel(docItem.category)}
+                           </Badge>
+                           <div className="flex items-center gap-1 text-[9px] font-bold text-slate-400 uppercase">
+                             <div className={cn(
+                               "p-0.5 rounded",
+                               docItem.fileId.startsWith('http') ? "text-amber-600" : "text-emerald-600"
+                             )}>
+                               {docItem.fileId.startsWith('http') ? <Cloud className="h-3 w-3" /> : <Globe className="h-3 w-3" />}
+                             </div>
+                             <span className="truncate max-w-[130px]">{docItem.fileName}</span>
+                           </div>
+                         </div>
+                       </div>
+
+                       {docItem.link && (
+                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-primary bg-primary/5 p-1.5 rounded-lg">
+                           <Link2 className="h-3 w-3 shrink-0" />
+                           <span className="truncate">{docItem.link}</span>
+                         </div>
+                       )}
+
+                       <div className="flex items-center gap-1.5 pt-1.5 border-t border-slate-100">
+                         <Button variant="outline" size="sm" className="h-8 px-2.5 text-[10px] font-bold rounded-lg flex-1 gap-1" asChild>
+                           <a href={docItem.fileId.startsWith('http') ? docItem.fileId : `https://drive.google.com/file/d/${docItem.fileId}/view`} target="_blank" rel="noopener noreferrer">
+                             <ExternalLink className="h-3 w-3" />
+                             <span>Buka File</span>
+                           </a>
+                         </Button>
+                         <Button variant="outline" size="sm" className="h-8 px-2.5 text-[10px] font-bold rounded-lg text-emerald-700 hover:text-emerald-800 border-emerald-200 hover:bg-emerald-50 gap-1" onClick={() => handleEdit(docItem)}>
+                           <Edit className="h-3 w-3" />
+                           <span>Edit</span>
+                         </Button>
+                         <Button variant="ghost" size="sm" className="h-8 px-2 text-[10px] font-bold rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50 gap-1" onClick={() => handleDelete(docItem.id)}>
+                           <Trash2 className="h-3 w-3" />
+                           <span>Hapus</span>
+                         </Button>
+                       </div>
+                     </div>
+                   ))
+                 )}
+               </div>
+
+               {/* Desktop Table View (hidden sm:block) */}
+               <div className="hidden sm:block overflow-x-auto w-full">
+                <Table className="min-w-[520px]">
                   <TableHeader className="bg-slate-100/50">
                     <TableRow>
-                      <TableHead className="pl-8 font-black uppercase text-[9px] tracking-[0.2em] text-slate-400">Judul & Kategori</TableHead>
+                      <TableHead className="pl-4 sm:pl-8 font-black uppercase text-[9px] tracking-[0.2em] text-slate-400">Judul & Kategori</TableHead>
                       <TableHead className="font-black uppercase text-[9px] tracking-[0.2em] text-slate-400">Sumber File</TableHead>
-                      <TableHead className="text-right pr-8 font-black uppercase text-[9px] tracking-[0.2em] text-slate-400">Kelola</TableHead>
+                      <TableHead className="text-right pr-4 sm:pr-8 font-black uppercase text-[9px] tracking-[0.2em] text-slate-400">Kelola</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -381,9 +451,9 @@ export default function AdminPelayananPage() {
                     ) : (
                       documents?.map((docItem) => (
                         <TableRow key={docItem.id} className="hover:bg-slate-50/80 group transition-all">
-                          <TableCell className="pl-8 py-5">
+                          <TableCell className="pl-4 sm:pl-8 py-3.5 sm:py-5">
                             <div className="space-y-1">
-                               <p className="font-black text-sm uppercase text-slate-700 leading-tight">{docItem.title}</p>
+                               <p className="font-black text-xs sm:text-sm uppercase text-slate-700 leading-tight">{docItem.title}</p>
                                <Badge variant="secondary" className="text-[8px] font-black uppercase px-2 py-0 h-4">{getCategoryLabel(docItem.category)}</Badge>
                                {docItem.link && (
                                  <div className="flex items-center gap-1 text-[8px] font-bold text-primary mt-1">
@@ -396,24 +466,24 @@ export default function AdminPelayananPage() {
                           <TableCell>
                              <div className="flex items-center gap-2">
                                 <div className={cn(
-                                  "p-2 rounded-lg",
+                                  "p-1.5 sm:p-2 rounded-lg",
                                   docItem.fileId.startsWith('http') ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"
                                 )}>
                                   {docItem.fileId.startsWith('http') ? <Cloud className="h-3.5 w-3.5" /> : <Globe className="h-3.5 w-3.5" />}
                                 </div>
-                                <span className="text-[10px] font-bold text-slate-400 uppercase truncate max-w-[150px]">{docItem.fileName}</span>
+                                <span className="text-[10px] font-bold text-slate-400 uppercase truncate max-w-[120px] sm:max-w-[150px]">{docItem.fileName}</span>
                              </div>
                           </TableCell>
-                          <TableCell className="text-right pr-8">
-                             <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl" asChild>
-                                  <a href={docItem.fileId.startsWith('http') ? docItem.fileId : `https://drive.google.com/file/d/${docItem.fileId}/view`} target="_blank"><ExternalLink className="h-4 w-4" /></a>
+                          <TableCell className="text-right pr-4 sm:pr-8">
+                             <div className="flex justify-end gap-1.5 sm:gap-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                                <Button variant="outline" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl" asChild>
+                                  <a href={docItem.fileId.startsWith('http') ? docItem.fileId : `https://drive.google.com/file/d/${docItem.fileId}/view`} target="_blank" rel="noopener noreferrer"><ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" /></a>
                                 </Button>
-                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl hover:text-emerald-700 hover:border-emerald-300" onClick={() => handleEdit(docItem)}>
-                                  <Edit className="h-4 w-4" />
+                                <Button variant="outline" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl hover:text-emerald-700 hover:border-emerald-300" onClick={() => handleEdit(docItem)}>
+                                  <Edit className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-red-400 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(docItem.id)}>
-                                  <Trash2 className="h-4 w-4" />
+                                <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl text-red-400 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(docItem.id)}>
+                                  <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                 </Button>
                              </div>
                           </TableCell>
@@ -422,6 +492,7 @@ export default function AdminPelayananPage() {
                     )}
                   </TableBody>
                 </Table>
+               </div>
              </CardContent>
           </Card>
         </div>

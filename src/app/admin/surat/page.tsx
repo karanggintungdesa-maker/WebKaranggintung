@@ -11,10 +11,10 @@ export default function AdminSuratPage() {
         title="Kelola Pengajuan Surat"
         description="Tinjau, setujui, atau tolak pengajuan surat dari warga Desa Karanggintung."
       />
-      <Card className="rounded-[2.5rem] border-none shadow-sm overflow-hidden bg-white">
-        <CardHeader className="p-8 border-b bg-slate-50/50">
-          <CardTitle className="text-xl font-black uppercase tracking-tight text-slate-800">Daftar Pengajuan Masuk</CardTitle>
-          <CardDescription className="font-medium text-slate-500">Seluruh permohonan surat dari warga yang masuk ke sistem.</CardDescription>
+      <Card className="rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] border-none shadow-sm overflow-hidden bg-white">
+        <CardHeader className="p-3 sm:p-6 md:p-8 border-b bg-slate-50/50">
+          <CardTitle className="text-sm sm:text-lg md:text-xl font-black uppercase tracking-tight text-slate-800">Daftar Pengajuan Masuk</CardTitle>
+          <CardDescription className="text-[11px] sm:text-sm font-medium text-slate-500">Seluruh permohonan surat dari warga yang masuk ke sistem.</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           <SubmissionList />

@@ -102,45 +102,45 @@ function StatistikContent() {
   const activeTabObj = tabs.find(t => t.id === activeTab) || tabs[0];
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans">
+    <div className="flex flex-col min-h-screen bg-slate-50 font-sans overflow-x-hidden w-full">
       {/* TOP HEADER */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md shadow-xs sm:shadow-sm">
+        <div className="container mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
           <Logo />
           <Link href="/">
-            <Button variant="ghost" className="font-bold gap-2 text-primary hover:bg-slate-100 rounded-xl">
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Beranda</span>
+            <Button variant="ghost" className="font-bold gap-1.5 sm:gap-2 text-primary hover:bg-slate-100 rounded-xl text-xs sm:text-sm h-9 sm:h-10 px-3 sm:px-4">
+              <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span>Beranda</span>
             </Button>
           </Link>
         </div>
       </header>
 
       {/* HERO SECTION */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white py-12 md:py-16 border-b border-slate-700/50 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white py-6 sm:py-12 md:py-16 border-b border-slate-700/50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-black uppercase tracking-widest mb-4">
-              <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+          <div className="max-w-3xl space-y-1.5 sm:space-y-3">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[8px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest">
+              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-400 shrink-0" />
               Portal Data & Transparansi Publik
             </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight font-display mb-3">
+            <h1 className="text-xl sm:text-3xl md:text-5xl font-extrabold tracking-tight font-display">
               Statistik Desa Karanggintung
             </h1>
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-              Pusat data terpadu dan indikator pembangunan Desa Karanggintung, Kecamatan Gandrungmangu, Kabupaten Cilacap.
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed">
+              Pusat data terpadu dan indikator pembangunan Desa Karanggintung, Gandrungmangu, Cilacap.
             </p>
           </div>
         </div>
       </div>
 
       {/* MAIN CONTAINER */}
-      <div className="flex-1 container mx-auto px-4 py-8 md:py-12">
-        <div className="grid lg:grid-cols-12 gap-10 items-start">
+      <div className="flex-1 container mx-auto px-2.5 sm:px-4 py-4 sm:py-8 md:py-12 w-full min-w-0">
+        <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-start w-full min-w-0">
 
           {/* SIDEBAR NAVIGATION (Desktop) / MOBILE MENU (Mobile) */}
-          <aside className="lg:col-span-3 lg:sticky lg:top-28 z-40">
+          <aside className="lg:col-span-3 lg:sticky lg:top-28 z-40 w-full min-w-0">
             {/* Desktop Navigation List */}
             <div className="hidden lg:flex bg-white rounded-[2.5rem] p-4 border shadow-sm flex-col gap-2">
               <div className="px-4 py-2 border-b border-slate-100 mb-1">
@@ -168,50 +168,42 @@ function StatistikContent() {
               })}
             </div>
 
-            {/* Mobile Menu Dropdown Selector */}
-            <div className="block lg:hidden w-full relative mb-6">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="w-full flex items-center justify-between bg-primary text-white px-5 py-4 rounded-xl shadow-md font-black uppercase text-[10px] tracking-wider"
-              >
-                <div className="flex items-center gap-3">
-                  {React.createElement(activeTabObj.icon, { className: "h-5 w-5 text-white shrink-0" })}
-                  <div className="text-left">
-                    <p className="leading-tight">{activeTabObj.label}</p>
-                  </div>
-                </div>
-                <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", isMenuOpen && "rotate-180")} />
-              </button>
+            {/* Mobile Navigation (Grid 4 Kolom x 2 Baris Penuh 1 Layar Tanpa Geser) */}
+            <div className="block lg:hidden w-full mb-4 space-y-2">
+              <div className="bg-slate-200/70 p-1 rounded-xl border border-slate-300/60 grid grid-cols-4 gap-1 w-full">
+                {tabs.map((tab) => {
+                  const isCurrent = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabChange(tab.id)}
+                      className={cn(
+                        "py-2 px-1 rounded-lg flex flex-col items-center justify-center gap-1 transition-all text-center",
+                        isCurrent
+                          ? "bg-primary text-white shadow-sm font-black"
+                          : "bg-white/80 text-slate-600 hover:bg-white font-bold"
+                      )}
+                    >
+                      <tab.icon className={cn("h-3.5 w-3.5 shrink-0", isCurrent ? "text-white" : "text-slate-500")} />
+                      <span className="text-[7.5px] min-[380px]:text-[8px] uppercase tracking-tight leading-tight line-clamp-1 w-full">
+                        {tab.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
 
-              {isMenuOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setIsMenuOpen(false)} />
-                  <div className="absolute left-0 right-0 mt-2 z-50 bg-white border rounded-xl shadow-xl overflow-hidden py-1 divide-y divide-slate-100 animate-in fade-in slide-in-from-top-2 duration-200">
-                    {tabs.map((tab) => {
-                      const isCurrent = activeTab === tab.id;
-                      return (
-                        <button
-                          key={tab.id}
-                          onClick={() => {
-                            handleTabChange(tab.id);
-                            setIsMenuOpen(false);
-                          }}
-                          className={cn(
-                            "w-full flex items-center gap-4 px-5 py-3.5 text-left text-xs font-bold transition-colors",
-                            isCurrent ? "bg-slate-50 text-primary" : "text-slate-600 hover:bg-slate-50"
-                          )}
-                        >
-                          <tab.icon className={cn("h-4 w-4 shrink-0", isCurrent ? "text-primary" : "text-slate-400")} />
-                          <span className="uppercase tracking-wider">{tab.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
+              {/* Active Tab Subtitle Info Banner */}
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200/70 rounded-xl text-emerald-800 text-[9.5px] min-[380px]:text-[10px]">
+                <activeTabObj.icon className="h-3.5 w-3.5 text-emerald-700 shrink-0" />
+                <p className="truncate">
+                  <span className="font-black uppercase text-emerald-950">{activeTabObj.label}</span>
+                  <span className="text-emerald-700/80 ml-1.5 hidden min-[380px]:inline">— {activeTabObj.desc}</span>
+                </p>
+              </div>
             </div>
 
-            {/* Quick Access Card */}
+            {/* Quick Access Card (Desktop Only) */}
             <div className="hidden lg:block mt-8 p-8 bg-slate-900 rounded-[3rem] text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 p-6 opacity-10"><ShieldCheck className="w-24 h-24" /></div>
               <div className="relative z-10 space-y-4">
@@ -230,7 +222,7 @@ function StatistikContent() {
           </aside>
 
           {/* MAIN CONTENT AREA */}
-          <main className="lg:col-span-9 space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <main className="lg:col-span-9 space-y-4 sm:space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 w-full min-w-0">
             {activeTab === 'kependudukan' && <KependudukanTab />}
             {activeTab === 'pendidikan' && <PendidikanTab />}
             {activeTab === 'kesehatan' && <KesehatanTab />}
@@ -371,16 +363,16 @@ function KependudukanTab() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8 w-full min-w-0">
       {/* Header filter & exports */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 bg-white p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-xs sm:shadow-sm">
         <div>
-          <h2 className="text-xl font-black text-slate-800 tracking-tight">Statistik Kependudukan</h2>
-          <p className="text-xs text-slate-500">Agregasi data demografi, kelompok usia, dan profesi warga desa.</p>
+          <h2 className="text-base sm:text-xl font-black text-slate-800 tracking-tight">Statistik Kependudukan</h2>
+          <p className="text-[10px] sm:text-xs text-slate-500">Agregasi data demografi, kelompok usia, dan profesi warga desa.</p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <Select value={filterDusun} onValueChange={setFilterDusun}>
-            <SelectTrigger className="w-[180px] rounded-xl border-slate-200 text-xs font-bold">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 rounded-xl border-slate-200 text-xs font-bold">
               <SelectValue placeholder="Pilih Wilayah" />
             </SelectTrigger>
             <SelectContent>
@@ -393,56 +385,58 @@ function KependudukanTab() {
             </SelectContent>
           </Select>
 
-          <Button onClick={handleDownloadExcel} variant="outline" size="sm" className="gap-2 rounded-xl text-xs font-bold text-slate-700">
-            <Download className="h-3.5 w-3.5 text-emerald-600" />
-            Excel
-          </Button>
-          <Button onClick={handleDownloadPDF} variant="outline" size="sm" className="gap-2 rounded-xl text-xs font-bold text-slate-700">
-            <FileDown className="h-3.5 w-3.5 text-red-600" />
-            PDF
-          </Button>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <Button onClick={handleDownloadExcel} variant="outline" size="sm" className="flex-1 sm:flex-initial gap-1.5 rounded-xl text-xs font-bold text-slate-700 h-9 sm:h-10">
+              <Download className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+              <span>Excel</span>
+            </Button>
+            <Button onClick={handleDownloadPDF} variant="outline" size="sm" className="flex-1 sm:flex-initial gap-1.5 rounded-xl text-xs font-bold text-slate-700 h-9 sm:h-10">
+              <FileDown className="h-3.5 w-3.5 text-red-600 shrink-0" />
+              <span>PDF</span>
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="rounded-3xl border-slate-100 shadow-sm bg-gradient-to-br from-emerald-700 to-emerald-900 text-white p-6">
-          <p className="text-[10px] font-bold text-emerald-200 uppercase tracking-widest">Total Penduduk</p>
-          <h3 className="text-3xl font-black mt-2 font-display">{stats.total.toLocaleString()}</h3>
-          <p className="text-[11px] text-emerald-100/80 mt-1 flex items-center gap-1">
-            <Users className="h-3.5 w-3.5" /> Jiwa Terdaftar
+      {/* KPI Cards (2 Kolom Compact di Mobile) */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+        <Card className="rounded-xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm bg-gradient-to-br from-emerald-700 to-emerald-900 text-white p-2.5 min-[380px]:p-3 sm:p-6 space-y-0.5 sm:space-y-1">
+          <p className="text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-bold text-emerald-200 uppercase tracking-wider">Total Penduduk</p>
+          <h3 className="text-lg min-[380px]:text-xl sm:text-3xl font-black font-display">{stats.total.toLocaleString()}</h3>
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[11px] text-emerald-100/80 flex items-center gap-1 truncate">
+            <Users className="h-3 w-3 shrink-0" /> Jiwa Terdaftar
           </p>
         </Card>
 
-        <Card className="rounded-3xl border-slate-100 shadow-sm bg-white p-6">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Kepala Keluarga</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">{stats.totalKK.toLocaleString()}</h3>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <Home className="h-3.5 w-3.5 text-primary" /> Rumah Tangga (KK)
+        <Card className="rounded-xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm bg-white p-2.5 min-[380px]:p-3 sm:p-6 space-y-0.5 sm:space-y-1">
+          <p className="text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kepala Keluarga</p>
+          <h3 className="text-lg min-[380px]:text-xl sm:text-3xl font-black text-slate-800 font-display">{stats.totalKK.toLocaleString()}</h3>
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[11px] text-slate-500 flex items-center gap-1 truncate">
+            <Home className="h-3 w-3 text-primary shrink-0" /> Rumah Tangga (KK)
           </p>
         </Card>
 
-        <Card className="rounded-3xl border-slate-100 shadow-sm bg-white p-6">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Laki-Laki</p>
-          <h3 className="text-3xl font-black text-blue-600 mt-2 font-display">{stats.male.toLocaleString()}</h3>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <UserCheck className="h-3.5 w-3.5 text-blue-500" /> {stats.malePercent}% Komposisi
+        <Card className="rounded-xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm bg-white p-2.5 min-[380px]:p-3 sm:p-6 space-y-0.5 sm:space-y-1">
+          <p className="text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Laki-Laki</p>
+          <h3 className="text-lg min-[380px]:text-xl sm:text-3xl font-black text-blue-600 font-display">{stats.male.toLocaleString()}</h3>
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[11px] text-slate-500 flex items-center gap-1 truncate">
+            <UserCheck className="h-3 w-3 text-blue-500 shrink-0" /> {stats.malePercent}% Komposisi
           </p>
         </Card>
 
-        <Card className="rounded-3xl border-slate-100 shadow-sm bg-white p-6">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Perempuan</p>
-          <h3 className="text-3xl font-black text-pink-600 mt-2 font-display">{stats.female.toLocaleString()}</h3>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <UserCheck className="h-3.5 w-3.5 text-pink-500" /> {stats.femalePercent}% Komposisi
+        <Card className="rounded-xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm bg-white p-2.5 min-[380px]:p-3 sm:p-6 space-y-0.5 sm:space-y-1">
+          <p className="text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Perempuan</p>
+          <h3 className="text-lg min-[380px]:text-xl sm:text-3xl font-black text-pink-600 font-display">{stats.female.toLocaleString()}</h3>
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[11px] text-slate-500 flex items-center gap-1 truncate">
+            <UserCheck className="h-3 w-3 text-pink-500 shrink-0" /> {stats.femalePercent}% Komposisi
           </p>
         </Card>
       </div>
 
-      {/* 5 Dusun Breakdown Cards */}
-      <div className="bg-white p-6 rounded-3xl border shadow-sm space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Distribusi Penduduk Berdasarkan 5 Dusun</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      {/* 5 Dusun Breakdown Cards (2 Kolom di Mobile) */}
+      <div className="bg-white p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-xs sm:shadow-sm space-y-2.5 sm:space-y-4">
+        <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Distribusi Penduduk Berdasarkan 5 Dusun</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
           {[
             { dusun: 'Karanggintung', jiwa: 2450, kk: 780, rt: 9, rw: 2 },
             { dusun: 'Pagergunung', jiwa: 2180, kk: 695, rt: 8, rw: 2 },
@@ -450,11 +444,14 @@ function KependudukanTab() {
             { dusun: 'Penumbang', jiwa: 1750, kk: 560, rt: 7, rw: 2 },
             { dusun: 'Karangtawang', jiwa: 1446, kk: 470, rt: 6, rw: 1 },
           ].map((d, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-colors">
-              <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700">Dusun</span>
-              <h4 className="font-bold text-slate-800 text-sm mt-0.5">{d.dusun}</h4>
-              <p className="text-lg font-black text-slate-900 mt-2">{d.jiwa.toLocaleString()} <span className="text-xs font-normal text-slate-500">Jiwa</span></p>
-              <div className="mt-2 pt-2 border-t border-slate-200/60 flex justify-between text-[10px] text-slate-500 font-semibold">
+            <div key={idx} className={cn(
+              "p-2.5 min-[380px]:p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-colors",
+              idx === 4 ? "col-span-2 sm:col-span-1" : ""
+            )}>
+              <span className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-emerald-700">Dusun</span>
+              <h4 className="font-bold text-slate-800 text-xs sm:text-sm mt-0.5 truncate">{d.dusun}</h4>
+              <p className="text-sm sm:text-lg font-black text-slate-900 mt-1">{d.jiwa.toLocaleString()} <span className="text-[9px] sm:text-xs font-normal text-slate-500">Jiwa</span></p>
+              <div className="mt-1.5 pt-1.5 border-t border-slate-200/60 flex justify-between text-[8px] min-[380px]:text-[9px] sm:text-[10px] text-slate-500 font-semibold">
                 <span>{d.kk} KK</span>
                 <span>{d.rt} RT / {d.rw} RW</span>
               </div>
@@ -464,32 +461,32 @@ function KependudukanTab() {
       </div>
 
       {/* Charts Row: Kelompok Umur & Pekerjaan */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card className="rounded-3xl border-slate-100 shadow-sm p-6 bg-white">
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800 mb-4">Kelompok Usia Penduduk</h3>
-          <div className="h-64 w-full">
+      <div className="grid md:grid-cols-2 gap-3 sm:gap-6">
+        <Card className="rounded-2xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm p-3.5 sm:p-6 bg-white space-y-2 sm:space-y-4">
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Kelompok Usia Penduduk</h3>
+          <div className="h-52 sm:h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={stats.ageData} layout="vertical" margin={{ left: 20, right: 20 }}>
+              <BarChart data={stats.ageData} layout="vertical" margin={{ left: 5, right: 10, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal vertical={false} stroke="#f1f5f9" />
-                <XAxis type="number" tick={{ fontSize: 11 }} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={120} />
+                <XAxis type="number" tick={{ fontSize: 9 }} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 9 }} width={85} />
                 <Tooltip formatter={(value: any) => [`${value} Jiwa`, 'Jumlah']} />
-                <Bar dataKey="value" fill="#059669" radius={[0, 8, 8, 0]} />
+                <Bar dataKey="value" fill="#059669" radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
-        <Card className="rounded-3xl border-slate-100 shadow-sm p-6 bg-white">
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800 mb-4">Mata Pencaharian Utama</h3>
-          <div className="h-64 w-full">
+        <Card className="rounded-2xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm p-3.5 sm:p-6 bg-white space-y-2 sm:space-y-4">
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Mata Pencaharian Utama</h3>
+          <div className="h-52 sm:h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={stats.jobData} layout="vertical" margin={{ left: 20, right: 20 }}>
+              <BarChart data={stats.jobData} layout="vertical" margin={{ left: 5, right: 10, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal vertical={false} stroke="#f1f5f9" />
-                <XAxis type="number" tick={{ fontSize: 11 }} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={130} />
+                <XAxis type="number" tick={{ fontSize: 9 }} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 8.5 }} width={95} />
                 <Tooltip formatter={(value: any) => [`${value} Orang`, 'Jumlah']} />
-                <Bar dataKey="value" fill="#0284c7" radius={[0, 8, 8, 0]} />
+                <Bar dataKey="value" fill="#0284c7" radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -497,26 +494,26 @@ function KependudukanTab() {
       </div>
 
       {/* Mutasi Penduduk Bulanan */}
-      <Card className="rounded-3xl border-slate-100 shadow-sm p-6 bg-white">
-        <div className="flex items-center justify-between mb-4">
+      <Card className="rounded-2xl sm:rounded-3xl border-slate-100 shadow-xs sm:shadow-sm p-3.5 sm:p-6 bg-white space-y-2 sm:space-y-4">
+        <div className="flex flex-col min-[380px]:flex-row min-[380px]:items-center justify-between gap-1">
           <div>
-            <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Dinamika Mutasi Penduduk (2025/2026)</h3>
-            <p className="text-xs text-slate-500">Pencatatan kelahiran, kematian, kepindahan, dan kedatangan warga.</p>
+            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Dinamika Mutasi Penduduk</h3>
+            <p className="text-[10px] sm:text-xs text-slate-500">Pencatatan kelahiran, kematian, kepindahan, dan kedatangan.</p>
           </div>
-          <Badge className="bg-emerald-600 text-white font-bold text-[10px]">Pembaruan Bulanan</Badge>
+          <Badge className="bg-emerald-600 text-white font-bold text-[8.5px] sm:text-[10px] w-fit">Pembaruan Bulanan</Badge>
         </div>
-        <div className="h-64 w-full">
+        <div className="h-52 sm:h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={stats.mutationData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <LineChart data={stats.mutationData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
+              <XAxis dataKey="month" tick={{ fontSize: 10 }} />
+              <YAxis tick={{ fontSize: 10 }} />
               <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="lahir" stroke="#059669" name="Kelahiran" strokeWidth={2} />
-              <Line type="monotone" dataKey="mati" stroke="#dc2626" name="Kematian" strokeWidth={2} />
-              <Line type="monotone" dataKey="datang" stroke="#0284c7" name="Penduduk Masuk" strokeWidth={2} />
-              <Line type="monotone" dataKey="pindah" stroke="#f59e0b" name="Penduduk Keluar" strokeWidth={2} />
+              <Legend wrapperStyle={{ fontSize: '10px' }} />
+              <Line type="monotone" dataKey="lahir" stroke="#059669" name="Lahir" strokeWidth={2} />
+              <Line type="monotone" dataKey="mati" stroke="#dc2626" name="Mati" strokeWidth={2} />
+              <Line type="monotone" dataKey="datang" stroke="#0284c7" name="Masuk" strokeWidth={2} />
+              <Line type="monotone" dataKey="pindah" stroke="#f59e0b" name="Keluar" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -548,43 +545,43 @@ function PendidikanTab() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Overview Cards */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <Card className="rounded-3xl p-6 bg-gradient-to-br from-blue-700 to-blue-900 text-white shadow-sm">
-          <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Tingkat Melek Huruf</p>
-          <h3 className="text-3xl font-black mt-2 font-display">99.2%</h3>
-          <p className="text-xs text-blue-100/80 mt-1">Bebas buta aksara usia produktif</p>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-gradient-to-br from-blue-700 to-blue-900 text-white shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-blue-200 uppercase tracking-wider">Melek Huruf</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black mt-1 sm:mt-2 font-display">99.2%</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-blue-100/80 mt-0.5 sm:mt-1 leading-tight line-clamp-2">Bebas buta aksara</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Wajib Belajar 12 Tahun</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">96.4%</h3>
-          <p className="text-xs text-emerald-600 font-semibold mt-1">Tuntas pendidikan dasar & menengah</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Wajib Belajar</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">96.4%</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-emerald-600 font-semibold mt-0.5 sm:mt-1 leading-tight line-clamp-2">12 Tahun tuntas</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Lembaga Pendidikan</p>
-          <h3 className="text-3xl font-black text-primary mt-2 font-display">24 Unit</h3>
-          <p className="text-xs text-slate-500 mt-1">Formal, non-formal & keagamaan</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lembaga</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black text-primary mt-1 sm:mt-2 font-display">24 Unit</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 leading-tight line-clamp-2">Formal & agama</p>
         </Card>
       </div>
 
       {/* Tingkat Pendidikan Breakdown */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-6">
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-6">
         <div>
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Tingkat Pendidikan Terakhir Penduduk</h3>
-          <p className="text-xs text-slate-500">Komposisi jenjang kelulusan warga masyarakat Desa Karanggintung.</p>
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Tingkat Pendidikan Terakhir Penduduk</h3>
+          <p className="text-[10px] sm:text-xs text-slate-500">Komposisi jenjang kelulusan warga masyarakat Desa Karanggintung.</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2.5 sm:space-y-4">
           {eduStats.map((item, idx) => (
-            <div key={idx} className="space-y-1.5">
-              <div className="flex justify-between text-xs font-bold">
+            <div key={idx} className="space-y-1 sm:space-y-1.5">
+              <div className="flex justify-between text-[10px] sm:text-xs font-bold">
                 <span className="text-slate-700">{item.label}</span>
                 <span className="text-slate-900">{item.count.toLocaleString()} Jiwa ({item.percent}%)</span>
               </div>
-              <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 h-2 sm:h-3 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{ width: `${item.percent}%`, backgroundColor: item.color }}
@@ -596,42 +593,53 @@ function PendidikanTab() {
       </Card>
 
       {/* 7 SD Negeri Table */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+        <div className="flex items-center justify-between gap-2">
           <div>
-            <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Daftar 7 Sekolah Dasar Negeri (SDN)</h3>
-            <p className="text-xs text-slate-500">Fasilitas pendidikan dasar negeri yang tersebar di wilayah Desa Karanggintung.</p>
+            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Daftar 7 Sekolah Dasar Negeri (SDN)</h3>
+            <p className="text-[10px] sm:text-xs text-slate-500">Fasilitas pendidikan dasar negeri di Desa Karanggintung.</p>
           </div>
-          <Badge className="bg-primary text-white font-bold text-[10px]">7 Sekolah Aktif</Badge>
+          <Badge className="bg-primary text-white font-bold text-[9px] sm:text-[10px] px-2 py-0.5 shrink-0">7 Sekolah</Badge>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+        <div className="overflow-x-auto -mx-1 sm:mx-0">
+          <table className="w-full text-left text-[10px] sm:text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-4 font-bold">Nama Sekolah</th>
-                <th className="py-3 px-4 font-bold">Lokasi Dusun</th>
-                <th className="py-3 px-4 font-bold text-center">Jumlah Siswa</th>
-                <th className="py-3 px-4 font-bold text-center">Tenaga Pendidik</th>
-                <th className="py-3 px-4 font-bold text-center">Akreditasi</th>
+              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[8px] sm:text-[10px]">
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold">Sekolah</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold">Dusun</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold text-center">Siswa</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold text-center">Guru</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold text-center">Akreditasi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
               {sdList.map((sd, idx) => (
                 <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-slate-800 flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-emerald-600 shrink-0" />
-                    {sd.name}
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 font-bold text-slate-800 flex items-center gap-1.5">
+                    <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-600 shrink-0" />
+                    <span className="sm:hidden">{sd.name.replace('SD Negeri Karanggintung ', 'SDN ')}</span>
+                    <span className="hidden sm:inline">{sd.name}</span>
                   </td>
-                  <td className="py-3.5 px-4 text-slate-600">{sd.dusun}</td>
-                  <td className="py-3.5 px-4 text-center font-semibold">{sd.siswa} Siswa</td>
-                  <td className="py-3.5 px-4 text-center">{sd.guru} Guru</td>
-                  <td className="py-3.5 px-4 text-center">
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-slate-600">
+                    <span className="sm:hidden">{sd.dusun.replace('Dusun ', '')}</span>
+                    <span className="hidden sm:inline">{sd.dusun}</span>
+                  </td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-center font-semibold">
+                    <span className="sm:hidden">{sd.siswa}</span>
+                    <span className="hidden sm:inline">{sd.siswa} Siswa</span>
+                  </td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-center">
+                    <span className="sm:hidden">{sd.guru}</span>
+                    <span className="hidden sm:inline">{sd.guru} Guru</span>
+                  </td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-center">
                     <span className={cn(
-                      "px-2.5 py-0.5 rounded-full text-[10px] font-black",
+                      "px-1.5 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black",
                       sd.akreditasi === 'A' ? "bg-emerald-100 text-emerald-800" : "bg-blue-100 text-blue-800"
                     )}>
-                      Akreditasi {sd.akreditasi}
+                      <span className="sm:hidden">{sd.akreditasi}</span>
+                      <span className="hidden sm:inline">Akreditasi {sd.akreditasi}</span>
                     </span>
                   </td>
                 </tr>
@@ -642,23 +650,23 @@ function PendidikanTab() {
       </Card>
 
       {/* Lembaga Pendidikan Non-Formal & Keagamaan */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pendidikan Anak Usia Dini</p>
-          <h4 className="text-xl font-bold text-slate-800 mt-1">6 Unit PAUD / TK</h4>
-          <p className="text-xs text-slate-500 mt-2">Mendukung kesiapan belajar pra-sekolah di setiap dusun.</p>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="p-2.5 min-[380px]:p-3 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">PAUD / TK</p>
+          <h4 className="text-xs min-[380px]:text-sm sm:text-xl font-bold text-slate-800 mt-1">6 Unit</h4>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-1 sm:mt-2 line-clamp-2">Pendidikan pra-sekolah dusun.</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Keagamaan & Karakter</p>
-          <h4 className="text-xl font-bold text-slate-800 mt-1">9 TPQ & Madrasah</h4>
-          <p className="text-xs text-slate-500 mt-2">Pendidikan Al-Qur'an dan diniyah bagi anak-anak desa.</p>
+        <div className="p-2.5 min-[380px]:p-3 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Keagamaan</p>
+          <h4 className="text-xs min-[380px]:text-sm sm:text-xl font-bold text-slate-800 mt-1">9 TPQ</h4>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-1 sm:mt-2 line-clamp-2">Madrasah & Al-Qur'an anak.</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pondok Pesantren</p>
-          <h4 className="text-xl font-bold text-slate-800 mt-1">2 Pondok Pesantren</h4>
-          <p className="text-xs text-slate-500 mt-2">Pusat kajian ilmu agama dan pembinaan akhlak santri.</p>
+        <div className="p-2.5 min-[380px]:p-3 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pesantren</p>
+          <h4 className="text-xs min-[380px]:text-sm sm:text-xl font-bold text-slate-800 mt-1">2 Ponpes</h4>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-1 sm:mt-2 line-clamp-2">Pusat kajian santri desa.</p>
         </div>
       </div>
     </div>
@@ -670,84 +678,89 @@ function PendidikanTab() {
 // ==========================================
 function KesehatanTab() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Top Health Metrics */}
-      <div className="grid sm:grid-cols-4 gap-4">
-        <Card className="rounded-3xl p-6 bg-gradient-to-br from-emerald-600 to-teal-800 text-white shadow-sm">
-          <p className="text-[10px] font-bold text-emerald-200 uppercase tracking-widest">Cakupan BPJS / KIS</p>
-          <h3 className="text-3xl font-black mt-2 font-display">94.8%</h3>
-          <p className="text-xs text-emerald-100/80 mt-1">Jaminan kesehatan menyeluruh</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-gradient-to-br from-emerald-600 to-teal-800 text-white shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-emerald-200 uppercase tracking-wider">BPJS / KIS</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black mt-1 sm:mt-2 font-display">94.8%</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-emerald-100/80 mt-0.5 sm:mt-1">Jaminan kesehatan</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Prevalensi Stunting</p>
-          <h3 className="text-3xl font-black text-emerald-600 mt-2 font-display">4.2%</h3>
-          <p className="text-xs text-slate-500 mt-1">Status Hijau (Di bawah batas WHO)</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Stunting</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-emerald-600 mt-1 sm:mt-2 font-display">4.2%</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Status Hijau (Aman)</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Posyandu Aktif</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">9 Pos</h3>
-          <p className="text-xs text-slate-500 mt-1">Posyandu Balita & Posbindu Lansia</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Posyandu</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">9 Pos</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Balita & Lansia</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mobil Siaga Desa</p>
-          <h3 className="text-3xl font-black text-blue-600 mt-2 font-display">24 Jam</h3>
-          <p className="text-xs text-slate-500 mt-1">Layanan antar-jemput darurat</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mobil Siaga</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-blue-600 mt-1 sm:mt-2 font-display">24 Jam</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Antar-jemput darurat</p>
         </Card>
       </div>
 
       {/* Fasilitas Layanan Kesehatan */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Fasilitas & Tenaga Kesehatan di Desa</h3>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-            <div className="h-10 w-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-              <Stethoscope className="h-5 w-5" />
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+        <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Fasilitas & Tenaga Kesehatan di Desa</h3>
+        <div className="grid md:grid-cols-3 gap-2.5 sm:gap-4">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 sm:space-y-2">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+              <Stethoscope className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <h4 className="font-bold text-slate-800 text-sm">PKD / Poskesdes Karanggintung</h4>
-            <p className="text-xs text-slate-500">Pusat Kesehatan Desa melayani pemeriksaan dasar, imunisasi, dan rujukan Puskesmas.</p>
-            <span className="inline-block text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Bidan Desa Siaga</span>
+            <h4 className="font-bold text-slate-800 text-xs sm:text-sm">PKD / Poskesdes Karanggintung</h4>
+            <p className="text-[10px] sm:text-xs text-slate-500">Pusat Kesehatan Desa melayani pemeriksaan dasar, imunisasi, dan rujukan Puskesmas.</p>
+            <span className="inline-block text-[9px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">Bidan Desa Siaga</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-            <div className="h-10 w-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
-              <HeartPulse className="h-5 w-5" />
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 sm:space-y-2">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+              <HeartPulse className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <h4 className="font-bold text-slate-800 text-sm">Rumah Desa Sehat (RDS)</h4>
-            <p className="text-xs text-slate-500">Forum koordinasi konvergensi pencegahan stunting & pemenuhan gizi keluarga.</p>
-            <span className="inline-block text-[10px] font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md">Program Konvergensi</span>
+            <h4 className="font-bold text-slate-800 text-xs sm:text-sm">Rumah Desa Sehat (RDS)</h4>
+            <p className="text-[10px] sm:text-xs text-slate-500">Forum koordinasi konvergensi pencegahan stunting & pemenuhan gizi keluarga.</p>
+            <span className="inline-block text-[9px] sm:text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">Program Konvergensi</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-            <div className="h-10 w-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
-              <Activity className="h-5 w-5" />
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 sm:space-y-2">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
+              <Activity className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <h4 className="font-bold text-slate-800 text-sm">Posbindu Penyakit Tidak Menular</h4>
-            <p className="text-xs text-slate-500">Pemeriksaan tensi, gula darah, dan kolesterol berkala bagi warga usia lanjut.</p>
-            <span className="inline-block text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-md">Skrining Lansia Rutin</span>
+            <h4 className="font-bold text-slate-800 text-xs sm:text-sm">Posbindu PTM Lansia</h4>
+            <p className="text-[10px] sm:text-xs text-slate-500">Pemeriksaan tensi, gula darah, dan kolesterol berkala bagi warga usia lanjut.</p>
+            <span className="inline-block text-[9px] sm:text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">Skrining Rutin</span>
           </div>
         </div>
       </Card>
 
       {/* Program Penurunan Stunting */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Tren Penurunan Angka Stunting (2021 - 2025)</h3>
-        <p className="text-xs text-slate-500">Kerja keras kader Posyandu, Bidan Desa, dan Pemdes berhasil menekan stunting secara berkelanjutan.</p>
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+        <div>
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Tren Penurunan Stunting (2021 - 2025)</h3>
+          <p className="text-[10px] sm:text-xs text-slate-500">Kerja keras kader Posyandu, Bidan Desa, dan Pemdes menekan stunting secara berkelanjutan.</p>
+        </div>
 
-        <div className="grid sm:grid-cols-5 gap-3 pt-2">
+        <div className="grid grid-cols-5 gap-1 min-[380px]:gap-1.5 sm:gap-3 pt-1 sm:pt-2">
           {[
-            { year: '2021', rate: '14.8%', status: 'Zona Waspada', bg: 'bg-amber-50 text-amber-800 border-amber-200' },
-            { year: '2022', rate: '11.2%', status: 'Penurunan 3.6%', bg: 'bg-blue-50 text-blue-800 border-blue-200' },
-            { year: '2023', rate: '8.4%', status: 'Zona Aman', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
+            { year: '2021', rate: '14.8%', status: 'Waspada', bg: 'bg-amber-50 text-amber-800 border-amber-200' },
+            { year: '2022', rate: '11.2%', status: '-3.6%', bg: 'bg-blue-50 text-blue-800 border-blue-200' },
+            { year: '2023', rate: '8.4%', status: 'Aman', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
             { year: '2024', rate: '5.8%', status: 'Terkendali', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-            { year: '2025', rate: '4.2%', status: 'Sangat Rendah (Hijau)', bg: 'bg-emerald-100 text-emerald-900 border-emerald-300' },
+            { year: '2025', rate: '4.2%', status: 'Hijau', bg: 'bg-emerald-100 text-emerald-900 border-emerald-300' },
           ].map((item, idx) => (
-            <div key={idx} className={cn("p-4 rounded-2xl border text-center", item.bg)}>
-              <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">Tahun {item.year}</span>
-              <h4 className="text-2xl font-black mt-1 font-display">{item.rate}</h4>
-              <p className="text-[10px] font-bold mt-1">{item.status}</p>
+            <div key={idx} className={cn("p-1.5 min-[380px]:p-2 sm:p-4 rounded-xl sm:rounded-2xl border text-center", item.bg)}>
+              <span className="text-[7px] min-[380px]:text-[8px] sm:text-[10px] font-bold uppercase tracking-wider opacity-80 block truncate">
+                <span className="sm:hidden">{item.year}</span>
+                <span className="hidden sm:inline">Tahun {item.year}</span>
+              </span>
+              <h4 className="text-xs min-[380px]:text-sm sm:text-2xl font-black mt-0.5 sm:mt-1 font-display">{item.rate}</h4>
+              <p className="text-[7px] min-[380px]:text-[8px] sm:text-[10px] font-bold mt-0.5 sm:mt-1 truncate">{item.status}</p>
             </div>
           ))}
         </div>
@@ -768,49 +781,56 @@ function SosialTab() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Overview Cards */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <Card className="rounded-3xl p-6 bg-gradient-to-br from-purple-700 to-indigo-900 text-white shadow-sm">
-          <p className="text-[10px] font-bold text-purple-200 uppercase tracking-widest">Total Penerima Manfaat</p>
-          <h3 className="text-3xl font-black mt-2 font-display">1.065 KPM</h3>
-          <p className="text-xs text-purple-100/80 mt-1">Terverifikasi DTKS Kemensos</p>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-gradient-to-br from-purple-700 to-indigo-900 text-white shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-purple-200 uppercase tracking-wider">Penerima</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black mt-1 sm:mt-2 font-display">1.065</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-purple-100/80 mt-0.5 sm:mt-1 leading-tight line-clamp-2">KPM DTKS</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lembaga Kemasyarakatan</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">6 Lembaga</h3>
-          <p className="text-xs text-slate-500 mt-1">PKK, Karang Taruna, LPMD, Linmas, RT/RW</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lembaga</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">6 LKD</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 leading-tight line-clamp-2">PKK, Karang Taruna</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Poskamling Aktif</p>
-          <h3 className="text-3xl font-black text-emerald-600 mt-2 font-display">100%</h3>
-          <p className="text-xs text-slate-500 mt-1">Siskamling di 37 RT berjalan rutin</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-2.5 min-[380px]:p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Poskamling</p>
+          <h3 className="text-base min-[380px]:text-lg sm:text-3xl font-black text-emerald-600 mt-1 sm:mt-2 font-display">100%</h3>
+          <p className="text-[8px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 leading-tight line-clamp-2">37 RT rutin</p>
         </Card>
       </div>
 
       {/* Tabel Bantuan Sosial */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Penyaluran Program Jaring Pengaman Sosial</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+        <div>
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Penyaluran Program Jaring Pengaman Sosial</h3>
+          <p className="text-[10px] sm:text-xs text-slate-500">Program bansos resmi terverifikasi DTKS Kemensos di Karanggintung.</p>
+        </div>
+
+        <div className="overflow-x-auto -mx-1 sm:mx-0">
+          <table className="w-full text-left text-[10px] sm:text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-4 font-bold">Nama Program</th>
-                <th className="py-3 px-4 font-bold">Deskripsi Manfaat</th>
-                <th className="py-3 px-4 font-bold text-center">Jumlah Penerima</th>
-                <th className="py-3 px-4 font-bold text-right">Sumber Anggaran</th>
+              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[8px] sm:text-[10px]">
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold">Nama Program</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold hidden sm:table-cell">Deskripsi Manfaat</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold text-center">Penerima</th>
+                <th className="py-2 px-2 sm:py-3 sm:px-4 font-bold text-right">Sumber</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
               {bansosList.map((item, idx) => (
                 <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-slate-800">{item.program}</td>
-                  <td className="py-3.5 px-4 text-slate-600">{item.desc}</td>
-                  <td className="py-3.5 px-4 text-center font-bold text-emerald-700">{item.kpm}</td>
-                  <td className="py-3.5 px-4 text-right">
-                    <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">{item.budget}</span>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4">
+                    <p className="font-bold text-slate-800 text-[10px] sm:text-xs">{item.program}</p>
+                    <p className="text-[9px] text-slate-500 sm:hidden mt-0.5 line-clamp-1">{item.desc}</p>
+                  </td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-slate-600 hidden sm:table-cell">{item.desc}</td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-center font-bold text-emerald-700 whitespace-nowrap">{item.kpm}</td>
+                  <td className="py-2 px-2 sm:py-3.5 sm:px-4 text-right">
+                    <span className="bg-slate-100 text-slate-700 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold whitespace-nowrap">{item.budget}</span>
                   </td>
                 </tr>
               ))}
@@ -820,23 +840,23 @@ function SosialTab() {
       </Card>
 
       {/* Lembaga Sosial & Partisipasi Warga */}
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm space-y-3">
-          <h4 className="font-bold text-slate-800 text-sm flex items-center gap-2">
-            <Users className="h-4 w-4 text-primary" />
+      <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-sm space-y-2 sm:space-y-3">
+          <h4 className="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
+            <Users className="h-4 w-4 text-primary shrink-0" />
             Lembaga Kemasyarakatan Desa (LKD)
           </h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed">
             Pemberdayaan masyarakat didukung oleh organisasi aktif seperti TP-PKK (12 Pokja aktif), Karang Taruna Tunas Harapan (kegiatan pemuda & olahraga), LPMD (perencanaan pembangunan), serta Satgas Linmas beranggotakan 35 personel siaga bencana & kamtibmas.
           </p>
         </div>
 
-        <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm space-y-3">
-          <h4 className="font-bold text-slate-800 text-sm flex items-center gap-2">
-            <Heart className="h-4 w-4 text-red-500" />
+        <div className="p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-sm space-y-2 sm:space-y-3">
+          <h4 className="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
+            <Heart className="h-4 w-4 text-red-500 shrink-0" />
             Kearifan Lokal & Gotong Royong
           </h4>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed">
             Masyarakat Desa Karanggintung senantiasa memelihara tradisi gotong royong seperti Sedekah Bumi tahunan, Sadranan, kerja bakti lingkungan mingguan, dan tradisi Sambatan bedah rumah warga prasejahtera.
           </p>
         </div>
@@ -850,88 +870,88 @@ function SosialTab() {
 // ==========================================
 function EkonomiTab() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Top Economic Metrics */}
-      <div className="grid sm:grid-cols-4 gap-4">
-        <Card className="rounded-3xl p-6 bg-gradient-to-br from-amber-600 to-amber-800 text-white shadow-sm">
-          <p className="text-[10px] font-bold text-amber-200 uppercase tracking-widest">Sektor Pertanian</p>
-          <h3 className="text-3xl font-black mt-2 font-display">62%</h3>
-          <p className="text-xs text-amber-100/80 mt-1">Tulang punggung ekonomi warga</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-gradient-to-br from-amber-600 to-amber-800 text-white shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-amber-200 uppercase tracking-wider">Pertanian</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black mt-1 sm:mt-2 font-display">62%</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-amber-100/80 mt-0.5 sm:mt-1">Tulang punggung warga</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Produksi Padi Tahunan</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">1.450 Ton</h3>
-          <p className="text-xs text-emerald-600 font-semibold mt-1">Luas sawah 480+ Hektar</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Padi Tahunan</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">1.450 Ton</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-emerald-600 font-semibold mt-0.5 sm:mt-1">480+ Ha sawah</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Gula Semut / Kelapa</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">320 Ton</h3>
-          <p className="text-xs text-slate-500 mt-1">Komoditas ekspor & lokal</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gula Semut</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">320 Ton</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Komoditas ekspor</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">UMKM Terdaftar</p>
-          <h3 className="text-3xl font-black text-primary mt-2 font-display">140+ Unit</h3>
-          <p className="text-xs text-slate-500 mt-1">Usaha mikro & kerajinan desa</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">UMKM</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-primary mt-1 sm:mt-2 font-display">140+</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Unit usaha mikro</p>
         </Card>
       </div>
 
       {/* Komoditas & Populasi Ternak */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <Sprout className="h-4 w-4 text-emerald-600" />
+      <div className="grid md:grid-cols-2 gap-3 sm:gap-6">
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5 sm:gap-2">
+            <Sprout className="h-4 w-4 text-emerald-600 shrink-0" />
             Komoditas Pertanian & Perkebunan
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {[
               { name: 'Padi Sawah (IR-64 & Ciherang)', yield: '1.450 Ton / thn', area: '480 Ha' },
               { name: 'Kelapa & Nira Gula Jawa / Semut', yield: '320 Ton / thn', area: '180 Ha' },
               { name: 'Jagung Hibrida & Pipil', yield: '210 Ton / thn', area: '65 Ha' },
               { name: 'Singkong & Umbi-umbian', yield: '180 Ton / thn', area: '45 Ha' },
-              { name: 'Hortikultura (Cabai, Terong, Kacang)', yield: '95 Ton / thn', area: '30 Ha' },
+              { name: 'Hortikultura (Cabai, Sayur)', yield: '95 Ton / thn', area: '30 Ha' },
             ].map((item, idx) => (
-              <div key={idx} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+              <div key={idx} className="flex justify-between items-center p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-100 text-[10px] sm:text-xs">
                 <div>
                   <p className="font-bold text-slate-800">{item.name}</p>
-                  <p className="text-[10px] text-slate-500">Estimasi Lahan: {item.area}</p>
+                  <p className="text-[9px] text-slate-500">Estimasi: {item.area}</p>
                 </div>
-                <span className="font-black text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">{item.yield}</span>
+                <span className="font-black text-emerald-700 bg-emerald-50 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md shrink-0">{item.yield}</span>
               </div>
             ))}
           </div>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
-            <Coins className="h-4 w-4 text-amber-600" />
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5 sm:gap-2">
+            <Coins className="h-4 w-4 text-amber-600 shrink-0" />
             Populasi Ternak & BUMDes Karanggintung
           </h3>
-          <div className="space-y-3">
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-3 rounded-xl bg-slate-50 border text-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase">Sapi Potong</p>
-                <p className="text-xl font-black text-slate-800 mt-1">240</p>
-                <p className="text-[10px] text-slate-500">Ekor</p>
+          <div className="space-y-2.5 sm:space-y-3">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+              <div className="p-2 sm:p-3 rounded-xl bg-slate-50 border text-center">
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase">Sapi</p>
+                <p className="text-base min-[380px]:text-lg sm:text-xl font-black text-slate-800 mt-0.5 sm:mt-1">240</p>
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] text-slate-500">Ekor</p>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 border text-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase">Kambing/Domba</p>
-                <p className="text-xl font-black text-slate-800 mt-1">890</p>
-                <p className="text-[10px] text-slate-500">Ekor</p>
+              <div className="p-2 sm:p-3 rounded-xl bg-slate-50 border text-center">
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase">Kambing</p>
+                <p className="text-base min-[380px]:text-lg sm:text-xl font-black text-slate-800 mt-0.5 sm:mt-1">890</p>
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] text-slate-500">Ekor</p>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 border text-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase">Unggas Ayam</p>
-                <p className="text-xl font-black text-slate-800 mt-1">12.000+</p>
-                <p className="text-[10px] text-slate-500">Ekor</p>
+              <div className="p-2 sm:p-3 rounded-xl bg-slate-50 border text-center">
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase">Unggas</p>
+                <p className="text-base min-[380px]:text-lg sm:text-xl font-black text-slate-800 mt-0.5 sm:mt-1">12K+</p>
+                <p className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] text-slate-500">Ekor</p>
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-1.5">
-              <h4 className="font-bold text-emerald-950 text-xs uppercase tracking-wider">BUMDes Makmur Karanggintung</h4>
-              <p className="text-xs text-emerald-900 leading-relaxed">
-                Mengelola unit usaha simpan pinjam desa, penyaluran sarana produksi pertanian (pupuk & benih), pengelolaan air bersih Pamsimas, dan kemitraan pemasaran produk gula semut UMKM.
+            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-1 sm:space-y-1.5">
+              <h4 className="font-bold text-emerald-950 text-[10px] sm:text-xs uppercase tracking-wider">BUMDes Makmur Karanggintung</h4>
+              <p className="text-[10px] sm:text-xs text-emerald-900 leading-relaxed">
+                Mengelola unit simpan pinjam desa, penyaluran sarana pertanian (pupuk & benih), air bersih Pamsimas, dan kemitraan pemasaran produk gula semut UMKM.
               </p>
             </div>
           </div>
@@ -946,38 +966,38 @@ function EkonomiTab() {
 // ==========================================
 function PembangunanTab() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Overview APBDes */}
-      <div className="grid sm:grid-cols-4 gap-4">
-        <Card className="rounded-3xl p-6 bg-gradient-to-br from-emerald-800 to-slate-900 text-white shadow-sm">
-          <p className="text-[10px] font-bold text-emerald-200 uppercase tracking-widest">Realisasi APBDes</p>
-          <h3 className="text-3xl font-black mt-2 font-display">98.4%</h3>
-          <p className="text-xs text-emerald-100/80 mt-1">Kinerja serapan anggaran tinggi</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-gradient-to-br from-emerald-800 to-slate-900 text-white shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-emerald-200 uppercase tracking-wider">APBDes</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black mt-1 sm:mt-2 font-display">98.4%</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-emerald-100/80 mt-0.5 sm:mt-1">Serapan anggaran</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jalan Rabat & Aspal</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">42 Km</h3>
-          <p className="text-xs text-emerald-600 font-semibold mt-1">88% Kondisi Mantap</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Jalan Desa</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">42 Km</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-emerald-600 font-semibold mt-0.5 sm:mt-1">88% Kondisi Mantap</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Drainase & Irigasi</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-2 font-display">28 Km</h3>
-          <p className="text-xs text-slate-500 mt-1">Saluran tersier & pemukiman</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Drainase</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 sm:mt-2 font-display">28 Km</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Irigasi & saluran air</p>
         </Card>
 
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">PJU Tenaga Surya / Listrik</p>
-          <h3 className="text-3xl font-black text-amber-600 mt-2 font-display">350 Titik</h3>
-          <p className="text-xs text-slate-500 mt-1">Penerangan jalan 5 dusun</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">PJU</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-amber-600 mt-1 sm:mt-2 font-display">350 Titik</h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Penerangan 5 dusun</p>
         </Card>
       </div>
 
       {/* Program Pembangunan Prioritas */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Capaian Infrastruktur & Fasilitas Publik</h3>
-        <div className="grid md:grid-cols-2 gap-4">
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+        <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Capaian Infrastruktur & Fasilitas Publik</h3>
+        <div className="grid md:grid-cols-2 gap-2.5 sm:gap-4">
           {[
             {
               title: 'Peningkatan Jalan Usaha Tani & Poros Desa',
@@ -1004,17 +1024,17 @@ function PembangunanTab() {
               tag: 'Sarana Olahraga'
             }
           ].map((item, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+            <div key={idx} className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 sm:space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">
                   {item.tag}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 flex items-center gap-1">
                   <CheckCircle2 className="h-3 w-3 text-emerald-600" /> {item.status}
                 </span>
               </div>
-              <h4 className="font-bold text-slate-800 text-sm">{item.title}</h4>
-              <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+              <h4 className="font-bold text-slate-800 text-xs sm:text-sm">{item.title}</h4>
+              <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -1049,51 +1069,51 @@ function SDGsTab() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Banner SDGs */}
-      <div className="p-8 rounded-3xl bg-gradient-to-r from-blue-900 via-teal-900 to-emerald-900 text-white relative overflow-hidden shadow-sm">
-        <div className="relative z-10 max-w-2xl space-y-3">
-          <Badge className="bg-white/20 text-white text-[10px] font-black uppercase tracking-widest border-none">
-            Sustainable Development Goals Desa
+      <div className="p-4 min-[380px]:p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-900 via-teal-900 to-emerald-900 text-white relative overflow-hidden shadow-sm">
+        <div className="relative z-10 max-w-2xl space-y-2 sm:space-y-3">
+          <Badge className="bg-white/20 text-white text-[8px] min-[380px]:text-[10px] font-black uppercase tracking-widest border-none">
+            SDGs Desa
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-black font-display tracking-tight">
-            Skor SDGs Desa Karanggintung: 72.84
+          <h2 className="text-lg sm:text-2xl md:text-3xl font-black font-display tracking-tight">
+            Skor SDGs: 72.84
           </h2>
-          <p className="text-xs text-slate-200 leading-relaxed">
-            Pencapaian 18 tujuan pembangunan berkelanjutan desa untuk mewujudkan desa yang mandiri, berdaya saing, inklusif, dan ramah lingkungan.
+          <p className="text-[10px] sm:text-xs text-slate-200 leading-relaxed">
+            Pencapaian 18 tujuan pembangunan berkelanjutan desa untuk mewujudkan Desa Karanggintung yang mandiri dan berdaya saing.
           </p>
         </div>
       </div>
 
       {/* 18 Goals Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
         {sdgsGoals.map((g) => (
           <div
             key={g.no}
-            className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow space-y-3 relative overflow-hidden"
+            className="p-2.5 min-[380px]:p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow space-y-2 sm:space-y-3 relative overflow-hidden"
           >
             <div className="flex items-center justify-between">
               <span
-                className="h-7 w-7 rounded-lg text-white font-black text-xs flex items-center justify-center shrink-0"
+                className="h-5 w-5 min-[380px]:h-6 min-[380px]:w-6 sm:h-7 sm:w-7 rounded-md sm:rounded-lg text-white font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0"
                 style={{ backgroundColor: g.color }}
               >
                 {g.no}
               </span>
-              <span className="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-black text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded truncate max-w-[80px] sm:max-w-none text-center">
                 {g.status}
               </span>
             </div>
 
-            <h4 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2 min-h-[2.5rem]">
+            <h4 className="font-bold text-slate-800 text-[11px] min-[380px]:text-xs sm:text-sm leading-tight line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem]">
               {g.title}
             </h4>
 
             <div className="space-y-1">
-              <div className="flex justify-between text-xs font-bold">
-                <span className="text-slate-400 text-[10px] uppercase tracking-wider">Capaian Indikator</span>
+              <div className="flex justify-between text-[9px] sm:text-xs font-bold">
+                <span className="text-slate-400 text-[8px] sm:text-[10px] uppercase tracking-wider">Capaian</span>
                 <span className="text-slate-900">{g.score}%</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 h-1.5 sm:h-2 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{ width: `${g.score}%`, backgroundColor: g.color }}
@@ -1121,64 +1141,66 @@ function IndeksTab() {
 
   const quickWins = [
     {
-      title: '1. Pembentukan Perdes & Tata Kelola Lingkungan Hidup',
+      title: '1. Pembentukan Perdes & Tata Kelola Lingkungan',
       impact: '+15 Skor',
       difficulty: 'Mudah',
-      desc: 'Menerbitkan Peraturan Desa (Perdes) pelestarian lingkungan, pembentukan Bank Sampah Dusun, dan jadwal pengangkutan sampah terpadu.',
+      desc: 'Menerbitkan Perdes pelestarian lingkungan, Bank Sampah Dusun, dan jadwal angkut sampah terpadu.',
     },
     {
-      title: '2. Layanan Dokter Kunjungan Berkala & Siaga Darurat',
+      title: '2. Dokter Kunjungan Berkala & Siaga Darurat',
       impact: '+10 Skor',
       difficulty: 'Sedang',
-      desc: 'Membangun MoU kemitraan dengan Puskesmas Gandrungmangu untuk jadwal dokter praktik mingguan di PKD/Poskesdes Karanggintung.',
+      desc: 'Membangun MoU kemitraan dengan Puskesmas untuk dokter praktik mingguan di PKD Karanggintung.',
     },
     {
-      title: '3. Pelatihan Vokasi, Kursus & Balai Latihan Kerja Desa',
+      title: '3. Pelatihan Vokasi & Balai Latihan Kerja Desa',
       impact: '+10 Skor',
       difficulty: 'Mudah',
       desc: 'Mengaktifkan pelatihan non-formal (digital marketing gula semut, tata boga, kerajinan) bekerjasama dengan Disnaker/LPK.',
     },
     {
-      title: '4. Pemeliharaan Berkala & Penutupan Lubang Jalan Poros',
+      title: '4. Pemeliharaan & Tambal Lubang Jalan Poros',
       impact: '+12 Skor',
       difficulty: 'Sedang',
-      desc: 'Meningkatkan status jalan aspal/beton yang rusak sedang menjadi mantap melalui padat karya tunai dan swadaya dusun.',
+      desc: 'Meningkatkan jalan aspal/beton rusak sedang menjadi mantap melalui padat karya tunai dan swadaya.',
     },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       {/* Top Banner Status Indeks Desa 2025 */}
-      <Card className="rounded-3xl p-8 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white shadow-xl relative overflow-hidden border-none">
-        <div className="relative z-10 grid md:grid-cols-12 gap-6 items-center">
-          <div className="md:col-span-8 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[10px] font-black uppercase tracking-widest">
-              <Award className="h-3.5 w-3.5 text-amber-400" />
-              Laporan Resmi Indeks Desa 2025
+      <Card className="rounded-2xl sm:rounded-3xl p-4 min-[380px]:p-5 sm:p-8 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white shadow-xl relative overflow-hidden border-none">
+        <div className="relative z-10 grid md:grid-cols-12 gap-4 sm:gap-6 items-center">
+          <div className="md:col-span-8 space-y-2 sm:space-y-3">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[8px] min-[380px]:text-[10px] font-black uppercase tracking-widest">
+              <Award className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-400" />
+              Laporan Indeks Desa 2025
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-display">
+            <h2 className="text-xl min-[380px]:text-2xl sm:text-3xl md:text-4xl font-extrabold font-display">
               Status: DESA BERKEMBANG
             </h2>
-            <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
-              Berdasarkan data <strong>Indeks Desa 2025</strong>, Desa Karanggintung (Kecamatan Gandrungmangu, Kabupaten Cilacap) berstatus <strong>Berkembang</strong> dengan perolehan total skor <strong>437</strong> dari nilai maksimal <strong>635</strong>. Rata-rata skor berada di angka <strong>3.44</strong> (skala 5).
+            <p className="text-[10px] sm:text-xs md:text-sm text-slate-200 leading-relaxed">
+              Berdasarkan data <strong>Indeks Desa 2025</strong>, Desa Karanggintung (Kec. Gandrungmangu, Kab. Cilacap) berstatus <strong>Berkembang</strong> dengan total skor <strong>437</strong> dari nilai maksimal <strong>635</strong>. Rata-rata skor <strong>3.44</strong> (skala 5).
             </p>
-            <p className="text-xs text-emerald-200/90 font-medium">
-              Lebih dari separuh indikator (<strong>65 indikator</strong>) telah mencapai skor maksimal (Skor 5), namun masih terdapat <strong>38 indikator</strong> yang berada di skor terendah (Skor 1) yang menjadi fokus pembenahan.
+            <p className="text-[10px] sm:text-xs text-emerald-200/90 font-medium">
+              Sebanyak <strong>65 indikator</strong> meraih skor maksimal (Skor 5), dengan <strong>38 indikator</strong> di skor terendah (Skor 1) menjadi fokus pembenahan.
             </p>
           </div>
-          <div className="md:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/10 space-y-3">
+          <div className="md:col-span-4 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3.5 sm:p-6 text-center border border-white/10 space-y-2 sm:space-y-3">
             <div>
-              <p className="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">Total Skor Diperoleh</p>
-              <h3 className="text-4xl md:text-5xl font-black mt-1 text-white font-display">437 <span className="text-lg font-normal text-emerald-200">/ 635</span></h3>
+              <p className="text-[8px] min-[380px]:text-[10px] font-bold text-emerald-300 uppercase tracking-widest">Total Skor</p>
+              <h3 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl font-black mt-0.5 sm:mt-1 text-white font-display">
+                437 <span className="text-sm sm:text-lg font-normal text-emerald-200">/ 635</span>
+              </h3>
             </div>
             <div className="pt-2 border-t border-white/10 flex justify-around text-center">
               <div>
-                <p className="text-[9px] text-slate-300 uppercase font-bold">Rata-rata Skor</p>
-                <p className="text-lg font-black text-emerald-300">3.44 <span className="text-xs font-normal text-slate-300">/ 5.0</span></p>
+                <p className="text-[8px] sm:text-[9px] text-slate-300 uppercase font-bold">Rata-rata</p>
+                <p className="text-sm sm:text-lg font-black text-emerald-300">3.44 <span className="text-[9px] sm:text-xs font-normal text-slate-300">/ 5</span></p>
               </div>
               <div>
-                <p className="text-[9px] text-slate-300 uppercase font-bold">Status Desa</p>
-                <p className="text-sm font-black text-amber-300 uppercase">Berkembang</p>
+                <p className="text-[8px] sm:text-[9px] text-slate-300 uppercase font-bold">Status</p>
+                <p className="text-xs sm:text-sm font-black text-amber-300 uppercase">Berkembang</p>
               </div>
             </div>
           </div>
@@ -1186,60 +1208,64 @@ function IndeksTab() {
       </Card>
 
       {/* KPI Cards Ringkasan Indikator */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="rounded-3xl p-5 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Skor 5 (Sangat Baik)</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-1 font-display">65 <span className="text-xs font-normal text-slate-500">Indikator</span></h3>
-          <p className="text-xs text-emerald-600 font-bold mt-1">51.1% Capaian Maksimal</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Skor 5 (Sangat Baik)</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 font-display">65 <span className="text-[10px] sm:text-xs font-normal text-slate-500">Indikator</span></h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-emerald-600 font-bold mt-0.5 sm:mt-1">51.1% Maksimal</p>
         </Card>
 
-        <Card className="rounded-3xl p-5 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Skor 4 (Baik)</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-1 font-display">6 <span className="text-xs font-normal text-slate-500">Indikator</span></h3>
-          <p className="text-xs text-blue-600 font-bold mt-1">4.7% Memadai</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-blue-600 uppercase tracking-wider">Skor 4 (Baik)</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 font-display">6 <span className="text-[10px] sm:text-xs font-normal text-slate-500">Indikator</span></h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-blue-600 font-bold mt-0.5 sm:mt-1">4.7% Memadai</p>
         </Card>
 
-        <Card className="rounded-3xl p-5 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Skor 3 (Sedang)</p>
-          <h3 className="text-3xl font-black text-slate-800 mt-1 font-display">14 <span className="text-xs font-normal text-slate-500">Indikator</span></h3>
-          <p className="text-xs text-amber-600 font-bold mt-1">11.0% Menengah</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-amber-600 uppercase tracking-wider">Skor 3 (Sedang)</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-slate-800 mt-1 font-display">14 <span className="text-[10px] sm:text-xs font-normal text-slate-500">Indikator</span></h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-amber-600 font-bold mt-0.5 sm:mt-1">11.0% Menengah</p>
         </Card>
 
-        <Card className="rounded-3xl p-5 bg-white border-slate-100 shadow-sm">
-          <p className="text-[10px] font-bold text-rose-600 uppercase tracking-widest">Skor 1 & 2 (Kritis)</p>
-          <h3 className="text-3xl font-black text-rose-600 mt-1 font-display">42 <span className="text-xs font-normal text-slate-500">Indikator</span></h3>
-          <p className="text-xs text-rose-600 font-bold mt-1">33.0% Butuh Intervensi</p>
+        <Card className="rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-white border-slate-100 shadow-sm">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-rose-600 uppercase tracking-wider">Skor 1 & 2 (Kritis)</p>
+          <h3 className="text-xl min-[380px]:text-2xl sm:text-3xl font-black text-rose-600 mt-1 font-display">42 <span className="text-[10px] sm:text-xs font-normal text-slate-500">Indikator</span></h3>
+          <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs text-rose-600 font-bold mt-0.5 sm:mt-1">33.0% Butuh Intervensi</p>
         </Card>
       </div>
 
       {/* Tabel & Distribusi Kinerja Indikator */}
-      <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-6">
+      <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-6">
         <div>
-          <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Statistik dan Kinerja Indikator Indeks Desa</h3>
-          <p className="text-xs text-slate-500">Sebaran evaluasi 127 total indikator penilaian Indeks Desa 2025.</p>
+          <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">Statistik Kinerja Indikator Indeks Desa</h3>
+          <p className="text-[10px] sm:text-xs text-slate-500">Sebaran evaluasi 127 total indikator penilaian Indeks Desa 2025.</p>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+        <div className="overflow-x-auto -mx-1 sm:mx-0">
+          <table className="w-full text-left text-[10px] sm:text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-4 font-bold">Kategori Skor</th>
-                <th className="py-3 px-4 font-bold text-center">Jumlah Indikator</th>
-                <th className="py-3 px-4 font-bold text-center">Persentase</th>
-                <th className="py-3 px-4 font-bold">Interpretasi & Kondisi Lapangan</th>
+              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[8px] sm:text-[10px]">
+                <th className="py-2 px-1.5 sm:py-3 sm:px-4 font-bold">Skor</th>
+                <th className="py-2 px-1.5 sm:py-3 sm:px-4 font-bold text-center">Jumlah</th>
+                <th className="py-2 px-1.5 sm:py-3 sm:px-4 font-bold text-center">%</th>
+                <th className="py-2 px-1.5 sm:py-3 sm:px-4 font-bold">Interpretasi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
               {indicatorStats.map((item, idx) => (
                 <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-3.5 px-4 font-bold">
-                    <span className={cn("px-2.5 py-1 rounded-full text-[10px] font-black border", item.badgeColor)}>
-                      {item.score}
+                  <td className="py-2 px-1.5 sm:py-3.5 sm:px-4 font-bold">
+                    <span className={cn("px-1.5 sm:px-2.5 py-0.5 rounded-full text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-black border whitespace-nowrap", item.badgeColor)}>
+                      <span className="sm:hidden">{item.score.split(' ')[0]} {item.score.split(' ')[1]}</span>
+                      <span className="hidden sm:inline">{item.score}</span>
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 text-center font-black text-slate-900">{item.count} Indikator</td>
-                  <td className="py-3.5 px-4 text-center font-bold text-slate-700">{item.percent}%</td>
-                  <td className="py-3.5 px-4 text-slate-600">{item.desc}</td>
+                  <td className="py-2 px-1.5 sm:py-3.5 sm:px-4 text-center font-black text-slate-900 whitespace-nowrap">
+                    <span className="sm:hidden">{item.count}</span>
+                    <span className="hidden sm:inline">{item.count} Indikator</span>
+                  </td>
+                  <td className="py-2 px-1.5 sm:py-3.5 sm:px-4 text-center font-bold text-slate-700 whitespace-nowrap">{item.percent}%</td>
+                  <td className="py-2 px-1.5 sm:py-3.5 sm:px-4 text-slate-600 text-[9px] sm:text-xs">{item.desc}</td>
                 </tr>
               ))}
             </tbody>
@@ -1247,9 +1273,9 @@ function IndeksTab() {
         </div>
 
         {/* Visual Progress Breakdown */}
-        <div className="space-y-2 pt-2">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Komposisi Indikator Berdasarkan Skor</p>
-          <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden flex">
+        <div className="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
+          <p className="text-[8px] min-[380px]:text-[10px] font-bold text-slate-400 uppercase tracking-wider">Komposisi Indikator Berdasarkan Skor</p>
+          <div className="h-3 sm:h-4 w-full bg-slate-100 rounded-full overflow-hidden flex">
             {indicatorStats.map((item, idx) => (
               <div
                 key={idx}
@@ -1258,10 +1284,10 @@ function IndeksTab() {
               />
             ))}
           </div>
-          <div className="flex flex-wrap gap-4 text-[10px] font-bold text-slate-600 pt-1">
+          <div className="flex flex-wrap gap-2 sm:gap-4 text-[8px] min-[380px]:text-[9px] sm:text-[10px] font-bold text-slate-600 pt-1">
             {indicatorStats.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: item.barColor }} />
+              <div key={idx} className="flex items-center gap-1">
+                <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full shrink-0" style={{ backgroundColor: item.barColor }} />
                 <span>{item.score.split(' ')[0]} ({item.percent}%)</span>
               </div>
             ))}
@@ -1270,157 +1296,152 @@ function IndeksTab() {
       </Card>
 
       {/* Rincian Analisis Sektoral (Pendidikan, Kesehatan, Ekonomi, Infrastruktur, Sosial, Lingkungan, Pemerintahan) */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-3 sm:gap-6">
         {/* 1. Pendidikan & Kesehatan */}
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b pb-3">
-            <div className="h-8 w-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2 border-b pb-2 sm:pb-3">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg sm:rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
               <GraduationCap className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">1. Pendidikan & Kesehatan</h3>
-              <p className="text-[10px] text-slate-400">Analisis akses layanan dasar masyarakat</p>
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">1. Pendidikan & Kesehatan</h3>
+              <p className="text-[9px] sm:text-[10px] text-slate-400">Akses layanan dasar masyarakat</p>
             </div>
           </div>
 
-          <div className="space-y-3 text-xs leading-relaxed text-slate-600">
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+          <div className="space-y-2 sm:space-y-3 text-[10px] sm:text-xs leading-relaxed text-slate-600">
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
               <div className="flex justify-between items-center">
                 <p className="font-bold text-slate-800">Sektor Pendidikan</p>
-                <Badge className="bg-emerald-600 text-white text-[9px] font-bold">Skor 5 (SD/SMP)</Badge>
+                <Badge className="bg-emerald-600 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5">Skor 5 (SD/SMP)</Badge>
               </div>
               <p>Desa memiliki akses dan partisipasi sangat baik pada jenjang SD/MI hingga SMP/MTs (skor 5).</p>
-              <p className="text-rose-600 font-semibold pt-1">
-                ⚠️ Kendala: Akses menuju SMA/SMK/Sederajat sangat sulit (skor 1), dan tidak ada pendidikan non-formal atau pusat kursus yang aktif.
+              <p className="text-rose-600 font-semibold pt-0.5">
+                ⚠️ Akses menuju SMA/SMK sangat sulit (skor 1), dan belum ada kursus vokasi aktif.
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
               <div className="flex justify-between items-center">
                 <p className="font-bold text-slate-800">Sektor Kesehatan</p>
-                <Badge className="bg-emerald-600 text-white text-[9px] font-bold">Skor 5 (Bidan & Posyandu)</Badge>
+                <Badge className="bg-emerald-600 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5">Skor 5 (Bidan & Posyandu)</Badge>
               </div>
-              <p>Akses air minum harian, ketersediaan Bidan, Tenaga Kesehatan lain, serta aktivitas Posyandu berjalan sangat baik (skor 5).</p>
-              <p className="text-rose-600 font-semibold pt-1">
-                ⚠️ Kendala: Belum tersedianya layanan dokter tetap maupun sarana transportasinya (skor 1).
+              <p>Air minum harian, ketersediaan Bidan, dan aktivitas Posyandu berjalan optimal (skor 5).</p>
+              <p className="text-rose-600 font-semibold pt-0.5">
+                ⚠️ Belum tersedianya dokter tetap dan transportasi rujukan darurat (skor 1).
               </p>
             </div>
           </div>
         </Card>
 
         {/* 2. Ekonomi & Infrastruktur */}
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b pb-3">
-            <div className="h-8 w-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2 border-b pb-2 sm:pb-3">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg sm:rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
               <TrendingUp className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">2. Ekonomi & Infrastruktur</h3>
-              <p className="text-[10px] text-slate-400">Potensi pendapatan & konektivitas wilayah</p>
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">2. Ekonomi & Infrastruktur</h3>
+              <p className="text-[9px] sm:text-[10px] text-slate-400">Potensi pendapatan & konektivitas</p>
             </div>
           </div>
 
-          <div className="space-y-3 text-xs leading-relaxed text-slate-600">
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+          <div className="space-y-2 sm:space-y-3 text-[10px] sm:text-xs leading-relaxed text-slate-600">
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
               <div className="flex justify-between items-center">
-                <p className="font-bold text-slate-800">Kekuatan Ekonomi Desa</p>
-                <Badge className="bg-emerald-600 text-white text-[9px] font-bold">Unggulan</Badge>
+                <p className="font-bold text-slate-800">Kekuatan Ekonomi</p>
+                <Badge className="bg-emerald-600 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5">Unggulan</Badge>
               </div>
-              <p>Terdapat produk unggulan desa dengan merek dagang yang sudah terdaftar dan penjualan ke luar desa.</p>
-              <p>BUMDes berbadan hukum beroperasi dengan baik, didukung dengan adanya fasilitas kredit KUR dan sinyal telekomunikasi kuat (4G/5G).</p>
+              <p>Produk gula semut bermerek dagang terdaftar, BUMDes berbadan hukum, kredit KUR, dan sinyal 4G kuat.</p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
               <div className="flex justify-between items-center">
                 <p className="font-bold text-slate-800">Kendala Infrastruktur</p>
-                <Badge className="bg-amber-600 text-white text-[9px] font-bold">Perlu Pembenahan</Badge>
+                <Badge className="bg-amber-600 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5">Perlu Pembenahan</Badge>
               </div>
-              <p>Tidak terdapat pasar desa, perbankan komersial, maupun KUD aktif.</p>
-              <p className="text-slate-700">Permukaan jalan desa utamanya aspal/beton (skor 5), namun kualitas jalan mengalami <strong>rusak sedang</strong>. Akses transportasi angkutan umum juga minim beroperasi.</p>
+              <p>Jalan desa utamanya aspal/beton (skor 5) namun kualitasnya <strong>rusak sedang</strong>. Angkutan umum minim.</p>
             </div>
           </div>
         </Card>
 
         {/* 3. Lingkungan Hidup (Sangat Kritis) */}
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b pb-3">
-            <div className="h-8 w-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2 border-b pb-2 sm:pb-3">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg sm:rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
               <Sprout className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">3. Lingkungan Hidup (Sangat Kritis)</h3>
-              <p className="text-[10px] text-rose-500 font-bold">Area prioritas intervensi mendesak</p>
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">3. Lingkungan Hidup</h3>
+              <p className="text-[9px] sm:text-[10px] text-rose-500 font-bold">Prioritas intervensi mendesak</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200/80 text-xs leading-relaxed space-y-2 text-rose-950">
-            <p className="font-bold text-rose-900">⚠️ Pengelolaan lingkungan sama sekali belum berjalan:</p>
-            <ul className="space-y-1.5 list-disc pl-4 text-rose-900">
-              <li>Tidak ada peraturan desa (Perdes) pelestarian lingkungan.</li>
-              <li>Belum tersedianya Tempat Penampungan Sampah (TPS) terpadu.</li>
-              <li>Belum ada sistem pengolahan limbah cair rumah tangga & peternakan (skor 1).</li>
-              <li>Tidak tersedianya fasilitas dan jalur evakuasi mitigasi bencana.</li>
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-rose-50/70 border border-rose-200/80 text-[10px] sm:text-xs leading-relaxed space-y-1.5 text-rose-950">
+            <p className="font-bold text-rose-900">⚠️ Area kritis yang butuh intervensi:</p>
+            <ul className="space-y-1 list-disc pl-3.5 sm:pl-4 text-rose-900">
+              <li>Belum ada Perdes pelestarian lingkungan hidup.</li>
+              <li>Belum tersedianya TPS sampah terpadu & pengolahan limbah.</li>
+              <li>Tidak tersedianya fasilitas & jalur evakuasi mitigasi bencana.</li>
             </ul>
           </div>
         </Card>
 
         {/* 4. Sosial, Tata Kelola & Pemerintahan */}
-        <Card className="rounded-3xl p-6 bg-white border-slate-100 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b pb-3">
-            <div className="h-8 w-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+        <Card className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 bg-white border-slate-100 shadow-sm space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2 border-b pb-2 sm:pb-3">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg sm:rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
               <Building2 className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">4. Sosial & Tata Kelola Pemerintahan</h3>
-              <p className="text-[10px] text-emerald-600 font-bold">Kekuatan modal sosial & administrasi</p>
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">4. Sosial & Tata Kelola</h3>
+              <p className="text-[9px] sm:text-[10px] text-emerald-600 font-bold">Kekuatan modal sosial & administrasi</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-xs leading-relaxed space-y-2 text-emerald-950">
-            <p className="font-bold text-emerald-900">✅ Keunggulan Modal Sosial & Tata Kelola:</p>
-            <ul className="space-y-1.5 list-disc pl-4 text-emerald-900">
-              <li>Sangat unggul dalam penyelesaian konflik warga secara musyawarah & damai.</li>
-              <li>Tingginya partisipasi gotong royong warga dan keaktifan ronda Satkamling di seluruh RT.</li>
-              <li>Pelayanan administrasi kantor desa berjalan setiap hari kerja secara terbuka.</li>
-              <li>Aset desa berhasil diinventarisasi dengan tertib.</li>
-              <li>Pendapatan Asli Desa (PADes) mengalami peningkatan yang stabil setiap tahun.</li>
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-[10px] sm:text-xs leading-relaxed space-y-1.5 text-emerald-950">
+            <p className="font-bold text-emerald-900">✅ Keunggulan modal sosial & tata kelola:</p>
+            <ul className="space-y-1 list-disc pl-3.5 sm:pl-4 text-emerald-900">
+              <li>Penyelesaian konflik warga secara musyawarah & damai.</li>
+              <li>Gotong royong tinggi & ronda Satkamling aktif 37 RT.</li>
+              <li>Pelayanan kantor desa terbuka setiap hari kerja & PADes stabil.</li>
             </ul>
           </div>
         </Card>
       </div>
 
       {/* Rekomendasi Proyeksi Menjadi Desa "Maju" */}
-      <Card className="rounded-3xl p-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white shadow-lg space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <Card className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white shadow-lg space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/20 text-secondary text-[10px] font-black uppercase tracking-widest mb-2">
-              <Sparkles className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary text-[8px] min-[380px]:text-[10px] font-black uppercase tracking-widest mb-1">
+              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               Rencana Strategis
             </div>
-            <h3 className="text-xl font-black font-display tracking-tight text-white">
-              Analisis Proyeksi: Area Termudah Ditingkatkan Menuju "Desa Maju"
+            <h3 className="text-base sm:text-xl font-black font-display tracking-tight text-white">
+              Quick Wins Menuju "Desa Maju"
             </h3>
-            <p className="text-xs text-slate-300 mt-1">
-              Fokus pada *Quick Wins* berbiaya efisien dengan dampak lonjakan skor indikator tertinggi untuk melompat dari status Berkembang ke Maju.
+            <p className="text-[10px] sm:text-xs text-slate-300 mt-0.5">
+              Area prioritas berbiaya efisien dengan dampak lonjakan skor indikator tertinggi.
             </p>
           </div>
-          <Badge className="bg-emerald-600 text-white text-xs font-black uppercase px-4 py-2 self-start sm:self-auto shrink-0">
-            Target 2026: Desa Maju
+          <Badge className="bg-emerald-600 text-white text-[10px] sm:text-xs font-black uppercase px-3 py-1.5 self-start sm:self-auto shrink-0">
+            Target 2026: Maju
           </Badge>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-2.5 sm:gap-4">
           {quickWins.map((qw, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-colors space-y-2">
-              <div className="flex justify-between items-center">
+            <div key={idx} className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-colors space-y-1.5 sm:space-y-2">
+              <div className="flex justify-between items-center gap-2">
                 <span className="text-xs font-black text-white">{qw.title}</span>
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded">
+                <span className="text-[9px] sm:text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded shrink-0">
                   {qw.impact}
                 </span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">{qw.desc}</p>
-              <div className="pt-1 flex items-center gap-2 text-[10px] text-slate-400 font-semibold">
-                <span>Tingkat Kesulitan: <strong className="text-amber-300">{qw.difficulty}</strong></span>
+              <p className="text-[10px] sm:text-xs text-slate-300 leading-relaxed">{qw.desc}</p>
+              <div className="pt-0.5 flex items-center gap-2 text-[9px] sm:text-[10px] text-slate-400 font-semibold">
+                <span>Kesulitan: <strong className="text-amber-300">{qw.difficulty}</strong></span>
               </div>
             </div>
           ))}

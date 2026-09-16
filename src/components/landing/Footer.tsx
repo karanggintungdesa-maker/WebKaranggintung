@@ -156,8 +156,8 @@ export function Footer() {
     <>
       {/* 1. Banner Logo Mitra / Layanan Terkait di Atas Footer (Sesuai Referensi) */}
       {activeLogo.length > 0 && (
-        <section className="relative z-10 w-full border-t border-b border-slate-200/90 bg-white py-3.5 sm:py-6 shadow-sm">
-          <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        <section className="relative z-10 w-full overflow-hidden border-t border-b border-slate-200/90 bg-white py-3.5 sm:py-6 shadow-sm">
+          <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 overflow-hidden">
             <div className="flex items-center justify-between gap-2 sm:gap-4">
               {/* Tombol Panah Kiri */}
               <button
@@ -230,7 +230,7 @@ export function Footer() {
       )}
 
       {/* 2. Footer Utama */}
-      <footer className="relative z-10 border-t border-slate-800/80 bg-[#081325] text-slate-300">
+      <footer className="relative z-10 w-full overflow-hidden border-t border-slate-800/80 bg-[#081325] text-slate-300">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-4 gap-y-5 sm:gap-8 lg:gap-10">
           {/* Kolom 1: Identitas Desa (Lebar Penuh di Mobile) */}

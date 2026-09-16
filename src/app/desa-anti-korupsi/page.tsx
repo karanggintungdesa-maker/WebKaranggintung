@@ -21,6 +21,7 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ShieldCheck, FileText, Image as ImageIcon, ExternalLink, Download, AlertCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface DBItemData {
   id: string; // matches item.id, e.g. "1.1.1"
@@ -129,41 +130,45 @@ export default function DesaAntiKorupsi() {
       <BackgroundPattern />
       <Header />
 
-      <main className="relative flex-1 pt-24 pb-16">
+      <main className="relative flex-1 pt-20 sm:pt-24 pb-12 sm:pb-16">
         {/* Hero Section */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold uppercase tracking-wider">
-              <ShieldCheck className="h-4 w-4 text-emerald-600" />
+        <section className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-6 sm:pt-12 pb-4 sm:pb-8">
+          <div className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
+              <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600" />
               <span>Program Desa Anti Korupsi</span>
             </div>
 
-            <h1 className="text-3xl font-extrabold sm:text-4xl text-slate-900 uppercase tracking-tight">
-              Desa <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">Anti Korupsi</span>
+            <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 uppercase tracking-tight font-display italic">
+              Desa <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent not-italic">Anti Korupsi</span>
             </h1>
 
-            <p className="text-sm leading-relaxed text-slate-500">
-              Wujud nyata transparansi, akuntabilitas, dan integritas Pemerintah Desa Karanggintung. Kami berkomitmen menyediakan akses terbuka bagi seluruh warga terhadap dokumen perencanaan, pengawasan, pelayanan publik, partisipasi masyarakat, dan kearifan lokal.
+            <p className="text-xs sm:text-sm leading-relaxed text-slate-500 max-w-2xl mx-auto">
+              Wujud nyata transparansi, akuntabilitas, dan integritas Pemerintah Desa Karanggintung dengan akses terbuka terhadap dokumen perencanaan, pengawasan, pelayanan publik, dan kearifan lokal.
             </p>
           </div>
         </section>
 
         {/* Main Content Area */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Navigation Pilar Tabs */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3 p-1.5 bg-slate-100/80 backdrop-blur rounded-2xl border border-slate-200 mb-8">
-            {antiKorupsiData.map((pilar) => {
+        <section className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          {/* Navigation Pilar Tabs - 5 Columns or 3+2 Grid on Mobile */}
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 p-1 sm:p-1.5 bg-slate-100/80 backdrop-blur rounded-xl sm:rounded-2xl border border-slate-200 mb-6 sm:mb-8">
+            {antiKorupsiData.map((pilar, idx) => {
               const isActive = activeTab === pilar.id;
               return (
                 <button
                   key={pilar.id}
                   onClick={() => setActiveTab(pilar.id)}
-                  className={`col-span-1 py-3 px-3 rounded-xl text-center text-[10px] sm:text-xs font-black uppercase tracking-wider transition-all duration-300 ${isActive
-                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/10'
-                    : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-50'
-                    }`}
+                  className={cn(
+                    "py-2 sm:py-3 px-1.5 sm:px-3 rounded-lg sm:rounded-xl text-center text-[9px] min-[380px]:text-[10px] sm:text-xs font-black uppercase tracking-tight sm:tracking-wider transition-all duration-300",
+                    idx === 3 ? "col-span-1 min-[380px]:col-span-1" : "",
+                    idx === 4 ? "col-span-2 min-[380px]:col-span-2 sm:col-span-1" : "",
+                    isActive
+                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 scale-[1.01]"
+                      : "text-slate-600 hover:text-emerald-700 hover:bg-slate-50"
+                  )}
                 >
-                  <span className="block text-[8px] opacity-60 mb-0.5">PILAR {pilar.id.replace('pilar-', '')}</span>
+                  <span className="block text-[7px] min-[380px]:text-[8px] opacity-75 mb-0.5">PILAR {pilar.id.replace('pilar-', '')}</span>
                   <span className="line-clamp-1">{pilar.title}</span>
                 </button>
               );
@@ -172,48 +177,48 @@ export default function DesaAntiKorupsi() {
 
           {/* Active Pilar Detail */}
           {activePilar && (
-            <div className="space-y-6 animate-fadeIn">
-              <div className="border-l-4 border-emerald-600 pl-4 py-1">
-                <h2 className="text-lg font-bold text-slate-800 uppercase tracking-wider">
+            <div className="space-y-4 sm:space-y-6 animate-fadeIn">
+              <div className="border-l-3 sm:border-l-4 border-emerald-600 pl-3 sm:pl-4 py-0.5 sm:py-1">
+                <h2 className="text-sm sm:text-lg font-black text-slate-800 uppercase tracking-wider font-display">
                   Pilar {activePilar.id.replace('pilar-', '')}: {activePilar.title}
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-[10.5px] sm:text-xs text-slate-500 font-medium mt-0.5">
                   Berikut adalah daftar regulasi, dokumen pendukung, dan bukti implementasi pilar anti-korupsi.
                 </p>
               </div>
 
               {isLoading ? (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {[1, 2, 3].map((n) => (
-                    <Skeleton key={n} className="h-16 w-full rounded-xl" />
+                    <Skeleton key={n} className="h-14 sm:h-16 w-full rounded-xl" />
                   ))}
                 </div>
               ) : error ? (
-                <div className="p-6 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 text-red-700">
+                <div className="p-4 sm:p-6 bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl flex items-center gap-3 text-red-700">
                   <AlertCircle className="h-5 w-5 shrink-0" />
-                  <p className="text-sm">Gagal memuat dokumen. Silakan coba beberapa saat lagi.</p>
+                  <p className="text-xs sm:text-sm font-medium">Gagal memuat dokumen. Silakan coba beberapa saat lagi.</p>
                 </div>
               ) : (
-                <Accordion type="single" collapsible className="space-y-3 w-full">
+                <Accordion type="single" collapsible className="space-y-2.5 sm:space-y-3 w-full">
                   {activePilar.subMenus.map((subMenu) => (
                     <AccordionItem
                       key={subMenu.id}
                       value={subMenu.id}
-                      className="border border-slate-200 bg-white rounded-2xl overflow-hidden px-4 md:px-6 transition-all duration-300 hover:shadow-md hover:border-slate-300"
+                      className="border border-slate-200 bg-white rounded-xl sm:rounded-2xl overflow-hidden px-3 sm:px-4 md:px-6 transition-all duration-300 hover:shadow-md hover:border-slate-300"
                     >
-                      <AccordionTrigger className="hover:no-underline py-4 text-left">
-                        <div className="flex items-start gap-3">
-                          <span className="font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded text-xs shrink-0 mt-0.5">
+                      <AccordionTrigger className="hover:no-underline py-3 sm:py-4 text-left">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <span className="font-mono text-emerald-600 font-bold bg-emerald-50 px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs shrink-0 mt-0.5">
                             {subMenu.id}
                           </span>
-                          <span className="text-xs md:text-sm font-bold text-slate-700 leading-relaxed hover:text-emerald-700">
+                          <span className="text-xs sm:text-sm font-bold text-slate-700 leading-snug hover:text-emerald-700">
                             {subMenu.title}
                           </span>
                         </div>
                       </AccordionTrigger>
 
-                      <AccordionContent className="pb-6 pt-2 border-t border-slate-100">
-                        <div className="space-y-3 mt-4">
+                      <AccordionContent className="pb-4 sm:pb-6 pt-1 sm:pt-2 border-t border-slate-100">
+                        <div className="space-y-2.5 sm:space-y-3 mt-2 sm:mt-4">
                           {subMenu.items.map((item) => {
                             const files = uploadedFilesMap.get(item.id);
                             const yearsToDisplay = selectedYear === 'semua' ? ['2024', '2025', '2026'] : [selectedYear];
@@ -227,19 +232,19 @@ export default function DesaAntiKorupsi() {
                             return (
                               <div
                                 key={item.id}
-                                className="p-4 rounded-xl border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition-all space-y-3"
+                                className="p-3 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition-all space-y-2 sm:space-y-3"
                               >
-                                <div className="flex items-start gap-2.5">
-                                  <span className="font-mono text-[11px] text-emerald-700 font-black bg-emerald-100/90 px-2 py-0.5 rounded-md shrink-0 mt-0.5">
+                                <div className="flex items-start gap-2 sm:gap-2.5">
+                                  <span className="font-mono text-[10px] sm:text-[11px] text-emerald-700 font-black bg-emerald-100/90 px-1.5 sm:px-2 py-0.5 rounded-md shrink-0 mt-0.5">
                                     {item.id}
                                   </span>
-                                  <h4 className="text-xs md:text-sm font-bold text-slate-800 leading-snug">
+                                  <h4 className="text-[11px] sm:text-xs md:text-sm font-bold text-slate-800 leading-snug">
                                     {item.title}
                                   </h4>
                                 </div>
 
                                 {hasAnyFile ? (
-                                  <div className="space-y-2 pt-1">
+                                  <div className="space-y-1.5 sm:space-y-2 pt-0.5 sm:pt-1">
                                     {yearsToDisplay.map((yr) => {
                                       const yearPdfs = getPdfsForYear(files, yr);
                                       const yearImages = getImagesForYear(files, yr);
@@ -249,15 +254,15 @@ export default function DesaAntiKorupsi() {
                                       return (
                                         <div
                                           key={yr}
-                                          className="bg-white border border-slate-200/80 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:border-slate-300 transition-colors"
+                                          className="bg-white border border-slate-200/80 rounded-lg sm:rounded-xl p-2.5 sm:p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 shadow-2xs hover:border-slate-300 transition-colors"
                                         >
                                           <div className="flex items-center gap-1.5 shrink-0">
-                                            <span className="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-950 text-[10px] font-black uppercase font-mono tracking-wide border border-amber-300/60">
+                                            <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-950 text-[9px] sm:text-[10px] font-black uppercase font-mono tracking-wide border border-amber-300/60">
                                               Tahun {yr}
                                             </span>
                                           </div>
 
-                                          <div className="flex flex-wrap items-center gap-2 flex-1 sm:justify-end">
+                                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 flex-1 sm:justify-end">
                                             {yearPdfs.map((pdf, idx) => (
                                               <a
                                                 key={`pdf-${yr}-${idx}`}
@@ -269,10 +274,10 @@ export default function DesaAntiKorupsi() {
                                                 <Button
                                                   variant="outline"
                                                   size="sm"
-                                                  className="h-8 rounded-lg border-red-200 bg-red-50/70 text-red-700 hover:bg-red-100 hover:text-red-900 text-[10px] font-bold uppercase tracking-wider max-w-full gap-1.5"
+                                                  className="h-7 sm:h-8 rounded-lg border-red-200 bg-red-50/70 text-red-700 hover:bg-red-100 hover:text-red-900 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider max-w-full gap-1 sm:gap-1.5 px-2 sm:px-3"
                                                 >
-                                                  <FileText className="h-3.5 w-3.5 text-red-600 shrink-0" />
-                                                  <span className="max-w-[140px] sm:max-w-[200px] truncate">
+                                                  <FileText className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-red-600 shrink-0" />
+                                                  <span className="max-w-[120px] min-[380px]:max-w-[150px] sm:max-w-[200px] truncate">
                                                     {pdf.name}
                                                   </span>
                                                   <ExternalLink className="h-2.5 w-2.5 text-red-400 shrink-0" />
@@ -292,10 +297,10 @@ export default function DesaAntiKorupsi() {
                                                   setIsDialogOpen(true);
                                                 }}
                                                 title={img.name}
-                                                className="h-8 rounded-lg border-emerald-200 bg-emerald-50/70 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 text-[10px] font-bold uppercase tracking-wider max-w-full gap-1.5"
+                                                className="h-7 sm:h-8 rounded-lg border-emerald-200 bg-emerald-50/70 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider max-w-full gap-1 sm:gap-1.5 px-2 sm:px-3"
                                               >
-                                                <ImageIcon className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                                                <span className="max-w-[140px] sm:max-w-[200px] truncate">
+                                                <ImageIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600 shrink-0" />
+                                                <span className="max-w-[120px] min-[380px]:max-w-[150px] sm:max-w-[200px] truncate">
                                                   {img.name}
                                                 </span>
                                               </Button>
@@ -306,7 +311,7 @@ export default function DesaAntiKorupsi() {
                                     })}
                                   </div>
                                 ) : (
-                                  <p className="text-[11px] font-medium text-slate-400 italic pt-1 pl-1">
+                                  <p className="text-[10.5px] sm:text-[11px] font-medium text-slate-400 italic pt-0.5 pl-0.5">
                                     Belum ada dokumen terunggah untuk item ini.
                                   </p>
                                 )}
@@ -326,11 +331,11 @@ export default function DesaAntiKorupsi() {
 
       {/* Dialog for Image documentation */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-6 shadow-2xl">
+        <DialogContent className="max-w-2xl bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-slate-800 text-sm font-bold flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-emerald-600" />
-              <span>Dokumentasi: {activeItemTitle}</span>
+            <DialogTitle className="text-slate-800 text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2">
+              <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 shrink-0" />
+              <span className="line-clamp-1">Dokumentasi: {activeItemTitle}</span>
             </DialogTitle>
           </DialogHeader>
 

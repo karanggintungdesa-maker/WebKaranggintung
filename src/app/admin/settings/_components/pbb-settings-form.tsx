@@ -124,31 +124,31 @@ export function PbbSettingsForm() {
 
   return (
     <Card className="border-border/60 shadow-sm rounded-2xl overflow-hidden">
-      <CardHeader className="bg-slate-50/50 border-b border-border/40 pb-5">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-            <Receipt className="h-5 w-5" />
+      <CardHeader className="bg-slate-50/50 border-b border-border/40 p-3.5 sm:p-6 pb-2.5 sm:pb-4">
+        <div className="flex items-start gap-2 sm:gap-3">
+          <div className="p-1.5 sm:p-2 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 shrink-0 mt-0.5">
+            <Receipt className="h-4 w-4" />
           </div>
-          <div>
-            <CardTitle className="text-lg font-bold">Integrasi Spreadsheet PBB-P2</CardTitle>
-            <CardDescription>
-              Hubungkan Google Spreadsheet data SPPT PBB (Sheet: BNBA PBB 26 mulai baris 5) ke mesin pencari di landing page.
+          <div className="min-w-0">
+            <CardTitle className="text-xs sm:text-base font-bold leading-tight">Integrasi Spreadsheet PBB-P2</CardTitle>
+            <CardDescription className="text-[11px] sm:text-xs mt-0.5">
+              Hubungkan Google Spreadsheet data SPPT PBB ke mesin pencari di landing page.
             </CardDescription>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="p-6">
-        <form onSubmit={handleSave} className="space-y-6">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="scriptUrl" className="font-semibold text-sm flex items-center gap-1.5">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSave} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+              <Label htmlFor="scriptUrl" className="font-semibold text-xs flex items-center gap-1.5">
                 URL Google Apps Script Web App
               </Label>
               <a
                 href="/docs/pbb-spreadsheet-setup.md"
                 target="_blank"
-                className="text-xs text-emerald-600 hover:underline inline-flex items-center gap-1 font-medium"
+                className="text-[11px] sm:text-xs text-emerald-600 hover:underline inline-flex items-center gap-1 font-medium"
               >
                 <HelpCircle className="h-3 w-3" />
                 Panduan Script
@@ -159,38 +159,38 @@ export function PbbSettingsForm() {
               placeholder="https://script.google.com/macros/s/AKfycb.../exec"
               value={scriptUrl}
               onChange={(e) => setScriptUrl(e.target.value.trim())}
-              className="rounded-xl font-mono text-sm"
+              className="rounded-lg sm:rounded-xl font-mono text-xs h-8 sm:h-9"
             />
             {scriptUrl.includes('docs.google.com/spreadsheets') && (
-              <div className="rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-700 space-y-1">
+              <div className="rounded-xl bg-rose-50 border border-rose-200 p-2.5 sm:p-3 text-[11px] sm:text-xs text-rose-700 space-y-1">
                 <p className="font-bold flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                   Peringatan: Ini adalah link Spreadsheet, bukan link Web App!
                 </p>
                 <p>
-                  URL yang dibutuhkan adalah URL Web App hasil <strong>Deploy &gt; Penerapan baru &gt; Aplikasi Web</strong> yang berakhiran <code>/exec</code>. Silakan ikuti panduan pada dokumen setup.
+                  URL yang dibutuhkan adalah URL Web App hasil <strong>Deploy &gt; Penerapan baru &gt; Aplikasi Web</strong> yang berakhiran <code>/exec</code>.
                 </p>
               </div>
             )}
             {scriptUrl.includes('script.google.com') && scriptUrl.includes('/edit') && (
-              <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-xs text-amber-700 space-y-1">
+              <div className="rounded-xl bg-amber-50 border border-amber-200 p-2.5 sm:p-3 text-[11px] sm:text-xs text-amber-700 space-y-1">
                 <p className="font-bold flex items-center gap-1">
-                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                   Peringatan: Ini adalah link Editor Script (/edit)!
                 </p>
                 <p>
-                  Buka editor Apps Script, lalu klik <strong>Terapkan (Deploy) &gt; Penerapan baru &gt; Aplikasi Web (Who has access: Anyone)</strong> untuk mendapatkan link yang berakhiran <code>/exec</code>.
+                  Buka editor Apps Script, lalu klik <strong>Terapkan (Deploy) &gt; Penerapan baru &gt; Aplikasi Web (Who has access: Anyone)</strong> (berakhiran <code>/exec</code>).
                 </p>
               </div>
             )}
-            <p className="text-[11px] text-muted-foreground">
-              Didapatkan setelah melakukan <strong>Deploy (Penerapan baru) &gt; Web App</strong> dengan izin <strong>Who has access: Anyone</strong> di Apps Script (berakhiran <code>/exec</code>).
+            <p className="text-[10px] text-muted-foreground">
+              Didapatkan dari <strong>Deploy &gt; Web App</strong> izin <strong>Anyone</strong> (akhiran <code>/exec</code>).
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="sheetName" className="font-semibold text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="sheetName" className="font-semibold text-xs">
                 Nama Sheet
               </Label>
               <Input
@@ -198,15 +198,15 @@ export function PbbSettingsForm() {
                 placeholder="BNBA PBB 26"
                 value={sheetName}
                 onChange={(e) => setSheetName(e.target.value)}
-                className="rounded-xl"
+                className="rounded-lg sm:rounded-xl text-xs h-8 sm:h-9"
               />
-              <p className="text-[11px] text-muted-foreground">
-                Default: <code>BNBA PBB 26</code> (data dimulai pada baris 5).
+              <p className="text-[10px] text-muted-foreground">
+                Default: <code>BNBA PBB 26</code>.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="contactWhatsApp" className="font-semibold text-sm">
+            <div className="space-y-1">
+              <Label htmlFor="contactWhatsApp" className="font-semibold text-xs">
                 Nomor WhatsApp Konfirmasi PBB
               </Label>
               <Input
@@ -214,43 +214,43 @@ export function PbbSettingsForm() {
                 placeholder="0895-3211-09179"
                 value={contactWhatsApp}
                 onChange={(e) => setContactWhatsApp(e.target.value)}
-                className="rounded-xl"
+                className="rounded-lg sm:rounded-xl text-xs h-8 sm:h-9"
               />
-              <p className="text-[11px] text-muted-foreground">
-                Nomor kontak petugas/koordinator untuk tombol konfirmasi warga.
+              <p className="text-[10px] text-muted-foreground">
+                Nomor petugas untuk konfirmasi warga.
               </p>
             </div>
           </div>
 
           {testResult && (
-            <div className={`p-4 rounded-xl text-xs flex items-center gap-2 border ${
+            <div className={`p-2.5 sm:p-3 rounded-xl text-xs flex items-center gap-2 border ${
               testResult.success
                 ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                 : 'bg-rose-50 text-rose-800 border-rose-200'
             }`}>
               {testResult.success ? <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" /> : <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />}
-              <span>{testResult.message}</span>
+              <span className="text-[11px] sm:text-xs">{testResult.message}</span>
             </div>
           )}
 
-          <div className="flex items-center justify-between pt-2 border-t border-border/40">
+          <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 border-t border-border/40">
             <Button
               type="button"
               variant="outline"
               onClick={handleTestConnection}
               disabled={isTesting || !scriptUrl}
-              className="rounded-xl font-semibold gap-2 text-xs"
+              className="w-full sm:w-auto rounded-lg sm:rounded-xl font-semibold gap-1.5 text-xs h-8 sm:h-9"
             >
-              {isTesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ExternalLink className="h-4 w-4" />}
+              {isTesting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ExternalLink className="h-3.5 w-3.5" />}
               Uji Koneksi Script
             </Button>
 
             <Button
               type="submit"
               disabled={isSaving}
-              className="bg-primary hover:bg-primary/90 text-white rounded-xl font-semibold gap-2"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-lg sm:rounded-xl font-semibold gap-1.5 text-xs h-8 sm:h-9"
             >
-              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
               Simpan Pengaturan
             </Button>
           </div>

@@ -28,13 +28,13 @@ const capilForms = [
 
 export default function FormulirCapilPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       <PageHeader 
         title="Formulir Capil" 
         description="Daftar formulir resmi dari Dinas Kependudukan dan Catatan Sipil (Disdukcapil) Kabupaten Cilacap."
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
         {capilForms.map((form, index) => (
           <a 
             key={index} 
@@ -43,18 +43,18 @@ export default function FormulirCapilPage() {
             rel="noopener noreferrer" 
             className="group"
           >
-            <Card className="h-full border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white rounded-3xl overflow-hidden flex flex-col group-hover:-translate-y-1">
-              <CardContent className="p-6 flex items-center gap-4 flex-1">
-                <div className="p-3 rounded-2xl bg-emerald-50 text-emerald-700 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <FileDown className="h-6 w-6" />
+            <Card className="h-full border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col group-hover:-translate-y-1">
+              <CardContent className="p-3.5 sm:p-6 flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-emerald-50 text-emerald-700 group-hover:bg-primary group-hover:text-white transition-colors duration-300 shrink-0">
+                  <FileDown className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
-                <div className="space-y-1 flex-1">
-                  <h3 className="font-bold text-slate-800 leading-tight group-hover:text-primary transition-colors text-sm uppercase">
+                <div className="space-y-1 flex-1 min-w-0">
+                  <h3 className="font-bold text-slate-800 leading-tight group-hover:text-primary transition-colors text-xs sm:text-sm uppercase line-clamp-2">
                     {form.title}
                   </h3>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-secondary">BUKA FORMULIR</span>
-                    <ExternalLink className="h-2.5 w-2.5 text-slate-300" />
+                    <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-secondary">BUKA FORMULIR</span>
+                    <ExternalLink className="h-2.5 w-2.5 text-slate-300 shrink-0" />
                   </div>
                 </div>
               </CardContent>

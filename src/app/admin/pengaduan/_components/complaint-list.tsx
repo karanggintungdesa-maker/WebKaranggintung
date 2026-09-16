@@ -107,12 +107,12 @@ export function ComplaintList() {
   };
 
   return (
-    <Card className="rounded-[2rem] border-none shadow-sm overflow-hidden">
-      <CardHeader className="bg-slate-50 border-b p-8">
-        <CardTitle className="text-xl font-black uppercase tracking-tight">Daftar Pengaduan Masuk</CardTitle>
-        <CardDescription className="font-medium">Tinjau laporan warga dan berikan tanggapan resmi pemerintah desa.</CardDescription>
+    <Card className="rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden">
+      <CardHeader className="bg-slate-50 border-b p-4 sm:p-6 md:p-8">
+        <CardTitle className="text-lg sm:text-xl font-black uppercase tracking-tight">Daftar Pengaduan Masuk</CardTitle>
+        <CardDescription className="font-medium text-xs sm:text-sm">Tinjau laporan warga dan berikan tanggapan resmi pemerintah desa.</CardDescription>
       </CardHeader>
-      <CardContent className="p-8">
+      <CardContent className="p-3.5 sm:p-6 md:p-8">
         {isLoadingComplaints || !user ? (
              <div className="space-y-4">
                 <Skeleton className="h-20 w-full rounded-2xl" />
@@ -123,21 +123,21 @@ export function ComplaintList() {
             <Accordion
             type="single"
             collapsible
-            className="w-full space-y-4"
+            className="w-full space-y-3 sm:space-y-4"
             >
             {complaints?.length === 0 && (
-                <div className="text-center py-20 bg-slate-50 rounded-[2rem] border border-dashed">
-                    <MessageSquare className="h-10 w-10 text-slate-300 mx-auto mb-4" />
-                    <p className="text-slate-400 font-black uppercase text-xs tracking-widest">Belum ada pengaduan masuk.</p>
+                <div className="text-center py-16 sm:py-20 bg-slate-50 rounded-2xl sm:rounded-[2rem] border border-dashed">
+                    <MessageSquare className="h-8 w-8 sm:h-10 sm:w-10 text-slate-300 mx-auto mb-3 sm:mb-4" />
+                    <p className="text-slate-400 font-black uppercase text-[10px] sm:text-xs tracking-widest">Belum ada pengaduan masuk.</p>
                 </div>
             )}
             {complaints?.map((complaint) => (
                 <AccordionItem
                 value={complaint.id}
                 key={complaint.id}
-                className="border rounded-[1.5rem] px-6 hover:shadow-sm transition-all"
+                className="border rounded-2xl sm:rounded-[1.5rem] px-3.5 sm:px-6 hover:shadow-sm transition-all"
                 >
-                <AccordionTrigger className="py-5 hover:no-underline">
+                <AccordionTrigger className="py-3.5 sm:py-5 hover:no-underline">
                     <div className="flex flex-col gap-2 text-left w-full">
                     <div className="flex justify-between items-start gap-4">
                         <div className="space-y-1">

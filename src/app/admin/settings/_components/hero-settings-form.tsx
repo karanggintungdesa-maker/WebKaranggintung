@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -43,14 +42,13 @@ export function HeroSettingsForm() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // 700KB limit for Firestore document size
     if (file.size > 700 * 1024) { 
-        toast({
-            title: "Ukuran File Terlalu Besar",
-            description: "Ukuran gambar hero tidak boleh melebihi 700KB.",
-            variant: "destructive",
-        });
-        return;
+      toast({
+        title: "Ukuran File Terlalu Besar",
+        description: "Ukuran gambar hero tidak boleh melebihi 700KB.",
+        variant: "destructive",
+      });
+      return;
     }
 
     setIsUploading(true);
@@ -65,8 +63,8 @@ export function HeroSettingsForm() {
     };
 
     reader.onerror = () => {
-        toast({ title: "Gagal Membaca File", variant: "destructive" });
-        setIsUploading(false);
+      toast({ title: "Gagal Membaca File", variant: "destructive" });
+      setIsUploading(false);
     };
     
     reader.readAsDataURL(file);
@@ -95,49 +93,49 @@ export function HeroSettingsForm() {
   };
 
   if (isDataLoading) {
-    return <Skeleton className="h-[300px] w-full" />;
+    return <Skeleton className="h-[200px] w-full" />;
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <ImageIcon className="h-5 w-5" />
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <ImageIcon className="h-4 w-4 text-emerald-600 shrink-0" />
           Gambar Utama Beranda (Hero)
         </CardTitle>
-        <CardDescription>Ganti gambar besar yang tampil di bagian atas halaman depan website.</CardDescription>
+        <CardDescription className="text-[11px] sm:text-xs">Ganti gambar besar yang tampil di bagian atas halaman depan website.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <Label>Pratinjau Gambar</Label>
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border-2 border-dashed bg-muted flex items-center justify-center">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs font-semibold">Pratinjau Gambar</Label>
+            <div className="relative aspect-[16/9] max-h-48 sm:max-h-64 w-full overflow-hidden rounded-lg sm:rounded-xl border-2 border-dashed bg-muted flex items-center justify-center">
               {imagePreview ? (
                 <img src={imagePreview} alt="Hero Preview" className="h-full w-full object-cover" />
               ) : (
-                <p className="text-sm text-muted-foreground">Belum ada gambar kustom</p>
+                <p className="text-xs text-muted-foreground">Belum ada gambar kustom</p>
               )}
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="hero-upload">Pilih File Gambar (JPG/PNG)</Label>
-            <div className="flex items-center gap-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="hero-upload" className="text-xs font-semibold">Pilih File Gambar (JPG/PNG)</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <Input
                 id="hero-upload"
                 type="file"
                 accept="image/jpeg, image/png"
                 onChange={handleFileChange}
                 disabled={isSaving || isUploading}
-                className="max-w-sm"
+                className="w-full text-xs h-8 sm:h-9"
               />
-              {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
+              {isUploading && <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0" />}
             </div>
-            <p className="text-[10px] text-muted-foreground uppercase font-bold">Maksimal 700KB. Gunakan orientasi lanskap (melebar).</p>
+            <p className="text-[10px] text-muted-foreground uppercase font-semibold">Maks 700KB. Gunakan orientasi lanskap (melebar).</p>
           </div>
 
-          <Button type="submit" disabled={isSaving || isUploading || !imageUrl}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving || isUploading || !imageUrl} className="w-full sm:w-auto h-8 sm:h-9 text-xs">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Gambar Hero
           </Button>
         </form>

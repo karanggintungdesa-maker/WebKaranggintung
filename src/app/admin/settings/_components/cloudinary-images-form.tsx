@@ -58,7 +58,7 @@ export function AccompanyingImageSettingsForm() {
 
       toast({
         title: 'Gambar Terunggah ke Cloudinary',
-        description: 'Pratinjau telah diperbarui. Klik "Simpan Gambar Pendamping" untuk menerapkan.',
+        description: 'Pratinjau telah diperbarui. Klik "Simpan" untuk menerapkan.',
       });
     } catch (error: any) {
       console.error('Error uploading file:', error);
@@ -99,13 +99,13 @@ export function AccompanyingImageSettingsForm() {
     return (
       <Card>
         <CardHeader>
-          <Skeleton className="h-8 w-1/2" />
+          <Skeleton className="h-6 w-1/2" />
           <Skeleton className="h-4 w-3/4" />
         </CardHeader>
         <CardContent>
-          <div className="space-y-8">
-            <Skeleton className="h-48 w-full" />
-            <Skeleton className="h-11 w-48" />
+          <div className="space-y-4">
+            <Skeleton className="h-32 w-full" />
+            <Skeleton className="h-9 w-full" />
           </div>
         </CardContent>
       </Card>
@@ -113,21 +113,21 @@ export function AccompanyingImageSettingsForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <ImageIcon className="h-5 w-5 text-emerald-600" />
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <ImageIcon className="h-4 w-4 text-emerald-600 shrink-0" />
           Upload Gambar Pendamping
         </CardTitle>
-        <CardDescription>
-          Unggah gambar pendamping untuk bagian "Tentang Desa" di halaman utama. Disimpan secara aman di Sistem.
+        <CardDescription className="text-[11px] sm:text-xs">
+          Unggah gambar untuk bagian "Tentang Desa" di halaman utama. Disimpan di Cloudinary.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="space-y-4">
-            <Label>Pratinjau Gambar Pendamping</Label>
-            <div className="relative aspect-video w-full max-w-md border-2 border-dashed rounded-xl overflow-hidden flex items-center justify-center bg-muted/30">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs font-semibold">Pratinjau</Label>
+            <div className="relative aspect-video max-h-48 w-full border-2 border-dashed rounded-lg sm:rounded-xl overflow-hidden flex items-center justify-center bg-muted/30">
               {imagePreview ? (
                 <Image
                   src={imagePreview}
@@ -136,31 +136,29 @@ export function AccompanyingImageSettingsForm() {
                   className="object-cover"
                 />
               ) : (
-                <p className="text-xs text-muted-foreground text-center">Belum ada gambar pendamping</p>
+                <p className="text-xs text-muted-foreground text-center px-2">Belum ada gambar pendamping</p>
               )}
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="accompanying-upload">Pilih Gambar Baru</Label>
-            <div className="flex items-center gap-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="accompanying-upload" className="text-xs font-semibold">Pilih Gambar Baru</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <Input
                 id="accompanying-upload"
                 type="file"
                 accept="image/png, image/jpeg, image/webp"
                 onChange={handleFileChange}
                 disabled={isSaving || isUploading}
-                className="pt-2 flex-grow max-w-sm cursor-pointer"
+                className="w-full cursor-pointer text-xs h-8 sm:h-9"
               />
-              {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
+              {isUploading && <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0" />}
             </div>
-            <p className="text-sm text-muted-foreground">
-              Ukuran maks: 3MB. Format: PNG, JPG, atau WEBP.
-            </p>
+            <p className="text-[10px] text-muted-foreground">Maks: 3MB. Format: PNG, JPG, WEBP.</p>
           </div>
 
-          <Button type="submit" disabled={isSaving || isUploading || !imageUrl}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving || isUploading || !imageUrl} className="w-full sm:w-auto h-8 sm:h-9 text-xs">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Gambar Pendamping
           </Button>
         </form>
@@ -213,7 +211,7 @@ export function PengaduanImageSettingsForm() {
 
       toast({
         title: 'Gambar Terunggah ke Cloudinary',
-        description: 'Pratinjau telah diperbarui. Klik "Simpan Gambar Pengaduan" untuk menerapkan.',
+        description: 'Pratinjau telah diperbarui. Klik "Simpan" untuk menerapkan.',
       });
     } catch (error: any) {
       console.error('Error uploading file:', error);
@@ -254,13 +252,13 @@ export function PengaduanImageSettingsForm() {
     return (
       <Card>
         <CardHeader>
-          <Skeleton className="h-8 w-1/2" />
+          <Skeleton className="h-6 w-1/2" />
           <Skeleton className="h-4 w-3/4" />
         </CardHeader>
         <CardContent>
-          <div className="space-y-8">
-            <Skeleton className="h-64 w-48" />
-            <Skeleton className="h-11 w-48" />
+          <div className="space-y-4">
+            <Skeleton className="h-40 w-32" />
+            <Skeleton className="h-9 w-full" />
           </div>
         </CardContent>
       </Card>
@@ -268,21 +266,21 @@ export function PengaduanImageSettingsForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Upload className="h-5 w-5 text-red-500" />
-          Upload Pengaduan Masyarakat
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <Upload className="h-4 w-4 text-rose-500 shrink-0" />
+          Upload Gambar Pengaduan
         </CardTitle>
-        <CardDescription>
-          Unggah gambar untuk kartu "Layanan Pengaduan" di Landing Page. Rasio gambar: Lebar 3 : Tinggi 4. Disimpan di Sistem.
+        <CardDescription className="text-[11px] sm:text-xs">
+          Unggah gambar untuk kartu "Layanan Pengaduan" di Landing Page. Rasio 3:4.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="space-y-4">
-            <Label>Pratinjau Gambar Pengaduan Masyarakat</Label>
-            <div className="relative aspect-[3/4] w-48 border-2 border-dashed rounded-2xl overflow-hidden flex items-center justify-center bg-muted/30">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs font-semibold">Pratinjau (rasio 3:4)</Label>
+            <div className="relative aspect-[3/4] w-28 sm:w-36 border-2 border-dashed rounded-lg sm:rounded-xl overflow-hidden flex items-center justify-center bg-muted/30">
               {imagePreview ? (
                 <Image
                   src={imagePreview}
@@ -291,32 +289,29 @@ export function PengaduanImageSettingsForm() {
                   className="object-cover"
                 />
               ) : (
-                <p className="text-xs text-muted-foreground text-center px-4">Belum ada gambar pengaduan masyarakat</p>
+                <p className="text-[10px] text-muted-foreground text-center px-2">Belum ada gambar</p>
               )}
             </div>
-            <p className="text-xs text-muted-foreground">Rasio ideal: 3:4 (contoh: 600px × 800px)</p>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="pengaduan-upload">Pilih Gambar Baru</Label>
-            <div className="flex items-center gap-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="pengaduan-upload" className="text-xs font-semibold">Pilih Gambar Baru</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <Input
                 id="pengaduan-upload"
                 type="file"
                 accept="image/png, image/jpeg, image/webp"
                 onChange={handleFileChange}
                 disabled={isSaving || isUploading}
-                className="pt-2 flex-grow max-w-sm cursor-pointer"
+                className="w-full cursor-pointer text-xs h-8 sm:h-9"
               />
-              {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
+              {isUploading && <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0" />}
             </div>
-            <p className="text-sm text-muted-foreground">
-              Ukuran maks: 3MB. Format: PNG, JPG, atau WEBP.
-            </p>
+            <p className="text-[10px] text-muted-foreground">Maks: 3MB. Format: PNG, JPG, WEBP.</p>
           </div>
 
-          <Button type="submit" disabled={isSaving || isUploading || !pengaduanImageUrl}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving || isUploading || !pengaduanImageUrl} className="w-full sm:w-auto h-8 sm:h-9 text-xs">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Gambar Pengaduan
           </Button>
         </form>
@@ -369,7 +364,7 @@ export function KadesPhotoSettingsForm() {
 
       toast({
         title: 'Foto Terunggah ke Cloudinary',
-        description: 'Pratinjau telah diperbarui. Klik "Simpan Foto Kades" untuk menerapkan.',
+        description: 'Pratinjau telah diperbarui. Klik "Simpan" untuk menerapkan.',
       });
     } catch (error: any) {
       console.error('Error uploading file:', error);
@@ -410,13 +405,13 @@ export function KadesPhotoSettingsForm() {
     return (
       <Card>
         <CardHeader>
-          <Skeleton className="h-8 w-1/2" />
+          <Skeleton className="h-6 w-1/2" />
           <Skeleton className="h-4 w-3/4" />
         </CardHeader>
         <CardContent>
-          <div className="space-y-8">
-            <Skeleton className="h-48 w-40" />
-            <Skeleton className="h-11 w-48" />
+          <div className="space-y-4">
+            <Skeleton className="h-40 w-32" />
+            <Skeleton className="h-9 w-full" />
           </div>
         </CardContent>
       </Card>
@@ -424,21 +419,21 @@ export function KadesPhotoSettingsForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <User className="h-5 w-5 text-amber-500" />
+    <Card className="border border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs">
+      <CardHeader className="p-3.5 sm:p-6 pb-2.5 sm:pb-4 border-b border-slate-100">
+        <CardTitle className="flex items-center gap-2 text-xs sm:text-base font-bold">
+          <User className="h-4 w-4 text-amber-500 shrink-0" />
           Upload Foto Kades
         </CardTitle>
-        <CardDescription>
-          Unggah foto resmi Kepala Desa untuk ditampilkan di bagian "Profil & Sambutan" halaman Profil Desa. Disimpan di Sistem.
+        <CardDescription className="text-[11px] sm:text-xs">
+          Unggah foto resmi Kepala Desa untuk bagian "Profil & Sambutan" halaman Profil Desa.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="space-y-4">
-            <Label>Pratinjau Foto Kades</Label>
-            <div className="relative aspect-[3/4] w-48 border-2 border-dashed rounded-2xl overflow-hidden flex items-center justify-center bg-muted/30">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs font-semibold">Pratinjau Foto Kades (rasio 3:4)</Label>
+            <div className="relative aspect-[3/4] w-28 sm:w-36 border-2 border-dashed rounded-lg sm:rounded-xl overflow-hidden flex items-center justify-center bg-muted/30">
               {imagePreview ? (
                 <Image
                   src={imagePreview}
@@ -447,31 +442,29 @@ export function KadesPhotoSettingsForm() {
                   className="object-cover"
                 />
               ) : (
-                <p className="text-xs text-muted-foreground text-center px-4">Belum ada foto Kepala Desa</p>
+                <p className="text-[10px] text-muted-foreground text-center px-2">Belum ada foto Kepala Desa</p>
               )}
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="kades-upload">Pilih Foto Baru</Label>
-            <div className="flex items-center gap-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="kades-upload" className="text-xs font-semibold">Pilih Foto Baru</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <Input
                 id="kades-upload"
                 type="file"
                 accept="image/png, image/jpeg, image/webp"
                 onChange={handleFileChange}
                 disabled={isSaving || isUploading}
-                className="pt-2 flex-grow max-w-sm cursor-pointer"
+                className="w-full cursor-pointer text-xs h-8 sm:h-9"
               />
-              {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
+              {isUploading && <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0" />}
             </div>
-            <p className="text-sm text-muted-foreground">
-              Ukuran maks: 3MB. Format: PNG, JPG, atau WEBP.
-            </p>
+            <p className="text-[10px] text-muted-foreground">Maks: 3MB. Format: PNG, JPG, WEBP.</p>
           </div>
 
-          <Button type="submit" disabled={isSaving || isUploading || !kadesPhotoUrl}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button type="submit" disabled={isSaving || isUploading || !kadesPhotoUrl} className="w-full sm:w-auto h-8 sm:h-9 text-xs">
+            {isSaving ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Save className="mr-2 h-3.5 w-3.5" />}
             Simpan Foto Kades
           </Button>
         </form>

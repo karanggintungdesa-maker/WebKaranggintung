@@ -251,19 +251,19 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-100 shadow-2xl p-6 md:p-8">
+      <DialogContent className="w-[95vw] sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-slate-100 shadow-2xl p-4 sm:p-6 md:p-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-black uppercase italic tracking-tight font-display text-slate-800">
+          <DialogTitle className="text-lg sm:text-2xl font-black uppercase italic tracking-tight font-display text-slate-800">
             {infoData ? 'Edit Informasi UMKM & Industri' : 'Tambah Informasi UMKM Baru'}
           </DialogTitle>
-          <DialogDescription className="text-slate-500 font-medium">
+          <DialogDescription className="text-xs sm:text-sm text-slate-500 font-medium">
             Formulir untuk memuat ulasan, potensi, pelatihan, atau profil sentra UMKM di Desa Karanggintung.
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="info-title" className="text-xs font-black uppercase tracking-widest text-slate-600">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 mt-3 sm:mt-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="info-title" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
               Judul Informasi / Sentra Usaha
             </Label>
             <Input
@@ -271,12 +271,12 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
               value={formData.title}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
               placeholder="Contoh: Sentra Olahan Gula Semut & Keripik Singkong"
-              className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all"
+              className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="info-subtitle" className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="info-subtitle" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
               Sub Judul / Tagline Singkat
             </Label>
             <Input
@@ -284,12 +284,12 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
               value={formData.subtitle}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, subtitle: e.target.value }))}
               placeholder="Contoh: Pemberdayaan Petani Penderes dan Ibu Rumah Tangga Mandiri"
-              className="rounded-xl border-slate-200 h-12 font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all"
+              className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="info-narrative" className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="info-narrative" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
               Ulasan / Narasi Lengkap
             </Label>
             <Textarea
@@ -297,39 +297,39 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
               value={formData.narrative}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData((prev) => ({ ...prev, narrative: e.target.value }))}
               placeholder="Tuliskan ulasan lengkap mengenai latar belakang, kelompok usaha, pendampingan desa, atau capaian UMKM di sini..."
-              className="rounded-xl border-slate-200 min-h-[140px] font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all p-4 resize-none leading-relaxed"
+              className="rounded-xl border-slate-200 min-h-[120px] sm:min-h-[140px] text-xs sm:text-sm font-semibold text-slate-700 bg-slate-50/50 focus:bg-white transition-all p-3 sm:p-4 resize-none leading-relaxed"
             />
           </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-xs font-black uppercase tracking-widest text-slate-600">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <Label className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
                 Unggah Foto Kegiatan / Galeri
               </Label>
-              <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+              <span className="text-[9px] sm:text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full w-fit">
                 Auto-Kompres Hemat Kuota Cloudinary
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 mt-2">
               {formData.imageUrls.map((url, index) => (
                 <div
                   key={index}
-                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden border-2 border-slate-100 bg-slate-50 shadow-sm transition-all duration-300 hover:shadow-md"
+                  className="group relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden border-2 border-slate-100 bg-slate-50 shadow-xs transition-all duration-300 hover:shadow-md"
                 >
                   <img src={url} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
 
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-1.5 sm:gap-2">
                     {index > 0 && (
                       <Button
                         type="button"
                         size="icon"
                         variant="secondary"
                         onClick={() => moveImage(index, 'up')}
-                        className="h-8 w-8 rounded-full bg-white/90 text-slate-700 hover:bg-white"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-white/90 text-slate-700 hover:bg-white"
                         title="Geser Kiri"
                       >
-                        <ArrowLeft className="h-4 w-4" />
+                        <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       </Button>
                     )}
                     {index < formData.imageUrls.length - 1 && (
@@ -338,10 +338,10 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
                         size="icon"
                         variant="secondary"
                         onClick={() => moveImage(index, 'down')}
-                        className="h-8 w-8 rounded-full bg-white/90 text-slate-700 hover:bg-white"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-white/90 text-slate-700 hover:bg-white"
                         title="Geser Kanan"
                       >
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       </Button>
                     )}
                     <Button
@@ -349,26 +349,26 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
                       size="icon"
                       variant="destructive"
                       onClick={() => removeImage(index)}
-                      className="h-8 w-8 rounded-full bg-rose-600 text-white hover:bg-rose-700 shadow-md"
+                      className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-rose-600 text-white hover:bg-rose-700 shadow-md"
                       title="Hapus Foto"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Button>
                   </div>
 
-                  <div className="absolute bottom-2 left-2 bg-slate-900/80 text-white px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider">
+                  <div className="absolute bottom-1.5 left-1.5 bg-slate-900/80 text-white px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-wider">
                     Foto {index + 1}
                   </div>
                 </div>
               ))}
 
-              <label className="flex flex-col items-center justify-center aspect-[4/3] rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all cursor-pointer group">
+              <label className="flex flex-col items-center justify-center aspect-[4/3] rounded-xl sm:rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all cursor-pointer group">
                 {isUploading ? (
-                  <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
+                  <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-amber-600" />
                 ) : (
                   <>
-                    <ImageIcon className="h-8 w-8 text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-300" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 mt-2 text-center px-2">
+                    <ImageIcon className="h-6 w-6 sm:h-8 sm:w-8 text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-300" />
+                    <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-500 mt-1.5 sm:mt-2 text-center px-1">
                       Unggah Foto
                     </span>
                   </>
@@ -385,19 +385,19 @@ export function UmkmInfoForm({ open, onOpenChange, infoData }: UmkmInfoFormProps
             </div>
           </div>
 
-          <DialogFooter className="pt-4 border-t border-slate-50 gap-2 sm:gap-0">
+          <DialogFooter className="pt-3 sm:pt-4 border-t border-slate-50 flex-col-reverse sm:flex-row gap-2 sm:gap-0">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="rounded-xl h-12 font-bold px-6 border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="w-full sm:w-auto rounded-xl h-10 sm:h-12 font-bold px-5 sm:px-6 border-slate-200 text-xs sm:text-sm text-slate-600 hover:bg-slate-50"
             >
               Batal
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting || isUploading}
-              className="rounded-xl h-12 font-black px-8 bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto rounded-xl h-10 sm:h-12 font-black px-6 sm:px-8 bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 flex items-center justify-center gap-2 text-xs sm:text-sm"
             >
               {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               <span>SIMPAN INFORMASI</span>

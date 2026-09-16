@@ -338,12 +338,12 @@ export function NewsForm({ initialData }: NewsFormProps) {
   };
 
   return (
-    <Card className="max-w-4xl mx-auto">
-      <CardHeader>
-        <CardTitle>{initialData ? 'Edit Berita' : 'Buat Berita Baru'}</CardTitle>
-        <CardDescription>Lengkapi informasi berita kegiatan desa di bawah ini. Anda dapat mengunggah beberapa foto sekaligus.</CardDescription>
+    <Card className="max-w-4xl mx-auto rounded-2xl sm:rounded-[2rem] border-none shadow-sm overflow-hidden bg-white">
+      <CardHeader className="p-4 sm:p-6 md:p-8 border-b bg-slate-50/50">
+        <CardTitle className="text-base sm:text-xl font-black uppercase tracking-tight text-slate-800">{initialData ? 'Edit Berita' : 'Buat Berita Baru'}</CardTitle>
+        <CardDescription className="text-xs sm:text-sm text-slate-500 font-medium">Lengkapi informasi berita kegiatan desa di bawah ini. Anda dapat mengunggah beberapa foto sekaligus.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 sm:p-6 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4 lg:grid-cols-[1fr_2fr]">
             <div className="space-y-4">

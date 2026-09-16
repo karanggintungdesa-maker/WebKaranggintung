@@ -161,9 +161,9 @@ export function UmkmSection() {
                     <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </Link>
 
-                  {item.contactPhone && (
+                  {(item.phone || (item as any).contactPhone) && (
                     <a
-                      href={`https://wa.me/${item.contactPhone.replace(/[^0-9]/g, '')}?text=Halo,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(item.name)}%20di%20Website%20Desa%20Karanggintung`}
+                      href={`https://wa.me/${(item.phone || (item as any).contactPhone).replace(/[^0-9]/g, '')}?text=Halo,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(item.name)}%20di%20Website%20Desa%20Karanggintung`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-[10px] sm:text-xs font-bold transition-colors"

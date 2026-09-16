@@ -99,19 +99,19 @@ export function ImportOfficialDialog({ open, onOpenChange, defaultCategory = 'pe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="w-[95vw] max-w-md rounded-2xl sm:rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle>Impor Data {categoryLabels[category]}</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-base sm:text-lg font-bold">Impor Data {categoryLabels[category]}</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm">
             Unggah file Excel (.xlsx / .xls) yang berisi kolom <strong>Nama</strong> dan <strong>Jabatan</strong>.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label>Kategori Tujuan</Label>
+        <div className="space-y-4 py-3 sm:py-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs sm:text-sm font-semibold">Kategori Tujuan</Label>
             <Select value={category} onValueChange={(v: any) => setCategory(v)}>
-              <SelectTrigger>
+              <SelectTrigger className="h-10 sm:h-11 rounded-xl text-xs sm:text-sm">
                 <SelectValue placeholder="Pilih Kategori" />
               </SelectTrigger>
               <SelectContent>
@@ -124,17 +124,17 @@ export function ImportOfficialDialog({ open, onOpenChange, defaultCategory = 'pe
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <Label>Pilih File Excel</Label>
-            <Input type="file" accept=".xlsx, .xls" onChange={handleFileChange} disabled={isProcessing} />
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-xs sm:text-sm font-semibold">Pilih File Excel</Label>
+            <Input type="file" accept=".xlsx, .xls" onChange={handleFileChange} disabled={isProcessing} className="h-10 text-xs sm:text-sm rounded-xl" />
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isProcessing}>
+        <DialogFooter className="flex-row gap-2">
+          <Button variant="outline" className="flex-1 h-9 sm:h-10 text-xs sm:text-sm rounded-xl" onClick={() => onOpenChange(false)} disabled={isProcessing}>
             Batal
           </Button>
-          <Button onClick={handleImport} disabled={!selectedFile || isProcessing}>
+          <Button onClick={handleImport} disabled={!selectedFile || isProcessing} className="flex-1 h-9 sm:h-10 text-xs sm:text-sm rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white">
             {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Mulai Impor
           </Button>

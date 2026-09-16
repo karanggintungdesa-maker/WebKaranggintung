@@ -83,7 +83,7 @@ function UmkmInfoGallery({ item }: { item: PotensiDesa }) {
   return (
     <div className="space-y-4 w-full">
       {/* Main Showcase Image Container (Dynamic Landscape / Portrait) */}
-      <div className="relative w-full overflow-hidden rounded-[2.5rem] bg-slate-950 border border-slate-200/80 shadow-md group flex items-center justify-center min-h-[300px] sm:min-h-[400px] md:min-h-[500px] max-h-[680px]">
+      <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-slate-950 border border-slate-200/80 shadow-md group flex items-center justify-center min-h-[190px] sm:min-h-[400px] md:min-h-[500px] max-h-[680px]">
         {/* Ambient Blur Backdrop for matching portrait / custom aspect ratios */}
         <div
           className="absolute inset-0 bg-cover bg-center blur-2xl opacity-40 scale-110 pointer-events-none transition-all duration-700"
@@ -100,7 +100,7 @@ function UmkmInfoGallery({ item }: { item: PotensiDesa }) {
 
         {/* Counter Badge */}
         {hasMultiple && (
-          <div className="absolute bottom-4 right-4 bg-slate-900/85 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-lg z-20 border border-white/10">
+          <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-slate-900/85 backdrop-blur-md text-white px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[9px] sm:text-[11px] font-black uppercase tracking-wider shadow-lg z-20 border border-white/10">
             Foto {activeIndex + 1} dari {images.length}
           </div>
         )}
@@ -271,49 +271,49 @@ function UmkmPageContent() {
       <BackgroundPattern />
       <Header />
 
-      <main className="relative flex-1 container mx-auto px-4 py-10 md:py-16 max-w-7xl">
+      <main className="relative flex-1 container mx-auto px-3 sm:px-4 py-6 sm:py-10 md:py-16 max-w-7xl">
         {/* Banner Title */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-10 md:mb-14 animate-in fade-in slide-in-from-top-4 duration-500">
-          <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100 font-black uppercase text-[10px] tracking-widest px-4 py-1.5 border-none shadow-sm mb-2">
-            Pemberdayaan Ekonomi & Kreativitas Warga
+        <div className="text-center space-y-2 sm:space-y-4 max-w-3xl mx-auto mb-6 sm:mb-10 md:mb-14 animate-in fade-in slide-in-from-top-4 duration-500">
+          <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100 font-black uppercase text-[9px] sm:text-[10px] tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 border-none shadow-sm mb-1 sm:mb-2">
+            Pemberdayaan Ekonomi &amp; Kreativitas Warga
           </Badge>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight uppercase font-display italic tracking-tight">
-            UMKM & <span className="text-amber-600 not-italic">Industri Kreatif</span>
+          <h1 className="text-2xl min-[380px]:text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight uppercase font-display italic tracking-tight">
+            UMKM &amp; <span className="text-amber-600 not-italic">Industri Kreatif</span>
           </h1>
-          <p className="text-slate-600 font-medium text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 font-medium text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">
             Pusat informasi wirausaha mandiri, galeri produk unggulan karya warga, serta wadah promosi produk lokal Desa Karanggintung.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-slate-200/80 shadow-lg shadow-slate-200/40 inline-flex gap-2">
+        <div className="flex justify-center mb-6 sm:mb-12">
+          <div className="bg-white/90 backdrop-blur-md p-1 sm:p-1.5 rounded-2xl sm:rounded-full border border-slate-200/80 shadow-md sm:shadow-lg shadow-slate-200/40 grid grid-cols-2 sm:inline-flex gap-1 sm:gap-2 w-full max-w-md sm:w-auto">
             <button
               onClick={() => handleTabChange('informasi')}
               className={cn(
-                "flex items-center gap-2.5 px-6 md:px-8 py-3 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300",
+                "flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 text-center",
                 activeTab === 'informasi'
-                  ? "bg-amber-600 text-white shadow-md shadow-amber-600/30 scale-[1.02]"
+                  ? "bg-amber-600 text-white shadow-md shadow-amber-600/30 scale-[1.01]"
                   : "text-slate-600 hover:text-amber-700 hover:bg-amber-50"
               )}
             >
-              <Info className="h-4 w-4" />
-              <span>1. Informasi & Potensi</span>
+              <Info className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="line-clamp-1">1. Informasi</span>
             </button>
 
             <button
               onClick={() => handleTabChange('katalog')}
               className={cn(
-                "flex items-center gap-2.5 px-6 md:px-8 py-3 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300",
+                "flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 text-center",
                 activeTab === 'katalog'
-                  ? "bg-amber-600 text-white shadow-md shadow-amber-600/30 scale-[1.02]"
+                  ? "bg-amber-600 text-white shadow-md shadow-amber-600/30 scale-[1.01]"
                   : "text-slate-600 hover:text-amber-700 hover:bg-amber-50"
               )}
             >
-              <ShoppingBag className="h-4 w-4" />
-              <span>2. Katalog Produk</span>
+              <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+              <span className="line-clamp-1">2. Katalog</span>
               <span className={cn(
-                "text-[10px] px-2 py-0.5 rounded-full font-bold transition-colors",
+                "text-[8.5px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full font-bold transition-colors shrink-0",
                 activeTab === 'katalog' ? "bg-white/20 text-white" : "bg-amber-100 text-amber-800"
               )}>
                 {activeProducts.length}
@@ -324,77 +324,78 @@ function UmkmPageContent() {
 
         {/* TAB 1: INFORMASI */}
         {activeTab === 'informasi' && (
-          <div className="space-y-12 animate-in fade-in duration-500">
-            {/* Highlights Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-amber-500/10 via-amber-50 to-white rounded-3xl p-6 shadow-sm hover:shadow-md transition-all">
-                <div className="h-12 w-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center mb-4 shadow-md shadow-amber-600/20">
-                  <TrendingUp className="h-6 w-6" />
+          <div className="space-y-6 sm:space-y-12 animate-in fade-in duration-500">
+            {/* Highlights Grid - 3 cards (compact on mobile) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
+              <div className="bg-gradient-to-br from-amber-500/10 via-amber-50 to-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs sm:shadow-sm hover:shadow-md transition-all">
+                <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-amber-600 text-white flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm shadow-amber-600/20">
+                  <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 font-display">
+                <h3 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900 font-display">
                   Pemberdayaan Ekonomi
                 </h3>
-                <p className="text-xs md:text-sm text-slate-600 font-medium mt-2 leading-relaxed">
+                <p className="text-[11px] sm:text-xs md:text-sm text-slate-600 font-medium mt-1 sm:mt-2 leading-relaxed">
                   Mendukung pertumbuhan puluhan pelaku usaha mikro di sektor olahan pangan, kerajinan tangan, dan agrobisnis di seluruh wilayah dusun.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-teal-500/10 via-teal-50 to-white rounded-3xl p-6 shadow-sm hover:shadow-md transition-all">
-                <div className="h-12 w-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-4 shadow-md shadow-teal-600/20">
-                  <ShieldCheck className="h-6 w-6" />
+              <div className="bg-gradient-to-br from-teal-500/10 via-teal-50 to-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs sm:shadow-sm hover:shadow-md transition-all">
+                <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm shadow-teal-600/20">
+                  <ShieldCheck className="h-4 w-4 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 font-display">
-                  Pendampingan & Legalitas
+                <h3 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900 font-display">
+                  Pendampingan &amp; Legalitas
                 </h3>
-                <p className="text-xs md:text-sm text-slate-600 font-medium mt-2 leading-relaxed">
+                <p className="text-[11px] sm:text-xs md:text-sm text-slate-600 font-medium mt-1 sm:mt-2 leading-relaxed">
                   Fasilitasi penerbitan NIB (Nomor Induk Berusaha), sertifikasi P-IRT, sertifikat Halal, serta pelatihan pengemasan higienis berstandar.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-emerald-500/10 via-emerald-50 to-white rounded-3xl p-6 shadow-sm hover:shadow-md transition-all">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-md shadow-emerald-600/20">
-                  <PackageCheck className="h-6 w-6" />
+              <div className="bg-gradient-to-br from-emerald-500/10 via-emerald-50 to-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs sm:shadow-sm hover:shadow-md transition-all">
+                <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-2.5 sm:mb-4 shadow-sm shadow-emerald-600/20">
+                  <PackageCheck className="h-4 w-4 sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 font-display">
-                  Akses Pasar & Digitalisasi
+                <h3 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900 font-display">
+                  Akses Pasar &amp; Digitalisasi
                 </h3>
-                <p className="text-xs md:text-sm text-slate-600 font-medium mt-2 leading-relaxed">
+                <p className="text-[11px] sm:text-xs md:text-sm text-slate-600 font-medium mt-1 sm:mt-2 leading-relaxed">
                   Integrasi promosi melalui portal digital desa, kemitraan BUMDes, pameran UMKM kecamatan Cilacap, dan marketplace online.
                 </p>
               </div>
             </div>
 
             {/* Grid Kartu Informasi UMKM */}
-            <div className="space-y-8">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-4">
+            <div className="space-y-4 sm:space-y-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3 sm:pb-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase font-display">
-                    Warta & Potensi UMKM Desa
+                  <h2 className="text-base sm:text-xl md:text-2xl font-black text-slate-900 uppercase font-display">
+                    Warta &amp; Potensi UMKM Desa
                   </h2>
-                  <p className="text-xs md:text-sm text-slate-500 font-medium mt-0.5">
+                  <p className="text-[11px] sm:text-xs md:text-sm text-slate-500 font-medium mt-0.5">
                     Klik kartu di bawah untuk membuka informasi dan galeri foto lengkap.
                   </p>
                 </div>
                 {umkmPotentials.length > 0 && (
-                  <Badge className="bg-amber-100 text-amber-900 border-none font-black text-xs px-3 py-1 w-fit">
+                  <Badge className="bg-amber-100 text-amber-900 border-none font-black text-[10px] sm:text-xs px-2.5 sm:px-3 py-0.5 sm:py-1 w-fit">
                     {umkmPotentials.length} Informasi
                   </Badge>
                 )}
               </div>
 
               {isLoadingPotentials ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                  {[1, 2, 3].map((n) => (
-                    <div key={n} className="bg-white p-5 rounded-[2rem] shadow-sm space-y-4">
-                      <Skeleton className="aspect-[16/10] w-full rounded-2xl" />
-                      <Skeleton className="h-6 w-3/4 rounded-lg" />
-                      <Skeleton className="h-4 w-1/2 rounded-md" />
-                      <Skeleton className="h-4 w-full rounded-md" />
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
+                  {[1, 2, 3, 4].map((n) => (
+                    <div key={n} className="bg-white p-3 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-sm space-y-3">
+                      <Skeleton className="aspect-[16/10] w-full rounded-xl sm:rounded-2xl" />
+                      <Skeleton className="h-4 sm:h-6 w-3/4 rounded-md" />
+                      <Skeleton className="h-3 sm:h-4 w-1/2 rounded-md" />
+                      <Skeleton className="h-3 sm:h-4 w-full rounded-md" />
                     </div>
                   ))}
                 </div>
               ) : umkmPotentials.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                // 2 Columns on Mobile for UMKM Potentials
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
                   {umkmPotentials.map((item) => {
                     const coverImage = item.imageUrls?.[0];
                     const photoCount = item.imageUrls?.length || 0;
@@ -403,7 +404,7 @@ function UmkmPageContent() {
                       <div
                         key={item.id}
                         onClick={() => setSelectedInfo(item)}
-                        className="group cursor-pointer bg-white rounded-[2rem] border-0 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                        className="group cursor-pointer bg-white rounded-2xl sm:rounded-[2rem] border-0 shadow-xs sm:shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between"
                       >
                         <div>
                           {/* Gambar Kecil / Thumbnail Cover */}
@@ -416,39 +417,39 @@ function UmkmPageContent() {
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-300">
-                                <ImageIcon className="h-10 w-10" />
+                                <ImageIcon className="h-8 w-8 sm:h-10 sm:w-10" />
                               </div>
                             )}
 
                             {/* Badge Overlay */}
-                            <div className="absolute top-3 left-3 z-10">
-                              <Badge className="bg-amber-600 text-white font-bold uppercase text-[10px] tracking-wider shadow-sm border-none">
+                            <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3 z-10">
+                              <Badge className="bg-amber-600 text-white font-bold uppercase text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] tracking-wider shadow-sm border-none px-2 py-0.5">
                                 UMKM Desa
                               </Badge>
                             </div>
 
                             {photoCount > 1 && (
-                              <div className="absolute top-3 right-3 z-10 bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
-                                <ImageIcon className="h-3 w-3" />
-                                <span>{photoCount} Foto</span>
+                              <div className="absolute top-1.5 right-1.5 sm:top-3 sm:right-3 z-10 bg-slate-900/80 backdrop-blur-md text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                                <ImageIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                                <span>{photoCount}</span>
                               </div>
                             )}
                           </div>
 
                           {/* Konten Kartu: Judul & Sub Judul */}
-                          <div className="p-5 md:p-6 space-y-2.5">
-                            <h3 className="text-base md:text-lg font-black text-slate-900 group-hover:text-amber-600 transition-colors uppercase font-display leading-snug line-clamp-2">
+                          <div className="p-2.5 min-[380px]:p-3 sm:p-5 md:p-6 space-y-1.5 sm:space-y-2.5">
+                            <h3 className="text-xs min-[380px]:text-sm sm:text-base md:text-lg font-black text-slate-900 group-hover:text-amber-600 transition-colors uppercase font-display leading-snug line-clamp-2">
                               {item.title}
                             </h3>
 
                             {item.subtitle && (
-                              <p className="text-xs md:text-sm font-bold text-amber-700 uppercase tracking-wide line-clamp-1 border-l-2 border-amber-500 pl-2">
+                              <p className="text-[9px] min-[380px]:text-[10px] sm:text-xs md:text-sm font-bold text-amber-700 uppercase tracking-wide line-clamp-1 border-l-2 border-amber-500 pl-1.5 sm:pl-2">
                                 {item.subtitle}
                               </p>
                             )}
 
                             {item.narrative && (
-                              <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 pt-1 font-medium">
+                              <p className="text-[9.5px] min-[380px]:text-[10.5px] sm:text-xs text-slate-500 leading-relaxed line-clamp-2 pt-0.5 font-medium">
                                 {item.narrative}
                               </p>
                             )}
@@ -456,10 +457,10 @@ function UmkmPageContent() {
                         </div>
 
                         {/* Footer Kartu: Tombol Klik Buka Informasi */}
-                        <div className="p-5 md:p-6 pt-0">
-                          <div className="pt-3 flex items-center justify-between text-xs font-bold text-amber-700 group-hover:text-amber-800 transition-colors">
-                            <span>Buka Informasi Lengkap</span>
-                            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        <div className="p-2.5 min-[380px]:p-3 sm:p-5 md:p-6 pt-0">
+                          <div className="pt-2 sm:pt-3 flex items-center justify-between text-[9px] min-[380px]:text-[10px] sm:text-xs font-bold text-amber-700 group-hover:text-amber-800 transition-colors border-t border-slate-100">
+                            <span>Buka Informasi</span>
+                            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
                           </div>
                         </div>
                       </div>
@@ -557,35 +558,35 @@ function UmkmPageContent() {
 
         {/* TAB 2: KATALOG PRODUK */}
         {activeTab === 'katalog' && (
-          <div className="space-y-8 animate-in fade-in duration-500">
+          <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-500">
             {/* Search & Filter Bar */}
-            <div className="bg-white rounded-3xl p-4 md:p-6 shadow-sm space-y-4">
-              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-xs sm:shadow-sm space-y-3 sm:space-y-4">
+              <div className="flex flex-col md:flex-row gap-3 sm:gap-4 items-center justify-between">
                 <div className="relative w-full md:max-w-md">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400" />
                   <Input
                     value={searchQuery}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-                    placeholder="Cari nama produk, nama usaha, atau pemilik..."
-                    className="pl-11 pr-4 h-12 rounded-2xl border-slate-200 font-medium text-sm focus:border-amber-500 focus:ring-amber-500"
+                    placeholder="Cari produk, usaha, pemilik..."
+                    className="pl-9 sm:pl-11 pr-4 h-9 sm:h-12 rounded-xl sm:rounded-2xl border-slate-200 font-medium text-xs sm:text-sm focus:border-amber-500 focus:ring-amber-500"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 bg-slate-100 px-2 py-1 rounded-full font-bold"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] sm:text-xs text-slate-400 hover:text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full font-bold"
                     >
                       Clear
                     </button>
                   )}
                 </div>
 
-                <div className="text-xs font-bold text-slate-500">
+                <div className="text-[10px] sm:text-xs font-bold text-slate-500 self-end md:self-auto">
                   Menampilkan <span className="text-amber-700 font-black">{filteredProducts.length}</span> produk
                 </div>
               </div>
 
               {/* Category Pills */}
-              <div className="flex flex-wrap gap-2 pt-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
                 {PRODUCT_CATEGORIES.map((cat) => {
                   const isActive = selectedCategory === cat;
                   return (
@@ -593,9 +594,9 @@ function UmkmPageContent() {
                       key={cat}
                       onClick={() => setSelectedCategory(cat)}
                       className={cn(
-                        "px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
+                        "px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[9px] min-[380px]:text-[10px] sm:text-xs font-bold transition-all whitespace-nowrap",
                         isActive
-                          ? "bg-amber-600 text-white shadow-sm shadow-amber-600/30"
+                          ? "bg-amber-600 text-white shadow-xs sm:shadow-sm shadow-amber-600/30"
                           : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                       )}
                     >
@@ -606,43 +607,43 @@ function UmkmPageContent() {
               </div>
             </div>
 
-            {/* Products Grid */}
+            {/* Products Grid - 2 Columns on Mobile */}
             {isLoadingProducts ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="bg-white rounded-[2rem] p-4 shadow-sm space-y-3">
-                    <Skeleton className="aspect-[4/3] w-full rounded-2xl" />
-                    <Skeleton className="h-4 w-28" />
-                    <Skeleton className="h-6 w-full" />
-                    <Skeleton className="h-4 w-1/2" />
+                  <div key={i} className="bg-white rounded-2xl sm:rounded-[2rem] p-3 sm:p-4 shadow-sm space-y-2.5">
+                    <Skeleton className="aspect-[4/3] w-full rounded-xl sm:rounded-2xl" />
+                    <Skeleton className="h-3 sm:h-4 w-20 sm:w-28" />
+                    <Skeleton className="h-4 sm:h-6 w-full" />
+                    <Skeleton className="h-3 sm:h-4 w-1/2" />
                   </div>
                 ))}
               </div>
             ) : activeProducts.length === 0 ? (
-              <div className="rounded-[2.5rem] bg-white p-12 text-center max-w-lg mx-auto shadow-sm">
-                <div className="flex flex-col items-center justify-center space-y-3">
-                  <div className="h-14 w-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                    <Store className="h-7 w-7" />
+              <div className="rounded-2xl sm:rounded-[2.5rem] bg-white p-8 sm:p-12 text-center max-w-lg mx-auto shadow-sm">
+                <div className="flex flex-col items-center justify-center space-y-2.5 sm:space-y-3">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <Store className="h-6 w-6 sm:h-7 sm:w-7" />
                   </div>
-                  <h3 className="text-slate-800 font-black text-base uppercase tracking-wider">
+                  <h3 className="text-slate-800 font-black text-sm sm:text-base uppercase tracking-wider">
                     Belum Ada Produk UMKM
                   </h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
                     Data katalog produk UMKM Desa belum diunggah oleh Admin.
                   </p>
                 </div>
               </div>
             ) : filteredProducts.length === 0 ? (
-              <div className="rounded-[2.5rem] bg-white p-12 text-center max-w-lg mx-auto shadow-sm">
-                <div className="flex flex-col items-center justify-center space-y-3">
-                  <div className="h-14 w-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                    <Search className="h-7 w-7" />
+              <div className="rounded-2xl sm:rounded-[2.5rem] bg-white p-8 sm:p-12 text-center max-w-lg mx-auto shadow-sm">
+                <div className="flex flex-col items-center justify-center space-y-2.5 sm:space-y-3">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <Search className="h-6 w-6 sm:h-7 sm:w-7" />
                   </div>
-                  <h3 className="text-slate-800 font-black text-base uppercase tracking-wider">
+                  <h3 className="text-slate-800 font-black text-sm sm:text-base uppercase tracking-wider">
                     Produk Tidak Ditemukan
                   </h3>
-                  <p className="text-xs text-slate-500">
-                    Coba gunakan kata kunci pencarian lain atau pilih kategori Semua.
+                  <p className="text-[11px] sm:text-xs text-slate-500">
+                    Coba gunakan kata kunci pencarian lain atau pilih Semua Kategori.
                   </p>
                   <Button
                     variant="outline"
@@ -650,18 +651,19 @@ function UmkmPageContent() {
                       setSearchQuery('');
                       setSelectedCategory('Semua Kategori');
                     }}
-                    className="rounded-full text-xs font-bold border-0 bg-slate-100 hover:bg-slate-200 text-slate-700"
+                    className="rounded-full text-[10px] sm:text-xs font-bold border-0 bg-slate-100 hover:bg-slate-200 text-slate-700 h-8 sm:h-9"
                   >
                     Reset Filter
                   </Button>
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              // 2 Columns on Mobile for Products
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8">
                 {filteredProducts.map((prod) => (
                   <div
                     key={prod.id}
-                    className="group bg-white rounded-[2rem] border-0 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                    className="group bg-white rounded-2xl sm:rounded-[2rem] border-0 shadow-xs sm:shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
                   >
                     {/* Image Container */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
@@ -671,63 +673,60 @@ function UmkmPageContent() {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       {prod.badge && (
-                        <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-sm">
+                        <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3 bg-slate-900/80 backdrop-blur-sm text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-black uppercase tracking-wider shadow-sm">
                           {prod.badge}
                         </div>
                       )}
-                      <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm text-amber-800 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-sm">
+                      <div className="absolute top-1.5 right-1.5 sm:top-3 sm:right-3 bg-white/95 backdrop-blur-sm text-amber-800 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[7.5px] min-[380px]:text-[8.5px] sm:text-[10px] font-black uppercase tracking-wider shadow-sm line-clamp-1 max-w-[100px] sm:max-w-none">
                         {prod.category}
                       </div>
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-5 md:p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                          <Store className="h-3.5 w-3.5 text-amber-600" />
-                          <span>{prod.businessName}</span>
+                    <div className="p-2.5 min-[380px]:p-3 sm:p-5 md:p-6 flex-1 flex flex-col justify-between space-y-2 sm:space-y-4">
+                      <div className="space-y-1 sm:space-y-2">
+                        <div className="flex items-center gap-1 sm:gap-1.5 text-[9px] min-[380px]:text-[10px] sm:text-[11px] font-bold text-slate-400">
+                          <Store className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-600 shrink-0" />
+                          <span className="truncate">{prod.businessName}</span>
                         </div>
 
-                        <h3 className="font-black text-slate-900 text-lg leading-snug group-hover:text-amber-700 transition-colors line-clamp-2">
+                        <h3 className="font-black text-slate-900 text-xs min-[380px]:text-sm sm:text-lg leading-snug group-hover:text-amber-700 transition-colors line-clamp-2">
                           {prod.name}
                         </h3>
 
-                        <p className="text-xs text-slate-500 line-clamp-2 font-medium leading-relaxed">
+                        <p className="text-[9.5px] min-[380px]:text-[10.5px] sm:text-xs text-slate-500 line-clamp-2 font-medium leading-relaxed">
                           {prod.description}
                         </p>
                       </div>
 
-                      <div className="pt-2 space-y-3">
-                        <div className="flex items-baseline justify-between">
-                          <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+                      <div className="pt-1.5 sm:pt-2 space-y-2 sm:space-y-3">
+                        <div className="flex flex-col min-[380px]:flex-row min-[380px]:items-baseline justify-between gap-0.5">
+                          <div className="text-[9px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">
                             Harga:
                           </div>
-                          <div className="text-right">
-                            <span className="text-lg font-black text-amber-700">
+                          <div className="text-left min-[380px]:text-right">
+                            <span className="text-xs min-[380px]:text-sm sm:text-lg font-black text-amber-700">
                               Rp {prod.price.toLocaleString('id-ID')}
                             </span>
-                            <span className="text-[11px] font-medium text-slate-400 ml-1">
-                              / {prod.priceUnit}
+                            <span className="text-[9px] sm:text-[11px] font-medium text-slate-400 ml-0.5">
+                              /{prod.priceUnit}
                             </span>
                           </div>
                         </div>
 
                         {/* Marketplace Quick Links if Available */}
                         {(prod.shopeeUrl || prod.tokopediaUrl || prod.lazadaUrl) && (
-                          <div className="flex items-center flex-wrap gap-1.5 pt-1">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider mr-1">
-                              Online:
-                            </span>
+                          <div className="flex items-center flex-wrap gap-1 pt-0.5">
                             {prod.shopeeUrl && (
                               <a
                                 href={prod.shopeeUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-7 px-2.5 rounded-lg bg-orange-50 hover:bg-[#EE4D2D] text-[#EE4D2D] hover:text-white transition-all flex items-center gap-1 text-[10px] font-bold shadow-2xs"
+                                className="h-6 px-1.5 sm:h-7 sm:px-2.5 rounded-lg bg-orange-50 hover:bg-[#EE4D2D] text-[#EE4D2D] hover:text-white transition-all flex items-center gap-1 text-[8.5px] sm:text-[10px] font-bold"
                                 title="Beli di Shopee"
                                 onClick={(e: React.MouseEvent) => e.stopPropagation()}
                               >
-                                <ShopeeIcon className="h-3 w-3 shrink-0" />
+                                <ShopeeIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" />
                                 <span>Shopee</span>
                               </a>
                             )}
@@ -736,11 +735,11 @@ function UmkmPageContent() {
                                 href={prod.tokopediaUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-7 px-2.5 rounded-lg bg-emerald-50 hover:bg-[#03AC0E] text-[#03AC0E] hover:text-white transition-all flex items-center gap-1 text-[10px] font-bold shadow-2xs"
+                                className="h-6 px-1.5 sm:h-7 sm:px-2.5 rounded-lg bg-emerald-50 hover:bg-[#03AC0E] text-[#03AC0E] hover:text-white transition-all flex items-center gap-1 text-[8.5px] sm:text-[10px] font-bold"
                                 title="Beli di Tokopedia"
                                 onClick={(e: React.MouseEvent) => e.stopPropagation()}
                               >
-                                <TokopediaIcon className="h-3 w-3 shrink-0" />
+                                <TokopediaIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" />
                                 <span>Tokopedia</span>
                               </a>
                             )}
@@ -749,22 +748,22 @@ function UmkmPageContent() {
                                 href={prod.lazadaUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-7 px-2.5 rounded-lg bg-blue-50 hover:bg-[#0F146D] text-[#0F146D] hover:text-white transition-all flex items-center gap-1 text-[10px] font-bold shadow-2xs"
+                                className="h-6 px-1.5 sm:h-7 sm:px-2.5 rounded-lg bg-blue-50 hover:bg-[#0F146D] text-[#0F146D] hover:text-white transition-all flex items-center gap-1 text-[8.5px] sm:text-[10px] font-bold"
                                 title="Beli di Lazada"
                                 onClick={(e: React.MouseEvent) => e.stopPropagation()}
                               >
-                                <LazadaIcon className="h-3 w-3 shrink-0" />
+                                <LazadaIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" />
                                 <span>Lazada</span>
                               </a>
                             )}
                           </div>
                         )}
 
-                        <div className="grid grid-cols-2 gap-2 pt-1">
+                        <div className="grid grid-cols-2 gap-1.5 pt-0.5">
                           <Button
                             type="button"
                             onClick={() => setSelectedProduct(prod)}
-                            className="rounded-xl h-10 text-xs font-bold border-0 bg-slate-100/90 text-slate-700 hover:bg-slate-200 shadow-none"
+                            className="rounded-xl h-7 min-[380px]:h-8 sm:h-10 text-[8.5px] min-[380px]:text-[9.5px] sm:text-xs font-bold border-0 bg-slate-100/90 text-slate-700 hover:bg-slate-200 shadow-none px-1"
                           >
                             Detail
                           </Button>
@@ -777,8 +776,8 @@ function UmkmPageContent() {
                             rel="noopener noreferrer"
                             className="flex-1"
                           >
-                            <Button className="w-full rounded-xl h-10 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 flex items-center justify-center gap-1.5">
-                              <MessageCircle className="h-3.5 w-3.5" />
+                            <Button className="w-full rounded-xl h-7 min-[380px]:h-8 sm:h-10 text-[8.5px] min-[380px]:text-[9.5px] sm:text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs sm:shadow-sm shadow-emerald-600/20 flex items-center justify-center gap-1 px-1">
+                              <MessageCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0" />
                               <span>Pesan WA</span>
                             </Button>
                           </a>
@@ -791,15 +790,15 @@ function UmkmPageContent() {
             )}
 
             {/* Registration Banner for local MSMEs */}
-            <div className="mt-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] p-8 md:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="space-y-2 text-center md:text-left max-w-xl">
-                <Badge className="bg-amber-500/20 text-amber-300 border-none font-bold uppercase text-[10px] px-3 py-1">
+            <div className="mt-8 sm:mt-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl sm:rounded-[2.5rem] p-4 min-[380px]:p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+              <div className="space-y-1.5 sm:space-y-2 text-center md:text-left max-w-xl">
+                <Badge className="bg-amber-500/20 text-amber-300 border-none font-bold uppercase text-[8.5px] sm:text-[10px] px-2.5 sm:px-3 py-0.5 sm:py-1">
                   Promosi Gratis untuk Warga Desa
                 </Badge>
-                <h3 className="text-xl md:text-2xl font-black font-display uppercase tracking-tight">
+                <h3 className="text-base sm:text-xl md:text-2xl font-black font-display uppercase tracking-tight">
                   Punya Usaha atau Produk di Karanggintung?
                 </h3>
-                <p className="text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
+                <p className="text-[11px] sm:text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
                   Daftarkan produk UMKM atau industri kreatif Anda untuk dipromosikan secara resmi di Katalog Produk Desa Karanggintung tanpa dipungut biaya.
                 </p>
               </div>
@@ -808,10 +807,11 @@ function UmkmPageContent() {
                 href="https://wa.me/62895321109179?text=Halo%20Admin%20Desa%20Karanggintung,%20saya%20ingin%20mendaftarkan%20produk%20UMKM%20saya%20ke%20Katalog%20Produk%20Desa."
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-full sm:w-auto"
               >
-                <Button className="rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-8 h-12 shadow-lg shadow-amber-500/20 whitespace-nowrap">
+                <Button className="w-full sm:w-auto rounded-xl sm:rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-6 sm:px-8 h-10 sm:h-12 text-xs sm:text-sm shadow-lg shadow-amber-500/20 whitespace-nowrap">
                   Daftarkan Produk Anda
-                  <ExternalLink className="h-4 w-4 ml-2" />
+                  <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 ml-1.5 sm:ml-2" />
                 </Button>
               </a>
             </div>
@@ -822,28 +822,28 @@ function UmkmPageContent() {
       {/* Product Detail Modal */}
       <Dialog open={!!selectedProduct} onOpenChange={(open: boolean) => !open && setSelectedProduct(null)}>
         {selectedProduct && (
-          <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border-0 shadow-2xl p-6 md:p-8">
-            <DialogHeader className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Badge className="bg-amber-100 text-amber-800 border-none font-bold text-[10px] uppercase">
+          <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border-0 shadow-2xl p-4 sm:p-6 md:p-8">
+            <DialogHeader className="space-y-1.5 sm:space-y-2 text-left">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Badge className="bg-amber-100 text-amber-800 border-none font-bold text-[9px] sm:text-[10px] uppercase">
                   {selectedProduct.category}
                 </Badge>
                 {selectedProduct.badge && (
-                  <Badge className="bg-slate-900 text-white border-none font-bold text-[10px] uppercase">
+                  <Badge className="bg-slate-900 text-white border-none font-bold text-[9px] sm:text-[10px] uppercase">
                     {selectedProduct.badge}
                   </Badge>
                 )}
               </div>
-              <DialogTitle className="text-xl md:text-2xl font-black uppercase text-slate-900 font-display">
+              <DialogTitle className="text-lg sm:text-xl md:text-2xl font-black uppercase text-slate-900 font-display">
                 {selectedProduct.name}
               </DialogTitle>
-              <DialogDescription className="text-xs font-bold text-slate-500">
+              <DialogDescription className="text-[11px] sm:text-xs font-bold text-slate-500">
                 Usaha: {selectedProduct.businessName} &bull; Pemilik: {selectedProduct.owner}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-6 mt-4">
-              <div className="aspect-[16/10] relative w-full overflow-hidden rounded-2xl bg-slate-100">
+            <div className="space-y-4 sm:space-y-6 mt-2 sm:mt-4">
+              <div className="aspect-[16/10] relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-slate-100">
                 <img
                   src={selectedProduct.imageUrl}
                   alt={selectedProduct.name}
@@ -851,24 +851,24 @@ function UmkmPageContent() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">
+              <div className="space-y-1.5 sm:space-y-2">
+                <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400">
                   Deskripsi Produk
                 </h4>
-                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
                   {selectedProduct.description}
                 </p>
               </div>
 
               {selectedProduct.features && selectedProduct.features.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">
-                    Keunggulan & Kualitas
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400">
+                    Keunggulan &amp; Kualitas
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
                     {selectedProduct.features.map((feat, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-50 p-2.5 rounded-xl">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                      <div key={idx} className="flex items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-xs font-semibold text-slate-700 bg-slate-50 p-2 sm:p-2.5 rounded-xl">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -876,27 +876,27 @@ function UmkmPageContent() {
                 </div>
               )}
 
-              <div className="bg-amber-50/70 rounded-2xl p-4 space-y-3">
+              <div className="bg-amber-50/70 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-amber-900 uppercase">Harga Produk</span>
-                  <span className="text-xl font-black text-amber-800">
-                    Rp {selectedProduct.price.toLocaleString('id-ID')} <span className="text-xs font-medium text-slate-500">/ {selectedProduct.priceUnit}</span>
+                  <span className="text-[10px] sm:text-xs font-bold text-amber-900 uppercase">Harga Produk</span>
+                  <span className="text-base sm:text-xl font-black text-amber-800">
+                    Rp {selectedProduct.price.toLocaleString('id-ID')} <span className="text-[10px] sm:text-xs font-medium text-slate-500">/ {selectedProduct.priceUnit}</span>
                   </span>
                 </div>
 
-                <div className="text-xs text-slate-600 flex items-start gap-2 pt-2 border-t border-amber-200/30">
-                  <MapPin className="h-4 w-4 text-amber-700 shrink-0 mt-0.5" />
+                <div className="text-[10.5px] sm:text-xs text-slate-600 flex items-start gap-1.5 sm:gap-2 pt-1.5 sm:pt-2 border-t border-amber-200/30">
+                  <MapPin className="h-3.5 w-3.5 text-amber-700 shrink-0 mt-0.5" />
                   <span>Lokasi: {selectedProduct.location}</span>
                 </div>
               </div>
 
               {/* Marketplace Links in Detail Modal */}
               {(selectedProduct.shopeeUrl || selectedProduct.tokopediaUrl || selectedProduct.lazadaUrl) && (
-                <div className="space-y-2.5 pt-1">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">
+                <div className="space-y-2 pt-1">
+                  <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400">
                     Toko Online / Marketplace Resmi
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
                     {selectedProduct.shopeeUrl && (
                       <a
                         href={selectedProduct.shopeeUrl}
@@ -904,8 +904,8 @@ function UmkmPageContent() {
                         rel="noopener noreferrer"
                         className="w-full"
                       >
-                        <Button className="w-full rounded-xl h-11 bg-[#EE4D2D] hover:bg-[#D73211] text-white font-bold text-xs shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]">
-                          <ShopeeIcon className="h-4 w-4" />
+                        <Button className="w-full rounded-xl h-9 sm:h-11 bg-[#EE4D2D] hover:bg-[#D73211] text-white font-bold text-[10px] sm:text-xs shadow-xs sm:shadow-md shadow-orange-500/20 flex items-center justify-center gap-1 sm:gap-2 px-1">
+                          <ShopeeIcon className="h-3.5 w-3.5 shrink-0" />
                           <span>Shopee</span>
                         </Button>
                       </a>
@@ -917,8 +917,8 @@ function UmkmPageContent() {
                         rel="noopener noreferrer"
                         className="w-full"
                       >
-                        <Button className="w-full rounded-xl h-11 bg-[#03AC0E] hover:bg-[#028B0B] text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]">
-                          <TokopediaIcon className="h-4 w-4" />
+                        <Button className="w-full rounded-xl h-9 sm:h-11 bg-[#03AC0E] hover:bg-[#028B0B] text-white font-bold text-[10px] sm:text-xs shadow-xs sm:shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1 sm:gap-2 px-1">
+                          <TokopediaIcon className="h-3.5 w-3.5 shrink-0" />
                           <span>Tokopedia</span>
                         </Button>
                       </a>
@@ -930,8 +930,8 @@ function UmkmPageContent() {
                         rel="noopener noreferrer"
                         className="w-full"
                       >
-                        <Button className="w-full rounded-xl h-11 bg-[#0F146D] hover:bg-[#090C45] text-white font-bold text-xs shadow-md shadow-indigo-950/20 flex items-center justify-center gap-2 transition-transform hover:scale-[1.02]">
-                          <LazadaIcon className="h-4 w-4" />
+                        <Button className="w-full rounded-xl h-9 sm:h-11 bg-[#0F146D] hover:bg-[#090C45] text-white font-bold text-[10px] sm:text-xs shadow-xs sm:shadow-md shadow-indigo-950/20 flex items-center justify-center gap-1 sm:gap-2 px-1">
+                          <LazadaIcon className="h-3.5 w-3.5 shrink-0" />
                           <span>Lazada</span>
                         </Button>
                       </a>
@@ -940,11 +940,11 @@ function UmkmPageContent() {
                 </div>
               )}
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
                 <Button
                   type="button"
                   onClick={() => setSelectedProduct(null)}
-                  className="flex-1 rounded-xl h-12 font-bold text-slate-600 border-0 bg-slate-100 hover:bg-slate-200"
+                  className="flex-1 rounded-xl h-9 sm:h-12 font-bold text-xs sm:text-sm text-slate-600 border-0 bg-slate-100 hover:bg-slate-200"
                 >
                   Tutup
                 </Button>
@@ -956,8 +956,8 @@ function UmkmPageContent() {
                   rel="noopener noreferrer"
                   className="flex-1"
                 >
-                  <Button className="w-full rounded-xl h-12 font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2">
-                    <MessageCircle className="h-5 w-5" />
+                  <Button className="w-full rounded-xl h-9 sm:h-12 font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs sm:shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5 sm:gap-2">
+                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Pesan via WhatsApp</span>
                   </Button>
                 </a>
@@ -970,23 +970,23 @@ function UmkmPageContent() {
       {/* UMKM Information Detail Modal */}
       <Dialog open={!!selectedInfo} onOpenChange={(open: boolean) => !open && setSelectedInfo(null)}>
         {selectedInfo && (
-          <DialogContent className="max-w-4xl max-h-[92vh] overflow-y-auto p-6 md:p-10 rounded-[2.5rem] bg-white border-0 shadow-2xl space-y-6">
-            <DialogHeader className="space-y-3 text-left">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg shrink-0 bg-amber-50 text-amber-600">
-                  <Store className="h-4.5 w-4.5" />
+          <DialogContent className="max-w-4xl max-h-[92vh] overflow-y-auto p-4 sm:p-6 md:p-10 rounded-2xl sm:rounded-[2.5rem] bg-white border-0 shadow-2xl space-y-4 sm:space-y-6">
+            <DialogHeader className="space-y-2 sm:space-y-3 text-left">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="p-1 sm:p-1.5 rounded-lg shrink-0 bg-amber-50 text-amber-600">
+                  <Store className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
                 </div>
-                <span className="text-[10px] md:text-xs font-black tracking-widest text-slate-400 uppercase">
+                <span className="text-[9px] sm:text-[10px] md:text-xs font-black tracking-widest text-slate-400 uppercase">
                   Informasi UMKM Desa
                 </span>
               </div>
 
-              <DialogTitle className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 uppercase font-display italic tracking-tight leading-tight">
+              <DialogTitle className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 uppercase font-display italic tracking-tight leading-tight">
                 {selectedInfo.title}
               </DialogTitle>
 
               {selectedInfo.subtitle && (
-                <p className="text-sm md:text-base font-bold text-amber-700 uppercase tracking-wider border-l-4 border-amber-500 pl-3.5 py-0.5">
+                <p className="text-xs sm:text-sm md:text-base font-bold text-amber-700 uppercase tracking-wider border-l-2 sm:border-l-4 border-amber-500 pl-2 sm:pl-3.5 py-0.5">
                   {selectedInfo.subtitle}
                 </p>
               )}
@@ -1000,17 +1000,17 @@ function UmkmPageContent() {
             )}
 
             {/* Redaksi / Narasi Berita & Potensi (Rata Kiri Kanan) */}
-            <div className="prose prose-slate max-w-none pt-2">
-              <p className="text-slate-700 leading-relaxed font-medium text-base md:text-lg whitespace-pre-line text-justify [text-justify:inter-word]">
+            <div className="prose prose-slate max-w-none pt-1 sm:pt-2">
+              <p className="text-slate-700 leading-relaxed font-medium text-xs sm:text-base md:text-lg whitespace-pre-line text-justify [text-justify:inter-word]">
                 {selectedInfo.narrative}
               </p>
             </div>
 
-            <div className="flex justify-end pt-4">
+            <div className="flex justify-end pt-2 sm:pt-4">
               <Button
                 type="button"
                 onClick={() => setSelectedInfo(null)}
-                className="rounded-full px-8 h-11 font-bold text-slate-700 border-0 bg-slate-100 hover:bg-slate-200"
+                className="rounded-xl sm:rounded-full px-6 sm:px-8 h-8 sm:h-11 font-bold text-xs sm:text-sm text-slate-700 border-0 bg-slate-100 hover:bg-slate-200"
               >
                 Tutup
               </Button>

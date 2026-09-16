@@ -46,30 +46,29 @@ function LogoItemCard({
   };
 
   return (
-    <div className="relative rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
+    <div className="relative rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
       {/* Header Item: Nomor & Tombol Aksi */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-        <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
             {index + 1}
           </span>
-          <span className="text-sm font-bold text-slate-800">
-            {item.name || `Logo Mitra #${index + 1}`}
+          <span className="text-xs font-bold text-slate-800 truncate">
+            {item.name || `Logo #${index + 1}`}
           </span>
         </div>
 
-        <div className="flex items-center gap-1">
-          {/* Geser Urutan */}
+        <div className="flex items-center gap-0.5 shrink-0">
           <Button
             type="button"
             variant="ghost"
             size="icon"
             disabled={index === 0}
             onClick={() => onMove(index, 'up')}
-            className="h-8 w-8 text-slate-400 hover:text-slate-700 disabled:opacity-30"
+            className="h-7 w-7 text-slate-400 hover:text-slate-700 disabled:opacity-30"
             title="Geser ke atas"
           >
-            <ArrowUp className="h-4 w-4" />
+            <ArrowUp className="h-3.5 w-3.5" />
           </Button>
           <Button
             type="button"
@@ -77,43 +76,41 @@ function LogoItemCard({
             size="icon"
             disabled={index === total - 1}
             onClick={() => onMove(index, 'down')}
-            className="h-8 w-8 text-slate-400 hover:text-slate-700 disabled:opacity-30"
+            className="h-7 w-7 text-slate-400 hover:text-slate-700 disabled:opacity-30"
             title="Geser ke bawah"
           >
-            <ArrowDown className="h-4 w-4" />
+            <ArrowDown className="h-3.5 w-3.5" />
           </Button>
-
-          {/* Hapus */}
           <Button
             type="button"
             variant="ghost"
             size="icon"
             onClick={() => onRemove(item.id)}
-            className="h-8 w-8 text-rose-500 hover:bg-rose-50 hover:text-rose-600 ml-1"
+            className="h-7 w-7 text-rose-500 hover:bg-rose-50 hover:text-rose-600"
             title="Hapus logo ini"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-3.5 w-3.5" />
           </Button>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2.5">
         {/* Pratinjau Gambar */}
-        <div className="relative flex h-32 w-full items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/70 p-3">
+        <div className="relative flex h-20 w-full items-center justify-center rounded-lg border-2 border-dashed border-slate-200 bg-slate-50/70 p-2">
           {item.url ? (
             <div className="relative h-full w-full flex items-center justify-center">
               <Image
                 src={item.url}
                 alt={item.name || `Logo ${index + 1}`}
-                width={160}
-                height={80}
-                className="max-h-24 w-auto object-contain drop-shadow-sm"
+                width={120}
+                height={60}
+                className="max-h-16 w-auto object-contain drop-shadow-sm"
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-1 text-slate-400">
-              <ImageIcon className="h-8 w-8 stroke-[1.5]" />
-              <span className="text-xs font-medium">Belum ada file logo</span>
+            <div className="flex flex-col items-center gap-0.5 text-slate-400">
+              <ImageIcon className="h-6 w-6 stroke-[1.5]" />
+              <span className="text-[10px] font-medium">Belum ada file logo</span>
             </div>
           )}
         </div>
@@ -126,17 +123,17 @@ function LogoItemCard({
             size="sm"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="w-full gap-2 text-xs font-semibold"
+            className="w-full gap-2 text-xs font-semibold h-8"
           >
             {isUploading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                Mengunggah ke Cloudinary...
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
+                Mengunggah...
               </>
             ) : (
               <>
-                <Upload className="h-4 w-4 text-primary" />
-                {item.url ? 'Ganti Gambar Logo' : 'Pilih & Upload Logo'}
+                <Upload className="h-3.5 w-3.5 text-primary" />
+                {item.url ? 'Ganti Logo' : 'Pilih & Upload Logo'}
               </>
             )}
           </Button>
@@ -151,28 +148,28 @@ function LogoItemCard({
         </div>
 
         {/* Nama / Keterangan */}
-        <div className="space-y-1.5">
-          <Label className="text-xs font-semibold text-slate-700">Nama Instansi / Mitra (Opsional)</Label>
+        <div className="space-y-1">
+          <Label className="text-[10px] font-semibold text-slate-700">Nama Instansi / Mitra (Opsional)</Label>
           <Input
             placeholder="Contoh: Kementerian Komdigi"
             value={item.name || ''}
             onChange={(e) => onNameChange(item.id, e.target.value)}
-            className="text-xs h-9"
+            className="text-xs h-8"
           />
         </div>
 
         {/* Link / URL Tujuan */}
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <Label className="text-xs font-semibold text-slate-700">Link Tujuan (Opsional)</Label>
+            <Label className="text-[10px] font-semibold text-slate-700">Link Tujuan (Opsional)</Label>
             {item.link && (
               <a
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] text-sky-600 hover:underline"
+                className="flex items-center gap-0.5 text-[10px] text-sky-600 hover:underline"
               >
-                Buka Link <ExternalLink className="h-3 w-3" />
+                Buka <ExternalLink className="h-2.5 w-2.5" />
               </a>
             )}
           </div>
@@ -181,7 +178,7 @@ function LogoItemCard({
             value={item.link || ''}
             onChange={(e) => onLinkChange(item.id, e.target.value)}
             type="url"
-            className="text-xs h-9 font-mono"
+            className="text-xs h-8 font-mono"
           />
         </div>
       </div>
@@ -383,12 +380,12 @@ export function FooterLogosSettingsForm() {
   }
 
   return (
-    <Card className="lg:col-span-2 shadow-sm border-slate-200">
-      <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 pb-6">
+    <Card className="shadow-sm border-slate-200 rounded-2xl sm:rounded-3xl overflow-hidden">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 p-3.5 sm:p-6">
         <div>
-          <CardTitle className="text-xl font-bold text-slate-900">Logo Mitra / Instansi (Banner Atas Footer)</CardTitle>
-          <CardDescription className="mt-1 text-slate-500">
-            Kelola deretan logo mitra, kementerian, atau instansi terkait. Logo ditampilkan di banner putih bergulir tepat di atas footer.
+          <CardTitle className="text-xs sm:text-base font-bold text-slate-900">Logo Mitra / Instansi (Footer)</CardTitle>
+          <CardDescription className="mt-0.5 text-[11px] sm:text-xs text-slate-500">
+            Kelola logo mitra yang tampil di banner bergulir di atas footer.
           </CardDescription>
         </div>
 
@@ -396,17 +393,17 @@ export function FooterLogosSettingsForm() {
         <Button
           type="button"
           onClick={handleAddNewLogo}
-          className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shrink-0"
+          className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shrink-0 h-8 text-xs w-full sm:w-auto"
         >
-          <Plus className="h-4 w-4 stroke-[2.5]" />
+          <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
           Tambah Logo
         </Button>
       </CardHeader>
 
-      <CardContent className="pt-6">
-        <form onSubmit={handleSubmit} className="space-y-8">
+      <CardContent className="p-3.5 sm:p-6 pt-3.5 sm:pt-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* Grid Logo Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {items.map((item, index) => (
               <LogoItemCard
                 key={item.id}
@@ -426,20 +423,20 @@ export function FooterLogosSettingsForm() {
             <button
               type="button"
               onClick={handleAddNewLogo}
-              className="flex min-h-[260px] flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-6 text-slate-500 transition-all hover:border-emerald-500/60 hover:bg-emerald-50/30 hover:text-emerald-700"
+              className="flex min-h-[120px] sm:min-h-[160px] flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-4 text-slate-500 transition-all hover:border-emerald-500/60 hover:bg-emerald-50/30 hover:text-emerald-700"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm border border-slate-200 group-hover:border-emerald-300">
-                <Plus className="h-6 w-6 text-emerald-600" />
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white shadow-sm border border-slate-200">
+                <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
               </div>
               <div className="text-center">
-                <p className="text-sm font-bold">Tambah Logo Baru</p>
-                <p className="text-xs text-slate-400 mt-0.5">Klik untuk menambah slot logo mitra</p>
+                <p className="text-xs font-bold">Tambah Logo Baru</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Klik untuk tambah slot logo</p>
               </div>
             </button>
           </div>
 
           {/* Tombol Simpan Perubahan */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-100">
             <div className="text-xs text-slate-500">
               Total {items.filter((i) => i.url).length} logo terisi dari {items.length} slot.
             </div>
@@ -447,11 +444,11 @@ export function FooterLogosSettingsForm() {
             <Button
               type="submit"
               disabled={isSaving}
-              className="w-full sm:w-auto gap-2 bg-primary hover:bg-slate-800 px-6"
+              className="w-full sm:w-auto h-8 sm:h-9 text-xs gap-2 bg-primary hover:bg-slate-800 px-5"
             >
               {isSaving ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
                   Menyimpan Perubahan...
                 </>
               ) : (

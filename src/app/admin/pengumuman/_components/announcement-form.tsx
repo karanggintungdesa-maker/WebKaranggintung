@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -8,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Send, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Send, Image as ImageIcon, Megaphone, X } from 'lucide-react';
 import { useFirebase } from '@/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { uploadToCloudinary } from '@/lib/upload-cloudinary';
@@ -107,56 +106,97 @@ export function AnnouncementForm() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Buat Pengumuman Baru</CardTitle>
-        <CardDescription>Isi formulir di bawah ini untuk menerbitkan pengumuman baru untuk warga.</CardDescription>
+    <Card className="rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs bg-white overflow-hidden">
+      <CardHeader className="p-3.5 sm:p-6 bg-slate-50/50 border-b border-slate-100">
+        <CardTitle className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-800 flex items-center gap-2">
+          <Megaphone className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 shrink-0" />
+          <span>Buat Pengumuman Baru</span>
+        </CardTitle>
+        <CardDescription className="text-[10px] sm:text-xs text-slate-500 font-medium">
+          Isi formulir di bawah ini untuk menerbitkan pengumuman resmi bagi warga Desa Karanggintung.
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label>Gambar Lampiran (Opsional)</Label>
-            <div className="flex flex-col gap-4">
-              {imageUrl && (
-                <div className="relative aspect-video w-full max-w-sm overflow-hidden rounded-xl border-2 border-primary/10 bg-muted">
-                  <img src={imageUrl} alt="Preview" className="h-full w-full object-cover" />
-                </div>
-              )}
-              <div className="flex items-center gap-4">
-                <Input type="file" accept="image/*" onChange={handleFileChange} disabled={isUploading || isLoading} className="max-w-xs" />
-                {isUploading && <Loader2 className="h-5 w-5 animate-spin text-primary" />}
-              </div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Format JPG/PNG. Maks 1MB.</p>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="title">Judul Pengumuman</Label>
+      <CardContent className="p-3.5 sm:p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="title" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
+              Judul Pengumuman *
+            </Label>
             <Input
               id="title"
-              placeholder="Contoh: Kerja Bakti Lingkungan"
+              placeholder="Contoh: Kerja Bakti Massal Lingkungan Dusun"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isLoading}
+              className="rounded-xl border-slate-200 h-10 sm:h-12 text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 bg-slate-50/50 focus:bg-white transition-all"
               required
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="content">Isi Pengumuman</Label>
+
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="content" className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
+              Isi Pengumuman *
+            </Label>
             <Textarea
               id="content"
-              placeholder="Tulis isi lengkap pengumuman di sini..."
-              rows={8}
+              placeholder="Tuliskan rincian informasi dan pengumuman lengkap di sini..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
               disabled={isLoading}
+              className="rounded-xl border-slate-200 min-h-[110px] sm:min-h-[140px] text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 bg-slate-50/50 focus:bg-white p-3 sm:p-4 leading-relaxed resize-none transition-all"
               required
             />
           </div>
-          <Button type="submit" disabled={isLoading || isUploading} className="w-full sm:w-auto">
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-            Terbitkan Pengumuman
-          </Button>
+
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600">
+              Gambar Lampiran (Opsional)
+            </Label>
+            <div className="flex flex-col gap-2.5 sm:gap-3">
+              {imageUrl && (
+                <div className="relative aspect-video w-full max-w-xs sm:max-w-sm overflow-hidden rounded-xl border-2 border-slate-100 bg-slate-50 shadow-2xs">
+                  <img src={imageUrl} alt="Preview" className="h-full w-full object-cover" />
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="destructive"
+                    onClick={() => setImageUrl('')}
+                    className="absolute top-2 right-2 h-7 w-7 rounded-full bg-rose-600/90 hover:bg-rose-700 text-white shadow-sm"
+                    title="Hapus Gambar"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              )}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  disabled={isUploading || isLoading}
+                  className="rounded-xl border-slate-200 text-xs text-slate-600 bg-slate-50/50 file:mr-2 sm:file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] sm:file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 max-w-full sm:max-w-xs"
+                />
+                {isUploading && (
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Mengunggah...</span>
+                  </div>
+                )}
+              </div>
+              <p className="text-[9px] sm:text-[10px] text-slate-400 font-medium">Format JPG/PNG. Maks 2MB.</p>
+            </div>
+          </div>
+
+          <div className="pt-2">
+            <Button
+              type="submit"
+              disabled={isLoading || isUploading}
+              className="w-full sm:w-auto rounded-xl sm:rounded-full h-10 sm:h-11 px-6 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-700/10 flex items-center justify-center gap-2"
+            >
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              <span>Terbitkan Pengumuman</span>
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>
